@@ -35,11 +35,6 @@ class Subscription extends CashierSubscription
         return $this->hasMany(MicroservicePermission::class);
     }
 
-    public function usageLogs(): HasMany
-    {
-        return $this->hasMany(SubscriptionUsageLog::class);
-    }
-
     public function hasAccessTo(string $microservice): bool
     {
         if (!$this->active()) {

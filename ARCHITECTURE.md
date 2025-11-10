@@ -95,8 +95,7 @@ app/Filament/
 ```
 app/Http/Controllers/Api/V1/
 ├── AuthController.php                    # Token management
-├── SubscriptionValidationController.php  # Validation endpoint
-└── UsageTrackingController.php          # Usage logging
+└── SubscriptionValidationController.php  # Validation endpoint
 ```
 
 #### Middleware Stack
@@ -137,8 +136,7 @@ app/Models/
 ├── Subscription.php
 ├── Invoice.php
 ├── MicroservicePermission.php
-├── ApiToken.php
-└── SubscriptionUsageLog.php
+└── ApiToken.php
 ```
 
 #### Jobs (Async Processing)
@@ -244,23 +242,12 @@ created_at, updated_at
 Indexes: token (unique), user_id, expires_at
 ```
 
-**subscription_usage_logs**
-```sql
-id, subscription_id, user_id,
-microservice_name, endpoint,
-request_count, response_time_ms,
-created_at
-
-Indexes: subscription_id, user_id, microservice_name, created_at
-```
-
 #### Relationships
 ```
 User
 ├── hasMany(Subscription)
 ├── hasMany(Invoice)
-├── hasMany(ApiToken)
-└── hasMany(SubscriptionUsageLog)
+└── hasMany(ApiToken)
 
 Plan
 └── hasMany(Subscription)
@@ -269,8 +256,7 @@ Subscription
 ├── belongsTo(User)
 ├── belongsTo(Plan)
 ├── hasMany(Invoice)
-├── hasMany(MicroservicePermission)
-└── hasMany(SubscriptionUsageLog)
+└── hasMany(MicroservicePermission)
 
 Invoice
 ├── belongsTo(User)
@@ -448,9 +434,6 @@ Yes   No
 Process Request
 │
 ▼
-Log Usage (SubscriptionUsageLog)
-│
-▼
 200 Response + Subscription Data
 ```
 
@@ -535,24 +518,6 @@ Response 402 (Subscription expired):
     "status": "expired",
     "expired_at": "2025-10-10T00:00:00Z"
   }
-}
-```
-
-#### 3. Usage Tracking
-```http
-POST /api/v1/usage/track
-Authorization: Bearer {token}
-Content-Type: application/json
-
-{
-  "microservice": "service-a",
-  "endpoint": "/api/process",
-  "response_time": 150
-}
-
-Response 201:
-{
-  "logged": true
 }
 ```
 

@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+use App\Models\Plan;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+return new class() extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +15,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('subscriptions', function (Blueprint $table) {
-            $table->foreignId('plan_id')->nullable()->after('user_id')->constrained()->restrictOnDelete();
-            $table->index('plan_id');
+            $table->foreignIdFor(Plan::class)->nullable()->after('user_id')->constrained()->restrictOnDelete();
         });
     }
 
@@ -23,8 +25,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('subscriptions', function (Blueprint $table) {
-            $table->dropForeign(['plan_id']);
-            $table->dropColumn('plan_id');
+            $table->dropConstrainedForeignIdFor(Plan::class);
         });
     }
 };

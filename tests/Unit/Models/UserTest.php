@@ -15,5 +15,11 @@ test('to array', function (): void {
             'email_verified_at',
             'created_at',
             'updated_at',
+            'stripe_customer_id',
+            'billingo_partner_id',
+            'stripe_id',
+            'pm_type',
+            'pm_last_four',
+            'trial_ends_at',
         ]);
 });

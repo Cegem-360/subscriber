@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+use App\Models\Subscription;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+return new class() extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('microservice_permissions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('subscription_id')->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Subscription::class)->constrained()->cascadeOnDelete();
             $table->string('microservice_name');
             $table->string('microservice_slug');
             $table->boolean('is_active')->default(true);
@@ -21,7 +24,6 @@ return new class extends Migration
             $table->timestamp('expires_at')->nullable();
             $table->timestamps();
 
-            $table->index('subscription_id');
             $table->index('microservice_slug');
             $table->index('is_active');
         });

@@ -28,8 +28,9 @@ class MicroserviceUsageWidget extends TableWidget
                         'microservice_slug',
                         DB::raw('COUNT(*) as total_permissions'),
                         DB::raw('SUM(CASE WHEN is_active = 1 THEN 1 ELSE 0 END) as active_permissions'),
-                        DB::raw('SUM(CASE WHEN expires_at IS NOT NULL AND expires_at <= NOW() THEN 1 ELSE 0 END) as expired_permissions'),
+                        DB::raw('SUM(CASE WHEN expires_at IS NOT NULL AND expires_at <= ? THEN 1 ELSE 0 END) as expired_permissions'),
                     ])
+                    ->addBinding(now(), 'select')
                     ->groupBy('microservice_name', 'microservice_slug')
                     ->orderByDesc('active_permissions'),
             )

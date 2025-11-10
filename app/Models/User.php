@@ -69,9 +69,4 @@ final class User extends Authenticatable implements FilamentUser
     {
         return $this->hasMany(ApiToken::class);
     }
-
-    public function usageLogs(): HasMany
-    {
-        return $this->hasMany(SubscriptionUsageLog::class);
-    }
 }
