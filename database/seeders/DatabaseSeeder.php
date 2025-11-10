@@ -15,11 +15,13 @@ final class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->call([
+            PlanSeeder::class,
+        ]);
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'admin@admin.com',
+            'name' => 'Admin User',
+            'email' => 'admin@subscriber.test',
             'email_verified_at' => now(),
         ]);
     }

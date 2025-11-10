@@ -8,11 +8,14 @@ namespace App\Models;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Cashier\Billable;
 
 final class User extends Authenticatable implements FilamentUser
 {
+    use Billable;
     use HasFactory;
     use Notifiable;
 
@@ -25,6 +28,8 @@ final class User extends Authenticatable implements FilamentUser
         'name',
         'email',
         'password',
+        'stripe_customer_id',
+        'billingo_partner_id',
     ];
 
     /**
@@ -53,5 +58,20 @@ final class User extends Authenticatable implements FilamentUser
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function invoices(): HasMany
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
+    public function apiTokens(): HasMany
+    {
+        return $this->hasMany(ApiToken::class);
+    }
+
+    public function usageLogs(): HasMany
+    {
+        return $this->hasMany(SubscriptionUsageLog::class);
     }
 }
