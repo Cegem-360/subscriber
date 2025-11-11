@@ -1,10 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Subscriptions;
 
 use App\Filament\Resources\Subscriptions\Pages\CreateSubscription;
 use App\Filament\Resources\Subscriptions\Pages\EditSubscription;
 use App\Filament\Resources\Subscriptions\Pages\ListSubscriptions;
+use App\Filament\Resources\Subscriptions\RelationManagers\LocalInvoicesRelationManager;
+use App\Filament\Resources\Subscriptions\RelationManagers\PermissionsRelationManager;
 use App\Filament\Resources\Subscriptions\Schemas\SubscriptionForm;
 use App\Filament\Resources\Subscriptions\Tables\SubscriptionsTable;
 use App\Models\Subscription;
@@ -18,7 +22,7 @@ class SubscriptionResource extends Resource
 {
     protected static ?string $model = Subscription::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBanknotes;
 
     public static function form(Schema $schema): Schema
     {
@@ -33,7 +37,8 @@ class SubscriptionResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            LocalInvoicesRelationManager::class,
+            PermissionsRelationManager::class,
         ];
     }
 

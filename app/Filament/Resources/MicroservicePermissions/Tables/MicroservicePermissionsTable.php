@@ -1,10 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\MicroservicePermissions\Tables;
 
 use Filament\Actions\Action;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -93,7 +93,7 @@ class MicroservicePermissionsTable
                     ->icon('heroicon-o-arrow-path')
                     ->color(fn ($record) => $record->is_active ? 'warning' : 'success')
                     ->requiresConfirmation()
-                    ->action(fn ($record) => $record->update(['is_active' => !$record->is_active])),
+                    ->action(fn ($record) => $record->update(['is_active' => ! $record->is_active])),
             ])
             ->defaultSort('created_at', 'desc');
     }

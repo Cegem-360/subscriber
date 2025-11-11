@@ -1,7 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -33,18 +37,20 @@ class MicroservicePermission extends Model
         return $this->belongsTo(Subscription::class);
     }
 
-    public function scopeActive($query)
+    #[Scope]
+    protected function active(Builder $query): void
     {
-        return $query->where('is_active', true)
-            ->where(function ($q) {
+        $query->where('is_active', true)
+            ->where(function (Builder $q) {
                 $q->whereNull('expires_at')
                     ->orWhere('expires_at', '>', now());
             });
     }
 
-    public function scopeExpired($query)
+    #[Scope]
+    protected function expired(Builder $query): void
     {
-        return $query->where('expires_at', '<=', now());
+        $query->where('expires_at', '<=', now());
     }
 
     public function isExpired(): bool

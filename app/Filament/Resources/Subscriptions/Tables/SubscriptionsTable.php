@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Subscriptions\Tables;
 
+use App\Enums\SubscriptionStatus;
 use Filament\Actions\Action;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -29,13 +30,7 @@ class SubscriptionsTable
 
                 TextColumn::make('stripe_status')
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        'active' => 'success',
-                        'trialing' => 'info',
-                        'past_due' => 'warning',
-                        'canceled', 'incomplete', 'incomplete_expired', 'unpaid' => 'danger',
-                        default => 'gray',
-                    }),
+                    ->color(fn (SubscriptionStatus $state): string => $state->color()),
 
                 TextColumn::make('stripe_price')
                     ->label('Price')
@@ -61,15 +56,7 @@ class SubscriptionsTable
             ])
             ->filters([
                 SelectFilter::make('stripe_status')
-                    ->options([
-                        'active' => 'Active',
-                        'trialing' => 'Trialing',
-                        'past_due' => 'Past Due',
-                        'canceled' => 'Canceled',
-                        'incomplete' => 'Incomplete',
-                        'incomplete_expired' => 'Incomplete Expired',
-                        'unpaid' => 'Unpaid',
-                    ]),
+                    ->options(SubscriptionStatus::class),
 
                 SelectFilter::make('plan_id')
                     ->relationship('plan', 'name')

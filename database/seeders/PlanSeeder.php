@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
+use App\Enums\BillingPeriod;
 use App\Models\Plan;
 use Illuminate\Database\Seeder;
 
@@ -15,7 +18,7 @@ class PlanSeeder extends Seeder
                 'slug' => 'basic',
                 'description' => 'Perfect for getting started with our platform',
                 'price' => 9.99,
-                'billing_period' => 'monthly',
+                'billing_period' => BillingPeriod::Monthly,
                 'stripe_price_id' => null, // Set this after creating in Stripe
                 'stripe_product_id' => null,
                 'features' => [
@@ -33,7 +36,7 @@ class PlanSeeder extends Seeder
                 'slug' => 'pro',
                 'description' => 'Best for growing teams and businesses',
                 'price' => 29.99,
-                'billing_period' => 'monthly',
+                'billing_period' => BillingPeriod::Monthly,
                 'stripe_price_id' => null,
                 'stripe_product_id' => null,
                 'features' => [
@@ -52,7 +55,7 @@ class PlanSeeder extends Seeder
                 'slug' => 'enterprise',
                 'description' => 'For large organizations with custom needs',
                 'price' => 99.99,
-                'billing_period' => 'monthly',
+                'billing_period' => BillingPeriod::Monthly,
                 'stripe_price_id' => null,
                 'stripe_product_id' => null,
                 'features' => [
@@ -72,7 +75,7 @@ class PlanSeeder extends Seeder
         foreach ($plans as $planData) {
             Plan::updateOrCreate(
                 ['slug' => $planData['slug']],
-                $planData
+                $planData,
             );
         }
     }

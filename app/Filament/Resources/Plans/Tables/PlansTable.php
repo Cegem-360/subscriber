@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Plans\Tables;
 
+use App\Enums\BillingPeriod;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -29,10 +32,9 @@ class PlansTable
 
                 TextColumn::make('billing_period')
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        'monthly' => 'info',
-                        'yearly' => 'success',
-                        default => 'gray',
+                    ->color(fn (BillingPeriod $state): string => match ($state) {
+                        BillingPeriod::Monthly => 'info',
+                        BillingPeriod::Yearly => 'success',
                     }),
 
                 TextColumn::make('subscriptions_count')
@@ -64,8 +66,8 @@ class PlansTable
 
                 SelectFilter::make('billing_period')
                     ->options([
-                        'monthly' => 'Monthly',
-                        'yearly' => 'Yearly',
+                        BillingPeriod::Monthly->value => 'Monthly',
+                        BillingPeriod::Yearly->value => 'Yearly',
                     ]),
             ])
             ->recordActions([
@@ -75,7 +77,7 @@ class PlansTable
                     ->icon('heroicon-o-arrow-path')
                     ->color(fn ($record) => $record->is_active ? 'warning' : 'success')
                     ->requiresConfirmation()
-                    ->action(fn ($record) => $record->update(['is_active' => !$record->is_active])),
+                    ->action(fn ($record) => $record->update(['is_active' => ! $record->is_active])),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

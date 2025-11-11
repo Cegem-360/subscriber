@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Enums\BillingPeriod;
 use App\Filament\Resources\Plans\Pages\CreatePlan;
 use App\Filament\Resources\Plans\Pages\EditPlan;
 use App\Filament\Resources\Plans\Pages\ListPlans;
@@ -47,8 +48,8 @@ test('can sort plans by name', function () {
 });
 
 test('can filter plans by billing period', function () {
-    $monthlyPlans = Plan::factory()->count(2)->create(['billing_period' => 'monthly']);
-    $yearlyPlans = Plan::factory()->count(2)->create(['billing_period' => 'yearly']);
+    $monthlyPlans = Plan::factory()->count(2)->create(['billing_period' => BillingPeriod::Monthly]);
+    $yearlyPlans = Plan::factory()->count(2)->create(['billing_period' => BillingPeriod::Yearly]);
 
     livewire(ListPlans::class)
         ->filterTable('billing_period', 'monthly')
@@ -69,7 +70,7 @@ test('can create a plan via model', function () {
         'slug' => $slug,
         'description' => 'A test plan',
         'price' => 19.99,
-        'billing_period' => 'monthly',
+        'billing_period' => BillingPeriod::Monthly,
         'features' => ['Feature 1', 'Feature 2'],
         'microservices' => ['service-test'],
         'is_active' => true,
@@ -79,7 +80,7 @@ test('can create a plan via model', function () {
     expect($plan->exists)->toBeTrue()
         ->and($plan->name)->toBe('Test Plan')
         ->and((float) $plan->price)->toBe(19.99)
-        ->and($plan->billing_period)->toBe('monthly')
+        ->and($plan->billing_period)->toBe(BillingPeriod::Monthly)
         ->and($plan->features)->toBe(['Feature 1', 'Feature 2'])
         ->and($plan->microservices)->toBe(['service-test'])
         ->and($plan->is_active)->toBeTrue();

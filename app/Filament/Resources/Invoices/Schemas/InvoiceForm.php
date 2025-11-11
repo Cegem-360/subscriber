@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Invoices\Schemas;
 
+use App\Enums\InvoiceStatus;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -28,9 +31,10 @@ class InvoiceForm
                 TextInput::make('currency')
                     ->required()
                     ->default('USD'),
-                TextInput::make('status')
+                Select::make('status')
                     ->required()
-                    ->default('draft'),
+                    ->options(InvoiceStatus::class)
+                    ->default(InvoiceStatus::Draft),
                 DateTimePicker::make('billingo_synced_at'),
                 TextInput::make('pdf_path'),
             ]);

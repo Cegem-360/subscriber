@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Subscriptions\Schemas;
 
+use App\Enums\SubscriptionStatus;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -20,8 +23,9 @@ class SubscriptionForm
                     ->required(),
                 TextInput::make('stripe_id')
                     ->required(),
-                TextInput::make('stripe_status')
-                    ->required(),
+                Select::make('stripe_status')
+                    ->required()
+                    ->options(SubscriptionStatus::class),
                 TextInput::make('stripe_price'),
                 TextInput::make('quantity')
                     ->numeric(),

@@ -1,7 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
+use App\Enums\BillingPeriod;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -31,6 +36,7 @@ class Plan extends Model
             'microservices' => 'array',
             'is_active' => 'boolean',
             'price' => 'decimal:2',
+            'billing_period' => BillingPeriod::class,
         ];
     }
 
@@ -39,9 +45,10 @@ class Plan extends Model
         return $this->hasMany(Subscription::class);
     }
 
-    public function scopeActive($query)
+    #[Scope]
+    protected function active(Builder $query): void
     {
-        return $query->where('is_active', true);
+        $query->where('is_active', true);
     }
 
     public function hasMicroservice(string $microservice): bool

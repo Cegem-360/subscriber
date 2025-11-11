@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -50,7 +52,7 @@ class ApiToken extends Model
 
     public function isValid(): bool
     {
-        return !$this->hasExpired();
+        return ! $this->hasExpired();
     }
 
     public function hasExpired(): bool

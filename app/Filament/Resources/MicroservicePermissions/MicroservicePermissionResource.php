@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\MicroservicePermissions;
 
 use App\Filament\Resources\MicroservicePermissions\Pages\CreateMicroservicePermission;
@@ -18,7 +20,7 @@ class MicroservicePermissionResource extends Resource
 {
     protected static ?string $model = MicroservicePermission::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedKey;
 
     public static function form(Schema $schema): Schema
     {

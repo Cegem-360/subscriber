@@ -1,7 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
+use App\Enums\InvoiceStatus;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -28,6 +33,7 @@ class Invoice extends Model
     {
         return [
             'amount' => 'decimal:2',
+            'status' => InvoiceStatus::class,
             'billingo_synced_at' => 'datetime',
         ];
     }
@@ -42,28 +48,30 @@ class Invoice extends Model
         return $this->belongsTo(Subscription::class);
     }
 
-    public function scopePaid($query)
+    #[Scope]
+    protected function paid(Builder $query): void
     {
-        return $query->where('status', 'paid');
+        $query->where('status', InvoiceStatus::Paid);
     }
 
-    public function scopePending($query)
+    #[Scope]
+    protected function pending(Builder $query): void
     {
-        return $query->where('status', 'open');
+        $query->where('status', InvoiceStatus::Open);
     }
 
     public function isPaid(): bool
     {
-        return $this->status === 'paid';
+        return $this->status === InvoiceStatus::Paid;
     }
 
     public function isSyncedToBillingo(): bool
     {
-        return !is_null($this->billingo_invoice_id);
+        return ! is_null($this->billingo_invoice_id);
     }
 
     public function markAsPaid(): void
     {
-        $this->update(['status' => 'paid']);
+        $this->update(['status' => InvoiceStatus::Paid]);
     }
 }

@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
+use App\Enums\SubscriptionStatus;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Cashier\Subscription as CashierSubscription;
@@ -20,6 +23,15 @@ class Subscription extends CashierSubscription
         'plan_id',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'stripe_status' => SubscriptionStatus::class,
+            'trial_ends_at' => 'datetime',
+            'ends_at' => 'datetime',
+        ];
+    }
+
     public function plan(): BelongsTo
     {
         return $this->belongsTo(Plan::class);
@@ -37,11 +49,11 @@ class Subscription extends CashierSubscription
 
     public function hasAccessTo(string $microservice): bool
     {
-        if (!$this->active()) {
+        if (! $this->active()) {
             return false;
         }
 
-        if (!$this->plan) {
+        if (! $this->plan) {
             return false;
         }
 

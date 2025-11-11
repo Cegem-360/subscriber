@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
+use App\Enums\BillingPeriod;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -24,7 +27,7 @@ class PlanFactory extends Factory
             'slug' => $slug,
             'description' => $this->faker->sentence(),
             'price' => $this->faker->randomFloat(2, 9.99, 199.99),
-            'billing_period' => $this->faker->randomElement(['monthly', 'yearly']),
+            'billing_period' => $this->faker->randomElement(BillingPeriod::cases()),
             'stripe_price_id' => 'price_' . $this->faker->unique()->regexify('[a-zA-Z0-9]{24}'),
             'stripe_product_id' => 'prod_' . $this->faker->unique()->regexify('[a-zA-Z0-9]{14}'),
             'features' => [

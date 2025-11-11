@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Invoices\Tables;
 
+use App\Enums\InvoiceStatus;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -34,13 +37,7 @@ class InvoicesTable
 
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        'paid' => 'success',
-                        'open' => 'warning',
-                        'draft' => 'gray',
-                        'void', 'uncollectible' => 'danger',
-                        default => 'gray',
-                    }),
+                    ->color(fn (InvoiceStatus $state): string => $state->color()),
 
                 IconColumn::make('billingo_synced_at')
                     ->label('Billingo Synced')
@@ -49,7 +46,7 @@ class InvoicesTable
                     ->falseIcon('heroicon-o-x-circle')
                     ->trueColor('success')
                     ->falseColor('gray')
-                    ->getStateUsing(fn ($record) => !is_null($record->billingo_invoice_id)),
+                    ->getStateUsing(fn ($record) => ! is_null($record->billingo_invoice_id)),
 
                 TextColumn::make('billingo_synced_at')
                     ->label('Synced At')
@@ -64,13 +61,7 @@ class InvoicesTable
             ])
             ->filters([
                 SelectFilter::make('status')
-                    ->options([
-                        'paid' => 'Paid',
-                        'open' => 'Open',
-                        'draft' => 'Draft',
-                        'void' => 'Void',
-                        'uncollectible' => 'Uncollectible',
-                    ]),
+                    ->options(InvoiceStatus::class),
 
                 SelectFilter::make('billingo_synced')
                     ->label('Billingo Sync Status')
@@ -85,6 +76,7 @@ class InvoicesTable
                         if ($state['value'] === 'not_synced') {
                             return $query->whereNull('billingo_invoice_id');
                         }
+
                         return $query;
                     }),
             ])
@@ -108,14 +100,14 @@ class InvoicesTable
                     ->label('Download PDF')
                     ->icon('heroicon-o-arrow-down-tray')
                     ->color('success')
-                    ->visible(fn ($record) => !is_null($record->pdf_path))
+                    ->visible(fn ($record) => ! is_null($record->pdf_path))
                     ->url(fn ($record) => storage_path('app/' . $record->pdf_path))
                     ->openUrlInNewTab(),
                 Action::make('mark_as_paid')
                     ->label('Mark as Paid')
                     ->icon('heroicon-o-check')
                     ->color('success')
-                    ->visible(fn ($record) => $record->status !== 'paid')
+                    ->visible(fn ($record) => $record->status !== InvoiceStatus::Paid)
                     ->requiresConfirmation()
                     ->action(fn ($record) => $record->markAsPaid()),
             ])
