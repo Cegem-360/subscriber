@@ -9,6 +9,7 @@ use App\Models\User;
 use function Pest\Livewire\livewire;
 
 beforeEach(function () {
+    /** @var \Tests\TestCase $this */
     $this->actingAs(User::factory()->create());
 });
 
@@ -23,6 +24,7 @@ test('revenue chart widget can render', function () {
 });
 
 test('dashboard page can render', function () {
+    /** @var \Tests\TestCase $this */
     $this->get('/admin')
         ->assertSuccessful();
 });
