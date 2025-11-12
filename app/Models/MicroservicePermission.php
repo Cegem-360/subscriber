@@ -37,6 +37,11 @@ class MicroservicePermission extends Model
         return $this->belongsTo(Subscription::class);
     }
 
+    public function user(): BelongsTo
+    {
+        return $this->subscription()->user();
+    }
+
     #[Scope]
     protected function active(Builder $query): void
     {

@@ -32,11 +32,6 @@ class MicroservicePermissionsTable
                     ->searchable()
                     ->weight('bold'),
 
-                TextColumn::make('microservice_slug')
-                    ->searchable()
-                    ->badge()
-                    ->color('gray'),
-
                 IconColumn::make('is_active')
                     ->boolean()
                     ->sortable()

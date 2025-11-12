@@ -37,16 +37,29 @@ class SubscriptionsTable
                     ->money('USD'),
 
                 TextColumn::make('trial_ends_at')
+                    ->label('Trial Ends')
                     ->dateTime()
                     ->sortable()
                     ->placeholder('-')
+                    ->description(fn ($record) => $record->trial_ends_at
+                        ? ($record->trial_ends_at->isFuture()
+                            ? 'Ends in ' . $record->trial_ends_at->diffForHumans(['parts' => 1])
+                            : 'Trial ended')
+                        : null)
                     ->toggleable(),
 
                 TextColumn::make('ends_at')
-                    ->label('Ends At')
+                    ->label('Cancellation')
                     ->dateTime()
                     ->sortable()
-                    ->placeholder('Active')
+                    ->badge()
+                    ->color(fn ($state) => $state ? 'danger' : 'success')
+                    ->formatStateUsing(fn ($state) => match (true) {
+                        $state && $state->isPast() => 'Expired',
+                        $state && $state->isFuture() => 'Ends ' . $state->diffForHumans(['parts' => 1]),
+                        default => 'Active',
+                    })
+                    ->description(fn ($state) => $state?->format('M d, Y'))
                     ->toggleable(),
 
                 TextColumn::make('created_at')

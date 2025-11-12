@@ -1,3 +1,12 @@
 {
-   
+    "Plan": "Előfizetés",
+    "Activated at": "Aktiv ekkortól",
+    "Expires at": "Lejár ekkor",
+    "Cancelled at": "Lemondva ekkortól",
+    "Ends at": "Lejár ekkor",
+    "Status": "Állapot",
+    "Price": "Ár",
+    "User": "Felhasználó",
+    "Subscriptions": "Előfizetések",
+    "Microservice name": "Modul neve"
 }
