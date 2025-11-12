@@ -38,7 +38,7 @@ class RecentInvoicesWidget extends TableWidget
 
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (InvoiceStatus $state): string => $state->color()),
+                    ->color(InvoiceStatus::class),
 
                 TextColumn::make('created_at')
                     ->label('Created')

@@ -37,7 +37,7 @@ class InvoicesTable
 
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (InvoiceStatus $state): string => $state->color()),
+                    ->color(InvoiceStatus::class),
 
                 IconColumn::make('billingo_synced_at')
                     ->label('Billingo Synced')

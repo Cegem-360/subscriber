@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
+use Filament\Support\Colors\Color;
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
 use Illuminate\Contracts\Support\Htmlable;
@@ -34,10 +35,10 @@ enum SubscriptionStatus: string implements HasColor, HasLabel
     public function getColor(): string|array|null
     {
         return match ($this) {
-            self::Active => 'success',
-            self::Trialing => 'info',
-            self::PastDue => 'warning',
-            self::Canceled, self::Incomplete, self::IncompleteExpired, self::Unpaid => 'danger',
+            self::Active => Color::Green,
+            self::Trialing => Color::Gray,
+            self::PastDue => Color::Orange,
+            self::Canceled, self::Incomplete, self::IncompleteExpired, self::Unpaid => Color::Red,
         };
     }
 }

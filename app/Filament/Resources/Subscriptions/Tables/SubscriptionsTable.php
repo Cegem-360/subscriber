@@ -30,7 +30,7 @@ class SubscriptionsTable
 
                 TextColumn::make('stripe_status')
                     ->badge()
-                    ->color(fn (SubscriptionStatus $state): string => $state->color()),
+                    ->color(SubscriptionStatus::class),
 
                 TextColumn::make('stripe_price')
                     ->label('Price')
