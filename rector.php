@@ -91,5 +91,4 @@ return RectorConfig::configure()
         naming: false,
         instanceOf: true,
         earlyReturn: true,
-        strictBooleans: true,
     );

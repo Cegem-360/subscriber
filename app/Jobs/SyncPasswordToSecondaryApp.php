@@ -31,7 +31,6 @@ class SyncPasswordToSecondaryApp implements ShouldQueue
      * Create a new job instance.
      */
     public function __construct(
-        public int $userId,
         public string $email,
         public string $hashedPassword,
     ) {
@@ -64,13 +63,13 @@ class SyncPasswordToSecondaryApp implements ShouldQueue
                 ]);
 
             if ($response->successful()) {
-                Log::info("Password synced successfully for user {$this->userId} to secondary app.");
+                Log::info("Password synced successfully for user {$this->email} to secondary app.");
             } else {
-                Log::error("Failed to sync password for user {$this->userId}. Status: {$response->status()}");
+                Log::error("Failed to sync password for user {$this->email}. Status: {$response->status()}");
                 throw new \Exception("Password sync failed with status {$response->status()}");
             }
         } catch (\Exception $e) {
-            Log::error("Exception during password sync for user {$this->userId}: {$e->getMessage()}");
+            Log::error("Exception during password sync for user {$this->email}: {$e->getMessage()}");
             throw $e;
         }
     }

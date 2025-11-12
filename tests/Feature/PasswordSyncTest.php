@@ -20,8 +20,7 @@ it('dispatches sync password job when password is updated', function () {
     ]);
 
     Queue::assertPushed(SyncPasswordToSecondaryApp::class, function ($job) use ($user) {
-        return $job->userId === $user->id
-            && $job->email === $user->email
+        return $job->email === $user->email
             && Hash::check('new-password', $job->hashedPassword);
     });
 });
@@ -54,7 +53,6 @@ it('sends password sync request to secondary app', function () {
     $hashedPassword = Hash::make('new-password');
 
     $job = new SyncPasswordToSecondaryApp(
-        userId: $user->id,
         email: $user->email,
         hashedPassword: $hashedPassword,
     );
@@ -80,7 +78,6 @@ it('skips sync when secondary app configuration is missing', function () {
     $user = User::factory()->create();
 
     $job = new SyncPasswordToSecondaryApp(
-        userId: $user->id,
         email: $user->email,
         hashedPassword: Hash::make('password'),
     );
