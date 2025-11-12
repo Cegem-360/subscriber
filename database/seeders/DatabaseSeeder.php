@@ -30,12 +30,14 @@ final class DatabaseSeeder extends Seeder
         $plans = Plan::all();
 
         // Create admin user
-        $admin = User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'admin@admin.com',
-            'password' => Hash::make('password'),
-            'email_verified_at' => now(),
-        ]);
+        $admin = User::factory()
+            ->admin()
+            ->create([
+                'name' => 'Admin User',
+                'email' => 'admin@admin.com',
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+            ]);
 
         // Create admin's active subscription with microservice permissions
         $adminSubscription = Subscription::factory()

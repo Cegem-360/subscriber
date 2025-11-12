@@ -9,6 +9,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class MicroserviceUsageWidget extends TableWidget
 {
@@ -22,10 +23,14 @@ class MicroserviceUsageWidget extends TableWidget
     {
         // NOTE: This query works in production but may fail in strict PostgreSQL tests
         // due to Filament auto-adding model.id to ORDER BY which conflicts with GROUP BY
+        $query = MicroservicePermission::query()->active();
+
+        if (Auth::user()?->isSubscriber()) {
+            $query->whereHas('subscription', fn (Builder $query) => $query->where('user_id', Auth::id()));
+        }
+
         return $table
-            ->query(fn (): Builder => MicroservicePermission::query()
-                ->active(),
-            )
+            ->query(fn (): Builder => $query)
             ->columns([
                 TextColumn::make('microservice_name')
                     ->label('Microservice')
@@ -46,26 +51,6 @@ class MicroserviceUsageWidget extends TableWidget
                     ->numeric()
                     ->color('success')
                     ->icon('heroicon-o-check-circle'),
-
-                TextColumn::make('expired_permissions')
-                    ->label('Expired')
-                    ->numeric()
-                    ->color('danger')
-                    ->icon('heroicon-o-x-circle')
-                    ->getStateUsing(fn ($record) => $record->expired_permissions > 0 ? $record->expired_permissions : null)
-                    ->placeholder('-'),
-
-                TextColumn::make('usage_percentage')
-                    ->label('Active %')
-                    ->getStateUsing(fn ($record) => $record->total_permissions > 0
-                        ? round(($record->active_permissions / $record->total_permissions) * 100, 1) . '%'
-                        : '0%')
-                    ->color(fn ($record) => match (true) {
-                        $record->total_permissions == 0 => 'gray',
-                        ($record->active_permissions / $record->total_permissions) >= 0.8 => 'success',
-                        ($record->active_permissions / $record->total_permissions) >= 0.5 => 'warning',
-                        default => 'danger',
-                    }),
             ])
             ->paginated(false)
             ->defaultSort(null);

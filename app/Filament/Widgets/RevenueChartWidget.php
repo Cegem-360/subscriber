@@ -6,6 +6,7 @@ namespace App\Filament\Widgets;
 
 use App\Models\Invoice;
 use Filament\Widgets\ChartWidget;
+use Illuminate\Support\Facades\Auth;
 
 class RevenueChartWidget extends ChartWidget
 {
@@ -45,11 +46,16 @@ class RevenueChartWidget extends ChartWidget
             $date = now()->subMonths($i);
             $months[] = $date->format('M Y');
 
-            $revenue = Invoice::query()
+            $query = Invoice::query()
                 ->where('status', 'paid')
                 ->whereYear('created_at', $date->year)
-                ->whereMonth('created_at', $date->month)
-                ->sum('amount');
+                ->whereMonth('created_at', $date->month);
+
+            if (Auth::user()?->isSubscriber()) {
+                $query->where('user_id', Auth::id());
+            }
+
+            $revenue = $query->sum('amount');
 
             $amounts[] = (float) $revenue;
         }

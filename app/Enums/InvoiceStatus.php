@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-enum InvoiceStatus: string
+use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasLabel;
+use Illuminate\Contracts\Support\Htmlable;
+
+enum InvoiceStatus: string implements HasColor, HasLabel
 {
     case Paid = 'paid';
     case Open = 'open';
@@ -12,7 +16,7 @@ enum InvoiceStatus: string
     case Void = 'void';
     case Uncollectible = 'uncollectible';
 
-    public function label(): string
+    public function getLabel(): string|Htmlable|null
     {
         return match ($this) {
             self::Paid => 'Paid',
@@ -23,7 +27,7 @@ enum InvoiceStatus: string
         };
     }
 
-    public function color(): string
+    public function getColor(): string|array|null
     {
         return match ($this) {
             self::Paid => 'success',

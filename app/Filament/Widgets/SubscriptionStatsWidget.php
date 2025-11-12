@@ -7,31 +7,38 @@ namespace App\Filament\Widgets;
 use App\Models\Subscription;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class SubscriptionStatsWidget extends StatsOverviewWidget
 {
     protected function getStats(): array
     {
-        $activeSubscriptions = Subscription::query()
+        $baseQuery = Subscription::query();
+
+        if (Auth::user()?->isSubscriber()) {
+            $baseQuery->where('user_id', Auth::id());
+        }
+
+        $activeSubscriptions = (clone $baseQuery)
             ->where('stripe_status', 'active')
             ->count();
 
-        $trialingSubscriptions = Subscription::query()
+        $trialingSubscriptions = (clone $baseQuery)
             ->where('stripe_status', 'trialing')
             ->count();
 
-        $pastDueSubscriptions = Subscription::query()
+        $pastDueSubscriptions = (clone $baseQuery)
             ->where('stripe_status', 'past_due')
             ->count();
 
-        $canceledThisMonth = Subscription::query()
+        $canceledThisMonth = (clone $baseQuery)
             ->whereNotNull('ends_at')
             ->whereMonth('ends_at', now()->month)
             ->whereYear('ends_at', now()->year)
             ->count();
 
-        $totalMrr = Subscription::query()
+        $totalMrr = (clone $baseQuery)
             ->where('stripe_status', 'active')
             ->sum(DB::raw('CAST(stripe_price AS DECIMAL(10,2)) / 100'));
 
@@ -69,10 +76,15 @@ class SubscriptionStatsWidget extends StatsOverviewWidget
         $trend = [];
         for ($i = 6; $i >= 0; $i--) {
             $date = now()->subDays($i);
-            $trend[] = Subscription::query()
+            $query = Subscription::query()
                 ->where('stripe_status', 'active')
-                ->whereDate('created_at', '<=', $date)
-                ->count();
+                ->whereDate('created_at', '<=', $date);
+
+            if (Auth::user()?->isSubscriber()) {
+                $query->where('user_id', Auth::id());
+            }
+
+            $trend[] = $query->count();
         }
 
         return $trend;

@@ -17,6 +17,8 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class SubscriptionResource extends Resource
 {
@@ -32,6 +34,17 @@ class SubscriptionResource extends Resource
     public static function table(Table $table): Table
     {
         return SubscriptionsTable::configure($table);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        if (Auth::user()?->isAdmin()) {
+            return $query;
+        }
+
+        return $query->where('user_id', Auth::id());
     }
 
     public static function getRelations(): array

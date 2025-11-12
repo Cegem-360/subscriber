@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\UserRole;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -28,6 +29,7 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
         'name',
         'email',
         'password',
+        'role',
         'stripe_customer_id',
         'billingo_partner_id',
     ];
@@ -57,6 +59,7 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'role' => UserRole::class,
         ];
     }
 
@@ -68,5 +71,15 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
     public function apiTokens(): HasMany
     {
         return $this->hasMany(ApiToken::class);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === UserRole::Admin;
+    }
+
+    public function isSubscriber(): bool
+    {
+        return $this->role === UserRole::Subscriber;
     }
 }

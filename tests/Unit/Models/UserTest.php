@@ -21,5 +21,6 @@ test('to array', function (): void {
             'pm_type',
             'pm_last_four',
             'trial_ends_at',
+            'role',
         ]);
 });

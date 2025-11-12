@@ -9,6 +9,7 @@ use App\Models\Invoice;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget;
+use Illuminate\Support\Facades\Auth;
 
 class RecentInvoicesWidget extends TableWidget
 {
@@ -18,19 +19,17 @@ class RecentInvoicesWidget extends TableWidget
 
     public function table(Table $table): Table
     {
+        $query = Invoice::query()->latest()->limit(10);
+
+        if (Auth::user()?->isSubscriber()) {
+            $query->where('user_id', Auth::id());
+        }
+
         return $table
-            ->query(
-                Invoice::query()
-                    ->latest()
-                    ->limit(10),
-            )
+            ->query($query)
             ->columns([
                 TextColumn::make('invoice_number')
                     ->label('Invoice #')
-                    ->searchable(),
-
-                TextColumn::make('user.name')
-                    ->label('User')
                     ->searchable(),
 
                 TextColumn::make('amount')
