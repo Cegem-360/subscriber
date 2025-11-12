@@ -24,7 +24,7 @@ class SubscriptionStatsWidget extends StatsOverviewWidget
             ->where('stripe_status', 'active')
             ->count();
 
-        $trialingSubscriptions = (clone $baseQuery)
+        /* $trialingSubscriptions = (clone $baseQuery)
             ->where('stripe_status', 'trialing')
             ->count();
 
@@ -36,7 +36,7 @@ class SubscriptionStatsWidget extends StatsOverviewWidget
             ->whereNotNull('ends_at')
             ->whereMonth('ends_at', now()->month)
             ->whereYear('ends_at', now()->year)
-            ->count();
+            ->count(); */
 
         $totalMrr = (clone $baseQuery)
             ->where('stripe_status', 'active')
@@ -49,7 +49,7 @@ class SubscriptionStatsWidget extends StatsOverviewWidget
                 ->color('success')
                 ->chart($this->getSubscriptionTrend()),
 
-            Stat::make('Trial Subscriptions', $trialingSubscriptions)
+            /*   Stat::make('Trial Subscriptions', $trialingSubscriptions)
                 ->description('Active trial periods')
                 ->descriptionIcon('heroicon-o-clock')
                 ->color('info'),
@@ -67,7 +67,7 @@ class SubscriptionStatsWidget extends StatsOverviewWidget
             Stat::make('Cancellations This Month', $canceledThisMonth)
                 ->description('Subscriptions ending this month')
                 ->descriptionIcon('heroicon-o-x-circle')
-                ->color('danger'),
+                ->color('danger'), */
         ];
     }
 
