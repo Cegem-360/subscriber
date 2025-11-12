@@ -10,6 +10,7 @@ use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 
 class SubscriptionsTable
 {
@@ -20,6 +21,7 @@ class SubscriptionsTable
                 TextColumn::make('user.name')
                     ->searchable()
                     ->sortable()
+                    ->visible(fn (): bool => Auth::user()?->isAdmin() ?? false)
                     ->weight('bold'),
 
                 TextColumn::make('plan.name')
@@ -29,9 +31,7 @@ class SubscriptionsTable
                     ->color('info'),
 
                 TextColumn::make('stripe_status')
-                    ->badge()
-                    ->color(SubscriptionStatus::class),
-
+                    ->badge(),
                 TextColumn::make('stripe_price')
                     ->label('Price')
                     ->money('USD'),
