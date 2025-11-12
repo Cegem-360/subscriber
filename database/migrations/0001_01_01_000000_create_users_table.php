@@ -17,8 +17,14 @@ return new class() extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('billingo_partner_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('role')->default('subscriber');
+            $table->string('stripe_id')->nullable()->index();
+            $table->string('pm_type')->nullable();
+            $table->string('pm_last_four', 4)->nullable();
+            $table->timestamp('trial_ends_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

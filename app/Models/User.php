@@ -30,7 +30,7 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
         'email',
         'password',
         'role',
-        'stripe_customer_id',
+        'stripe_id',
         'billingo_partner_id',
     ];
 
