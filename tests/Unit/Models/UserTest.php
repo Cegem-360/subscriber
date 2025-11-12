@@ -12,14 +12,14 @@ test('to array', function (): void {
             'id',
             'name',
             'email',
+            'billingo_partner_id',
             'email_verified_at',
             'role',
-            'created_at',
-            'updated_at',
-            'billingo_partner_id',
             'stripe_id',
             'pm_type',
             'pm_last_four',
             'trial_ends_at',
+            'created_at',
+            'updated_at',
         ]);
 });
