@@ -38,6 +38,14 @@ final class DatabaseSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'email_verified_at' => now(),
             ]);
+        User::factory()
+
+            ->create([
+                'name' => 'User User',
+                'email' => 'user@user.com',
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+            ]);
 
         // Create admin's active subscription with microservice permissions
         $adminSubscription = Subscription::factory()

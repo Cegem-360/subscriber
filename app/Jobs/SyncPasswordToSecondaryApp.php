@@ -52,11 +52,17 @@ class SyncPasswordToSecondaryApp implements ShouldQueue
         }
 
         try {
-            $response = Http::withHeaders([
+            $http = Http::withHeaders([
                 'Authorization' => "Bearer {$apiKey}",
                 'Accept' => 'application/json',
-            ])
-                ->timeout(10)
+            ]);
+
+            // Skip SSL verification for local .test domains (Laravel Herd)
+            if (str_ends_with($secondaryAppUrl, '.test')) {
+                $http = $http->withoutVerifying();
+            }
+
+            $response = $http->timeout(10)
                 ->post("{$secondaryAppUrl}/api/sync-password", [
                     'email' => $this->email,
                     'password_hash' => $this->hashedPassword,

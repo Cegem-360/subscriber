@@ -46,7 +46,7 @@ it('sends password sync request to secondary app', function () {
 
     config([
         'services.secondary_app.url' => 'https://secondary-app.test',
-        'services.secondary_app.api_key' => 'test-api-key',
+        'services.secondary_app.api_key' => 'a1b2c3d4-e5f6a7b8-c9d0e1f2-a3b4c5d6',
     ]);
 
     $user = User::factory()->create();
@@ -61,7 +61,7 @@ it('sends password sync request to secondary app', function () {
 
     Http::assertSent(function ($request) use ($user, $hashedPassword) {
         return $request->url() === 'https://secondary-app.test/api/sync-password'
-            && $request->hasHeader('Authorization', 'Bearer test-api-key')
+            && $request->hasHeader('Authorization', 'Bearer a1b2c3d4-e5f6a7b8-c9d0e1f2-a3b4c5d6')
             && $request['email'] === $user->email
             && $request['password_hash'] === $hashedPassword;
     });
