@@ -5,7 +5,7 @@ declare(strict_types=1);
 use App\Models\Invoice;
 use App\Models\User;
 
-test('admin can see all invoices', function () {
+test('admin can see all invoices', function (): void {
     $admin = User::factory()->admin()->create();
     $subscriber = User::factory()->create();
 
@@ -20,7 +20,7 @@ test('admin can see all invoices', function () {
         ->and($invoices->pluck('id'))->toContain($adminInvoice->id, $subscriberInvoice->id);
 });
 
-test('subscriber can only see their own invoices', function () {
+test('subscriber can only see their own invoices', function (): void {
     $subscriber = User::factory()->create();
     $otherSubscriber = User::factory()->create();
 
@@ -35,7 +35,7 @@ test('subscriber can only see their own invoices', function () {
         ->and($invoices->first()->id)->toBe($subscriberInvoice->id);
 });
 
-test('guest can see all invoices', function () {
+test('guest can see all invoices', function (): void {
     $subscriber = User::factory()->create();
 
     Invoice::factory()->count(3)->create(['user_id' => $subscriber->id]);

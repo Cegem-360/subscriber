@@ -11,12 +11,12 @@ use Illuminate\Support\Facades\Http;
  * Integration tests for real password sync with controlling.test
  * These tests make REAL HTTP requests - only run when controlling.test is running
  */
-beforeEach(function () {
+beforeEach(function (): void {
     // Allow real HTTP requests for integration tests
     Http::allowStrayRequests();
 });
 
-it('can connect to controlling.test app', function () {
+it('can connect to controlling.test app', function (): void {
     $secondaryAppUrl = config('services.secondary_app.url');
     $apiKey = config('services.secondary_app.api_key');
 
@@ -31,12 +31,12 @@ it('can connect to controlling.test app', function () {
         expect($response->successful() || $response->status() === 404)->toBeTrue(
             "Could not connect to {$secondaryAppUrl}. Make sure controlling.test is running in Laravel Herd.",
         );
-    } catch (\Exception $e) {
+    } catch (Exception $e) {
         $this->fail("Connection failed: {$e->getMessage()}. Make sure controlling.test is running in Laravel Herd.");
     }
 });
 
-it('can sync password to controlling.test with real API key', function () {
+it('can sync password to controlling.test with real API key', function (): void {
     $secondaryAppUrl = config('services.secondary_app.url');
     $apiKey = config('services.secondary_app.api_key');
 
@@ -79,7 +79,7 @@ it('can sync password to controlling.test with real API key', function () {
     }
 });
 
-it('can dispatch and process real password sync job', function () {
+it('can dispatch and process real password sync job', function (): void {
     $secondaryAppUrl = config('services.secondary_app.url');
     $apiKey = config('services.secondary_app.api_key');
 
@@ -104,7 +104,7 @@ it('can dispatch and process real password sync job', function () {
         $job->handle();
         // If we got here without exception, the request succeeded or was skipped
         expect(true)->toBeTrue();
-    } catch (\Exception $e) {
+    } catch (Exception $e) {
         // Check if it's a "user not found" or "endpoint not found" error - both are acceptable
         $isAcceptableError = str_contains($e->getMessage(), 'Password sync failed with status 404')
             || str_contains($e->getMessage(), 'Password sync failed with status 422');

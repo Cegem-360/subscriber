@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
+use Illuminate\Database\Eloquent\Model;
+
 arch()->preset()->php();
 // arch()->preset()->strict();
 arch()->preset()->laravel();
 arch()->preset()->security();
-arch()->expect('App\Models')->toBeClasses()->toExtend('Illuminate\Database\Eloquent\Model')->ignoring('App\Models\Scopes');
+arch()->expect('App\Models')->toBeClasses()->toExtend(Model::class)->ignoring('App\Models\Scopes');
 arch()->expect('App\Controllers\Controller')->toBeAbstract();

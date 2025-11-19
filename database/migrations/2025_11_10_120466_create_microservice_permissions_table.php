@@ -17,8 +17,10 @@ return new class() extends Migration
         Schema::create('microservice_permissions', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Subscription::class)->constrained()->cascadeOnDelete();
+
             $table->string('microservice_name');
             $table->string('microservice_slug');
+            $table->string('url')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamp('activated_at')->nullable();
             $table->timestamp('expires_at')->nullable();

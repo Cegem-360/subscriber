@@ -73,9 +73,9 @@ class PlansTable
             ->recordActions([
                 EditAction::make(),
                 Action::make('toggle_status')
-                    ->label(fn ($record) => $record->is_active ? 'Deactivate' : 'Activate')
+                    ->label(fn ($record): string => $record->is_active ? 'Deactivate' : 'Activate')
                     ->icon('heroicon-o-arrow-path')
-                    ->color(fn ($record) => $record->is_active ? 'warning' : 'success')
+                    ->color(fn ($record): string => $record->is_active ? 'warning' : 'success')
                     ->requiresConfirmation()
                     ->action(fn ($record) => $record->update(['is_active' => ! $record->is_active])),
             ])

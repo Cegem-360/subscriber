@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Jobs;
 
+use Exception;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -58,7 +59,7 @@ class SyncPasswordToSecondaryApp implements ShouldQueue
             ]);
 
             // Skip SSL verification for local .test domains (Laravel Herd)
-            if (str_ends_with($secondaryAppUrl, '.test')) {
+            if (str_ends_with((string) $secondaryAppUrl, '.test')) {
                 $http = $http->withoutVerifying();
             }
 
@@ -72,9 +73,9 @@ class SyncPasswordToSecondaryApp implements ShouldQueue
                 Log::info("Password synced successfully for user {$this->email} to secondary app.");
             } else {
                 Log::error("Failed to sync password for user {$this->email}. Status: {$response->status()}");
-                throw new \Exception("Password sync failed with status {$response->status()}");
+                throw new Exception("Password sync failed with status {$response->status()}");
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error("Exception during password sync for user {$this->email}: {$e->getMessage()}");
             throw $e;
         }

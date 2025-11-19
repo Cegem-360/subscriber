@@ -38,7 +38,7 @@ class SubscriptionStatsWidget extends StatsOverviewWidget
             ->whereYear('ends_at', now()->year)
             ->count(); */
 
-        $totalMrr = (clone $baseQuery)
+        (clone $baseQuery)
             ->where('stripe_status', 'active')
             ->sum(DB::raw('CAST(stripe_price AS DECIMAL(10,2)) / 100'));
 

@@ -11,6 +11,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class MicroservicePermissionsTable
 {
@@ -20,8 +22,15 @@ class MicroservicePermissionsTable
             ->columns([
                 TextColumn::make('subscription.user.name')
                     ->label('User')
+                    ->visible(fn () => Auth::user()?->isAdmin())
                     ->searchable()
                     ->sortable(),
+                TextColumn::make('url')
+                    ->label('URL')
+                    ->url(fn (Model $record) => $record->url, shouldOpenInNewTab: true)
+                    ->icon('heroicon-o-arrow-top-right-on-square')
+                    ->placeholder('—')
+                    ->limit(50),
 
                 TextColumn::make('subscription.plan.name')
                     ->label('Plan')
@@ -46,7 +55,7 @@ class MicroservicePermissionsTable
                     ->dateTime()
                     ->sortable()
                     ->placeholder('Never')
-                    ->color(fn ($record) => $record->isExpired() ? 'danger' : null),
+                    ->color(fn ($record): ?string => $record->isExpired() ? 'danger' : null),
 
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -67,7 +76,7 @@ class MicroservicePermissionsTable
                     ->falseLabel('Active/Not expired')
                     ->queries(
                         true: fn ($query) => $query->where('expires_at', '<=', now()),
-                        false: fn ($query) => $query->where(function ($q) {
+                        false: fn ($query) => $query->where(function ($q): void {
                             $q->whereNull('expires_at')
                                 ->orWhere('expires_at', '>', now());
                         }),
@@ -84,9 +93,9 @@ class MicroservicePermissionsTable
             ->recordActions([
                 ViewAction::make(),
                 Action::make('toggle_active')
-                    ->label(fn ($record) => $record->is_active ? 'Deactivate' : 'Activate')
+                    ->label(fn ($record): string => $record->is_active ? 'Deactivate' : 'Activate')
                     ->icon('heroicon-o-arrow-path')
-                    ->color(fn ($record) => $record->is_active ? 'warning' : 'success')
+                    ->color(fn ($record): string => $record->is_active ? 'warning' : 'success')
                     ->requiresConfirmation()
                     ->action(fn ($record) => $record->update(['is_active' => ! $record->is_active])),
             ])

@@ -15,10 +15,7 @@ class UserObserver
     public function updated(User $user): void
     {
         if ($user->wasChanged('password')) {
-            SyncPasswordToSecondaryApp::dispatch(
-                email: $user->email,
-                hashedPassword: $user->password,
-            );
+            dispatch(new SyncPasswordToSecondaryApp(email: $user->email, hashedPassword: $user->password));
         }
     }
 }

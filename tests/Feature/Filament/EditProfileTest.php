@@ -7,8 +7,10 @@ use App\Models\User;
 
 use function Pest\Livewire\livewire;
 
-test('can render edit profile page', function () {
-    /** @var \Tests\TestCase $this */
+use Tests\TestCase;
+
+test('can render edit profile page', function (): void {
+    /** @var TestCase $this */
     $user = User::factory()->create();
 
     $this->actingAs($user);
@@ -17,8 +19,8 @@ test('can render edit profile page', function () {
         ->assertSuccessful();
 });
 
-test('can retrieve user data for editing', function () {
-    /** @var \Tests\TestCase $this */
+test('can retrieve user data for editing', function (): void {
+    /** @var TestCase $this */
     $user = User::factory()->create([
         'name' => 'John Doe',
         'email' => 'john@example.com',
@@ -33,8 +35,8 @@ test('can retrieve user data for editing', function () {
         ]);
 });
 
-test('hides billing section when user has no stripe customer', function () {
-    /** @var \Tests\TestCase $this */
+test('hides billing section when user has no stripe customer', function (): void {
+    /** @var TestCase $this */
     $user = User::factory()->create(['stripe_id' => null]);
 
     $this->actingAs($user);
@@ -46,8 +48,8 @@ test('hides billing section when user has no stripe customer', function () {
         ->assertDontSee('Billing Information');
 });
 
-test('shows billing section when user has stripe customer', function () {
-    /** @var \Tests\TestCase $this */
+test('shows billing section when user has stripe customer', function (): void {
+    /** @var TestCase $this */
     config(['cashier.key' => 'sk_test_fake_key']);
 
     $user = User::factory()->create(['stripe_id' => 'cus_test123']);
@@ -60,8 +62,8 @@ test('shows billing section when user has stripe customer', function () {
         ->assertSee('Stripe Customer ID');
 });
 
-test('billing portal action appears for users with stripe customer', function () {
-    /** @var \Tests\TestCase $this */
+test('billing portal action appears for users with stripe customer', function (): void {
+    /** @var TestCase $this */
     config(['cashier.key' => 'sk_test_fake_key']);
 
     $user = User::factory()->create(['stripe_id' => 'cus_test123']);
@@ -73,8 +75,8 @@ test('billing portal action appears for users with stripe customer', function ()
         ->assertActionExists('billing_portal');
 });
 
-test('billing portal action does not appear for users without stripe customer', function () {
-    /** @var \Tests\TestCase $this */
+test('billing portal action does not appear for users without stripe customer', function (): void {
+    /** @var TestCase $this */
     $user = User::factory()->create(['stripe_id' => null]);
 
     $this->actingAs($user);
@@ -84,8 +86,8 @@ test('billing portal action does not appear for users without stripe customer', 
         ->assertActionDoesNotExist('billing_portal');
 });
 
-test('can access profile page via route', function () {
-    /** @var \Tests\TestCase $this */
+test('can access profile page via route', function (): void {
+    /** @var TestCase $this */
     $user = User::factory()->create();
 
     $this->actingAs($user);

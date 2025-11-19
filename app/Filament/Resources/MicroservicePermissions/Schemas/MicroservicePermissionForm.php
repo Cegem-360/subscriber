@@ -23,6 +23,10 @@ class MicroservicePermissionForm
                     ->required(),
                 TextInput::make('microservice_slug')
                     ->required(),
+                TextInput::make('url')
+                    ->label('URL')
+                    ->url()
+                    ->placeholder('https://example.com'),
                 Toggle::make('is_active')
                     ->required(),
                 DateTimePicker::make('activated_at'),

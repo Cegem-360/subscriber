@@ -6,7 +6,7 @@ use App\Models\MicroservicePermission;
 use App\Models\Subscription;
 use App\Models\User;
 
-test('admin can see all microservice permissions', function () {
+test('admin can see all microservice permissions', function (): void {
     $admin = User::factory()->admin()->create();
     $subscriber = User::factory()->create();
 
@@ -24,7 +24,7 @@ test('admin can see all microservice permissions', function () {
         ->and($permissions->pluck('id'))->toContain($adminPermission->id, $subscriberPermission->id);
 });
 
-test('subscriber can only see their own microservice permissions', function () {
+test('subscriber can only see their own microservice permissions', function (): void {
     $subscriber = User::factory()->create();
     $otherSubscriber = User::factory()->create();
 
@@ -42,7 +42,7 @@ test('subscriber can only see their own microservice permissions', function () {
         ->and($permissions->first()->id)->toBe($subscriberPermission->id);
 });
 
-test('guest cannot see any microservice permissions', function () {
+test('guest cannot see any microservice permissions', function (): void {
     $subscriber = User::factory()->create();
     $subscription = Subscription::factory()->create(['user_id' => $subscriber->id]);
 

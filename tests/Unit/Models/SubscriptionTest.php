@@ -5,7 +5,7 @@ declare(strict_types=1);
 use App\Models\Subscription;
 use App\Models\User;
 
-test('admin can see all subscriptions', function () {
+test('admin can see all subscriptions', function (): void {
     $admin = User::factory()->admin()->create();
     $subscriber = User::factory()->create();
 
@@ -20,7 +20,7 @@ test('admin can see all subscriptions', function () {
         ->and($subscriptions->pluck('id'))->toContain($adminSubscription->id, $subscriberSubscription->id);
 });
 
-test('subscriber can only see their own subscriptions', function () {
+test('subscriber can only see their own subscriptions', function (): void {
     $subscriber = User::factory()->create();
     $otherSubscriber = User::factory()->create();
 
@@ -35,7 +35,7 @@ test('subscriber can only see their own subscriptions', function () {
         ->and($subscriptions->first()->id)->toBe($subscriberSubscription->id);
 });
 
-test('guest can see all subscriptions', function () {
+test('guest can see all subscriptions', function (): void {
     $subscriber = User::factory()->create();
 
     Subscription::factory()->count(3)->create(['user_id' => $subscriber->id]);

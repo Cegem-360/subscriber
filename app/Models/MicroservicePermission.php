@@ -21,6 +21,7 @@ class MicroservicePermission extends Model
         'subscription_id',
         'microservice_name',
         'microservice_slug',
+        'url',
         'is_active',
         'activated_at',
         'expires_at',
@@ -49,7 +50,7 @@ class MicroservicePermission extends Model
     protected function active(Builder $query): void
     {
         $query->where('is_active', true)
-            ->where(function (Builder $q) {
+            ->where(function (Builder $q): void {
                 $q->whereNull('expires_at')
                     ->orWhere('expires_at', '>', now());
             });

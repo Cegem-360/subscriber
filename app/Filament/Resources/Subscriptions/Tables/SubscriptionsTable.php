@@ -53,8 +53,8 @@ class SubscriptionsTable
                     ->dateTime()
                     ->sortable()
                     ->badge()
-                    ->color(fn ($state) => $state ? 'danger' : 'success')
-                    ->formatStateUsing(fn ($state) => match (true) {
+                    ->color(fn ($state): string => $state ? 'danger' : 'success')
+                    ->formatStateUsing(fn ($state): string => match (true) {
                         $state && $state->isPast() => 'Expired',
                         $state && $state->isFuture() => 'Ends ' . $state->diffForHumans(['parts' => 1]),
                         default => 'Active',

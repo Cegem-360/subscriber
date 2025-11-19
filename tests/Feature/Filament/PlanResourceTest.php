@@ -11,23 +11,23 @@ use App\Models\User;
 
 use function Pest\Livewire\livewire;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->actingAs(User::factory()->create());
 });
 
-test('can render plans list page', function () {
+test('can render plans list page', function (): void {
     livewire(ListPlans::class)
         ->assertSuccessful();
 });
 
-test('can list plans', function () {
+test('can list plans', function (): void {
     $plans = Plan::factory()->count(3)->create();
 
     livewire(ListPlans::class)
         ->assertCanSeeTableRecords($plans);
 });
 
-test('can search plans by name', function () {
+test('can search plans by name', function (): void {
     $plans = Plan::factory()->count(5)->create();
     $planToFind = $plans->first();
 
@@ -37,7 +37,7 @@ test('can search plans by name', function () {
         ->assertCanNotSeeTableRecords($plans->skip(1));
 });
 
-test('can sort plans by name', function () {
+test('can sort plans by name', function (): void {
     $plans = Plan::factory()->count(3)->create();
 
     livewire(ListPlans::class)
@@ -47,7 +47,7 @@ test('can sort plans by name', function () {
         ->assertCanSeeTableRecords($plans->sortByDesc('name'), inOrder: true);
 });
 
-test('can filter plans by billing period', function () {
+test('can filter plans by billing period', function (): void {
     $monthlyPlans = Plan::factory()->count(2)->create(['billing_period' => BillingPeriod::Monthly]);
     $yearlyPlans = Plan::factory()->count(2)->create(['billing_period' => BillingPeriod::Yearly]);
 
@@ -57,15 +57,15 @@ test('can filter plans by billing period', function () {
         ->assertCanNotSeeTableRecords($yearlyPlans);
 });
 
-test('can render create plan page', function () {
+test('can render create plan page', function (): void {
     livewire(CreatePlan::class)
         ->assertSuccessful();
 });
 
-test('can create a plan via model', function () {
+test('can create a plan via model', function (): void {
     $slug = 'test-plan-' . uniqid();
 
-    $plan = Plan::create([
+    $plan = Plan::query()->create([
         'name' => 'Test Plan',
         'slug' => $slug,
         'description' => 'A test plan',
@@ -86,7 +86,7 @@ test('can create a plan via model', function () {
         ->and($plan->is_active)->toBeTrue();
 });
 
-test('can validate plan creation', function () {
+test('can validate plan creation', function (): void {
     livewire(CreatePlan::class)
         ->fillForm([
             'name' => '',
@@ -97,14 +97,14 @@ test('can validate plan creation', function () {
         ->assertHasFormErrors(['name', 'slug', 'price']);
 });
 
-test('can render edit plan page', function () {
+test('can render edit plan page', function (): void {
     $plan = Plan::factory()->create();
 
     livewire(EditPlan::class, ['record' => $plan->id])
         ->assertSuccessful();
 });
 
-test('can retrieve plan data for editing', function () {
+test('can retrieve plan data for editing', function (): void {
     $plan = Plan::factory()->create();
 
     livewire(EditPlan::class, ['record' => $plan->id])
@@ -116,7 +116,7 @@ test('can retrieve plan data for editing', function () {
         ]);
 });
 
-test('can update a plan via model', function () {
+test('can update a plan via model', function (): void {
     $plan = Plan::factory()->create([
         'name' => 'Original Plan',
         'price' => 19.99,
@@ -131,7 +131,7 @@ test('can update a plan via model', function () {
         ->and((float) $plan->price)->toBe(29.99);
 });
 
-test('can toggle plan active status', function () {
+test('can toggle plan active status', function (): void {
     $plan = Plan::factory()->create(['is_active' => true]);
 
     livewire(ListPlans::class)

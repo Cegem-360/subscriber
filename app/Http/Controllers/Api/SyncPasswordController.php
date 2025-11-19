@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\SyncPasswordRequest;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -32,7 +33,7 @@ class SyncPasswordController extends Controller
             }
 
             // Update password WITHOUT triggering observers to prevent infinite loop
-            User::withoutEvents(function () use ($user, $passwordHash) {
+            User::withoutEvents(function () use ($user, $passwordHash): void {
                 DB::table('users')
                     ->where('id', $user->id)
                     ->update(['password' => $passwordHash]);
@@ -44,7 +45,7 @@ class SyncPasswordController extends Controller
                 'success' => true,
                 'message' => 'Password synced successfully.',
             ]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error("Failed to sync password from secondary app: {$e->getMessage()}");
 
             return response()->json([

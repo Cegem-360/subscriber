@@ -46,7 +46,7 @@ class InvoicesTable
                     ->falseIcon('heroicon-o-x-circle')
                     ->trueColor('success')
                     ->falseColor('gray')
-                    ->getStateUsing(fn ($record) => ! is_null($record->billingo_invoice_id)),
+                    ->getStateUsing(fn ($record): bool => ! is_null($record->billingo_invoice_id)),
 
                 TextColumn::make('billingo_synced_at')
                     ->label('Synced At')
@@ -69,7 +69,7 @@ class InvoicesTable
                         'synced' => 'Synced',
                         'not_synced' => 'Not Synced',
                     ])
-                    ->query(function ($query, $state) {
+                    ->query(function ($query, array $state) {
                         if ($state['value'] === 'synced') {
                             return $query->whereNotNull('billingo_invoice_id');
                         }
@@ -86,9 +86,9 @@ class InvoicesTable
                     ->label('Sync to Billingo')
                     ->icon('heroicon-o-arrow-path')
                     ->color('info')
-                    ->visible(fn ($record) => is_null($record->billingo_invoice_id))
+                    ->visible(fn ($record): bool => is_null($record->billingo_invoice_id))
                     ->requiresConfirmation()
-                    ->action(function ($record) {
+                    ->action(function ($record): void {
                         // TODO: Implement Billingo sync logic
                         Notification::make()
                             ->title('Billingo sync queued')
@@ -100,14 +100,14 @@ class InvoicesTable
                     ->label('Download PDF')
                     ->icon('heroicon-o-arrow-down-tray')
                     ->color('success')
-                    ->visible(fn ($record) => ! is_null($record->pdf_path))
-                    ->url(fn ($record) => storage_path('app/' . $record->pdf_path))
+                    ->visible(fn ($record): bool => ! is_null($record->pdf_path))
+                    ->url(fn ($record): string => storage_path('app/' . $record->pdf_path))
                     ->openUrlInNewTab(),
                 Action::make('mark_as_paid')
                     ->label('Mark as Paid')
                     ->icon('heroicon-o-check')
                     ->color('success')
-                    ->visible(fn ($record) => $record->status !== InvoiceStatus::Paid)
+                    ->visible(fn ($record): bool => $record->status !== InvoiceStatus::Paid)
                     ->requiresConfirmation()
                     ->action(fn ($record) => $record->markAsPaid()),
             ])
