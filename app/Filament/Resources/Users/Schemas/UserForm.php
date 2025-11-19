@@ -47,7 +47,7 @@ class UserForm
 
                 Section::make('Billing Information')
                     ->schema([
-                        TextInput::make('stripe_customer_id')
+                        TextInput::make('stripe_id')
                             ->maxLength(255),
 
                         TextInput::make('billingo_partner_id')
