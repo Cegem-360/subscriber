@@ -22,7 +22,11 @@ class SubscriptionPolicy
      */
     public function view(User $user, Subscription $subscription): bool
     {
-        return $user->isAdmin() || $subscription->user_id === $user->id;
+        if ($user->isAdmin()) {
+            return true;
+        }
+
+        return $subscription->user_id === $user->id;
     }
 
     /**

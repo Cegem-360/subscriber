@@ -22,7 +22,11 @@ class MicroservicePermissionPolicy
      */
     public function view(User $user, MicroservicePermission $microservicePermission): bool
     {
-        return $user->isAdmin() || $microservicePermission->subscription->user_id === $user->id;
+        if ($user->isAdmin()) {
+            return true;
+        }
+
+        return $microservicePermission->subscription->user_id === $user->id;
     }
 
     /**
