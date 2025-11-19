@@ -50,6 +50,9 @@ class SyncPasswordToSecondaryApp implements ShouldQueue
             if ($key === array_key_first($secondaryAppUrls)) {
                 continue;
             }
+            if (! $values['active']) {
+                continue;
+            }
             try {
                 $http = Http::withHeaders([
                     'Authorization' => "Bearer {$api_key}",
