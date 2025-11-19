@@ -11,8 +11,12 @@ final class Login extends BasePage
     public function mount(): void
     {
         parent::mount();
-
-        $this->form->fill([
-        ]);
+        if (env('APP_ENV') === 'local') {
+            $this->form->fill([
+                'email' => 'admin@admin.com',
+                'password' => 'password',
+                'remember' => true,
+            ]);
+        }
     }
 }

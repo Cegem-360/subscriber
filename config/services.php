@@ -35,4 +35,9 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+
+    'microservices' => [
+        // Add your microservice URLs here
+        // Example: 'analytics' => env('MICROSERVICE_ANALYTICS_URL', 'https://analytics.example.com'),
+    ],
 ];

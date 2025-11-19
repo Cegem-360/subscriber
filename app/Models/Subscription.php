@@ -30,8 +30,8 @@ class Subscription extends CashierSubscription
     protected function casts(): array
     {
         return [
-            'stripe_status' => SubscriptionStatus::class,
             'type' => SubscriptionType::class,
+            'stripe_status' => SubscriptionStatus::class,
             'trial_ends_at' => 'datetime',
             'ends_at' => 'datetime',
         ];

@@ -11,12 +11,14 @@ use Illuminate\Contracts\Support\Htmlable;
 
 enum SubscriptionType: string implements HasColor, HasLabel
 {
+    case Default = 'default';
     case Monthly = 'monthly';
     case Yearly = 'yearly';
 
     public function getLabel(): string|Htmlable|null
     {
         return match ($this) {
+            self::Default => __('Default'),
             self::Monthly => __('Monthly'),
             self::Yearly => __('Yearly'),
         };
@@ -25,6 +27,7 @@ enum SubscriptionType: string implements HasColor, HasLabel
     public function getColor(): string|array|null
     {
         return match ($this) {
+            self::Default => Color::Blue,
             self::Monthly => Color::Green,
             self::Yearly => Color::Green,
         };

@@ -8,7 +8,6 @@ use App\Models\Subscription;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class SubscriptionStatsWidget extends StatsOverviewWidget
 {
@@ -37,10 +36,6 @@ class SubscriptionStatsWidget extends StatsOverviewWidget
             ->whereMonth('ends_at', now()->month)
             ->whereYear('ends_at', now()->year)
             ->count(); */
-
-        (clone $baseQuery)
-            ->where('stripe_status', 'active')
-            ->sum(DB::raw('CAST(stripe_price AS DECIMAL(10,2)) / 100'));
 
         return [
             Stat::make('Active Subscriptions', $activeSubscriptions)

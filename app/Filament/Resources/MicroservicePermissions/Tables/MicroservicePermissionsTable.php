@@ -25,6 +25,9 @@ class MicroservicePermissionsTable
                     ->visible(fn () => Auth::user()?->isAdmin())
                     ->searchable()
                     ->sortable(),
+                TextColumn::make('microservice_name')
+                    ->searchable()
+                    ->weight('bold'),
                 TextColumn::make('url')
                     ->label('URL')
                     ->url(fn (Model $record) => $record->url, shouldOpenInNewTab: true)
@@ -36,10 +39,6 @@ class MicroservicePermissionsTable
                     ->label('Plan')
                     ->badge()
                     ->color('info'),
-
-                TextColumn::make('microservice_name')
-                    ->searchable()
-                    ->weight('bold'),
 
                 IconColumn::make('is_active')
                     ->boolean()

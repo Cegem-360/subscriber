@@ -13,6 +13,13 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class SubscriptionFactory extends Factory
 {
     /**
+     * The name of the factory's corresponding model.
+     *
+     * @var class-string<\App\Models\Subscription>
+     */
+    protected $model = \App\Models\Subscription::class;
+
+    /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
