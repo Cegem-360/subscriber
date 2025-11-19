@@ -43,41 +43,35 @@ class SyncPasswordToSecondaryApp implements ShouldQueue
      */
     public function handle(): void
     {
-        $secondaryAppUrl = config('services.secondary_app.url');
-        $apiKey = config('services.secondary_app.api_key');
-
-        if (! $secondaryAppUrl || ! $apiKey) {
-            Log::warning('Secondary app configuration is missing. Skipping password sync.');
-
-            return;
-        }
-
-        try {
-            $http = Http::withHeaders([
-                'Authorization' => "Bearer {$apiKey}",
-                'Accept' => 'application/json',
-            ]);
-
-            // Skip SSL verification for local .test domains (Laravel Herd)
-            if (str_ends_with((string) $secondaryAppUrl, '.test')) {
-                $http = $http->withoutVerifying();
-            }
-
-            $response = $http->timeout(10)
-                ->post("{$secondaryAppUrl}/api/sync-password", [
-                    'email' => $this->email,
-                    'password_hash' => $this->hashedPassword,
+        $secondaryAppUrls = config('services-app-urls');
+        foreach ($secondaryAppUrls as $key => $values) {
+            try {
+                $http = Http::withHeaders([
+                    'Authorization' => "Bearer {$values['api_key']}",
+                    'Accept' => 'application/json',
                 ]);
 
-            if ($response->successful()) {
-                Log::info("Password synced successfully for user {$this->email} to secondary app.");
-            } else {
-                Log::error("Failed to sync password for user {$this->email}. Status: {$response->status()}");
-                throw new Exception("Password sync failed with status {$response->status()}");
+                // Skip SSL verification for local .test domains (Laravel Herd)
+                if (str_ends_with((string) $values['url'], '.test')) {
+                    $http = $http->withoutVerifying();
+                }
+
+                $response = $http->timeout(10)
+                    ->post("{$values['url']}/api/sync-password", [
+                        'email' => $this->email,
+                        'password_hash' => $this->hashedPassword,
+                    ]);
+
+                if ($response->successful()) {
+                    Log::info("Password synced successfully for user {$this->email} to secondary app.");
+                } else {
+                    Log::error("Failed to sync password for user {$this->email}. Status: {$response->status()}");
+                    throw new Exception("Password sync failed with status {$response->status()}");
+                }
+            } catch (Exception $e) {
+                Log::error("Exception during password sync for user {$this->email}: {$e->getMessage()}");
+                throw $e;
             }
-        } catch (Exception $e) {
-            Log::error("Exception during password sync for user {$this->email}: {$e->getMessage()}");
-            throw $e;
         }
     }
 }

@@ -35,9 +35,4 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
-
-    'secondary_app' => [
-        'url' => env('SECONDARY_APP_URL'),
-        'api_key' => env('SECONDARY_APP_API_KEY'),
-    ],
 ];
