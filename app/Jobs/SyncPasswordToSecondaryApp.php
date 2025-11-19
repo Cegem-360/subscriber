@@ -70,7 +70,7 @@ class SyncPasswordToSecondaryApp implements ShouldQueue
                 if ($response->successful()) {
                     Log::info("Password synced successfully for user {$this->email} to secondary app.");
                 } else {
-                    Log::error("Failed to sync password for user {$this->email}. Status: {$response->status()}");
+                    Log::error("Failed to sync password for user {$this->email}. Status: {$response->status()}. Error: {$response->dump()}");
                 }
             } catch (Exception $e) {
                 Log::error("Exception during password sync for user {$this->email}: {$e->getMessage()}");
