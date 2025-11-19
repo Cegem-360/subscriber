@@ -20,7 +20,7 @@ class MicroservicePermissionResource extends Resource
 {
     protected static ?string $model = MicroservicePermission::class;
 
-    public static function getPruralLabel(): string
+    public static function getPluralModelLabel(): string
     {
         return __('Services');
     }
