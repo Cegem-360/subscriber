@@ -35,7 +35,6 @@ class PlanFactory extends Factory
                 'Email Support',
                 'Community Support',
             ],
-            'microservices' => $this->faker->randomElements(['service-a', 'service-b', 'service-c'], $this->faker->numberBetween(1, 3)),
             'is_active' => true,
             'sort_order' => $this->faker->numberBetween(1, 10),
         ];
@@ -55,7 +54,6 @@ class PlanFactory extends Factory
                 'Email Support',
                 'Community Support',
             ],
-            'microservices' => ['service-a'],
             'sort_order' => 1,
         ]);
     }
@@ -74,7 +72,6 @@ class PlanFactory extends Factory
                 'Email Support',
                 'Priority Support',
             ],
-            'microservices' => ['service-a', 'service-b'],
             'sort_order' => 2,
         ]);
     }
@@ -94,7 +91,6 @@ class PlanFactory extends Factory
                 'Dedicated Account Manager',
                 'Custom Integrations',
             ],
-            'microservices' => ['service-a', 'service-b', 'service-c'],
             'sort_order' => 3,
         ]);
     }

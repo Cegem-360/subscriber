@@ -6,7 +6,6 @@ namespace Database\Seeders;
 
 use App\Models\ApiToken;
 use App\Models\Invoice;
-use App\Models\MicroservicePermission;
 use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\User;
@@ -47,9 +46,6 @@ class RegularUsersSeeder extends Seeder
                             'plan_id' => $randomPlan->id,
                         ]);
 
-                    // Create microservice permissions based on plan
-                    $this->createMicroservicePermissions($subscription, $randomPlan);
-
                     // Create invoices for this subscription
                     $this->createInvoices($user, $subscription);
                 }
@@ -64,33 +60,7 @@ class RegularUsersSeeder extends Seeder
 
         $this->command->info('✅ 30 regular users created');
         $this->command->info('   - ' . Subscription::count() . ' subscriptions');
-        $this->command->info('   - ' . MicroservicePermission::count() . ' permissions');
         $this->command->info('   - ' . Invoice::count() . ' invoices');
-    }
-
-    protected function createMicroservicePermissions(CashierSubscription $subscription, Plan $plan): void
-    {
-        $planMicroservices = $plan->microservices ?? [];
-
-        foreach ($planMicroservices as $microserviceSlug) {
-            $microserviceName = match ($microserviceSlug) {
-                'service-a' => 'Service A',
-                'service-b' => 'Service B',
-                'service-c' => 'Service C',
-                default => 'Unknown Service',
-            };
-
-            // Mix of active and expired permissions
-            $permissionState = fake()->randomElement(['active', 'active', 'active', 'expired']);
-
-            MicroservicePermission::factory()
-                ->{$permissionState}()
-                ->for($subscription)
-                ->create([
-                    'microservice_name' => $microserviceName,
-                    'microservice_slug' => $microserviceSlug,
-                ]);
-        }
     }
 
     protected function createInvoices(User $user, CashierSubscription $subscription): void

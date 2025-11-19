@@ -82,14 +82,6 @@ class PlanForm
                             ->columnSpanFull(),
                     ]),
 
-                Section::make('Microservices Access')
-                    ->schema([
-                        TagsInput::make('microservices')
-                            ->helperText('Enter microservice slugs (e.g., service-a, service-b)')
-                            ->placeholder('Add a microservice...')
-                            ->columnSpanFull(),
-                    ]),
-
                 Section::make('Status')
                     ->schema([
                         Toggle::make('is_active')

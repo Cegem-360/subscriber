@@ -24,7 +24,6 @@ class Plan extends Model
         'stripe_price_id',
         'stripe_product_id',
         'features',
-        'microservices',
         'is_active',
         'sort_order',
     ];
@@ -33,7 +32,6 @@ class Plan extends Model
     {
         return [
             'features' => 'array',
-            'microservices' => 'array',
             'is_active' => 'boolean',
             'price' => 'decimal:2',
             'billing_period' => BillingPeriod::class,
@@ -49,10 +47,5 @@ class Plan extends Model
     protected function active(Builder $query): void
     {
         $query->where('is_active', true);
-    }
-
-    public function hasMicroservice(string $microservice): bool
-    {
-        return in_array($microservice, $this->microservices ?? []);
     }
 }

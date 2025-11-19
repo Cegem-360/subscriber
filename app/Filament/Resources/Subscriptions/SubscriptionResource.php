@@ -9,7 +9,6 @@ use App\Filament\Resources\Subscriptions\Pages\EditSubscription;
 use App\Filament\Resources\Subscriptions\Pages\ListSubscriptions;
 use App\Filament\Resources\Subscriptions\RelationManagers\ItemsRelationManager;
 use App\Filament\Resources\Subscriptions\RelationManagers\LocalInvoicesRelationManager;
-use App\Filament\Resources\Subscriptions\RelationManagers\PermissionsRelationManager;
 use App\Filament\Resources\Subscriptions\Schemas\SubscriptionForm;
 use App\Filament\Resources\Subscriptions\Tables\SubscriptionsTable;
 use App\Models\Subscription;
@@ -45,7 +44,6 @@ class SubscriptionResource extends Resource
         return [
             ItemsRelationManager::class,
             LocalInvoicesRelationManager::class,
-            PermissionsRelationManager::class,
         ];
     }
 

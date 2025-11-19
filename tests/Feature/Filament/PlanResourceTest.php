@@ -72,7 +72,6 @@ test('can create a plan via model', function (): void {
         'price' => 19.99,
         'billing_period' => BillingPeriod::Monthly,
         'features' => ['Feature 1', 'Feature 2'],
-        'microservices' => ['service-test'],
         'is_active' => true,
         'sort_order' => 1,
     ]);
@@ -82,7 +81,6 @@ test('can create a plan via model', function (): void {
         ->and((float) $plan->price)->toBe(19.99)
         ->and($plan->billing_period)->toBe(BillingPeriod::Monthly)
         ->and($plan->features)->toBe(['Feature 1', 'Feature 2'])
-        ->and($plan->microservices)->toBe(['service-test'])
         ->and($plan->is_active)->toBeTrue();
 });
 

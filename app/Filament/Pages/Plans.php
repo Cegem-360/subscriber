@@ -139,7 +139,6 @@ class Plans extends Page
                         'stripe_price_id' => $price->id,
                         'stripe_product_id' => $product->id,
                         'features' => $product->metadata->features ?? [],
-                        'microservices' => $product->metadata->microservices ?? [],
                         'is_active' => $product->active && $price->active,
                     ];
 

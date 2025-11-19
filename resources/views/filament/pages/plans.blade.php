@@ -45,27 +45,6 @@
                         </ul>
                     @endif
 
-                    @if ($plan->microservices && count($plan->microservices) > 0)
-                        <div>
-                            <p class="mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                                Elérhető szolgáltatások:
-                            </p>
-                            <ul class="flex flex-col gap-1">
-                                @foreach ($plan->microservices as $microservice)
-                                    <li class="flex items-start gap-2">
-                                        <svg class="size-4 shrink-0 text-blue-600 dark:text-blue-500" fill="none"
-                                            stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                        <span class="text-sm text-gray-600 dark:text-gray-400">
-                                            {{ ucwords(str_replace('-', ' ', $microservice)) }}
-                                        </span>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
                 </div>
 
                 <div class="mt-auto border-t border-gray-200 p-6 dark:border-gray-700">

@@ -27,7 +27,6 @@ class PlanSeeder extends Seeder
                     'Basic analytics',
                     '1 microservice access',
                 ],
-                'microservices' => ['service-a'],
                 'is_active' => true,
                 'sort_order' => 1,
             ],
@@ -46,7 +45,7 @@ class PlanSeeder extends Seeder
                     '2 microservice access',
                     'Custom integrations',
                 ],
-                'microservices' => ['service-a', 'service-b'],
+
                 'is_active' => true,
                 'sort_order' => 2,
             ],
@@ -66,7 +65,7 @@ class PlanSeeder extends Seeder
                     'Custom integrations',
                     'SLA guarantee',
                 ],
-                'microservices' => ['service-a', 'service-b', 'service-c'],
+
                 'is_active' => true,
                 'sort_order' => 3,
             ],

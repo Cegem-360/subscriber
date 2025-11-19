@@ -19,6 +19,7 @@ return new class() extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Plan::class)->nullable()->constrained()->restrictOnDelete();
+            $table->string('url')->nullable();
             $table->string('type');
             $table->string('stripe_id')->unique();
             $table->string('stripe_status');

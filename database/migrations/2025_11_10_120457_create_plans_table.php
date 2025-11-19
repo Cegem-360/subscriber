@@ -23,7 +23,6 @@ return new class() extends Migration
             $table->string('stripe_price_id')->nullable();
             $table->string('stripe_product_id')->nullable();
             $table->json('features')->nullable();
-            $table->json('microservices')->nullable();
             $table->boolean('is_active')->default(true);
             $table->unsignedInteger('sort_order')->default(0);
             $table->timestamps();

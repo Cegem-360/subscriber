@@ -85,39 +85,6 @@ namespace App\Models{
 namespace App\Models{
 /**
  * @property int $id
- * @property int $subscription_id
- * @property string $microservice_name
- * @property string $microservice_slug
- * @property string|null $url
- * @property bool $is_active
- * @property \Carbon\CarbonImmutable|null $activated_at
- * @property \Carbon\CarbonImmutable|null $expires_at
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \App\Models\Subscription $subscription
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MicroservicePermission active()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MicroservicePermission expired()
- * @method static \Database\Factories\MicroservicePermissionFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MicroservicePermission newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MicroservicePermission newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MicroservicePermission query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MicroservicePermission whereActivatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MicroservicePermission whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MicroservicePermission whereExpiresAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MicroservicePermission whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MicroservicePermission whereIsActive($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MicroservicePermission whereMicroserviceName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MicroservicePermission whereMicroserviceSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MicroservicePermission whereSubscriptionId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MicroservicePermission whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MicroservicePermission whereUrl($value)
- */
-	class MicroservicePermission extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
- * @property int $id
  * @property string $name
  * @property string $slug
  * @property string|null $description
@@ -126,7 +93,7 @@ namespace App\Models{
  * @property string|null $stripe_price_id
  * @property string|null $stripe_product_id
  * @property array<array-key, mixed>|null $features
- * @property array<array-key, mixed>|null $microservices
+ * @property string|null $microservices
  * @property bool $is_active
  * @property int $sort_order
  * @property \Carbon\CarbonImmutable|null $created_at
@@ -175,8 +142,6 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invoice> $localInvoices
  * @property-read int|null $local_invoices_count
  * @property-read \App\Models\User $owner
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\MicroservicePermission> $permissions
- * @property-read int|null $permissions_count
  * @property-read \App\Models\Plan|null $plan
  * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription active()
@@ -233,7 +198,7 @@ namespace App\Models{
  * @property-read int|null $invoices_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Cashier\Subscription> $subscriptions
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subscription> $subscriptions
  * @property-read int|null $subscriptions_count
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User hasExpiredGenericTrial()

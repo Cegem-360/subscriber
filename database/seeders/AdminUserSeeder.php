@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use App\Models\Invoice;
-use App\Models\MicroservicePermission;
 use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\User;
@@ -51,18 +50,6 @@ class AdminUserSeeder extends Seeder
             ->create([
                 'plan_id' => $enterprisePlan->id,
             ]);
-
-        // Create microservice permissions for admin
-        MicroservicePermission::factory()
-            ->count(3)
-            ->active()
-            ->for($adminSubscription)
-            ->sequence(
-                ['microservice_name' => 'Service A', 'microservice_slug' => 'service-a'],
-                ['microservice_name' => 'Service B', 'microservice_slug' => 'service-b'],
-                ['microservice_name' => 'Service C', 'microservice_slug' => 'service-c'],
-            )
-            ->create();
 
         // Create invoices for admin
         Invoice::factory()

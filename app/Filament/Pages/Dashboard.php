@@ -15,9 +15,6 @@ class Dashboard extends BaseDashboard
         return [
             AccountWidget::class,
             SubscriptionStatsWidget::class,
-            // RevenueChartWidget::class,
-            // RecentInvoicesWidget::class,
-            // MicroserviceUsageWidget::class,
         ];
     }
 

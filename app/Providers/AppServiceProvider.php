@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Listeners\CreateMicroservicePermissions;
 use App\Models\Subscription;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
@@ -28,9 +27,8 @@ final class AppServiceProvider extends ServiceProvider
     {
         Cashier::useSubscriptionModel(Subscription::class);
 
-        Event::listen(
+        /* Event::listen(
             WebhookReceived::class,
-            CreateMicroservicePermissions::class,
-        );
+        ); */
     }
 }
