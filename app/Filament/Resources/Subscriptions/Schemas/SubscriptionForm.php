@@ -15,16 +15,13 @@ class SubscriptionForm
 {
     public static function configure(Schema $schema): Schema
     {
-        $components = [];
-
-        if (Auth::user()?->isAdmin()) {
-            $components[] = Select::make('user_id')
+        return $schema->components([
+            Select::make('user_id')
                 ->relationship('user', 'name')
+                ->visible(fn (): bool => Auth::user()?->isAdmin())
                 ->required()
-                ->searchable();
-        }
-
-        $components = array_merge($components, [
+                ->preload()
+                ->searchable(),
             TextInput::make('type')
                 ->required(),
             TextInput::make('stripe_id')
@@ -40,7 +37,5 @@ class SubscriptionForm
             Select::make('plan_id')
                 ->relationship('plan', 'name'),
         ]);
-
-        return $schema->components($components);
     }
 }

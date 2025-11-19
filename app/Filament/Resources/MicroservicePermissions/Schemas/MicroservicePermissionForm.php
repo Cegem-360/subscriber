@@ -18,6 +18,7 @@ class MicroservicePermissionForm
             ->components([
                 Select::make('subscription_id')
                     ->relationship('subscription', 'id')
+                    ->preload()
                     ->required(),
                 TextInput::make('microservice_name')
                     ->required(),
