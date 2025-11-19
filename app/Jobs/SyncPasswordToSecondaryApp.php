@@ -71,7 +71,6 @@ class SyncPasswordToSecondaryApp implements ShouldQueue
                     ]);
             } catch (Exception $e) {
                 Log::error("Exception during password sync for user {$this->email}: {$e->getMessage()}");
-                throw $e;
             }
         }
     }
