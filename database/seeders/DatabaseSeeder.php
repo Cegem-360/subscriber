@@ -23,11 +23,11 @@ final class DatabaseSeeder extends Seeder
     {
         // Seed plans first
         $this->call([
-            PlanSeeder::class,
+            // PlanSeeder::class,
         ]);
 
         // Get all plans for later use
-        $plans = Plan::all();
+        // $plans = Plan::all();
 
         // Create admin user
         $admin = User::factory()
@@ -39,7 +39,6 @@ final class DatabaseSeeder extends Seeder
                 'email_verified_at' => now(),
             ]);
         User::factory()
-
             ->create([
                 'name' => 'User User',
                 'email' => 'user@user.com',
@@ -48,35 +47,35 @@ final class DatabaseSeeder extends Seeder
             ]);
 
         // Create admin's active subscription with microservice permissions
-        $adminSubscription = Subscription::factory()
-            ->active()
-            ->for($admin)
-            ->create([
-                'plan_id' => $plans->where('slug', 'enterprise')->first()->id,
-            ]);
+        /*  $adminSubscription = Subscription::factory()
+             ->active()
+             ->for($admin)
+             ->create([
+                 'plan_id' => $plans->where('slug', 'enterprise')->first()->id,
+             ]); */
 
         // Create microservice permissions for admin
-        MicroservicePermission::factory()
-            ->count(3)
-            ->active()
-            ->for($adminSubscription)
-            ->sequence(
-                ['microservice_name' => 'Service A', 'microservice_slug' => 'service-a'],
-                ['microservice_name' => 'Service B', 'microservice_slug' => 'service-b'],
-                ['microservice_name' => 'Service C', 'microservice_slug' => 'service-c'],
-            )
-            ->create();
+        /*  MicroservicePermission::factory()
+             ->count(3)
+             ->active()
+             ->for($adminSubscription)
+             ->sequence(
+                 ['microservice_name' => 'Service A', 'microservice_slug' => 'service-a'],
+                 ['microservice_name' => 'Service B', 'microservice_slug' => 'service-b'],
+                 ['microservice_name' => 'Service C', 'microservice_slug' => 'service-c'],
+             )
+             ->create(); */
 
         // Create invoices for admin
-        Invoice::factory()
+        /* Invoice::factory()
             ->count(5)
             ->paid()
             ->for($admin)
             ->for($adminSubscription)
             ->create();
-
+ */
         // Create 30 regular users with subscriptions, invoices, and permissions
-        User::factory()
+        /* User::factory()
             ->count(30)
             ->create()
             ->each(function (User $user) use ($plans) {
@@ -146,6 +145,6 @@ final class DatabaseSeeder extends Seeder
         $this->command->info('- 30 Regular users');
         $this->command->info('- ' . Subscription::count() . ' Subscriptions');
         $this->command->info('- ' . MicroservicePermission::count() . ' Microservice permissions');
-        $this->command->info('- ' . Invoice::count() . ' Invoices');
+        $this->command->info('- ' . Invoice::count() . ' Invoices'); */
     }
 }
