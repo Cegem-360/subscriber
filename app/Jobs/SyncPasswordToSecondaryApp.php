@@ -44,6 +44,7 @@ class SyncPasswordToSecondaryApp implements ShouldQueue
     public function handle(): void
     {
         $secondaryAppUrls = config('services-app-urls');
+        dd($secondaryAppUrls);
         foreach ($secondaryAppUrls as $key => $values) {
             try {
                 $http = Http::withHeaders([
