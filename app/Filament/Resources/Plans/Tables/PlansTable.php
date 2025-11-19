@@ -27,7 +27,7 @@ class PlansTable
                     ->weight('bold'),
 
                 TextColumn::make('price')
-                    ->money('USD')
+                    ->money('HUF')
                     ->sortable(),
 
                 TextColumn::make('billing_period')

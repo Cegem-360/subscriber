@@ -20,6 +20,11 @@ class MicroservicePermissionResource extends Resource
 {
     protected static ?string $model = MicroservicePermission::class;
 
+    public static function getNavigationLabel(): string
+    {
+        return __('Services');
+    }
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedKey;
 
     public static function form(Schema $schema): Schema
