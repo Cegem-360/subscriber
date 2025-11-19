@@ -9,5 +9,7 @@
     "User": "Felhasználó",
     "Subscriptions": "Előfizetések",
     "Microservice name": "Modul neve",
-    "Services": "Szolgáltatások"
+    "Services": "Szolgáltatások",
+    "Monthly": "Havi",
+    "Yearly": "Éves"
 }

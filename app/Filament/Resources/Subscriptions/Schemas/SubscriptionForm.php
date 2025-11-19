@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Subscriptions\Schemas;
 
 use App\Enums\SubscriptionStatus;
+use App\Enums\SubscriptionType;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -22,9 +23,17 @@ class SubscriptionForm
                 ->required()
                 ->preload()
                 ->searchable(),
-            TextInput::make('type')
+            Select::make('plan_id')
+                ->relationship('plan', 'name')
+                ->preload()
+                ->required(),
+            Select::make('type')
+                ->options(SubscriptionType::class)
+                ->enum(SubscriptionType::class)
+                ->default(SubscriptionType::Monthly)
                 ->required(),
             TextInput::make('stripe_id')
+                ->unique(ignoreRecord: true)
                 ->required(),
             Select::make('stripe_status')
                 ->required()
@@ -34,8 +43,6 @@ class SubscriptionForm
                 ->numeric(),
             DateTimePicker::make('trial_ends_at'),
             DateTimePicker::make('ends_at'),
-            Select::make('plan_id')
-                ->relationship('plan', 'name'),
         ]);
     }
 }

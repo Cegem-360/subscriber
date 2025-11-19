@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\SubscriptionStatus;
+use App\Enums\SubscriptionType;
 use App\Models\Scopes\ForCurrentUserScope;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -30,6 +31,7 @@ class Subscription extends CashierSubscription
     {
         return [
             'stripe_status' => SubscriptionStatus::class,
+            'type' => SubscriptionType::class,
             'trial_ends_at' => 'datetime',
             'ends_at' => 'datetime',
         ];

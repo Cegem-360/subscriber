@@ -88,6 +88,7 @@ namespace App\Models{
  * @property int $subscription_id
  * @property string $microservice_name
  * @property string $microservice_slug
+ * @property string|null $url
  * @property bool $is_active
  * @property \Carbon\CarbonImmutable|null $activated_at
  * @property \Carbon\CarbonImmutable|null $expires_at
@@ -109,6 +110,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|MicroservicePermission whereMicroserviceSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|MicroservicePermission whereSubscriptionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|MicroservicePermission whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MicroservicePermission whereUrl($value)
  */
 	class MicroservicePermission extends \Eloquent {}
 }
@@ -158,7 +160,8 @@ namespace App\Models{
 /**
  * @property int $id
  * @property int $user_id
- * @property string $type
+ * @property int|null $plan_id
+ * @property \App\Enums\SubscriptionType $type
  * @property string $stripe_id
  * @property \App\Enums\SubscriptionStatus $stripe_status
  * @property string|null $stripe_price
@@ -167,7 +170,6 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $ends_at
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property int|null $plan_id
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Cashier\SubscriptionItem> $items
  * @property-read int|null $items_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invoice> $localInvoices
@@ -214,18 +216,17 @@ namespace App\Models{
  * @property int $id
  * @property string $name
  * @property string $email
+ * @property string|null $billingo_partner_id
  * @property \Carbon\CarbonImmutable|null $email_verified_at
  * @property string $password
- * @property string|null $remember_token
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
- * @property string|null $stripe_customer_id
- * @property string|null $billingo_partner_id
+ * @property \App\Enums\UserRole $role
  * @property string|null $stripe_id
  * @property string|null $pm_type
  * @property string|null $pm_last_four
  * @property string|null $trial_ends_at
- * @property \App\Enums\UserRole $role
+ * @property string|null $remember_token
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ApiToken> $apiTokens
  * @property-read int|null $api_tokens_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invoice> $invoices
@@ -251,7 +252,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePmType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRole($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereStripeCustomerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereStripeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereTrialEndsAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)

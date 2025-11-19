@@ -34,7 +34,7 @@ class SubscriptionsTable
                     ->badge(),
                 TextColumn::make('stripe_price')
                     ->label('Price')
-                    ->money('USD'),
+                    ->money('HUF'),
 
                 TextColumn::make('trial_ends_at')
                     ->label('Trial Ends')
