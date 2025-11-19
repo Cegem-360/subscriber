@@ -14,6 +14,7 @@ use Filament\Actions\DissociateBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
@@ -33,7 +34,7 @@ class PermissionsRelationManager extends RelationManager
                     ->required()
                     ->required()
                     ->maxLength(255)
-                    ->afterStateUpdated(fn ($state, Set $set): string => $set('microservice_slug') ?? $set('microservice_slug', Str::slug($state))),
+                    ->afterStateUpdated(fn ($state, Set $set, Get $get): string => $get('microservice_slug') ?? $set('microservice_slug', Str::slug($state))),
                 TextInput::make('microservice_slug')
                     ->required()
                     ->maxLength(255),
