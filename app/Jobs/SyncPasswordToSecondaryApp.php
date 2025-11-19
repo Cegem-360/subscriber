@@ -44,11 +44,15 @@ class SyncPasswordToSecondaryApp implements ShouldQueue
     public function handle(): void
     {
         $secondaryAppUrls = config('services-app-urls');
+        $api_key = config('services-app-urls.app_api_key');
         // dd($secondaryAppUrls);
         foreach ($secondaryAppUrls as $key => $values) {
+            if ($key === array_key_first($secondaryAppUrls)) {
+                continue;
+            }
             try {
                 $http = Http::withHeaders([
-                    'Authorization' => "Bearer {$values['app_api_key']}",
+                    'Authorization' => "Bearer {$api_key}",
                     'Accept' => 'application/json',
                 ]);
 
