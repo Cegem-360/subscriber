@@ -22,6 +22,11 @@ class SubscriptionResource extends Resource
 {
     protected static ?string $model = Subscription::class;
 
+    public static function getNavigationLabel(): string
+    {
+        return __('Subscriptions');
+    }
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBanknotes;
 
     public static function form(Schema $schema): Schema
