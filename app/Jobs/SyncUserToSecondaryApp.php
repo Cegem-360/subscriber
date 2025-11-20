@@ -12,7 +12,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
-class SyncPasswordToSecondaryApp implements ShouldQueue
+class SyncUserToSecondaryApp implements ShouldQueue
 {
     use InteractsWithQueue;
     use Queueable;
@@ -30,10 +30,12 @@ class SyncPasswordToSecondaryApp implements ShouldQueue
 
     /**
      * Create a new job instance.
+     *
+     * @param  array<string, mixed>  $changedData
      */
     public function __construct(
         public string $email,
-        public string $hashedPassword,
+        public array $changedData,
     ) {
         //
     }
@@ -45,7 +47,7 @@ class SyncPasswordToSecondaryApp implements ShouldQueue
     {
         $secondaryAppUrls = config('services-app-urls');
         $api_key = config('services-app-urls.app_api_key');
-        // dd($secondaryAppUrls);
+
         foreach ($secondaryAppUrls as $key => $values) {
             if ($key === array_key_first($secondaryAppUrls)) {
                 continue;
@@ -65,12 +67,18 @@ class SyncPasswordToSecondaryApp implements ShouldQueue
                 }
 
                 $response = $http->timeout(10)
-                    ->post("{$values['url']}/api/sync-password", [
+                    ->post("{$values['url']}/api/sync-user", [
                         'email' => $this->email,
-                        'password_hash' => $this->hashedPassword,
+                        ...$this->changedData,
                     ]);
+
+                if ($response->successful()) {
+                    Log::info("User sync successful for {$this->email} to {$values['url']}");
+                } else {
+                    Log::warning("User sync failed for {$this->email} to {$values['url']}: {$response->body()}");
+                }
             } catch (Exception $e) {
-                Log::error("Exception during password sync for user {$this->email}: {$e->getMessage()}");
+                Log::error("Exception during user sync for {$this->email}: {$e->getMessage()}");
             }
         }
     }

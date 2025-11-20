@@ -33,6 +33,14 @@
                         Előfizetések
                     </a>
                 </div>
+                @if(auth()->user()->isAdmin() || auth()->user()->isManager())
+                    <div class="flex gap-4">
+                        <a href="{{ route('manage.users') }}"
+                            class="inline-flex items-center rounded-md bg-yellow-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 dark:bg-yellow-500 dark:hover:bg-yellow-600">
+                            Felhasználók
+                        </a>
+                    </div>
+                @endif
                 {{-- Bejelentkezés gomb --}}
                 <div>
                     <a href="{{ route('filament.admin.auth.profile') }}"

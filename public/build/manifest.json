@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-C8JX-3lh.css",
+    "file": "assets/app-ByRySu-O.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -9,12 +9,12 @@
     "src": "resources/images/cegem360-logo.png"
   },
   "resources/js/app.js": {
-    "file": "assets/app-CGodYDCI.js",
+    "file": "assets/app-BEhjmmhQ.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-C8JX-3lh.css"
+      "assets/app-ByRySu-O.css"
     ]
   }
 }

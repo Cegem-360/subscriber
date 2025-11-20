@@ -62,4 +62,14 @@ final class UserFactory extends Factory
             'role' => UserRole::Admin,
         ]);
     }
+
+    /**
+     * Indicate that the user is a manager.
+     */
+    public function manager(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'role' => UserRole::Manager,
+        ]);
+    }
 }

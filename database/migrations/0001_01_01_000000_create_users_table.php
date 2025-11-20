@@ -21,6 +21,7 @@ return new class() extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('role')->default('subscriber');
+            $table->unsignedBigInteger('subscription_id')->nullable();
             $table->string('company_name')->nullable();
             $table->string('tax_number')->nullable();
             $table->string('address')->nullable();

@@ -30,6 +30,11 @@ return new class() extends Migration
 
             $table->index(['user_id', 'stripe_status']);
         });
+
+        // Add foreign key for subscription_id in users table
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('subscription_id')->references('id')->on('subscriptions')->nullOnDelete();
+        });
     }
 
     /**

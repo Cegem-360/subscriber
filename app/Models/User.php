@@ -11,6 +11,7 @@ use Filament\Panel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -41,6 +42,7 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
         'country',
         'stripe_id',
         'billingo_partner_id',
+        'subscription_id',
     ];
 
     /**
@@ -95,5 +97,15 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
     public function subscriptions(): HasMany
     {
         return $this->hasMany(Subscription::class);
+    }
+
+    public function memberOfSubscription(): BelongsTo
+    {
+        return $this->belongsTo(Subscription::class, 'subscription_id');
+    }
+
+    public function isManager(): bool
+    {
+        return $this->role === UserRole::Manager;
     }
 }

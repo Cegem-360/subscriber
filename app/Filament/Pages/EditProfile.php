@@ -14,6 +14,20 @@ use Filament\Support\Icons\Heroicon;
 
 final class EditProfile extends BaseEditProfile
 {
+    protected static string $layout = 'components.layouts.app';
+
+    public string $view = 'filament.pages.edit-profile';
+
+    public function getHeading(): string
+    {
+        return '';
+    }
+
+    public function getBreadcrumbs(): array
+    {
+        return [];
+    }
+
     public function form(Schema $schema): Schema
     {
         return $schema

@@ -25,6 +25,8 @@ Route::middleware(['auth'])->group(function (): void {
             'subscriptions' => Auth::user()->subscriptions,
         ]);
     })->name('subscriptions');
+
+    Route::get('/manage-users', fn (): Factory|View => view('manage-users'))->name('manage.users');
 });
 
 Route::middleware(['auth'])->group(function (): void {

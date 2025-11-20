@@ -34,6 +34,11 @@ final class DatabaseSeeder extends Seeder
             RegularUsersSeeder::class,
         ]);
 
+        // Seed manager users and assign subscribers to them
+        $this->call([
+            ManagerUserSeeder::class,
+        ]);
+
         $this->command->newLine();
         $this->command->info('🎉 Database seeded successfully!');
     }
