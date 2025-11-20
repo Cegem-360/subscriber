@@ -87,13 +87,13 @@ namespace App\Models{
  * @property int $id
  * @property string $name
  * @property string $slug
+ * @property int|null $plan_category_id
  * @property string|null $description
  * @property numeric $price
  * @property \App\Enums\BillingPeriod $billing_period
  * @property string|null $stripe_price_id
  * @property string|null $stripe_product_id
  * @property array<array-key, mixed>|null $features
- * @property string|null $microservices
  * @property bool $is_active
  * @property int $sort_order
  * @property \Carbon\CarbonImmutable|null $created_at
@@ -112,8 +112,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereFeatures($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereIsActive($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereMicroservices($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan wherePlanCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereSortOrder($value)
@@ -132,6 +132,8 @@ namespace App\Models\Plan{
  * @property string|null $description
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Plan> $plans
+ * @property-read int|null $plans_count
  * @method static \Database\Factories\Plan\PlanCategoryFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory newQuery()
@@ -151,6 +153,7 @@ namespace App\Models{
  * @property int $id
  * @property int $user_id
  * @property int|null $plan_id
+ * @property string|null $url
  * @property \App\Enums\SubscriptionType $type
  * @property string $stripe_id
  * @property \App\Enums\SubscriptionStatus $stripe_status
@@ -194,6 +197,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription whereTrialEndsAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription whereUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription whereUserId($value)
  */
 	class Subscription extends \Eloquent {}

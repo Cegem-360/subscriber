@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages\Auth;
 
+use Filament\Auth\Http\Responses\Contracts\LoginResponse;
 use Filament\Auth\Pages\Login as BasePage;
+use Illuminate\Support\Facades\Auth;
 
 final class Login extends BasePage
 {
@@ -18,5 +20,20 @@ final class Login extends BasePage
                 'remember' => true,
             ]);
         }
+    }
+
+    public function authenticate(): ?LoginResponse
+    {
+        $response = parent::authenticate();
+
+        $user = Auth::user();
+
+        if ($user && ! $user->isAdmin()) {
+            $this->redirect(route('subscriptions'));
+
+            return null;
+        }
+
+        return $response;
     }
 }

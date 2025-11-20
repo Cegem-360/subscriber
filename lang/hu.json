@@ -11,5 +11,10 @@
     "Services": "Szolgáltatások",
     "Monthly": "Havi",
     "Yearly": "Éves",
-    "Type": "Típus"
+    "Type": "Típus",
+    "Module": "Modul",
+    "Package Type": "Csomag típus",
+    "Time Period": "Időszak",
+    "Subscription created successfully": "Előfizetés sikeresen létrehozva",
+    "Seats": "Felhasználói fiók helyek"
 }

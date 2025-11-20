@@ -9,10 +9,13 @@ use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\ViewAction;
+use Filament\Notifications\Notification;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Laravel\Cashier\SubscriptionItem;
 
 class SubscriptionsTable
 {
@@ -25,7 +28,9 @@ class SubscriptionsTable
                     ->sortable()
                     ->visible(fn (): bool => Auth::user()?->isAdmin() ?? false)
                     ->weight('bold'),
-
+                TextColumn::make('plan.planCategory.name')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('plan.name')
                     ->searchable()
                     ->sortable()
@@ -98,7 +103,7 @@ class SubscriptionsTable
                         $synced = 0;
 
                         foreach ($stripeItems as $stripeItem) {
-                            $existingItem = \Laravel\Cashier\SubscriptionItem::where('stripe_id', $stripeItem->id)->first();
+                            $existingItem = SubscriptionItem::where('stripe_id', $stripeItem->id)->first();
 
                             if ($existingItem) {
                                 $existingItem->update([
@@ -107,7 +112,7 @@ class SubscriptionsTable
                                     'quantity' => $stripeItem->quantity,
                                 ]);
                             } else {
-                                \Laravel\Cashier\SubscriptionItem::create([
+                                SubscriptionItem::create([
                                     'subscription_id' => $record->id,
                                     'stripe_id' => $stripeItem->id,
                                     'stripe_product' => $stripeItem->price->product ?? null,
@@ -119,14 +124,14 @@ class SubscriptionsTable
                             $synced++;
                         }
 
-                        \Log::info('✅ Subscription items synced', [
+                        Log::info('✅ Subscription items synced', [
                             'subscription_id' => $record->id,
                             'items_synced' => $synced,
                         ]);
                     })
                     ->successNotificationTitle('Items Synced')
                     ->after(function () {
-                        \Filament\Notifications\Notification::make()
+                        Notification::make()
                             ->success()
                             ->title('Subscription items synced successfully')
                             ->body('The latest items have been fetched from Stripe.')
@@ -148,7 +153,7 @@ class SubscriptionsTable
                         $record->ends_at = null;
                         $record->save();
 
-                        \Log::info('✅ Subscription resumed', [
+                        Log::info('✅ Subscription resumed', [
                             'subscription_id' => $record->id,
                             'stripe_id' => $record->stripe_id,
                         ]);
@@ -156,7 +161,7 @@ class SubscriptionsTable
                     ->successNotificationTitle('Előfizetés újraaktivált')
                     ->successRedirectUrl(route('filament.admin.resources.subscriptions.index'))
                     ->after(function () {
-                        \Filament\Notifications\Notification::make()
+                        Notification::make()
                             ->success()
                             ->title('Az előfizetés sikeresen újraaktiválva')
                             ->body('Az előfizetés folytatódik a jelenlegi számlázási ciklus végén.')
@@ -189,7 +194,7 @@ class SubscriptionsTable
                         $stripe = new \Stripe\StripeClient(config('cashier.secret'));
                         $stripeSubscription = $stripe->subscriptions->retrieve($record->stripe_id);
 
-                        \Log::info('📝 Subscription canceled in Stripe', [
+                        Log::info('📝 Subscription canceled in Stripe', [
                             'subscription_id' => $record->id,
                             'stripe_id' => $record->stripe_id,
                             'cancel_at_period_end' => $stripeSubscription->cancel_at_period_end,
@@ -201,7 +206,7 @@ class SubscriptionsTable
                             $record->ends_at = \Carbon\Carbon::createFromTimestamp($stripeSubscription->cancel_at);
                             $record->save();
 
-                            \Log::info('✅ Local subscription updated with ends_at', [
+                            Log::info('✅ Local subscription updated with ends_at', [
                                 'subscription_id' => $record->id,
                                 'ends_at' => $record->ends_at,
                             ]);
@@ -216,7 +221,7 @@ class SubscriptionsTable
                         $endsAt = $record->ends_at;
 
                         if ($endsAt) {
-                            \Filament\Notifications\Notification::make()
+                            Notification::make()
                                 ->success()
                                 ->title('Az előfizetés sikeresen lemondva')
                                 ->body('Az előfizetés aktív marad eddig: ' . $endsAt->format('Y. m. d.'))

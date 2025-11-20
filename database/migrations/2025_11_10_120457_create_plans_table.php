@@ -19,6 +19,7 @@ return new class() extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->foreignIdFor(PlanCategory::class)->nullable()->constrained()->nullOnDelete();
+            $table->integer('quantity')->default(1);
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
             $table->enum('billing_period', ['monthly', 'yearly']);

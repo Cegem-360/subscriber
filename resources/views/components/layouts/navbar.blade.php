@@ -2,21 +2,54 @@
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
             {{-- Logo --}}
-            <div class="flex-shrink-0">
+            <div class="shrink-0">
                 <a href="{{ route('welcome') }}" class="flex items-center">
                     <img src="{{ Vite::asset('resources/images/cegem360-logo.png') }}" alt="cégem360.eu" class="h-10">
                 </a>
             </div>
-
-            {{-- Bejelentkezés gomb --}}
-            <div>
-                <a
-                    href="/admin"
-                    class="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-500 dark:hover:bg-blue-600"
-                >
-                    Bejelentkezés
+            {{-- Navigation Links --}}
+            <div class="flex  gap-4">
+                <a href="{{ route('module.order') }}"
+                    class="inline-flex items-center rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:bg-green-500 dark:hover:bg-green-600">
+                    Rendelés
                 </a>
             </div>
+
+            @auth
+                {{-- Navigation Links --}}
+                <div class="flex gap-4">
+                    <a href="{{ route('subscriptions') }}"
+                        class="inline-flex items-center rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:bg-green-500 dark:hover:bg-green-600">
+                        Előfizetések
+                    </a>
+                </div>
+                {{-- Bejelentkezés gomb --}}
+                <div>
+                    <a href="/admin"
+                        class="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-500 dark:hover:bg-blue-600">
+                        Admin Panel
+                    </a>
+                </div>
+                {{-- Navigation Links --}}
+                <div class="flex gap-4">
+                    <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
+                        @csrf
+                        <button type="submit"
+                            class="inline-flex items-center rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-500 dark:hover:bg-blue-600">
+                            Kijelentkezés
+                        </button>
+                    </form>
+                </div>
+            @endauth
+            @guest
+                {{-- Bejelentkezés gomb --}}
+                <div>
+                    <a href="/admin"
+                        class="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-500 dark:hover:bg-blue-600">
+                        Bejelentkezés
+                    </a>
+                </div>
+            @endguest
         </div>
     </div>
 </nav>

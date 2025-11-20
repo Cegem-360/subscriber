@@ -6,6 +6,7 @@ namespace Database\Factories;
 
 use App\Enums\BillingPeriod;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Plan>
@@ -20,10 +21,10 @@ class PlanFactory extends Factory
     public function definition(): array
     {
         $name = $this->faker->words(2, true);
-        $slug = \Illuminate\Support\Str::slug($name) . '-' . $this->faker->unique()->randomNumber(5);
+        $slug = Str::slug($name) . '-' . $this->faker->unique()->randomNumber(5);
 
         return [
-            'name' => \Illuminate\Support\Str::title($name) . ' Plan',
+            'name' => Str::title($name) . ' Plan',
             'slug' => $slug,
             'plan_category_id' => null,
             'description' => $this->faker->sentence(),

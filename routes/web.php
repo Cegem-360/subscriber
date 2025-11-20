@@ -5,9 +5,24 @@ declare(strict_types=1);
 use App\Http\Controllers\SubscriptionController;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+use Laravel\Cashier\Events\WebhookReceived;
 
 Route::get('/', fn (): Factory|View => view('welcome'))->name('welcome');
+Route::get('/module-order', fn (): Factory|View => view('module-order'))->name('module.order');
+Route::middleware(['guest'])->group(function (): void {
+    Route::get('/login', fn (): Factory|View => view('auth.login'))->name('login');
+    Route::get('/register', fn (): Factory|View => view('auth.register'))->name('register');
+});
+Route::middleware(['auth'])->group(function (): void {
+    Route::get('/subscriptions', function (): Factory|View {
+        return view('subscriptions', [
+            'subscriptions' => Auth::user()->subscriptions,
+        ]);
+    })->name('subscriptions');
+});
 
 Route::middleware(['auth'])->group(function (): void {
     Route::post('/subscription/checkout/{plan}', [SubscriptionController::class, 'checkout'])->name('subscription.checkout');
@@ -15,35 +30,9 @@ Route::middleware(['auth'])->group(function (): void {
     Route::get('/subscription/cancel', [SubscriptionController::class, 'cancel'])->name('subscription.cancel');
 });
 
-// Webhook status check endpoint (csak fejlesztési célra)
-Route::get('/stripe/webhook/status', function () {
-    return response()->json([
-        'status' => 'ready',
-        'webhook_url' => url('/stripe/webhook'),
-        'message' => 'Stripe webhook endpoint is configured and ready to receive POST requests',
-        'recent_logs' => \Illuminate\Support\Facades\File::exists(storage_path('logs/laravel.log'))
-            ? array_slice(array_filter(explode("\n", \Illuminate\Support\Facades\File::get(storage_path('logs/laravel.log')))), -10)
-            : ['No logs yet'],
-    ]);
-})->name('webhook.status');
-
-// Test webhook endpoint (csak fejlesztési célra)
-Route::post('/stripe/webhook/test', function () {
-    \Illuminate\Support\Facades\Log::info('🧪 Test webhook called', [
-        'timestamp' => now(),
-        'request_data' => request()->all(),
-    ]);
-
-    return response()->json([
-        'success' => true,
-        'message' => 'Test webhook received successfully',
-        'timestamp' => now(),
-    ]);
-})->middleware('api')->name('webhook.test');
-
 // Debug endpoint - trigger event manually
 Route::get('/stripe/webhook/debug', function () {
-    \Illuminate\Support\Facades\Log::info('🔍 Debug: Manually triggering WebhookReceived event');
+    Log::info('🔍 Debug: Manually triggering WebhookReceived event');
 
     $payload = [
         'type' => 'customer.subscription.created',
@@ -57,7 +46,7 @@ Route::get('/stripe/webhook/debug', function () {
         ],
     ];
 
-    event(new \Laravel\Cashier\Events\WebhookReceived($payload));
+    event(new WebhookReceived($payload));
 
     return response()->json([
         'message' => 'Event triggered manually',

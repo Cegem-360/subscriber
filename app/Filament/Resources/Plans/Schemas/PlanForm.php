@@ -52,7 +52,11 @@ class PlanForm
                                     ->numeric()
                                     ->prefix('$')
                                     ->step(0.01),
-
+                                TextInput::make('quantity')
+                                    ->label(__('Seats'))
+                                    ->required()
+                                    ->numeric()
+                                    ->default(1),
                                 Select::make('billing_period')
                                     ->required()
                                     ->options(BillingPeriod::class)
