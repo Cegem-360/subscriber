@@ -34,6 +34,12 @@ final class UserFactory extends Factory
             'password' => self::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
             'role' => UserRole::Subscriber,
+            'company_name' => fake()->optional()->company(),
+            'tax_number' => fake()->optional()->numerify('########-#-##'),
+            'address' => fake()->optional()->streetAddress(),
+            'city' => fake()->optional()->city(),
+            'postal_code' => fake()->optional()->postcode(),
+            'country' => fake()->optional()->country(),
         ];
     }
 

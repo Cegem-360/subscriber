@@ -33,6 +33,35 @@ final class EditProfile extends BaseEditProfile
                         $this->getCurrentPasswordFormComponent(),
                     ]),
 
+                Section::make('Company Information')
+                    ->description('Your company or billing details.')
+                    ->components([
+                        TextInput::make('company_name')
+                            ->label('Company Name')
+                            ->maxLength(255),
+
+                        TextInput::make('tax_number')
+                            ->label('Tax Number')
+                            ->maxLength(255),
+
+                        TextInput::make('address')
+                            ->label('Address')
+                            ->maxLength(255),
+
+                        TextInput::make('city')
+                            ->label('City')
+                            ->maxLength(255),
+
+                        TextInput::make('postal_code')
+                            ->label('Postal Code')
+                            ->maxLength(20),
+
+                        TextInput::make('country')
+                            ->label('Country')
+                            ->maxLength(255),
+                    ])
+                    ->columns(2),
+
                 Section::make('Billing Information')
                     ->description('Manage your billing information and payment methods.')
                     ->hidden(fn (): bool => ! ($this->getUser()->stripe_id ?? false))
@@ -52,7 +81,8 @@ final class EditProfile extends BaseEditProfile
                                 ->openUrlInNewTab(false),
                         ])->fullWidth(),
                     ]),
-            ]);
+            ])
+            ->statePath('data');
     }
 
     protected function getHeaderActions(): array

@@ -45,6 +45,34 @@ class UserForm
                             ->label('Email Verified At'),
                     ]),
 
+                Section::make('Company Information')
+                    ->schema([
+                        TextInput::make('company_name')
+                            ->label('Company Name')
+                            ->maxLength(255),
+
+                        TextInput::make('tax_number')
+                            ->label('Tax Number')
+                            ->maxLength(255),
+
+                        TextInput::make('address')
+                            ->label('Address')
+                            ->maxLength(255),
+
+                        TextInput::make('city')
+                            ->label('City')
+                            ->maxLength(255),
+
+                        TextInput::make('postal_code')
+                            ->label('Postal Code')
+                            ->maxLength(20),
+
+                        TextInput::make('country')
+                            ->label('Country')
+                            ->maxLength(255),
+                    ])
+                    ->columns(2),
+
                 Section::make('Billing Information')
                     ->schema([
                         TextInput::make('stripe_id')

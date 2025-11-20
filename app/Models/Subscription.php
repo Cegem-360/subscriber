@@ -9,6 +9,7 @@ use App\Enums\SubscriptionType;
 use App\Models\Scopes\ForCurrentUserScope;
 use App\Observers\SubscriptionObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -53,5 +54,16 @@ class Subscription extends CashierSubscription
     public function localInvoices(): HasMany
     {
         return $this->hasMany(Invoice::class);
+    }
+
+    public function isActive(): bool
+    {
+        return $this->stripe_status === SubscriptionStatus::Active;
+    }
+
+    #[Scope]
+    protected function activeSubscription($query): void
+    {
+        $query->where('stripe_status', SubscriptionStatus::Active);
     }
 }

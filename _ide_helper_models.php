@@ -88,6 +88,7 @@ namespace App\Models{
  * @property string $name
  * @property string $slug
  * @property int|null $plan_category_id
+ * @property int $quantity
  * @property string|null $description
  * @property numeric $price
  * @property \App\Enums\BillingPeriod $billing_period
@@ -115,6 +116,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan wherePlanCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereSortOrder($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereStripePriceId($value)
@@ -128,6 +130,7 @@ namespace App\Models\Plan{
 /**
  * @property int $id
  * @property string $name
+ * @property string|null $url
  * @property string $slug
  * @property string|null $description
  * @property \Carbon\CarbonImmutable|null $created_at
@@ -144,6 +147,7 @@ namespace App\Models\Plan{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory whereUrl($value)
  */
 	class PlanCategory extends \Eloquent {}
 }
@@ -151,12 +155,11 @@ namespace App\Models\Plan{
 namespace App\Models{
 /**
  * @property int $id
- * @property int $user_id
+ * @property int|null $user_id
  * @property int|null $plan_id
- * @property string|null $url
  * @property \App\Enums\SubscriptionType $type
- * @property string $stripe_id
- * @property \App\Enums\SubscriptionStatus $stripe_status
+ * @property string|null $stripe_id
+ * @property \App\Enums\SubscriptionStatus|null $stripe_status
  * @property string|null $stripe_price
  * @property int|null $quantity
  * @property \Carbon\CarbonImmutable|null $trial_ends_at
@@ -167,10 +170,11 @@ namespace App\Models{
  * @property-read int|null $items_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invoice> $localInvoices
  * @property-read int|null $local_invoices_count
- * @property-read \App\Models\User $owner
+ * @property-read \App\Models\User|null $owner
  * @property-read \App\Models\Plan|null $plan
- * @property-read \App\Models\User $user
+ * @property-read \App\Models\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription active()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription activeSubscription()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription canceled()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription ended()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription expiredTrial()
@@ -197,7 +201,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription whereTrialEndsAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription whereUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription whereUserId($value)
  */
 	class Subscription extends \Eloquent {}

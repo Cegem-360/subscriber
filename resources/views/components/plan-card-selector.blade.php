@@ -69,7 +69,7 @@
                 <button
                     type="button"
                     wire:click="$set('{{ $statePath }}', {{ $plan->id }})"
-                    x-on:click="setTimeout(() => document.querySelector('.fi-ac-btn-action')?.click(), 150)"
+                    x-on:click="setTimeout(() => { const btns = document.querySelectorAll('.fi-ac-btn-action'); btns[btns.length - 1]?.click(); }, 150)"
                     class="w-full py-2.5 px-4 rounded-lg font-semibold text-sm transition-all
                         {{ $selected == $plan->id
                             ? 'bg-primary-600 text-white hover:bg-primary-500'

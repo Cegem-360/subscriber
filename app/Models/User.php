@@ -33,6 +33,12 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
         'email',
         'password',
         'role',
+        'company_name',
+        'tax_number',
+        'address',
+        'city',
+        'postal_code',
+        'country',
         'stripe_id',
         'billingo_partner_id',
     ];
@@ -84,5 +90,10 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
     public function isSubscriber(): bool
     {
         return $this->role === UserRole::Subscriber;
+    }
+
+    public function subscriptions(): HasMany
+    {
+        return $this->hasMany(Subscription::class);
     }
 }

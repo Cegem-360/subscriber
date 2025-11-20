@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\SubscriptionController;
+use App\Livewire\SubscriberModulsList;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +18,8 @@ Route::middleware(['guest'])->group(function (): void {
     Route::get('/register', fn (): Factory|View => view('auth.register'))->name('register');
 });
 Route::middleware(['auth'])->group(function (): void {
+    Route::get('/modules', SubscriberModulsList::class)->name('modules');
+
     Route::get('/subscriptions', function (): Factory|View {
         return view('subscriptions', [
             'subscriptions' => Auth::user()->subscriptions,

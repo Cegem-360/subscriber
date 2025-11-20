@@ -7,6 +7,15 @@
                     <img src="{{ Vite::asset('resources/images/cegem360-logo.png') }}" alt="cégem360.eu" class="h-10">
                 </a>
             </div>
+            @auth
+                {{-- Navigation Links --}}
+                <div class="flex gap-4">
+                    <a href="{{ route('modules') }}"
+                        class="inline-flex items-center rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:bg-green-500 dark:hover:bg-green-600">
+                        Moduljaim
+                    </a>
+                </div>
+            @endauth
             {{-- Navigation Links --}}
             <div class="flex  gap-4">
                 <a href="{{ route('module.order') }}"
@@ -16,6 +25,7 @@
             </div>
 
             @auth
+
                 {{-- Navigation Links --}}
                 <div class="flex gap-4">
                     <a href="{{ route('subscriptions') }}"
@@ -25,9 +35,9 @@
                 </div>
                 {{-- Bejelentkezés gomb --}}
                 <div>
-                    <a href="/admin"
+                    <a href="{{ route('filament.admin.auth.profile') }}"
                         class="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-500 dark:hover:bg-blue-600">
-                        Admin Panel
+                        Profilom
                     </a>
                 </div>
                 {{-- Navigation Links --}}

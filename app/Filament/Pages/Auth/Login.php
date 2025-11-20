@@ -29,7 +29,7 @@ final class Login extends BasePage
         $user = Auth::user();
 
         if ($user && ! $user->isAdmin()) {
-            $this->redirect(route('subscriptions'));
+            $this->redirect(route('modules'));
 
             return null;
         }

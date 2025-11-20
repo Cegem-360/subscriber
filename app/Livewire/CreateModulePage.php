@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire;
 
+use App\Enums\SubscriptionStatus;
 use App\Enums\SubscriptionType;
 use App\Models\Plan;
 use App\Models\Plan\PlanCategory;
@@ -12,8 +13,10 @@ use App\Models\User;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ViewField;
 use Filament\Notifications\Notification;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Wizard;
 use Filament\Schemas\Components\Wizard\Step;
@@ -22,6 +25,7 @@ use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Schemas\Schema;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\HtmlString;
 use Livewire\Component;
 
 class CreateModulePage extends Component implements HasActions, HasSchemas
@@ -41,13 +45,15 @@ class CreateModulePage extends Component implements HasActions, HasSchemas
         return $schema
             ->components([
                 Wizard::make()
+                    ->submitAction(new HtmlString(view('components.wizard-submit-button')->render()))
                     ->schema([
                         Step::make(__('Module'))
                             ->schema([
-                                Select::make('module')
-                                    ->live()
-                                    ->label(__('Module'))
-                                    ->options(PlanCategory::all()->pluck('name', 'id')->toArray())
+                                ViewField::make('module')
+                                    ->view('components.category-card-selector')
+                                    ->viewData([
+                                        'categories' => PlanCategory::all(),
+                                    ])
                                     ->required(),
                             ]),
                         Step::make(__('Package Type'))
@@ -66,11 +72,40 @@ class CreateModulePage extends Component implements HasActions, HasSchemas
                             ]),
                         Step::make(__('Time Period'))
                             ->schema([
-                                Select::make('type')
-                                    ->label(__('Time Period'))
-                                    ->options(SubscriptionType::class)
-                                    ->enum(SubscriptionType::class)
-                                    ->required(),
+                                Section::make()
+                                    ->schema([
+                                        Select::make('type')
+                                            ->live()
+                                            ->label(__('Time Period'))
+                                            ->options(SubscriptionType::class)
+                                            ->enum(SubscriptionType::class)
+                                            ->required(),
+                                        TextInput::make('quantity')
+                                            ->live()
+                                            ->afterStateUpdated(function (CreateModulePage $livewire, ?int $state): void {
+                                                if ($state < 1) {
+                                                    $livewire->data['quantity'] = 1;
+                                                }
+                                            })
+                                            ->label(__('Seats'))
+                                            ->required()
+                                            ->integer()
+                                            ->minValue(1)
+                                            ->default(1),
+                                    ]),
+                                Section::make()->schema([
+                                    ViewField::make('summary')
+                                        ->view('components.subscription-summary')
+                                        ->viewData(function (Get $get) {
+                                            $plan = Plan::find($get('plan_id'));
+
+                                            return [
+                                                'plan' => $plan,
+                                                'type' => $get('type'),
+                                                'quantity' => $get('quantity'),
+                                            ];
+                                        }),
+                                ]),
                             ]),
                     ]),
             ])
@@ -80,8 +115,9 @@ class CreateModulePage extends Component implements HasActions, HasSchemas
     public function create(): void
     {
         $data = $this->form->getState();
+        $data['stripe_status'] = SubscriptionStatus::Active;
+        unset($data['summary']);
         unset($data['module']);
-        $data['quantity'] = 1;
         $record = Subscription::create($data);
 
         $this->form->model($record)->saveRelationships();
