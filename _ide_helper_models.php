@@ -98,6 +98,7 @@ namespace App\Models{
  * @property int $sort_order
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \App\Models\Plan\PlanCategory|null $planCategory
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subscription> $subscriptions
  * @property-read int|null $subscriptions_count
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan active()
@@ -121,6 +122,28 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereUpdatedAt($value)
  */
 	class Plan extends \Eloquent {}
+}
+
+namespace App\Models\Plan{
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property string|null $description
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @method static \Database\Factories\Plan\PlanCategoryFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory whereUpdatedAt($value)
+ */
+	class PlanCategory extends \Eloquent {}
 }
 
 namespace App\Models{

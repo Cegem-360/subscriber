@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Filament\Resources\PlanCategories\Pages;
+
+use App\Filament\Resources\PlanCategories\PlanCategoryResource;
+use Filament\Actions\DeleteAction;
+use Filament\Resources\Pages\EditRecord;
+
+class EditPlanCategory extends EditRecord
+{
+    protected static string $resource = PlanCategoryResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            DeleteAction::make(),
+        ];
+    }
+}

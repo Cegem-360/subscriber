@@ -19,6 +19,7 @@ final class DatabaseSeeder extends Seeder
         // Seed plans first (if needed)
         if (env('APP_ENV') === 'local') {
             $this->call([
+                PlanCategorySeeder::class,
                 PlanSeeder::class,
             ]);
         }

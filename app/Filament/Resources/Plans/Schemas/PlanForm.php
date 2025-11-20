@@ -36,6 +36,9 @@ class PlanForm
                                     ->required()
                                     ->unique(ignoreRecord: true)
                                     ->maxLength(255),
+                                Select::make('plan_category_id')
+                                    ->relationship('planCategory', 'name')
+                                    ->preload(),
                             ]),
 
                         Textarea::make('description')

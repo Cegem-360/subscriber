@@ -25,6 +25,7 @@ class PlanFactory extends Factory
         return [
             'name' => \Illuminate\Support\Str::title($name) . ' Plan',
             'slug' => $slug,
+            'plan_category_id' => null,
             'description' => $this->faker->sentence(),
             'price' => $this->faker->randomFloat(2, 9.99, 199.99),
             'billing_period' => $this->faker->randomElement(BillingPeriod::cases()),
@@ -92,6 +93,13 @@ class PlanFactory extends Factory
                 'Custom Integrations',
             ],
             'sort_order' => 3,
+        ]);
+    }
+
+    public function category(int $categoryId): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'plan_category_id' => $categoryId,
         ]);
     }
 }
