@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Livewire;
 
-use App\Models\Subscription;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -16,8 +15,6 @@ class SubscriberModulsList extends Component
     #[Computed]
     public function subscriptions()
     {
-        dump(Subscription::activeSubscription()->whereUserId(Auth::id())->get());
-
         return Auth::user()->subscriptions()->activeSubscription()->get();
     }
 

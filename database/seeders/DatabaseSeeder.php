@@ -17,7 +17,7 @@ final class DatabaseSeeder extends Seeder
         $this->command->newLine();
 
         // Seed plans first (if needed)
-        if (env('APP_ENV') === 'local') {
+        if (app()->environment('local')) {
             $this->call([
                 PlanCategorySeeder::class,
                 PlanSeeder::class,

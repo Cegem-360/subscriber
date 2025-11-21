@@ -10,7 +10,7 @@ use Illuminate\Console\Command;
 use Laravel\Cashier\SubscriptionItem;
 use Stripe\StripeClient;
 
-class SyncSubscriptionItems extends Command
+class SyncSubscriptionItemsCommand extends Command
 {
     protected $signature = 'subscriptions:sync-items {--subscription= : Specific subscription ID to sync}';
 
