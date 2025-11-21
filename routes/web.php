@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\SubscriptionController;
 use App\Livewire\SubscriberModulsList;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -14,17 +15,15 @@ use Laravel\Cashier\Events\WebhookReceived;
 Route::get('/', fn (): Factory|View => view('welcome'))->name('welcome');
 Route::get('/module-order', fn (): Factory|View => view('module-order'))->name('module.order');
 Route::middleware(['guest'])->group(function (): void {
-    Route::get('/login', fn (): Factory|View => view('auth.login'))->name('login');
+    Route::get('/login', fn (): Factory|View => view(Login::class))->name('login');
     Route::get('/register', fn (): Factory|View => view('auth.register'))->name('register');
 });
 Route::middleware(['auth'])->group(function (): void {
     Route::get('/modules', SubscriberModulsList::class)->name('modules');
 
-    Route::get('/subscriptions', function (): Factory|View {
-        return view('subscriptions', [
-            'subscriptions' => Auth::user()->subscriptions,
-        ]);
-    })->name('subscriptions');
+    Route::get('/subscriptions', fn (): Factory|View => view('subscriptions', [
+        'subscriptions' => Auth::user()->subscriptions,
+    ]))->name('subscriptions');
 
     Route::get('/manage-users', fn (): Factory|View => view('manage-users'))->name('manage.users');
 });

@@ -30,7 +30,7 @@ class PlanForm
                                     ->required()
                                     ->maxLength(255)
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(fn ($state, Set $set) => $set('slug', Str::slug($state))),
+                                    ->afterStateUpdated(fn ($state, Set $set): mixed => $set('slug', Str::slug($state))),
 
                                 TextInput::make('slug')
                                     ->required()

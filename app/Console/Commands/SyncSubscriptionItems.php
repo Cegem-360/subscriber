@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Models\Subscription;
+use Exception;
 use Illuminate\Console\Command;
 use Laravel\Cashier\SubscriptionItem;
 use Stripe\StripeClient;
@@ -53,7 +54,7 @@ class SyncSubscriptionItems extends Command
 
                 foreach ($stripeItems as $stripeItem) {
                     // Check if item already exists
-                    $existingItem = SubscriptionItem::where('stripe_id', $stripeItem->id)->first();
+                    $existingItem = SubscriptionItem::query()->where('stripe_id', $stripeItem->id)->first();
 
                     if ($existingItem) {
                         // Update existing item
@@ -66,7 +67,7 @@ class SyncSubscriptionItems extends Command
                         $this->line("  ✅ Updated item {$stripeItem->id}");
                     } else {
                         // Create new item
-                        SubscriptionItem::create([
+                        SubscriptionItem::query()->create([
                             'subscription_id' => $subscription->id,
                             'stripe_id' => $stripeItem->id,
                             'stripe_product' => $stripeItem->price->product ?? null,
@@ -79,7 +80,7 @@ class SyncSubscriptionItems extends Command
 
                     $synced++;
                 }
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 $this->error("  ❌ Error syncing subscription {$subscription->id}: {$e->getMessage()}");
                 $errors++;
             }

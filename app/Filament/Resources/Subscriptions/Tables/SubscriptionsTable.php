@@ -14,8 +14,10 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Log;
 use Laravel\Cashier\SubscriptionItem;
+use Stripe\StripeClient;
 
 class SubscriptionsTable
 {
@@ -95,15 +97,15 @@ class SubscriptionsTable
                     ->modalHeading('Sync Subscription Items')
                     ->modalDescription('This will fetch the latest subscription items from Stripe and update the local database.')
                     ->modalSubmitActionLabel('Sync Now')
-                    ->action(function ($record) {
-                        $stripe = new \Stripe\StripeClient(config('cashier.secret'));
+                    ->action(function ($record): void {
+                        $stripe = new StripeClient(config('cashier.secret'));
                         $stripeSubscription = $stripe->subscriptions->retrieve($record->stripe_id);
                         $stripeItems = $stripeSubscription->items->data;
 
                         $synced = 0;
 
                         foreach ($stripeItems as $stripeItem) {
-                            $existingItem = SubscriptionItem::where('stripe_id', $stripeItem->id)->first();
+                            $existingItem = SubscriptionItem::query()->where('stripe_id', $stripeItem->id)->first();
 
                             if ($existingItem) {
                                 $existingItem->update([
@@ -112,7 +114,7 @@ class SubscriptionsTable
                                     'quantity' => $stripeItem->quantity,
                                 ]);
                             } else {
-                                SubscriptionItem::create([
+                                SubscriptionItem::query()->create([
                                     'subscription_id' => $record->id,
                                     'stripe_id' => $stripeItem->id,
                                     'stripe_product' => $stripeItem->price->product ?? null,
@@ -130,7 +132,7 @@ class SubscriptionsTable
                         ]);
                     })
                     ->successNotificationTitle('Items Synced')
-                    ->after(function () {
+                    ->after(function (): void {
                         Notification::make()
                             ->success()
                             ->title('Subscription items synced successfully')
@@ -145,7 +147,7 @@ class SubscriptionsTable
                     ->modalDescription('Az előfizetés lemondása visszavonásra kerül, és a számlázás a jelenlegi ciklus végén folytatódik.')
                     ->modalSubmitActionLabel('Újraaktiválás')
                     ->visible(fn ($record) => $record->onGracePeriod())
-                    ->action(function ($record) {
+                    ->action(function ($record): void {
                         // Resume subscription in Stripe
                         $record->resume();
 
@@ -160,7 +162,7 @@ class SubscriptionsTable
                     })
                     ->successNotificationTitle('Előfizetés újraaktivált')
                     ->successRedirectUrl(route('filament.admin.resources.subscriptions.index'))
-                    ->after(function () {
+                    ->after(function (): void {
                         Notification::make()
                             ->success()
                             ->title('Az előfizetés sikeresen újraaktiválva')
@@ -172,12 +174,12 @@ class SubscriptionsTable
                     ->color('danger')
                     ->requiresConfirmation()
                     ->modalHeading('Előfizetés lemondása')
-                    ->modalDescription(function ($record) {
+                    ->modalDescription(function ($record): string {
                         $stripeSubscription = $record->asStripeSubscription();
                         $periodEnd = $stripeSubscription->current_period_end ?? null;
 
                         if ($periodEnd) {
-                            $endsAt = \Carbon\Carbon::createFromTimestamp($periodEnd);
+                            $endsAt = Date::createFromTimestamp($periodEnd);
 
                             return 'Az előfizetés a jelenlegi számlázási időszak végéig aktív marad. Lejárat: ' . $endsAt->format('Y. m. d.');
                         }
@@ -185,13 +187,13 @@ class SubscriptionsTable
                         return 'Az előfizetés lemondásra kerül.';
                     })
                     ->modalSubmitActionLabel('Előfizetés lemondása')
-                    ->visible(fn ($record) => $record->active() && ! $record->onGracePeriod())
-                    ->action(function ($record) {
+                    ->visible(fn ($record): bool => $record->active() && ! $record->onGracePeriod())
+                    ->action(function ($record): void {
                         // Cancel in Stripe
                         $record->cancel();
 
                         // Fetch fresh subscription data from Stripe API
-                        $stripe = new \Stripe\StripeClient(config('cashier.secret'));
+                        $stripe = new StripeClient(config('cashier.secret'));
                         $stripeSubscription = $stripe->subscriptions->retrieve($record->stripe_id);
 
                         Log::info('📝 Subscription canceled in Stripe', [
@@ -203,7 +205,7 @@ class SubscriptionsTable
 
                         // Update local database with the cancellation date
                         if ($stripeSubscription->cancel_at) {
-                            $record->ends_at = \Carbon\Carbon::createFromTimestamp($stripeSubscription->cancel_at);
+                            $record->ends_at = Date::createFromTimestamp($stripeSubscription->cancel_at);
                             $record->save();
 
                             Log::info('✅ Local subscription updated with ends_at', [
@@ -214,7 +216,7 @@ class SubscriptionsTable
                     })
                     ->successNotificationTitle('Előfizetés lemondva')
                     ->successRedirectUrl(route('filament.admin.resources.subscriptions.index'))
-                    ->after(function ($record) {
+                    ->after(function ($record): void {
                         // Refresh the record to get the latest data
                         $record->refresh();
 

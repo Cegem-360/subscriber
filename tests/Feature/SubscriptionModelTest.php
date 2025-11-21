@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 use App\Enums\UserRole;
 use App\Models\Plan;
+use App\Models\Plan\PlanCategory;
 use App\Models\Subscription;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
-beforeEach(function () {
-    Plan\PlanCategory::factory()->create();
+beforeEach(function (): void {
+    PlanCategory::factory()->create();
     Plan::factory()->create();
 });
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+uses(RefreshDatabase::class);
 
-describe('Subscription available seats', function () {
-    it('calculates available seats correctly with owner included', function () {
+describe('Subscription available seats', function (): void {
+    it('calculates available seats correctly with owner included', function (): void {
         $manager = User::factory()->manager()->create();
         $this->actingAs($manager);
 
@@ -28,7 +30,7 @@ describe('Subscription available seats', function () {
         expect($subscription->availableSeats())->toBe(4);
     });
 
-    it('reduces available seats when members are added', function () {
+    it('reduces available seats when members are added', function (): void {
         $manager = User::factory()->manager()->create();
         $this->actingAs($manager);
 
@@ -47,7 +49,7 @@ describe('Subscription available seats', function () {
         expect($subscription->availableSeats())->toBe(2);
     });
 
-    it('returns zero when subscription is full', function () {
+    it('returns zero when subscription is full', function (): void {
         $manager = User::factory()->manager()->create();
         $this->actingAs($manager);
 
@@ -65,7 +67,7 @@ describe('Subscription available seats', function () {
         expect($subscription->availableSeats())->toBe(0);
     });
 
-    it('returns negative when over capacity', function () {
+    it('returns negative when over capacity', function (): void {
         $manager = User::factory()->manager()->create();
         $this->actingAs($manager);
 
@@ -83,7 +85,7 @@ describe('Subscription available seats', function () {
         expect($subscription->availableSeats())->toBe(-2);
     });
 
-    it('handles null quantity gracefully', function () {
+    it('handles null quantity gracefully', function (): void {
         $manager = User::factory()->manager()->create();
         $this->actingAs($manager);
 
@@ -96,8 +98,8 @@ describe('Subscription available seats', function () {
     });
 });
 
-describe('Subscription members relationship', function () {
-    it('returns users assigned to subscription', function () {
+describe('Subscription members relationship', function (): void {
+    it('returns users assigned to subscription', function (): void {
         $manager = User::factory()->manager()->create();
         $this->actingAs($manager);
 

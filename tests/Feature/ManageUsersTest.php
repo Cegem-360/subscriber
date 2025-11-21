@@ -5,19 +5,21 @@ declare(strict_types=1);
 use App\Enums\UserRole;
 use App\Livewire\ManageUsers;
 use App\Models\Plan;
+use App\Models\Plan\PlanCategory;
 use App\Models\Subscription;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+uses(RefreshDatabase::class);
 
-beforeEach(function () {
-    Plan\PlanCategory::factory()->create();
+beforeEach(function (): void {
+    PlanCategory::factory()->create();
     Plan::factory()->create();
 });
 
-describe('ManageUsers page access', function () {
-    it('allows managers to access the page', function () {
+describe('ManageUsers page access', function (): void {
+    it('allows managers to access the page', function (): void {
         $manager = User::factory()->manager()->create();
 
         $this->actingAs($manager)
@@ -25,7 +27,7 @@ describe('ManageUsers page access', function () {
             ->assertOk();
     });
 
-    it('allows admins to access the page', function () {
+    it('allows admins to access the page', function (): void {
         $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)
@@ -33,16 +35,16 @@ describe('ManageUsers page access', function () {
             ->assertOk();
     });
 
-    it('requires authentication', function () {
+    it('requires authentication', function (): void {
         $this->get('/manage-users')
             ->assertRedirect('/login');
     });
 });
 
-describe('ManageUsers component', function () {
-    it('displays manager subscriptions', function () {
+describe('ManageUsers component', function (): void {
+    it('displays manager subscriptions', function (): void {
         $manager = User::factory()->manager()->create();
-        $plan = Plan::first();
+        $plan = Plan::query()->first();
 
         $subscription = Subscription::factory()
             ->active()
@@ -57,9 +59,9 @@ describe('ManageUsers component', function () {
             ->assertSee($plan->name);
     });
 
-    it('creates a new user within seat limit', function () {
+    it('creates a new user within seat limit', function (): void {
         $manager = User::factory()->manager()->create();
-        $plan = Plan::first();
+        $plan = Plan::query()->first();
 
         $subscription = Subscription::factory()
             ->active()
@@ -84,9 +86,9 @@ describe('ManageUsers component', function () {
         ]);
     });
 
-    it('prevents creating user when subscription is full', function () {
+    it('prevents creating user when subscription is full', function (): void {
         $manager = User::factory()->manager()->create();
-        $plan = Plan::first();
+        $plan = Plan::query()->first();
 
         $subscription = Subscription::factory()
             ->active()
@@ -114,9 +116,9 @@ describe('ManageUsers component', function () {
         ]);
     });
 
-    it('validates required fields when creating user', function () {
+    it('validates required fields when creating user', function (): void {
         $manager = User::factory()->manager()->create();
-        $plan = Plan::first();
+        $plan = Plan::query()->first();
 
         Subscription::factory()
             ->active()
@@ -135,9 +137,9 @@ describe('ManageUsers component', function () {
             ->assertHasErrors(['data.name', 'data.email', 'data.password']);
     });
 
-    it('validates unique email', function () {
+    it('validates unique email', function (): void {
         $manager = User::factory()->manager()->create();
-        $plan = Plan::first();
+        $plan = Plan::query()->first();
 
         Subscription::factory()
             ->active()
@@ -158,9 +160,9 @@ describe('ManageUsers component', function () {
             ->assertHasErrors(['data.email']);
     });
 
-    it('displays users in selected subscription', function () {
+    it('displays users in selected subscription', function (): void {
         $manager = User::factory()->manager()->create();
-        $plan = Plan::first();
+        $plan = Plan::query()->first();
 
         $subscription = Subscription::factory()
             ->active()
@@ -181,9 +183,9 @@ describe('ManageUsers component', function () {
             ->assertSee('Test Member');
     });
 
-    it('switches between subscriptions', function () {
+    it('switches between subscriptions', function (): void {
         $manager = User::factory()->manager()->create();
-        $plan = Plan::first();
+        $plan = Plan::query()->first();
 
         $subscription1 = Subscription::factory()
             ->active()

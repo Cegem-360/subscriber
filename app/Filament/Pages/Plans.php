@@ -7,13 +7,16 @@ namespace App\Filament\Pages;
 use App\Enums\BillingPeriod;
 use App\Models\Plan;
 use BackedEnum;
+use Exception;
 use Filament\Actions\Action;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Stripe\StripeClient;
 
 class Plans extends Page
 {
@@ -67,7 +70,7 @@ class Plans extends Page
     protected function syncWithStripe(): void
     {
         try {
-            $stripe = new \Stripe\StripeClient(config('cashier.secret'));
+            $stripe = new StripeClient(config('cashier.secret'));
 
             // Fetch all products from Stripe
             $products = $stripe->products->all(['active' => true, 'limit' => 100]);
@@ -83,7 +86,7 @@ class Plans extends Page
                     'limit' => 10,
                 ]);
 
-                \Log::info('Stripe Product Found', [
+                Log::info('Stripe Product Found', [
                     'product_id' => $product->id,
                     'product_name' => $product->name,
                     'prices_count' => count($prices->data),
@@ -110,7 +113,7 @@ class Plans extends Page
                     $baseSlug = Str::slug($product->name);
                     $uniqueSlug = "{$baseSlug}-{$billingPeriodSuffix}";
 
-                    \Log::info('Processing Price', [
+                    Log::info('Processing Price', [
                         'price_id' => $price->id,
                         'unit_amount_raw' => $price->unit_amount,
                         'currency' => $price->currency,
@@ -120,11 +123,11 @@ class Plans extends Page
                     ]);
 
                     // Check if plan exists by stripe_price_id or slug
-                    $plan = Plan::where('stripe_price_id', $price->id)
+                    $plan = Plan::query()->where('stripe_price_id', $price->id)
                         ->orWhere('slug', $uniqueSlug)
                         ->first();
 
-                    \Log::info('Plan Lookup Result', [
+                    Log::info('Plan Lookup Result', [
                         'found' => $plan ? 'yes' : 'no',
                         'plan_id' => $plan?->id,
                         'action' => $plan ? 'update' : 'create',
@@ -146,7 +149,7 @@ class Plans extends Page
                         $plan->update($data);
                         $updated++;
                     } else {
-                        Plan::create($data);
+                        Plan::query()->create($data);
                         $created++;
                     }
                 }
@@ -160,7 +163,7 @@ class Plans extends Page
                 ->title('Stripe szinkronizálás sikeres!')
                 ->body("Létrehozva: {$created}, Frissítve: {$updated}")
                 ->send();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Notification::make()
                 ->danger()
                 ->title('Hiba a szinkronizálás során')

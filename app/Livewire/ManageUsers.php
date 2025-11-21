@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire;
 
+use App\Enums\SubscriptionStatus;
 use App\Enums\UserRole;
 use App\Models\Subscription;
 use App\Models\User;
@@ -48,10 +49,9 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
 
     public function getSubscriptions()
     {
-        return Subscription::withoutGlobalScopes()
+        return Subscription::query()->withoutGlobalScopes()
             ->where('user_id', Auth::id())
-            ->where('stripe_status', 'active')
-            ->with(['plan', 'members'])
+            ->where('stripe_status', SubscriptionStatus::Active)
             ->get();
     }
 
@@ -61,8 +61,7 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
             return null;
         }
 
-        return Subscription::withoutGlobalScopes()
-            ->with(['plan', 'members'])
+        return Subscription::query()->withoutGlobalScopes()
             ->find($this->selectedSubscriptionId);
     }
 
@@ -136,7 +135,7 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
                             ->label(__('Password'))
                             ->password()
                             ->dehydrateStateUsing(fn ($state) => $state ? Hash::make($state) : null)
-                            ->dehydrated(fn ($state) => filled($state))
+                            ->dehydrated(fn ($state): bool => filled($state))
                             ->minLength(8),
                         Select::make('role')
                             ->label(__('Role'))
@@ -153,7 +152,7 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
     {
         $subscription = $this->getSelectedSubscription();
 
-        if (! $subscription) {
+        if (! $subscription instanceof Subscription) {
             Notification::make()
                 ->title(__('Please select a subscription first'))
                 ->danger()
@@ -174,7 +173,7 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
 
         $data = $this->form->getState();
 
-        User::create([
+        User::query()->create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),

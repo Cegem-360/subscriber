@@ -5,31 +5,36 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Plan;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Log;
 use Laravel\Cashier\Checkout;
+use Laravel\Cashier\Events\WebhookReceived;
+use Stripe\StripeClient;
 
 class SubscriptionController extends Controller
 {
     public function checkout(Request $request, Plan $plan): RedirectResponse|Checkout
     {
         $request->validate([
-            'plan' => 'sometimes|exists:plans,id',
+            'plan' => ['sometimes', 'exists:plans,id'],
         ]);
 
         if (! $plan->is_active) {
-            return redirect()->back()->with('error', 'Ez a csomag jelenleg nem elérhető.');
+            return back()->with('error', 'Ez a csomag jelenleg nem elérhető.');
         }
 
         if (! $plan->stripe_price_id) {
-            return redirect()->back()->with('error', 'A csomaghoz nem tartozik Stripe ár.');
+            return back()->with('error', 'A csomaghoz nem tartozik Stripe ár.');
         }
 
         $user = $request->user();
 
         // Check if user already has an active subscription to this plan
         if ($user->subscribed('default', $plan->stripe_price_id)) {
-            return redirect()->back()->with('info', 'Már rendelkezel ezzel az előfizetéssel.');
+            return back()->with('info', 'Már rendelkezel ezzel az előfizetéssel.');
         }
 
         return $user->newSubscription('default', $plan->stripe_price_id)
@@ -47,7 +52,7 @@ class SubscriptionController extends Controller
     {
         $user = $request->user();
 
-        \Log::info('🎉 User returned from Stripe checkout', [
+        Log::info('🎉 User returned from Stripe checkout', [
             'user_id' => $user->id,
             'plan_id' => $plan->id,
             'plan_name' => $plan->name,
@@ -60,7 +65,7 @@ class SubscriptionController extends Controller
             ->first();
 
         if (! $subscription) {
-            \Log::warning('⚠️ No subscription found in database, syncing from Stripe', [
+            Log::warning('⚠️ No subscription found in database, syncing from Stripe', [
                 'user_id' => $user->id,
                 'plan_id' => $plan->id,
                 'stripe_price_id' => $plan->stripe_price_id,
@@ -68,7 +73,7 @@ class SubscriptionController extends Controller
 
             // Sync subscriptions from Stripe to local database
             try {
-                $stripe = new \Stripe\StripeClient(config('cashier.secret'));
+                $stripe = new StripeClient(config('cashier.secret'));
 
                 // Get customer ID
                 $stripeCustomer = $user->createOrGetStripeCustomer();
@@ -79,7 +84,7 @@ class SubscriptionController extends Controller
                     'limit' => 10,
                 ]);
 
-                \Log::info('📥 Found subscriptions in Stripe', [
+                Log::info('📥 Found subscriptions in Stripe', [
                     'count' => count($stripeSubscriptions->data),
                     'customer_id' => $stripeCustomer->id,
                 ]);
@@ -99,11 +104,11 @@ class SubscriptionController extends Controller
                             'stripe_status' => $stripeSubscription->status,
                             'stripe_price' => $stripeSubscription->items->data[0]->price->id ?? null,
                             'quantity' => $stripeSubscription->items->data[0]->quantity ?? 1,
-                            'trial_ends_at' => $stripeSubscription->trial_end ? \Carbon\Carbon::createFromTimestamp($stripeSubscription->trial_end) : null,
-                            'ends_at' => $stripeSubscription->ended_at ? \Carbon\Carbon::createFromTimestamp($stripeSubscription->ended_at) : null,
+                            'trial_ends_at' => $stripeSubscription->trial_end ? Date::createFromTimestamp($stripeSubscription->trial_end) : null,
+                            'ends_at' => $stripeSubscription->ended_at ? Date::createFromTimestamp($stripeSubscription->ended_at) : null,
                         ]);
 
-                        \Log::info('✅ Imported subscription', [
+                        Log::info('✅ Imported subscription', [
                             'stripe_id' => $stripeSubscription->id,
                             'status' => $stripeSubscription->status,
                         ]);
@@ -117,30 +122,28 @@ class SubscriptionController extends Controller
                     ->first();
 
                 if (! $subscription) {
-                    \Log::error('❌ Subscription still not found after Stripe sync');
+                    Log::error('❌ Subscription still not found after Stripe sync');
 
-                    return redirect()
-                        ->route('filament.admin.pages.dashboard')
+                    return to_route('filament.admin.pages.dashboard')
                         ->with('error', 'Hiba történt az előfizetés létrehozása során. Kérlek, vedd fel velünk a kapcsolatot.');
                 }
 
-                \Log::info('✅ Subscription synced successfully from Stripe', [
+                Log::info('✅ Subscription synced successfully from Stripe', [
                     'subscription_id' => $subscription->id,
                     'stripe_id' => $subscription->stripe_id,
                 ]);
-            } catch (\Exception $e) {
-                \Log::error('❌ Failed to sync subscription from Stripe', [
+            } catch (Exception $e) {
+                Log::error('❌ Failed to sync subscription from Stripe', [
                     'error' => $e->getMessage(),
                     'trace' => $e->getTraceAsString(),
                 ]);
 
-                return redirect()
-                    ->route('filament.admin.pages.dashboard')
+                return to_route('filament.admin.pages.dashboard')
                     ->with('error', 'Hiba történt az előfizetés szinkronizálása során: ' . $e->getMessage());
             }
         }
 
-        \Log::info('✅ Subscription found, linking to plan', [
+        Log::info('✅ Subscription found, linking to plan', [
             'subscription_id' => $subscription->id,
             'stripe_id' => $subscription->stripe_id,
             'plan_id' => $plan->id,
@@ -152,11 +155,11 @@ class SubscriptionController extends Controller
 
         // Trigger permission creation if webhook hasn't done it yet
         if ($subscription->permissions()->count() === 0) {
-            \Log::info('🔄 No permissions found, triggering creation', [
+            Log::info('🔄 No permissions found, triggering creation', [
                 'subscription_id' => $subscription->id,
             ]);
 
-            event(new \Laravel\Cashier\Events\WebhookReceived([
+            event(new WebhookReceived([
                 'type' => 'manual.subscription.linked',
                 'data' => [
                     'object' => [
@@ -166,15 +169,13 @@ class SubscriptionController extends Controller
             ]));
         }
 
-        return redirect()
-            ->route('filament.admin.pages.dashboard')
+        return to_route('filament.admin.pages.dashboard')
             ->with('success', 'Előfizetésed sikeresen létrejött! Hamarosan aktiválódnak a jogosultságaid.');
     }
 
     public function cancel(): RedirectResponse
     {
-        return redirect()
-            ->route('filament.admin.pages.dashboard')
+        return to_route('filament.admin.pages.dashboard')
             ->with('info', 'Előfizetés lemondva.');
     }
 }

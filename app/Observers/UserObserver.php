@@ -46,7 +46,7 @@ class UserObserver
             $changedFields['role'] = $user->role->value;
         }
 
-        if (! empty($changedFields)) {
+        if ($changedFields !== []) {
             dispatch(new SyncUserToSecondaryApp(
                 email: $originalEmail ?? $user->email,
                 changedData: $changedFields,

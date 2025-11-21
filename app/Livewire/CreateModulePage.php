@@ -60,14 +60,12 @@ class CreateModulePage extends Component implements HasActions, HasSchemas
                             ->schema([
                                 ViewField::make('plan_id')
                                     ->view('components.plan-card-selector')
-                                    ->viewData(function (Get $get) {
-                                        return [
-                                            'plans' => Plan::wherePlanCategoryId($get('module'))
-                                                ->active()
-                                                ->orderBy('sort_order')
-                                                ->get(),
-                                        ];
-                                    })
+                                    ->viewData(fn (Get $get): array => [
+                                        'plans' => Plan::wherePlanCategoryId($get('module'))
+                                            ->active()
+                                            ->orderBy('sort_order')
+                                            ->get(),
+                                    ])
                                     ->required(),
                             ]),
                         Step::make(__('Time Period'))
@@ -96,8 +94,8 @@ class CreateModulePage extends Component implements HasActions, HasSchemas
                                 Section::make()->schema([
                                     ViewField::make('summary')
                                         ->view('components.subscription-summary')
-                                        ->viewData(function (Get $get) {
-                                            $plan = Plan::find($get('plan_id'));
+                                        ->viewData(function (Get $get): array {
+                                            $plan = Plan::query()->find($get('plan_id'));
 
                                             return [
                                                 'plan' => $plan,
@@ -118,7 +116,7 @@ class CreateModulePage extends Component implements HasActions, HasSchemas
         $data['stripe_status'] = SubscriptionStatus::Active;
         unset($data['summary']);
         unset($data['module']);
-        $record = Subscription::create($data);
+        $record = Subscription::query()->create($data);
 
         $this->form->model($record)->saveRelationships();
 
@@ -127,7 +125,7 @@ class CreateModulePage extends Component implements HasActions, HasSchemas
             ->success()
             ->send();
         if (! Auth::check()) {
-            Auth::loginUsingId(User::find(1)->id);
+            Auth::loginUsingId(User::query()->find(1)->id);
         }
         $this->redirectRoute('subscriptions');
     }
