@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-use App\Jobs\CreateUserInSecondaryApp;
+use App\Jobs\SyncUserToSecondaryApp;
 use App\Services\SecondaryAppService;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -34,26 +35,22 @@ beforeEach(function () {
 
 it('sends user data to all active secondary apps', function () {
     Http::fake([
-        'https://primary.test/api/create-user' => Http::response(['success' => true], 200),
-        'https://secondary.test/api/create-user' => Http::response(['success' => true], 200),
-        'https://tertiary.test/api/create-user' => Http::response(['success' => true], 200),
+        'https://primary.test/api/sync-user' => Http::response(['success' => true], 200),
+        'https://secondary.test/api/sync-user' => Http::response(['success' => true], 200),
+        'https://tertiary.test/api/sync-user' => Http::response(['success' => true], 200),
     ]);
 
-    $job = new CreateUserInSecondaryApp(
+    $job = new SyncUserToSecondaryApp(
         email: 'test@example.com',
-        name: 'Test User',
-        passwordHash: 'hashed_password',
-        role: 'user',
+        changedData: ['password_hash' => 'hashed_password'],
     );
 
     $job->handle(app(SecondaryAppService::class));
 
     Http::assertSent(function ($request) {
-        return $request->url() === 'https://primary.test/api/create-user'
+        return $request->url() === 'https://primary.test/api/sync-user'
             && $request['email'] === 'test@example.com'
-            && $request['name'] === 'Test User'
             && $request['password_hash'] === 'hashed_password'
-            && $request['role'] === 'user'
             && $request->hasHeader('Authorization', 'Bearer test-api-key');
     });
 
@@ -63,11 +60,9 @@ it('sends user data to all active secondary apps', function () {
 it('sends to all active apps', function () {
     Http::fake();
 
-    $job = new CreateUserInSecondaryApp(
+    $job = new SyncUserToSecondaryApp(
         email: 'test@example.com',
-        name: 'Test User',
-        passwordHash: 'hashed_password',
-        role: 'user',
+        changedData: ['role' => 'admin'],
     );
 
     $job->handle(app(SecondaryAppService::class));
@@ -101,11 +96,9 @@ it('skips inactive apps', function () {
 
     Http::fake();
 
-    $job = new CreateUserInSecondaryApp(
+    $job = new SyncUserToSecondaryApp(
         email: 'test@example.com',
-        name: 'Test User',
-        passwordHash: 'hashed_password',
-        role: 'user',
+        changedData: ['new_email' => 'new@example.com'],
     );
 
     $job->handle(app(SecondaryAppService::class));
@@ -114,57 +107,73 @@ it('skips inactive apps', function () {
         return str_contains($request->url(), 'secondary.test');
     });
 
-    Http::assertSent(function ($request) {
-        return str_contains($request->url(), 'tertiary.test');
-    });
-
     Http::assertSentCount(2);
 });
 
-it('logs success when user creation succeeds', function () {
+it('sends multiple changed fields', function () {
     Http::fake([
-        'https://primary.test/api/create-user' => Http::response(['success' => true], 200),
-        'https://secondary.test/api/create-user' => Http::response(['success' => true], 200),
-        'https://tertiary.test/api/create-user' => Http::response(['success' => true], 200),
+        '*' => Http::response(['success' => true], 200),
+    ]);
+
+    $job = new SyncUserToSecondaryApp(
+        email: 'test@example.com',
+        changedData: [
+            'new_email' => 'new@example.com',
+            'password_hash' => 'new_hash',
+            'role' => 'manager',
+        ],
+    );
+
+    $job->handle(app(SecondaryAppService::class));
+
+    Http::assertSent(function ($request) {
+        return $request['email'] === 'test@example.com'
+            && $request['new_email'] === 'new@example.com'
+            && $request['password_hash'] === 'new_hash'
+            && $request['role'] === 'manager';
+    });
+});
+
+it('logs success when user sync succeeds', function () {
+    Http::fake([
+        'https://primary.test/api/sync-user' => Http::response(['success' => true], 200),
+        'https://secondary.test/api/sync-user' => Http::response(['success' => true], 200),
+        'https://tertiary.test/api/sync-user' => Http::response(['success' => true], 200),
     ]);
 
     Log::spy();
 
-    $job = new CreateUserInSecondaryApp(
+    $job = new SyncUserToSecondaryApp(
         email: 'test@example.com',
-        name: 'Test User',
-        passwordHash: 'hashed_password',
-        role: 'user',
+        changedData: ['role' => 'user'],
     );
 
     $job->handle(app(SecondaryAppService::class));
 
     Log::shouldHaveReceived('info')
         ->times(3)
-        ->withArgs(fn ($message) => str_contains($message, 'User creation successful'));
+        ->withArgs(fn ($message) => str_contains($message, 'User sync successful'));
 });
 
-it('logs warning when user creation fails', function () {
+it('logs warning when user sync fails', function () {
     Http::fake([
-        'https://primary.test/api/create-user' => Http::response(['success' => true], 200),
-        'https://secondary.test/api/create-user' => Http::response(['error' => 'Failed'], 422),
-        'https://tertiary.test/api/create-user' => Http::response(['success' => true], 200),
+        'https://primary.test/api/sync-user' => Http::response(['success' => true], 200),
+        'https://secondary.test/api/sync-user' => Http::response(['error' => 'Failed'], 422),
+        'https://tertiary.test/api/sync-user' => Http::response(['success' => true], 200),
     ]);
 
     Log::spy();
 
-    $job = new CreateUserInSecondaryApp(
+    $job = new SyncUserToSecondaryApp(
         email: 'test@example.com',
-        name: 'Test User',
-        passwordHash: 'hashed_password',
-        role: 'user',
+        changedData: ['role' => 'user'],
     );
 
     $job->handle(app(SecondaryAppService::class));
 
     Log::shouldHaveReceived('warning')
         ->once()
-        ->withArgs(fn ($message) => str_contains($message, 'User creation failed'));
+        ->withArgs(fn ($message) => str_contains($message, 'User sync failed'));
 });
 
 it('logs error when exception occurs', function () {
@@ -172,25 +181,21 @@ it('logs error when exception occurs', function () {
 
     Log::spy();
 
-    $job = new CreateUserInSecondaryApp(
+    $job = new SyncUserToSecondaryApp(
         email: 'test@example.com',
-        name: 'Test User',
-        passwordHash: 'hashed_password',
-        role: 'user',
+        changedData: ['role' => 'user'],
     );
 
     $job->handle(app(SecondaryAppService::class));
 
     Log::shouldHaveReceived('error')
-        ->withArgs(fn ($message) => str_contains($message, 'Exception during user creation'));
+        ->withArgs(fn ($message) => str_contains($message, 'Exception during user sync'));
 });
 
 it('has correct retry configuration', function () {
-    $job = new CreateUserInSecondaryApp(
+    $job = new SyncUserToSecondaryApp(
         email: 'test@example.com',
-        name: 'Test User',
-        passwordHash: 'hashed_password',
-        role: 'user',
+        changedData: ['role' => 'user'],
     );
 
     expect($job->tries)->toBe(3)
@@ -198,14 +203,12 @@ it('has correct retry configuration', function () {
 });
 
 it('implements ShouldQueue interface', function () {
-    $job = new CreateUserInSecondaryApp(
+    $job = new SyncUserToSecondaryApp(
         email: 'test@example.com',
-        name: 'Test User',
-        passwordHash: 'hashed_password',
-        role: 'user',
+        changedData: ['role' => 'user'],
     );
 
-    expect($job)->toBeInstanceOf(Illuminate\Contracts\Queue\ShouldQueue::class);
+    expect($job)->toBeInstanceOf(ShouldQueue::class);
 });
 
 it('uses app specific api key when set', function () {
@@ -224,11 +227,9 @@ it('uses app specific api key when set', function () {
 
     Http::fake();
 
-    $job = new CreateUserInSecondaryApp(
+    $job = new SyncUserToSecondaryApp(
         email: 'test@example.com',
-        name: 'Test User',
-        passwordHash: 'hashed_password',
-        role: 'user',
+        changedData: ['role' => 'admin'],
     );
 
     $job->handle(app(SecondaryAppService::class));

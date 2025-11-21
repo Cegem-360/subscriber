@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Log;
 use Laravel\Cashier\Checkout;
-use Laravel\Cashier\Events\WebhookReceived;
 use Stripe\StripeClient;
 
 class SubscriptionController extends Controller
@@ -152,22 +151,6 @@ class SubscriptionController extends Controller
 
         $subscription->plan_id = $plan->id;
         $subscription->save();
-
-        // Trigger permission creation if webhook hasn't done it yet
-        if ($subscription->permissions()->count() === 0) {
-            Log::info('🔄 No permissions found, triggering creation', [
-                'subscription_id' => $subscription->id,
-            ]);
-
-            event(new WebhookReceived([
-                'type' => 'manual.subscription.linked',
-                'data' => [
-                    'object' => [
-                        'id' => $subscription->stripe_id,
-                    ],
-                ],
-            ]));
-        }
 
         return to_route('filament.admin.pages.dashboard')
             ->with('success', 'Előfizetésed sikeresen létrejött! Hamarosan aktiválódnak a jogosultságaid.');

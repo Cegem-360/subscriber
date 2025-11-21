@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Jobs;
 
+use App\Services\SecondaryAppService;
 use Exception;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -41,31 +42,26 @@ class CreateUserInSecondaryApp implements ShouldQueue
     /**
      * Execute the job.
      */
-    public function handle(): void
+    public function handle(SecondaryAppService $appService): void
     {
-        $secondaryAppUrls = config('services-app-urls');
-        $api_key = config('services-app-urls.app_api_key');
+        $defaultApiKey = $appService->getDefaultApiKey();
 
-        foreach ($secondaryAppUrls as $key => $values) {
-            if ($key === array_key_first($secondaryAppUrls)) {
-                continue;
-            }
-            if (! $values['active']) {
-                continue;
-            }
+        foreach ($appService->getActiveApps() as $appName => $app) {
+            $apiKey = $app['api_key'] ?? $defaultApiKey;
+
             try {
                 $http = Http::withHeaders([
-                    'Authorization' => "Bearer {$api_key}",
+                    'Authorization' => "Bearer {$apiKey}",
                     'Accept' => 'application/json',
                 ]);
 
                 // Skip SSL verification for local .test domains (Laravel Herd)
-                if (str_ends_with((string) $values['url'], '.test')) {
+                if (str_ends_with((string) $app['url'], '.test')) {
                     $http = $http->withoutVerifying();
                 }
 
                 $response = $http->timeout(10)
-                    ->post("{$values['url']}/api/create-user", [
+                    ->post("{$app['url']}/api/create-user", [
                         'email' => $this->email,
                         'name' => $this->name,
                         'password_hash' => $this->passwordHash,
@@ -73,9 +69,9 @@ class CreateUserInSecondaryApp implements ShouldQueue
                     ]);
 
                 if ($response->successful()) {
-                    Log::info("User creation successful for {$this->email} to {$values['url']}");
+                    Log::info("User creation successful for {$this->email} to {$app['url']}");
                 } else {
-                    Log::warning("User creation failed for {$this->email} to {$values['url']}: {$response->body()}");
+                    Log::warning("User creation failed for {$this->email} to {$app['url']}: {$response->body()}");
                 }
             } catch (Exception $e) {
                 Log::error("Exception during user creation for {$this->email}: {$e->getMessage()}");

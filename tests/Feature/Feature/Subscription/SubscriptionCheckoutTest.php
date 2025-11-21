@@ -71,7 +71,7 @@ it('requires authentication for checkout', function (): void {
     $response->assertRedirect();
 });
 
-it('redirects to success page after successful checkout', function (): void {
+it('redirects to success page after successful checkout', function () {
     $user = User::factory()->create();
     $plan = Plan::factory()->create([
         'stripe_price_id' => 'price_test123',

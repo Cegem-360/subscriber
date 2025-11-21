@@ -3,7 +3,9 @@
 declare(strict_types=1);
 
 use App\Enums\UserRole;
+use App\Jobs\CreateUserInSecondaryApp;
 use App\Jobs\SyncUserToSecondaryApp;
+use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Queue;
@@ -12,6 +14,31 @@ uses(RefreshDatabase::class);
 
 beforeEach(function (): void {
     Queue::fake();
+});
+
+describe('UserObserver create job dispatch', function (): void {
+    it('dispatches CreateUserInSecondaryApp when user with subscription_id is created', function (): void {
+        $subscription = Subscription::factory()->create();
+
+        $user = User::factory()->create([
+            'subscription_id' => $subscription->id,
+            'email' => 'test@example.com',
+            'name' => 'Test User',
+            'role' => UserRole::Subscriber,
+        ]);
+
+        Queue::assertPushed(CreateUserInSecondaryApp::class, fn ($job): bool => $job->email === 'test@example.com'
+            && $job->name === 'Test User'
+            && $job->role === 'subscriber');
+    });
+
+    it('does not dispatch CreateUserInSecondaryApp when user without subscription_id is created', function (): void {
+        User::factory()->create([
+            'subscription_id' => null,
+        ]);
+
+        Queue::assertNotPushed(CreateUserInSecondaryApp::class);
+    });
 });
 
 describe('UserObserver sync job dispatch', function (): void {
