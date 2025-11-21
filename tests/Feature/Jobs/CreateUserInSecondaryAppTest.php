@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use App\Jobs\CreateUserInSecondaryApp;
-use Exception;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -55,7 +54,7 @@ it('sends user data to all active secondary apps', function () {
     Http::assertSentCount(3);
 });
 
-it('skips the first app in the configuration', function () {
+it('skips the first element in the configuration (api key)', function () {
     Http::fake();
 
     $job = new CreateUserInSecondaryApp(
@@ -67,9 +66,9 @@ it('skips the first app in the configuration', function () {
 
     $job->handle();
 
-    Http::assertNotSent(function ($request) {
-        return str_contains($request->url(), 'primary.test');
-    });
+    // Should send to all 3 apps (primary, secondary, tertiary)
+    // The first element (app_api_key) is skipped
+    Http::assertSentCount(3);
 });
 
 it('skips inactive apps', function () {

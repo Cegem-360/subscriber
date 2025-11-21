@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Models\Plan;
+use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -72,7 +73,15 @@ it('requires authentication for checkout', function (): void {
 
 it('redirects to success page after successful checkout', function (): void {
     $user = User::factory()->create();
-    $plan = Plan::factory()->create();
+    $plan = Plan::factory()->create([
+        'stripe_price_id' => 'price_test123',
+    ]);
+
+    // Create a subscription that matches the plan's stripe_price_id
+    Subscription::factory()->active()->create([
+        'user_id' => $user->id,
+        'stripe_price' => $plan->stripe_price_id,
+    ]);
 
     $response = $this->actingAs($user)->get(route('subscription.success', $plan));
 
