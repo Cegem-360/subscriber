@@ -28,6 +28,7 @@ class RegularUsersSeeder extends Seeder
 
         User::factory()
             ->count(30)
+            ->subscriber()
             ->create()
             ->each(function (User $user) use ($plans): void {
                 // Each user has 1-3 subscriptions (current and/or historical)

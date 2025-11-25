@@ -72,4 +72,14 @@ final class UserFactory extends Factory
             'role' => UserRole::Manager,
         ]);
     }
+
+    /**
+     * Indicate that the user is a manager.
+     */
+    public function subscriber(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'role' => UserRole::Subscriber,
+        ]);
+    }
 }
