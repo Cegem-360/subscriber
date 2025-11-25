@@ -14,7 +14,6 @@ use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ViewField;
-use Filament\Notifications\Notification;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Wizard;
@@ -116,21 +115,25 @@ class CreateModulePage extends Component implements HasActions, HasSchemas
 
     public function create(): void
     {
+        if (! Auth::check()) {
+            Auth::loginUsingId(User::query()->find(1)->id);
+        }
         $data = $this->form->getState();
         $data['stripe_status'] = SubscriptionStatus::Active;
         $data['type'] = $data['billing_period'];
         unset($data['summary'],$data['module'],$data['billing_period']);
-        Auth::user()->subscribedToProduct('prod_TUK8ZmtxBD9BPX');
-        Subscription::query()->create($data);
+        $data['quantity'] = (int) $data['quantity'];
+        $subscription = Subscription::query()->create($data);
+        $checkout = Auth::user()->newSubscription('default', Plan::query()->find($data['plan_id'])->stripe_price_id)
+            ->quantity($data['quantity'])
+            ->checkout(
+                [
+                    'success_url' => route('subscriptions', ['subscription' => $subscription->id]),
+                    'cancel_url' => route('subscriptions', ['subscription' => $subscription->id]),
+                ],
+            );
 
-        Notification::make()
-            ->title(__('Subscription created successfully'))
-            ->success()
-            ->send();
-        if (! Auth::check()) {
-            Auth::loginUsingId(User::query()->find(1)->id);
-        }
-        $this->redirectRoute('subscriptions');
+        $this->redirect($checkout->url, navigate: false);
     }
 
     public function render(): View
