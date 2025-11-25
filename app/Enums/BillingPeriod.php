@@ -15,8 +15,9 @@ enum BillingPeriod: string implements HasLabel
     public function getLabel(): string|Htmlable|null
     {
         return match ($this) {
-            self::Monthly => 'hó',
-            self::Yearly => 'év',
+            self::Monthly => __('Monthly'),
+            self::Yearly => __('Yearly'),
+            default => __('Monthly'),
         };
     }
 }

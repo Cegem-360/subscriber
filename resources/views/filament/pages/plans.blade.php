@@ -18,10 +18,7 @@
 
                     <div class="flex items-baseline gap-1">
                         <span class="text-4xl font-bold text-gray-900 dark:text-white">
-                            {{ number_format($plan->price, 0, ',', ' ') }}
-                        </span>
-                        <span class="text-lg text-gray-600 dark:text-gray-400">
-                            Ft
+                            {{ Number::currency($plan->price, 'HUF', 'hu', 0) }}
                         </span>
                         <span class="text-sm text-gray-600 dark:text-gray-400">
                             / {{ $plan->billing_period->getLabel() }}
@@ -54,13 +51,13 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7" />
                             </svg>
-                            Aktív előfizetés
+                            {{ __('Active subscription') }}
                         </x-filament::button>
                     @else
                         <form action="{{ route('subscription.checkout', $plan) }}" method="POST">
                             @csrf
                             <x-filament::button type="submit" color="primary" class="w-full">
-                                Előfizetés
+                                {{ __('Subscribe') }}
                             </x-filament::button>
                         </form>
                     @endif

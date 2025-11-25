@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\Livewire;
 
+use App\Enums\BillingPeriod;
 use App\Enums\SubscriptionStatus;
-use App\Enums\SubscriptionType;
 use App\Models\Plan;
 use App\Models\Plan\PlanCategory;
 use App\Models\Subscription;
 use App\Models\User;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ViewField;
 use Filament\Notifications\Notification;
@@ -58,10 +57,21 @@ class CreateModulePage extends Component implements HasActions, HasSchemas
                             ]),
                         Step::make(__('Package Type'))
                             ->schema([
+                                ViewField::make('billing_period')
+                                    ->view('components.subscription-billing-period-toggle')
+                                    ->viewData([
+                                        'types' => [
+                                            BillingPeriod::Monthly,
+                                            BillingPeriod::Yearly,
+                                        ],
+                                    ])
+                                    ->default(BillingPeriod::Monthly->value)
+                                    ->required(),
                                 ViewField::make('plan_id')
                                     ->view('components.plan-card-selector')
                                     ->viewData(fn (Get $get): array => [
                                         'plans' => Plan::wherePlanCategoryId($get('module'))
+                                            ->whereBillingPeriod($get('billing_period'))
                                             ->active()
                                             ->orderBy('sort_order')
                                             ->get(),
@@ -72,12 +82,6 @@ class CreateModulePage extends Component implements HasActions, HasSchemas
                             ->schema([
                                 Section::make()
                                     ->schema([
-                                        Select::make('type')
-                                            ->live()
-                                            ->label(__('Time Period'))
-                                            ->options(SubscriptionType::class)
-                                            ->enum(SubscriptionType::class)
-                                            ->required(),
                                         TextInput::make('quantity')
                                             ->live()
                                             ->afterStateUpdated(function (CreateModulePage $livewire, ?int $state): void {
@@ -99,7 +103,7 @@ class CreateModulePage extends Component implements HasActions, HasSchemas
 
                                             return [
                                                 'plan' => $plan,
-                                                'type' => $get('type'),
+                                                'billing_period' => BillingPeriod::tryFrom($get('billing_period')),
                                                 'quantity' => $get('quantity'),
                                             ];
                                         }),
@@ -114,11 +118,10 @@ class CreateModulePage extends Component implements HasActions, HasSchemas
     {
         $data = $this->form->getState();
         $data['stripe_status'] = SubscriptionStatus::Active;
-        unset($data['summary']);
-        unset($data['module']);
-        $record = Subscription::query()->create($data);
-
-        $this->form->model($record)->saveRelationships();
+        $data['type'] = $data['billing_period'];
+        unset($data['summary'],$data['module'],$data['billing_period']);
+        Auth::user()->subscribedToProduct('prod_TUK8ZmtxBD9BPX');
+        Subscription::query()->create($data);
 
         Notification::make()
             ->title(__('Subscription created successfully'))
