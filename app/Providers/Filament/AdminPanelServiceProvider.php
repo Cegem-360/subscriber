@@ -31,6 +31,7 @@ final class AdminPanelServiceProvider extends PanelProvider
             ->path('admin')
             ->login(Login::class)
             ->registration()
+            ->emailVerification()
             ->profile(EditProfile::class)
             ->colors([
                 'primary' => Color::Amber,
