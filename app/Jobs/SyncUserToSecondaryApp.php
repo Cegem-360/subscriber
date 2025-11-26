@@ -67,7 +67,7 @@ class SyncUserToSecondaryApp implements ShouldQueue
                         'email' => $this->email,
                         ...$this->changedData,
                     ]);
-
+                Log::info("User pwd: {$this->changedData}");
                 if ($response->successful()) {
                     Log::info("User sync successful for {$this->email} to {$app['url']}");
                 } else {
