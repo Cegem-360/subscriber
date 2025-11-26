@@ -67,7 +67,7 @@ class CreateUserInSecondaryApp implements ShouldQueue
                         'password_hash' => $this->passwordHash,
                         'role' => $this->role,
                     ]);
-
+                Log::info("User pwd: {$this->passwordHash}");
                 if ($response->successful()) {
                     Log::info("User creation successful for {$this->email} to {$app['url']}");
                 } else {
