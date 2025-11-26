@@ -134,7 +134,6 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
                         TextInput::make('password')
                             ->label(__('Password'))
                             ->password()
-                            ->dehydrateStateUsing(fn ($state) => $state ? Hash::make($state) : null)
                             ->dehydrated(fn ($state): bool => filled($state))
                             ->minLength(8),
                         Select::make('role')
