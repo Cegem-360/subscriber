@@ -71,6 +71,7 @@ class CreateUserInSecondaryApp implements ShouldQueue
                 if ($teamsResponse->successful()) {
                     $teamIds = $teamsResponse->json('team_ids', []);
                     Log::info("Found teams for owner {$this->ownerEmail}: " . implode(', ', $teamIds));
+                    Log::warning("Found teams for owner {$this->ownerEmail} from {$app['url']}: {$teamsResponse->body()}");
                 } else {
                     Log::warning("Could not fetch teams for owner {$this->ownerEmail} from {$app['url']}: {$teamsResponse->body()}");
                 }
