@@ -17,11 +17,16 @@ class UserObserver
     {
         // Only sync users that belong to a subscription (managed users)
         if ($user->subscription_id) {
+            // Get the subscription owner's email for team association
+            $subscription = $user->memberOfSubscription;
+            $ownerEmail = $subscription?->user?->email ?? '';
+
             dispatch(new CreateUserInSecondaryApp(
                 email: $user->email,
                 name: $user->name,
                 passwordHash: $user->password,
                 role: $user->role->value,
+                ownerEmail: $ownerEmail,
             ));
         }
     }

@@ -37,6 +37,7 @@ class CreateUserInSecondaryApp implements ShouldQueue
         public string $name,
         public string $passwordHash,
         public string $role,
+        public string $ownerEmail,
     ) {}
 
     /**
@@ -60,14 +61,30 @@ class CreateUserInSecondaryApp implements ShouldQueue
                     $http = $http->withoutVerifying();
                 }
 
+                // First, get the owner's teams from the secondary app
+                $teamsResponse = $http->timeout(10)
+                    ->get("{$app['url']}/api/user-teams", [
+                        'email' => $this->ownerEmail,
+                    ]);
+
+                $teamIds = [];
+                if ($teamsResponse->successful()) {
+                    $teamIds = $teamsResponse->json('team_ids', []);
+                    Log::info("Found teams for owner {$this->ownerEmail}: " . implode(', ', $teamIds));
+                } else {
+                    Log::warning("Could not fetch teams for owner {$this->ownerEmail} from {$app['url']}: {$teamsResponse->body()}");
+                }
+
+                // Create the user with team association
                 $response = $http->timeout(10)
                     ->post("{$app['url']}/api/create-user", [
                         'email' => $this->email,
                         'name' => $this->name,
                         'password_hash' => $this->passwordHash,
                         'role' => $this->role,
+                        'team_ids' => $teamIds,
                     ]);
-                Log::info("User pwd: {$this->passwordHash}");
+
                 if ($response->successful()) {
                     Log::info("User creation successful for {$this->email} to {$app['url']}");
                 } else {

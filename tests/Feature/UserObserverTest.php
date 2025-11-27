@@ -18,7 +18,8 @@ beforeEach(function (): void {
 
 describe('UserObserver create job dispatch', function (): void {
     it('dispatches CreateUserInSecondaryApp when user with subscription_id is created', function (): void {
-        $subscription = Subscription::factory()->create();
+        $owner = User::factory()->create(['email' => 'owner@example.com']);
+        $subscription = Subscription::factory()->create(['user_id' => $owner->id]);
 
         $user = User::factory()->create([
             'subscription_id' => $subscription->id,
@@ -29,7 +30,8 @@ describe('UserObserver create job dispatch', function (): void {
 
         Queue::assertPushed(CreateUserInSecondaryApp::class, fn ($job): bool => $job->email === 'test@example.com'
             && $job->name === 'Test User'
-            && $job->role === 'subscriber');
+            && $job->role === 'subscriber'
+            && $job->ownerEmail === 'owner@example.com');
     });
 
     it('does not dispatch CreateUserInSecondaryApp when user without subscription_id is created', function (): void {

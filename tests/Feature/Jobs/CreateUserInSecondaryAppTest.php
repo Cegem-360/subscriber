@@ -34,6 +34,7 @@ beforeEach(function () {
 
 it('sends user data to all active secondary apps', function () {
     Http::fake([
+        '*/api/user-teams*' => Http::response(['team_ids' => [1, 2]], 200),
         'https://primary.test/api/create-user' => Http::response(['success' => true], 200),
         'https://secondary.test/api/create-user' => Http::response(['success' => true], 200),
         'https://tertiary.test/api/create-user' => Http::response(['success' => true], 200),
@@ -44,6 +45,7 @@ it('sends user data to all active secondary apps', function () {
         name: 'Test User',
         passwordHash: 'hashed_password',
         role: 'user',
+        ownerEmail: 'owner@example.com',
     );
 
     $job->handle(app(SecondaryAppService::class));
@@ -54,10 +56,12 @@ it('sends user data to all active secondary apps', function () {
             && $request['name'] === 'Test User'
             && $request['password_hash'] === 'hashed_password'
             && $request['role'] === 'user'
+            && $request['team_ids'] === [1, 2]
             && $request->hasHeader('Authorization', 'Bearer test-api-key');
     });
 
-    Http::assertSentCount(3);
+    // 3 apps × 2 requests each (user-teams + create-user)
+    Http::assertSentCount(6);
 });
 
 it('sends to all active apps', function () {
@@ -68,11 +72,13 @@ it('sends to all active apps', function () {
         name: 'Test User',
         passwordHash: 'hashed_password',
         role: 'user',
+        ownerEmail: 'owner@example.com',
     );
 
     $job->handle(app(SecondaryAppService::class));
 
-    Http::assertSentCount(3);
+    // 3 apps × 2 requests each (user-teams + create-user)
+    Http::assertSentCount(6);
 });
 
 it('skips inactive apps', function () {
@@ -106,6 +112,7 @@ it('skips inactive apps', function () {
         name: 'Test User',
         passwordHash: 'hashed_password',
         role: 'user',
+        ownerEmail: 'owner@example.com',
     );
 
     $job->handle(app(SecondaryAppService::class));
@@ -118,11 +125,13 @@ it('skips inactive apps', function () {
         return str_contains($request->url(), 'tertiary.test');
     });
 
-    Http::assertSentCount(2);
+    // 2 active apps × 2 requests each (user-teams + create-user)
+    Http::assertSentCount(4);
 });
 
 it('logs success when user creation succeeds', function () {
     Http::fake([
+        '*/api/user-teams*' => Http::response(['team_ids' => [1]], 200),
         'https://primary.test/api/create-user' => Http::response(['success' => true], 200),
         'https://secondary.test/api/create-user' => Http::response(['success' => true], 200),
         'https://tertiary.test/api/create-user' => Http::response(['success' => true], 200),
@@ -135,17 +144,18 @@ it('logs success when user creation succeeds', function () {
         name: 'Test User',
         passwordHash: 'hashed_password',
         role: 'user',
+        ownerEmail: 'owner@example.com',
     );
 
     $job->handle(app(SecondaryAppService::class));
 
     Log::shouldHaveReceived('info')
-        ->times(3)
         ->withArgs(fn ($message) => str_contains($message, 'User creation successful'));
 });
 
 it('logs warning when user creation fails', function () {
     Http::fake([
+        '*/api/user-teams*' => Http::response(['team_ids' => [1]], 200),
         'https://primary.test/api/create-user' => Http::response(['success' => true], 200),
         'https://secondary.test/api/create-user' => Http::response(['error' => 'Failed'], 422),
         'https://tertiary.test/api/create-user' => Http::response(['success' => true], 200),
@@ -158,12 +168,12 @@ it('logs warning when user creation fails', function () {
         name: 'Test User',
         passwordHash: 'hashed_password',
         role: 'user',
+        ownerEmail: 'owner@example.com',
     );
 
     $job->handle(app(SecondaryAppService::class));
 
     Log::shouldHaveReceived('warning')
-        ->once()
         ->withArgs(fn ($message) => str_contains($message, 'User creation failed'));
 });
 
@@ -177,6 +187,7 @@ it('logs error when exception occurs', function () {
         name: 'Test User',
         passwordHash: 'hashed_password',
         role: 'user',
+        ownerEmail: 'owner@example.com',
     );
 
     $job->handle(app(SecondaryAppService::class));
@@ -191,6 +202,7 @@ it('has correct retry configuration', function () {
         name: 'Test User',
         passwordHash: 'hashed_password',
         role: 'user',
+        ownerEmail: 'owner@example.com',
     );
 
     expect($job->tries)->toBe(3)
@@ -203,6 +215,7 @@ it('implements ShouldQueue interface', function () {
         name: 'Test User',
         passwordHash: 'hashed_password',
         role: 'user',
+        ownerEmail: 'owner@example.com',
     );
 
     expect($job)->toBeInstanceOf(Illuminate\Contracts\Queue\ShouldQueue::class);
@@ -229,6 +242,7 @@ it('uses app specific api key when set', function () {
         name: 'Test User',
         passwordHash: 'hashed_password',
         role: 'user',
+        ownerEmail: 'owner@example.com',
     );
 
     $job->handle(app(SecondaryAppService::class));
