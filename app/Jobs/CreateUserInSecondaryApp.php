@@ -64,7 +64,7 @@ class CreateUserInSecondaryApp implements ShouldQueue
                 // First, get the owner's teams from the secondary app
                 $teamsResponse = $http->timeout(10)
                     ->get("{$app['url']}/api/user-teams", [
-                        'email' => $this->ownerEmail,
+                        'user_email' => $this->ownerEmail,
                     ]);
 
                 $teamIds = [];
