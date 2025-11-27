@@ -69,7 +69,8 @@ class CreateUserInSecondaryApp implements ShouldQueue
 
                 $teamIds = [];
                 if ($teamsResponse->successful()) {
-                    $teamIds = $teamsResponse->json('team_ids', []);
+                    $teams = $teamsResponse->json('teams', []);
+                    $teamIds = array_column($teams, 'id');
                     Log::info("Found teams for owner {$this->ownerEmail}: " . implode(', ', $teamIds));
                     Log::warning("Found teams for owner {$this->ownerEmail} from {$app['url']}: {$teamsResponse->body()}");
                 } else {
