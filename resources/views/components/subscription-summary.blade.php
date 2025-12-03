@@ -1,6 +1,3 @@
-@php
-    dump($billing_period);
-@endphp
 <div class="space-y-4">
     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
         {{ __('Order Summary') }}
@@ -16,7 +13,7 @@
             <div class="flex justify-between">
                 <span class="text-gray-600 dark:text-gray-400">{{ __('Billing Period') }}</span>
                 <span class="font-medium text-gray-900 dark:text-white">
-                    @dump($billing_period) {{ $billing_period?->getLabel() }}
+                    {{ $billing_period?->getLabel() }}
                 </span>
             </div>
 
