@@ -78,6 +78,14 @@ class CreateUserInSecondaryApp implements ShouldQueue
                 }
 
                 // Create the user with team association (raw password - secondary app will hash it)
+                Log::info('CreateUserInSecondaryApp: Sending user creation request', [
+                    'app_url' => $app['url'],
+                    'email' => $this->email,
+                    'password_length' => strlen($this->password),
+                    'password_preview' => substr($this->password, 0, 3) . '***',
+                    'team_ids' => $teamIds,
+                ]);
+
                 $response = $http->timeout(10)
                     ->post("{$app['url']}/api/create-user", [
                         'email' => $this->email,

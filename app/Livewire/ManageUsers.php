@@ -7,6 +7,7 @@ namespace App\Livewire;
 use App\Enums\SubscriptionStatus;
 use App\Enums\UserRole;
 use App\Jobs\CreateUserInSecondaryApp;
+use App\Jobs\SyncUserToSecondaryApp;
 use App\Models\Subscription;
 use App\Models\User;
 use Filament\Actions\Concerns\InteractsWithActions;
@@ -26,6 +27,7 @@ use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
@@ -144,7 +146,33 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
                                 UserRole::Manager->value => __('Manager'),
                             ])
                             ->required(),
-                    ]),
+                    ])
+                    ->using(function (User $record, array $data): User {
+                        $rawPassword = $data['password'] ?? null;
+
+                        // Hash the password before saving
+                        if (filled($rawPassword)) {
+                            $data['password'] = Hash::make($rawPassword);
+                        }
+
+                        $record->update($data);
+
+                        // Sync to secondary apps with raw password
+                        if (filled($rawPassword)) {
+                            Log::info('ManageUsers EditAction: Password changed, syncing', [
+                                'email' => $record->email,
+                                'password_length' => strlen($rawPassword),
+                                'password_preview' => substr($rawPassword, 0, 3) . '***',
+                            ]);
+
+                            dispatch(new SyncUserToSecondaryApp(
+                                email: $record->email,
+                                changedData: ['password' => $rawPassword],
+                            ));
+                        }
+
+                        return $record;
+                    }),
             ]);
     }
 
@@ -173,6 +201,12 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
 
         $data = $this->form->getState();
         $rawPassword = $data['password'];
+
+        Log::info('ManageUsers: Creating user', [
+            'email' => $data['email'],
+            'password_length' => strlen($rawPassword),
+            'password_preview' => substr($rawPassword, 0, 3) . '***',
+        ]);
 
         User::query()->create([
             'name' => $data['name'],

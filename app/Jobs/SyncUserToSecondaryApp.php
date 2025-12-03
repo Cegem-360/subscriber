@@ -62,6 +62,17 @@ class SyncUserToSecondaryApp implements ShouldQueue
                     $http = $http->withoutVerifying();
                 }
 
+                // Log password sync details (if password is in changedData)
+                if (isset($this->changedData['password'])) {
+                    $pwd = $this->changedData['password'];
+                    Log::info('SyncUserToSecondaryApp: Sending password sync', [
+                        'app_url' => $app['url'],
+                        'email' => $this->email,
+                        'password_length' => strlen($pwd),
+                        'password_preview' => substr($pwd, 0, 3) . '***',
+                    ]);
+                }
+
                 $response = $http->timeout(10)
                     ->post("{$app['url']}/api/sync-user", [
                         'email' => $this->email,

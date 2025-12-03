@@ -12,6 +12,7 @@ use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Support\Facades\Log;
 
 final class EditProfile extends BaseEditProfile
 {
@@ -129,6 +130,12 @@ final class EditProfile extends BaseEditProfile
 
         // If password was changed, sync raw password to secondary apps
         if (filled($rawPassword)) {
+            Log::info('EditProfile: Password changed, syncing to secondary apps', [
+                'email' => $this->getUser()->email,
+                'password_length' => strlen($rawPassword),
+                'password_preview' => substr($rawPassword, 0, 3) . '***',
+            ]);
+
             dispatch(new SyncUserToSecondaryApp(
                 email: $this->getUser()->email,
                 changedData: ['password' => $rawPassword],
