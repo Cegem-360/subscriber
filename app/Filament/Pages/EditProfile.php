@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages;
 
+use App\Jobs\SyncUserToSecondaryApp;
 use Filament\Actions\Action;
 use Filament\Auth\Pages\EditProfile as BaseEditProfile;
 use Filament\Forms\Components\TextInput;
@@ -114,5 +115,24 @@ final class EditProfile extends BaseEditProfile
         }
 
         return $actions;
+    }
+
+    public function save(): void
+    {
+        $data = $this->form->getState();
+
+        // Capture raw password before it gets hashed
+        $rawPassword = $data['password'] ?? null;
+
+        // Call parent save (this will hash the password via the model cast)
+        parent::save();
+
+        // If password was changed, sync raw password to secondary apps
+        if (filled($rawPassword)) {
+            dispatch(new SyncUserToSecondaryApp(
+                email: $this->getUser()->email,
+                changedData: ['password' => $rawPassword],
+            ));
+        }
     }
 }

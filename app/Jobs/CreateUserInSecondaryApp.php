@@ -35,7 +35,7 @@ class CreateUserInSecondaryApp implements ShouldQueue
     public function __construct(
         public string $email,
         public string $name,
-        public string $passwordHash,
+        public string $password,
         public string $role,
         public string $ownerEmail,
     ) {}
@@ -77,12 +77,12 @@ class CreateUserInSecondaryApp implements ShouldQueue
                     Log::warning("Could not fetch teams for owner {$this->ownerEmail} from {$app['url']}: {$teamsResponse->body()}");
                 }
 
-                // Create the user with team association
+                // Create the user with team association (raw password - secondary app will hash it)
                 $response = $http->timeout(10)
                     ->post("{$app['url']}/api/create-user", [
                         'email' => $this->email,
                         'name' => $this->name,
-                        'password_hash' => $this->passwordHash,
+                        'password' => $this->password,
                         'role' => $this->role,
                         'team_ids' => $teamIds,
                     ]);

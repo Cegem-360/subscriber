@@ -34,7 +34,7 @@ beforeEach(function () {
 
 it('sends user data to all active secondary apps', function () {
     Http::fake([
-        '*/api/user-teams*' => Http::response(['team_ids' => [1, 2]], 200),
+        '*/api/user-teams*' => Http::response(['teams' => [['id' => 1], ['id' => 2]]], 200),
         'https://primary.test/api/create-user' => Http::response(['success' => true], 200),
         'https://secondary.test/api/create-user' => Http::response(['success' => true], 200),
         'https://tertiary.test/api/create-user' => Http::response(['success' => true], 200),
@@ -43,7 +43,7 @@ it('sends user data to all active secondary apps', function () {
     $job = new CreateUserInSecondaryApp(
         email: 'test@example.com',
         name: 'Test User',
-        passwordHash: 'hashed_password',
+        password: 'secret123',
         role: 'user',
         ownerEmail: 'owner@example.com',
     );
@@ -54,7 +54,7 @@ it('sends user data to all active secondary apps', function () {
         return $request->url() === 'https://primary.test/api/create-user'
             && $request['email'] === 'test@example.com'
             && $request['name'] === 'Test User'
-            && $request['password_hash'] === 'hashed_password'
+            && $request['password'] === 'secret123'
             && $request['role'] === 'user'
             && $request['team_ids'] === [1, 2]
             && $request->hasHeader('Authorization', 'Bearer test-api-key');
@@ -70,7 +70,7 @@ it('sends to all active apps', function () {
     $job = new CreateUserInSecondaryApp(
         email: 'test@example.com',
         name: 'Test User',
-        passwordHash: 'hashed_password',
+        password: 'secret123',
         role: 'user',
         ownerEmail: 'owner@example.com',
     );
@@ -110,7 +110,7 @@ it('skips inactive apps', function () {
     $job = new CreateUserInSecondaryApp(
         email: 'test@example.com',
         name: 'Test User',
-        passwordHash: 'hashed_password',
+        password: 'secret123',
         role: 'user',
         ownerEmail: 'owner@example.com',
     );
@@ -131,7 +131,7 @@ it('skips inactive apps', function () {
 
 it('logs success when user creation succeeds', function () {
     Http::fake([
-        '*/api/user-teams*' => Http::response(['team_ids' => [1]], 200),
+        '*/api/user-teams*' => Http::response(['teams' => [['id' => 1]]], 200),
         'https://primary.test/api/create-user' => Http::response(['success' => true], 200),
         'https://secondary.test/api/create-user' => Http::response(['success' => true], 200),
         'https://tertiary.test/api/create-user' => Http::response(['success' => true], 200),
@@ -142,7 +142,7 @@ it('logs success when user creation succeeds', function () {
     $job = new CreateUserInSecondaryApp(
         email: 'test@example.com',
         name: 'Test User',
-        passwordHash: 'hashed_password',
+        password: 'secret123',
         role: 'user',
         ownerEmail: 'owner@example.com',
     );
@@ -155,7 +155,7 @@ it('logs success when user creation succeeds', function () {
 
 it('logs warning when user creation fails', function () {
     Http::fake([
-        '*/api/user-teams*' => Http::response(['team_ids' => [1]], 200),
+        '*/api/user-teams*' => Http::response(['teams' => [['id' => 1]]], 200),
         'https://primary.test/api/create-user' => Http::response(['success' => true], 200),
         'https://secondary.test/api/create-user' => Http::response(['error' => 'Failed'], 422),
         'https://tertiary.test/api/create-user' => Http::response(['success' => true], 200),
@@ -166,7 +166,7 @@ it('logs warning when user creation fails', function () {
     $job = new CreateUserInSecondaryApp(
         email: 'test@example.com',
         name: 'Test User',
-        passwordHash: 'hashed_password',
+        password: 'secret123',
         role: 'user',
         ownerEmail: 'owner@example.com',
     );
@@ -185,7 +185,7 @@ it('logs error when exception occurs', function () {
     $job = new CreateUserInSecondaryApp(
         email: 'test@example.com',
         name: 'Test User',
-        passwordHash: 'hashed_password',
+        password: 'secret123',
         role: 'user',
         ownerEmail: 'owner@example.com',
     );
@@ -200,7 +200,7 @@ it('has correct retry configuration', function () {
     $job = new CreateUserInSecondaryApp(
         email: 'test@example.com',
         name: 'Test User',
-        passwordHash: 'hashed_password',
+        password: 'secret123',
         role: 'user',
         ownerEmail: 'owner@example.com',
     );
@@ -213,7 +213,7 @@ it('implements ShouldQueue interface', function () {
     $job = new CreateUserInSecondaryApp(
         email: 'test@example.com',
         name: 'Test User',
-        passwordHash: 'hashed_password',
+        password: 'secret123',
         role: 'user',
         ownerEmail: 'owner@example.com',
     );
@@ -240,7 +240,7 @@ it('uses app specific api key when set', function () {
     $job = new CreateUserInSecondaryApp(
         email: 'test@example.com',
         name: 'Test User',
-        passwordHash: 'hashed_password',
+        password: 'secret123',
         role: 'user',
         ownerEmail: 'owner@example.com',
     );

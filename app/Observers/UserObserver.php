@@ -4,32 +4,13 @@ declare(strict_types=1);
 
 namespace App\Observers;
 
-use App\Jobs\CreateUserInSecondaryApp;
 use App\Jobs\SyncUserToSecondaryApp;
 use App\Models\User;
 
 class UserObserver
 {
-    /**
-     * Handle the User "created" event.
-     */
-    public function created(User $user): void
-    {
-        // Only sync users that belong to a subscription (managed users)
-        if ($user->subscription_id) {
-            // Get the subscription owner's email for team association
-            $subscription = $user->memberOfSubscription;
-            $ownerEmail = $subscription?->user?->email ?? '';
-
-            dispatch(new CreateUserInSecondaryApp(
-                email: $user->email,
-                name: $user->name,
-                passwordHash: $user->password,
-                role: $user->role->value,
-                ownerEmail: $ownerEmail,
-            ));
-        }
-    }
+    // Note: User creation sync is handled in ManageUsers::createUser()
+    // to capture the raw password before it's hashed
 
     /**
      * Handle the User "updated" event.
@@ -43,9 +24,8 @@ class UserObserver
             $changedFields['new_email'] = $user->email;
         }
 
-        if ($user->wasChanged('password')) {
-            $changedFields['password_hash'] = $user->password;
-        }
+        // Note: Password sync is handled via raw password in EditProfile
+        // to avoid double-hashing issues
 
         if ($user->wasChanged('role')) {
             $changedFields['role'] = $user->role->value;

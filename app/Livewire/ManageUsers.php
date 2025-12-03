@@ -6,6 +6,7 @@ namespace App\Livewire;
 
 use App\Enums\SubscriptionStatus;
 use App\Enums\UserRole;
+use App\Jobs\CreateUserInSecondaryApp;
 use App\Models\Subscription;
 use App\Models\User;
 use Filament\Actions\Concerns\InteractsWithActions;
@@ -171,15 +172,26 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
         }
 
         $data = $this->form->getState();
+        $rawPassword = $data['password'];
 
         User::query()->create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => Hash::make($rawPassword),
             'role' => UserRole::Subscriber,
             'subscription_id' => $subscription->id,
             'email_verified_at' => now(),
         ]);
+
+        // Sync user to secondary apps with raw password
+        $ownerEmail = $subscription->user?->email ?? '';
+        dispatch(new CreateUserInSecondaryApp(
+            email: $data['email'],
+            name: $data['name'],
+            password: $rawPassword,
+            role: UserRole::Subscriber->value,
+            ownerEmail: $ownerEmail,
+        ));
 
         Notification::make()
             ->title(__('User created successfully'))

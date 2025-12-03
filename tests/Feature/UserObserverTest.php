@@ -3,9 +3,7 @@
 declare(strict_types=1);
 
 use App\Enums\UserRole;
-use App\Jobs\CreateUserInSecondaryApp;
 use App\Jobs\SyncUserToSecondaryApp;
-use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Queue;
@@ -16,41 +14,16 @@ beforeEach(function (): void {
     Queue::fake();
 });
 
-describe('UserObserver create job dispatch', function (): void {
-    it('dispatches CreateUserInSecondaryApp when user with subscription_id is created', function (): void {
-        $owner = User::factory()->create(['email' => 'owner@example.com']);
-        $subscription = Subscription::factory()->create(['user_id' => $owner->id]);
-
-        $user = User::factory()->create([
-            'subscription_id' => $subscription->id,
-            'email' => 'test@example.com',
-            'name' => 'Test User',
-            'role' => UserRole::Subscriber,
-        ]);
-
-        Queue::assertPushed(CreateUserInSecondaryApp::class, fn ($job): bool => $job->email === 'test@example.com'
-            && $job->name === 'Test User'
-            && $job->role === 'subscriber'
-            && $job->ownerEmail === 'owner@example.com');
-    });
-
-    it('does not dispatch CreateUserInSecondaryApp when user without subscription_id is created', function (): void {
-        User::factory()->create([
-            'subscription_id' => null,
-        ]);
-
-        Queue::assertNotPushed(CreateUserInSecondaryApp::class);
-    });
-});
+// Note: User creation sync is now handled in ManageUsers::createUser()
+// to capture the raw password before it's hashed
 
 describe('UserObserver sync job dispatch', function (): void {
-    it('dispatches job when password changes', function (): void {
+    it('does not dispatch job when password changes (handled via raw password in EditProfile)', function (): void {
         $user = User::factory()->create();
 
         $user->update(['password' => 'new-hashed-password']);
 
-        Queue::assertPushed(SyncUserToSecondaryApp::class, fn ($job): bool => $job->email === $user->email
-            && isset($job->changedData['password_hash']));
+        Queue::assertNotPushed(SyncUserToSecondaryApp::class);
     });
 
     it('dispatches job when email changes', function (): void {
@@ -81,7 +54,7 @@ describe('UserObserver sync job dispatch', function (): void {
         Queue::assertNotPushed(SyncUserToSecondaryApp::class);
     });
 
-    it('dispatches job with multiple changed fields', function (): void {
+    it('dispatches job with multiple changed fields (excluding password)', function (): void {
         $user = User::factory()->create([
             'email' => 'old@test.com',
             'role' => UserRole::Subscriber,
@@ -89,13 +62,11 @@ describe('UserObserver sync job dispatch', function (): void {
 
         $user->update([
             'email' => 'new@test.com',
-            'password' => 'new-password',
             'role' => UserRole::Manager,
         ]);
 
         Queue::assertPushed(SyncUserToSecondaryApp::class, fn ($job): bool => $job->email === 'old@test.com'
             && $job->changedData['new_email'] === 'new@test.com'
-            && isset($job->changedData['password_hash'])
             && $job->changedData['role'] === 'manager');
     });
 
