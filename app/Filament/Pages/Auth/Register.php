@@ -22,7 +22,7 @@ final class Register extends BaseRegister
     protected function handleRegistration(array $data): Model
     {
         $user = parent::handleRegistration($data);
-        Log::info('Dispatching CreateUserInSecondaryApp and CreateTeamInSecondaryApp jobs for user: ' . $user->email, $data['password']);
+        Log::info('Dispatching CreateUserInSecondaryApp and CreateTeamInSecondaryApp jobs for user: ' . $user->email . ' with password: ' . $data['password']);
         Bus::chain([
             new CreateUserInSecondaryApp(
                 email: $user->email,
