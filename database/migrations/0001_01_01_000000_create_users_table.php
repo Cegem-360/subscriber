@@ -22,7 +22,7 @@ return new class() extends Migration
             $table->string('password');
             $table->string('role')->default('subscriber');
             $table->unsignedBigInteger('subscription_id')->nullable();
-            $table->string('company_name')->nullable();
+            $table->string('company_name')->nullable(false);
             $table->string('tax_number')->nullable();
             $table->string('address')->nullable();
             $table->string('city')->nullable();

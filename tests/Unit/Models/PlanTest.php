@@ -10,8 +10,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
-it('has correct fillable attributes', function () {
-    $plan = new Plan;
+it('has correct fillable attributes', function (): void {
+    $plan = new Plan();
 
     expect($plan->getFillable())->toBe([
         'name',
@@ -28,7 +28,7 @@ it('has correct fillable attributes', function () {
     ]);
 });
 
-it('casts features to array', function () {
+it('casts features to array', function (): void {
     $plan = Plan::factory()->create([
         'features' => ['feature1', 'feature2'],
     ]);
@@ -37,27 +37,27 @@ it('casts features to array', function () {
         ->and($plan->features)->toBe(['feature1', 'feature2']);
 });
 
-it('casts is_active to boolean', function () {
+it('casts is_active to boolean', function (): void {
     $plan = Plan::factory()->create(['is_active' => 1]);
 
     expect($plan->is_active)->toBeBool()
         ->and($plan->is_active)->toBeTrue();
 });
 
-it('casts price to decimal', function () {
+it('casts price to decimal', function (): void {
     $plan = Plan::factory()->create(['price' => 99.99]);
 
     expect($plan->price)->toBe('99.99');
 });
 
-it('casts billing_period to enum', function () {
+it('casts billing_period to enum', function (): void {
     $plan = Plan::factory()->create(['billing_period' => BillingPeriod::Monthly]);
 
     expect($plan->billing_period)->toBeInstanceOf(BillingPeriod::class)
         ->and($plan->billing_period)->toBe(BillingPeriod::Monthly);
 });
 
-it('belongs to a plan category', function () {
+it('belongs to a plan category', function (): void {
     $category = PlanCategory::factory()->create();
     $plan = Plan::factory()->create(['plan_category_id' => $category->id]);
 
@@ -65,7 +65,7 @@ it('belongs to a plan category', function () {
         ->and($plan->planCategory->id)->toBe($category->id);
 });
 
-it('has many subscriptions', function () {
+it('has many subscriptions', function (): void {
     $plan = Plan::factory()->create();
     $subscription = Subscription::factory()->create(['plan_id' => $plan->id]);
 
@@ -73,7 +73,7 @@ it('has many subscriptions', function () {
         ->and($plan->subscriptions->first()->id)->toBe($subscription->id);
 });
 
-it('filters active plans with scope', function () {
+it('filters active plans with scope', function (): void {
     Plan::factory()->create(['is_active' => true]);
     Plan::factory()->create(['is_active' => false]);
     Plan::factory()->create(['is_active' => true]);

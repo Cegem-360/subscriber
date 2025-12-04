@@ -204,8 +204,8 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
 
         Log::info('ManageUsers: Creating user', [
             'email' => $data['email'],
-            'password_length' => strlen($rawPassword),
-            'password_preview' => substr($rawPassword, 0, 3) . '***',
+            'password_length' => strlen((string) $rawPassword),
+            'password_preview' => substr((string) $rawPassword, 0, 3) . '***',
         ]);
 
         User::query()->create([

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Observers;
 
+use App\Jobs\CreateTeamInSecondaryApp;
 use App\Models\Subscription;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,6 +17,9 @@ class SubscriptionObserver
     {
         if (Auth::check()) {
             $subscription->update(['user_id' => Auth::id()]);
+
+            $user = Auth::user();
+            dispatch(new CreateTeamInSecondaryApp(teamName: $user->company_name, userEmail: $user->email));
         }
     }
 

@@ -47,7 +47,7 @@ class CreateUserInSecondaryApp implements ShouldQueue
     {
         $defaultApiKey = $appService->getDefaultApiKey();
 
-        foreach ($appService->getActiveApps() as $appName => $app) {
+        foreach ($appService->getActiveApps() as $app) {
             $apiKey = $app['api_key'] ?? $defaultApiKey;
 
             try {

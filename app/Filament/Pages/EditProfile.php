@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages;
 
+use App\Enums\Country;
 use App\Jobs\SyncUserToSecondaryApp;
 use Filament\Actions\Action;
 use Filament\Auth\Pages\EditProfile as BaseEditProfile;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\Section;
@@ -49,32 +51,32 @@ final class EditProfile extends BaseEditProfile
                         $this->getCurrentPasswordFormComponent(),
                     ]),
 
-                Section::make('Company Information')
-                    ->description('Your company or billing details.')
+                Section::make(__('Company Information'))
+                    ->description(__('Your company or billing details.'))
                     ->components([
                         TextInput::make('company_name')
-                            ->label('Company Name')
+                            ->required()
                             ->maxLength(255),
 
                         TextInput::make('tax_number')
-                            ->label('Tax Number')
+                            ->required()
                             ->maxLength(255),
 
                         TextInput::make('address')
-                            ->label('Address')
+                            ->required()
                             ->maxLength(255),
 
                         TextInput::make('city')
-                            ->label('City')
+                            ->required()
                             ->maxLength(255),
 
                         TextInput::make('postal_code')
-                            ->label('Postal Code')
+                            ->required()
                             ->maxLength(20),
 
-                        TextInput::make('country')
-                            ->label('Country')
-                            ->maxLength(255),
+                        Select::make('country')
+                            ->options(Country::class)
+                            ->required(),
                     ])
                     ->columns(2),
 
@@ -132,8 +134,8 @@ final class EditProfile extends BaseEditProfile
         if (filled($rawPassword)) {
             Log::info('EditProfile: Password changed, syncing to secondary apps', [
                 'email' => $this->getUser()->email,
-                'password_length' => strlen($rawPassword),
-                'password_preview' => substr($rawPassword, 0, 3) . '***',
+                'password_length' => strlen((string) $rawPassword),
+                'password_preview' => substr((string) $rawPassword, 0, 3) . '***',
             ]);
 
             dispatch(new SyncUserToSecondaryApp(

@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Models\Subscription;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Fieldset;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
@@ -26,6 +30,10 @@ final class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Cashier::useSubscriptionModel(Subscription::class);
+        Fieldset::configureUsing(fn (Fieldset $fieldset) => $fieldset->translateLabel());
+        TextInput::configureUsing(fn (TextInput $textInput) => $textInput->translateLabel());
+        Select::configureUsing(fn (Select $select) => $select->translateLabel());
+        TextColumn::configureUsing(fn (TextColumn $textColumn) => $textColumn->translateLabel());
 
         /* Event::listen(
             WebhookReceived::class,

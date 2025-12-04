@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use App\Services\SecondaryAppService;
 
-beforeEach(function () {
+beforeEach(function (): void {
     config([
         'microservices' => [
             'default_api_key' => 'default-key',
@@ -29,8 +29,8 @@ beforeEach(function () {
     ]);
 });
 
-it('returns all apps', function () {
-    $service = new SecondaryAppService;
+it('returns all apps', function (): void {
+    $service = new SecondaryAppService();
 
     $apps = $service->getApps();
 
@@ -38,8 +38,8 @@ it('returns all apps', function () {
         ->and(array_keys($apps))->toBe(['app1', 'app2', 'app3']);
 });
 
-it('returns only active apps', function () {
-    $service = new SecondaryAppService;
+it('returns only active apps', function (): void {
+    $service = new SecondaryAppService();
 
     $activeApps = $service->getActiveApps();
 
@@ -47,32 +47,32 @@ it('returns only active apps', function () {
         ->and(array_keys($activeApps))->toBe(['app1', 'app3']);
 });
 
-it('returns default api key', function () {
-    $service = new SecondaryAppService;
+it('returns default api key', function (): void {
+    $service = new SecondaryAppService();
 
     expect($service->getDefaultApiKey())->toBe('default-key');
 });
 
-it('returns app specific api key when set', function () {
-    $service = new SecondaryAppService;
+it('returns app specific api key when set', function (): void {
+    $service = new SecondaryAppService();
 
     expect($service->getApiKey('app1'))->toBe('app1-key');
 });
 
-it('returns default api key when app api key is null', function () {
-    $service = new SecondaryAppService;
+it('returns default api key when app api key is null', function (): void {
+    $service = new SecondaryAppService();
 
     expect($service->getApiKey('app2'))->toBe('default-key');
 });
 
-it('returns null for non-existent app', function () {
-    $service = new SecondaryAppService;
+it('returns null for non-existent app', function (): void {
+    $service = new SecondaryAppService();
 
     expect($service->getApiKey('non-existent'))->toBeNull();
 });
 
-it('returns specific app configuration', function () {
-    $service = new SecondaryAppService;
+it('returns specific app configuration', function (): void {
+    $service = new SecondaryAppService();
 
     $app = $service->getApp('app1');
 
@@ -83,8 +83,8 @@ it('returns specific app configuration', function () {
     ]);
 });
 
-it('returns null for non-existent app configuration', function () {
-    $service = new SecondaryAppService;
+it('returns null for non-existent app configuration', function (): void {
+    $service = new SecondaryAppService();
 
     expect($service->getApp('non-existent'))->toBeNull();
 });

@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
-beforeEach(function () {
+beforeEach(function (): void {
     config([
         'microservices' => [
             'default_api_key' => 'test-api-key',
@@ -33,7 +33,7 @@ beforeEach(function () {
     ]);
 });
 
-it('sends user data to all active secondary apps', function () {
+it('sends user data to all active secondary apps', function (): void {
     Http::fake([
         'https://primary.test/api/sync-user' => Http::response(['success' => true], 200),
         'https://secondary.test/api/sync-user' => Http::response(['success' => true], 200),
@@ -45,19 +45,17 @@ it('sends user data to all active secondary apps', function () {
         changedData: ['password_hash' => 'hashed_password'],
     );
 
-    $job->handle(app(SecondaryAppService::class));
+    $job->handle(resolve(SecondaryAppService::class));
 
-    Http::assertSent(function ($request) {
-        return $request->url() === 'https://primary.test/api/sync-user'
-            && $request['email'] === 'test@example.com'
-            && $request['password_hash'] === 'hashed_password'
-            && $request->hasHeader('Authorization', 'Bearer test-api-key');
-    });
+    Http::assertSent(fn ($request): bool => $request->url() === 'https://primary.test/api/sync-user'
+        && $request['email'] === 'test@example.com'
+        && $request['password_hash'] === 'hashed_password'
+        && $request->hasHeader('Authorization', 'Bearer test-api-key'));
 
     Http::assertSentCount(3);
 });
 
-it('sends to all active apps', function () {
+it('sends to all active apps', function (): void {
     Http::fake();
 
     $job = new SyncUserToSecondaryApp(
@@ -65,12 +63,12 @@ it('sends to all active apps', function () {
         changedData: ['role' => 'admin'],
     );
 
-    $job->handle(app(SecondaryAppService::class));
+    $job->handle(resolve(SecondaryAppService::class));
 
     Http::assertSentCount(3);
 });
 
-it('skips inactive apps', function () {
+it('skips inactive apps', function (): void {
     config([
         'microservices' => [
             'default_api_key' => 'test-api-key',
@@ -101,16 +99,14 @@ it('skips inactive apps', function () {
         changedData: ['new_email' => 'new@example.com'],
     );
 
-    $job->handle(app(SecondaryAppService::class));
+    $job->handle(resolve(SecondaryAppService::class));
 
-    Http::assertNotSent(function ($request) {
-        return str_contains($request->url(), 'secondary.test');
-    });
+    Http::assertNotSent(fn ($request): bool => str_contains((string) $request->url(), 'secondary.test'));
 
     Http::assertSentCount(2);
 });
 
-it('sends multiple changed fields', function () {
+it('sends multiple changed fields', function (): void {
     Http::fake([
         '*' => Http::response(['success' => true], 200),
     ]);
@@ -124,17 +120,15 @@ it('sends multiple changed fields', function () {
         ],
     );
 
-    $job->handle(app(SecondaryAppService::class));
+    $job->handle(resolve(SecondaryAppService::class));
 
-    Http::assertSent(function ($request) {
-        return $request['email'] === 'test@example.com'
-            && $request['new_email'] === 'new@example.com'
-            && $request['password_hash'] === 'new_hash'
-            && $request['role'] === 'manager';
-    });
+    Http::assertSent(fn ($request): bool => $request['email'] === 'test@example.com'
+        && $request['new_email'] === 'new@example.com'
+        && $request['password_hash'] === 'new_hash'
+        && $request['role'] === 'manager');
 });
 
-it('logs success when user sync succeeds', function () {
+it('logs success when user sync succeeds', function (): void {
     Http::fake([
         'https://primary.test/api/sync-user' => Http::response(['success' => true], 200),
         'https://secondary.test/api/sync-user' => Http::response(['success' => true], 200),
@@ -148,14 +142,14 @@ it('logs success when user sync succeeds', function () {
         changedData: ['role' => 'user'],
     );
 
-    $job->handle(app(SecondaryAppService::class));
+    $job->handle(resolve(SecondaryAppService::class));
 
     Log::shouldHaveReceived('info')
         ->times(3)
-        ->withArgs(fn ($message) => str_contains($message, 'User sync successful'));
+        ->withArgs(fn ($message): bool => str_contains((string) $message, 'User sync successful'));
 });
 
-it('logs warning when user sync fails', function () {
+it('logs warning when user sync fails', function (): void {
     Http::fake([
         'https://primary.test/api/sync-user' => Http::response(['success' => true], 200),
         'https://secondary.test/api/sync-user' => Http::response(['error' => 'Failed'], 422),
@@ -169,14 +163,14 @@ it('logs warning when user sync fails', function () {
         changedData: ['role' => 'user'],
     );
 
-    $job->handle(app(SecondaryAppService::class));
+    $job->handle(resolve(SecondaryAppService::class));
 
     Log::shouldHaveReceived('warning')
         ->once()
-        ->withArgs(fn ($message) => str_contains($message, 'User sync failed'));
+        ->withArgs(fn ($message): bool => str_contains((string) $message, 'User sync failed'));
 });
 
-it('logs error when exception occurs', function () {
+it('logs error when exception occurs', function (): void {
     Http::fake(fn () => throw new Exception('Connection failed'));
 
     Log::spy();
@@ -186,13 +180,13 @@ it('logs error when exception occurs', function () {
         changedData: ['role' => 'user'],
     );
 
-    $job->handle(app(SecondaryAppService::class));
+    $job->handle(resolve(SecondaryAppService::class));
 
     Log::shouldHaveReceived('error')
-        ->withArgs(fn ($message) => str_contains($message, 'Exception during user sync'));
+        ->withArgs(fn ($message): bool => str_contains((string) $message, 'Exception during user sync'));
 });
 
-it('has correct retry configuration', function () {
+it('has correct retry configuration', function (): void {
     $job = new SyncUserToSecondaryApp(
         email: 'test@example.com',
         changedData: ['role' => 'user'],
@@ -202,7 +196,7 @@ it('has correct retry configuration', function () {
         ->and($job->backoff)->toBe(60);
 });
 
-it('implements ShouldQueue interface', function () {
+it('implements ShouldQueue interface', function (): void {
     $job = new SyncUserToSecondaryApp(
         email: 'test@example.com',
         changedData: ['role' => 'user'],
@@ -211,7 +205,7 @@ it('implements ShouldQueue interface', function () {
     expect($job)->toBeInstanceOf(ShouldQueue::class);
 });
 
-it('uses app specific api key when set', function () {
+it('uses app specific api key when set', function (): void {
     config([
         'microservices' => [
             'default_api_key' => 'default-key',
@@ -232,9 +226,7 @@ it('uses app specific api key when set', function () {
         changedData: ['role' => 'admin'],
     );
 
-    $job->handle(app(SecondaryAppService::class));
+    $job->handle(resolve(SecondaryAppService::class));
 
-    Http::assertSent(function ($request) {
-        return $request->hasHeader('Authorization', 'Bearer custom-app-key');
-    });
+    Http::assertSent(fn ($request) => $request->hasHeader('Authorization', 'Bearer custom-app-key'));
 });

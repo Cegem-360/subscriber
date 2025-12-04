@@ -9,7 +9,6 @@ use App\Enums\SubscriptionStatus;
 use App\Models\Plan;
 use App\Models\Plan\PlanCategory;
 use App\Models\Subscription;
-use App\Models\User;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Components\TextInput;
@@ -115,9 +114,6 @@ class CreateModulePage extends Component implements HasActions, HasSchemas
 
     public function create(): void
     {
-        if (! Auth::check()) {
-            Auth::loginUsingId(User::query()->find(1)->id);
-        }
         $data = $this->form->getState();
         $data['stripe_status'] = SubscriptionStatus::Active;
         $data['type'] = $data['billing_period'];

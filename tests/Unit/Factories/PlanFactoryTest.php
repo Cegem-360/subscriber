@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 use App\Models\Plan;
+use App\Models\Plan\PlanCategory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
-it('creates a plan with factory', function () {
+it('creates a plan with factory', function (): void {
     $plan = Plan::factory()->create();
 
     expect($plan)->toBeInstanceOf(Plan::class)
@@ -16,7 +17,7 @@ it('creates a plan with factory', function () {
         ->and($plan->slug)->not->toBeNull();
 });
 
-it('creates plan with custom attributes', function () {
+it('creates plan with custom attributes', function (): void {
     $plan = Plan::factory()->create([
         'name' => 'Premium Plan',
         'price' => 199.99,
@@ -28,7 +29,7 @@ it('creates plan with custom attributes', function () {
         ->and($plan->is_active)->toBeTrue();
 });
 
-it('creates a basic plan with factory', function () {
+it('creates a basic plan with factory', function (): void {
     $plan = Plan::factory()->basic()->create();
 
     expect($plan->name)->toBe('Basic Plan')
@@ -37,7 +38,7 @@ it('creates a basic plan with factory', function () {
         ->and($plan->sort_order)->toBe(1);
 });
 
-it('creates a pro plan with factory', function () {
+it('creates a pro plan with factory', function (): void {
     $plan = Plan::factory()->pro()->create();
 
     expect($plan->name)->toBe('Pro Plan')
@@ -46,7 +47,7 @@ it('creates a pro plan with factory', function () {
         ->and($plan->sort_order)->toBe(2);
 });
 
-it('creates an enterprise plan with factory', function () {
+it('creates an enterprise plan with factory', function (): void {
     $plan = Plan::factory()->enterprise()->create();
 
     expect($plan->name)->toBe('Enterprise Plan')
@@ -55,8 +56,8 @@ it('creates an enterprise plan with factory', function () {
         ->and($plan->sort_order)->toBe(3);
 });
 
-it('creates plan with category', function () {
-    $category = \App\Models\Plan\PlanCategory::factory()->create();
+it('creates plan with category', function (): void {
+    $category = PlanCategory::factory()->create();
     $plan = Plan::factory()->category($category->id)->create();
 
     expect($plan->plan_category_id)->toBe($category->id);

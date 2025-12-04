@@ -12,8 +12,9 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
-class SyncUserToSecondaryApp implements ShouldQueue
+class CreateTeamInSecondaryApp implements ShouldQueue
 {
     use InteractsWithQueue;
     use Queueable;
@@ -31,14 +32,13 @@ class SyncUserToSecondaryApp implements ShouldQueue
 
     /**
      * Create a new job instance.
-     *
-     * @param  array<string, mixed>  $changedData
      */
     public function __construct(
-        public string $email,
-        public array $changedData,
+        public string $teamName,
+        public string $userEmail,
+        public ?string $slug = null,
     ) {
-        //
+        $this->slug = $slug ?? Str::slug($teamName);
     }
 
     /**
@@ -62,30 +62,29 @@ class SyncUserToSecondaryApp implements ShouldQueue
                     $http = $http->withoutVerifying();
                 }
 
-                // Log password sync details (if password is in changedData)
-                if (isset($this->changedData['password'])) {
-                    $pwd = $this->changedData['password'];
-                    Log::info('SyncUserToSecondaryApp: Sending password sync', [
-                        'app_url' => $app['url'],
-                        'email' => $this->email,
-                        'password_length' => strlen($pwd),
-                        'password_preview' => substr($pwd, 0, 3) . '***',
-                    ]);
-                }
+                Log::info('CreateTeamInSecondaryApp: Sending team creation request', [
+                    'app_url' => $app['url'],
+                    'team_name' => $this->teamName,
+                    'slug' => $this->slug,
+                    'user_email' => $this->userEmail,
+                ]);
 
                 $response = $http->timeout(10)
-                    ->post("{$app['url']}/api/sync-user", [
-                        'email' => $this->email,
-                        ...$this->changedData,
+                    ->post("{$app['url']}/api/create-team", [
+                        'name' => $this->teamName,
+                        'slug' => $this->slug,
+                        'user_email' => $this->userEmail,
                     ]);
 
                 if ($response->successful()) {
-                    Log::info("User sync successful for {$this->email} to {$app['url']}");
+                    Log::info("Team creation successful for {$this->teamName} to {$app['url']}", [
+                        'team_id' => $response->json('team_id'),
+                    ]);
                 } else {
-                    Log::warning("User sync failed for {$this->email} to {$app['url']}: {$response->body()}");
+                    Log::warning("Team creation failed for {$this->teamName} to {$app['url']}: {$response->body()}");
                 }
             } catch (Exception $e) {
-                Log::error("Exception during user sync for {$this->email}: {$e->getMessage()}");
+                Log::error("Exception during team creation for {$this->teamName}: {$e->getMessage()}");
             }
         }
     }

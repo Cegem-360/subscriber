@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
-it('creates a plan category with factory', function () {
+it('creates a plan category with factory', function (): void {
     $category = PlanCategory::factory()->create();
 
     expect($category)->toBeInstanceOf(PlanCategory::class)

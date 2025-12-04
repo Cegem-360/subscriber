@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
-it('creates an invoice with factory', function () {
+it('creates an invoice with factory', function (): void {
     $user = User::factory()->create();
     $invoice = Invoice::factory()->create(['user_id' => $user->id]);
 
@@ -18,7 +18,7 @@ it('creates an invoice with factory', function () {
         ->and($invoice->user_id)->toBe($user->id);
 });
 
-it('creates a paid invoice with factory', function () {
+it('creates a paid invoice with factory', function (): void {
     $user = User::factory()->create();
     $invoice = Invoice::factory()->paid()->create(['user_id' => $user->id]);
 
@@ -28,7 +28,7 @@ it('creates a paid invoice with factory', function () {
         ->and($invoice->billingo_synced_at)->not->toBeNull();
 });
 
-it('creates a pending invoice with factory', function () {
+it('creates a pending invoice with factory', function (): void {
     $user = User::factory()->create();
     $invoice = Invoice::factory()->pending()->create(['user_id' => $user->id]);
 

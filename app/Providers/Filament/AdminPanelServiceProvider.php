@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Providers\Filament;
 
 use App\Filament\Pages\Auth\Login;
+use App\Filament\Pages\Auth\Register;
 use App\Filament\Pages\EditProfile;
 use App\Filament\Pages\Plans;
 use Filament\Http\Middleware\Authenticate;
@@ -30,7 +31,7 @@ final class AdminPanelServiceProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login(Login::class)
-            ->registration()
+            ->registration(Register::class)
             ->emailVerification()
             ->profile(EditProfile::class)
             ->colors([
