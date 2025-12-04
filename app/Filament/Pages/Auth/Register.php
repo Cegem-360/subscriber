@@ -22,6 +22,7 @@ final class Register extends BaseRegister
         dispatch(new CreateTeamInSecondaryApp(
             teamName: $user->company_name,
             userEmail: $user->email,
+            userName: $user->name,
         ));
 
         return $user;

@@ -37,6 +37,7 @@ class CreateTeamInSecondaryApp implements ShouldQueue
         public string $teamName,
         public string $userEmail,
         public ?string $slug = null,
+        public ?string $userName = null,
     ) {
         $this->slug = $slug ?? Str::slug($teamName);
     }
@@ -74,6 +75,7 @@ class CreateTeamInSecondaryApp implements ShouldQueue
                         'name' => $this->teamName,
                         'slug' => $this->slug,
                         'user_email' => $this->userEmail,
+                        'user_name' => $this->userName,
                     ]);
 
                 if ($response->successful()) {
