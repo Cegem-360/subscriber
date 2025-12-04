@@ -5,14 +5,28 @@ declare(strict_types=1);
 namespace App\Filament\Pages\Auth;
 
 use App\Enums\Country;
+use App\Jobs\CreateTeamInSecondaryApp;
 use Filament\Auth\Pages\Register as BaseRegister;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Schema;
+use Illuminate\Database\Eloquent\Model;
 
 final class Register extends BaseRegister
 {
+    protected function handleRegistration(array $data): Model
+    {
+        $user = parent::handleRegistration($data);
+
+        dispatch(new CreateTeamInSecondaryApp(
+            teamName: $user->company_name,
+            userEmail: $user->email,
+        ));
+
+        return $user;
+    }
+
     public function form(Schema $schema): Schema
     {
         return $schema

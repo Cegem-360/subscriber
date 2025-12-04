@@ -3,8 +3,6 @@
 declare(strict_types=1);
 
 use App\Jobs\CreateTeamInSecondaryApp;
-use App\Models\Subscription;
-use App\Models\User;
 use App\Services\SecondaryAppService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
@@ -109,18 +107,26 @@ it('logs warning when team creation fails', function (): void {
     $job->handle(resolve(SecondaryAppService::class));
 });
 
-it('is dispatched when subscription is created', function (): void {
+it('is dispatched from Register page handleRegistration', function (): void {
     Queue::fake();
 
-    $user = User::factory()->create([
+    $register = new \App\Filament\Pages\Auth\Register();
+
+    // Use reflection to call protected method
+    $method = new ReflectionMethod($register, 'handleRegistration');
+
+    $method->invoke($register, [
+        'name' => 'Test User',
+        'email' => 'test-reg@example.com',
+        'password' => 'password123',
         'company_name' => 'Test Company Kft.',
-        'email' => 'owner@example.com',
+        'tax_number' => '12345678-1-23',
+        'address' => 'Test Street 123',
+        'city' => 'Budapest',
+        'postal_code' => '1234',
+        'country' => \App\Enums\Country::Hungary->value,
     ]);
 
-    $this->actingAs($user);
-
-    Subscription::factory()->create();
-
     Queue::assertPushed(CreateTeamInSecondaryApp::class, fn ($job): bool => $job->teamName === 'Test Company Kft.'
-        && $job->userEmail === 'owner@example.com');
+        && $job->userEmail === 'test-reg@example.com');
 });
