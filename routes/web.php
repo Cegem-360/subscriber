@@ -14,6 +14,12 @@ use Laravel\Cashier\Events\WebhookReceived;
 
 Route::get('/', fn (): Factory|View => view('welcome'))->name('welcome');
 Route::get('/module-order', fn (): Factory|View => view('module-order'))->name('module.order');
+
+// Email verification route - redirects to Filament's verification page
+Route::get('/email/verify', fn () => redirect()->route('filament.admin.auth.email-verification.prompt'))
+    ->middleware('auth')
+    ->name('verification.notice');
+
 Route::middleware(['guest'])->group(function (): void {
     Route::get('/login', fn (): Factory|View => view(Login::class))->name('login');
     Route::get('/register', fn (): Factory|View => view('auth.register'))->name('register');
