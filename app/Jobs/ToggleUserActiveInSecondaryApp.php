@@ -35,6 +35,7 @@ class ToggleUserActiveInSecondaryApp implements ShouldQueue
     public function __construct(
         public string $userEmail,
         public bool $isActive,
+        public string $appKey,
     ) {}
 
     /**
@@ -42,43 +43,49 @@ class ToggleUserActiveInSecondaryApp implements ShouldQueue
      */
     public function handle(SecondaryAppService $appService): void
     {
+        $app = $appService->getApp($this->appKey);
+
+        if (! $app) {
+            Log::warning("ToggleUserActiveInSecondaryApp: App not found for key: {$this->appKey}");
+
+            return;
+        }
+
         $defaultApiKey = $appService->getDefaultApiKey();
         $action = $this->isActive ? 'activate' : 'deactivate';
+        $apiKey = $app['api_key'] ?? $defaultApiKey;
 
-        foreach ($appService->getActiveApps() as $app) {
-            $apiKey = $app['api_key'] ?? $defaultApiKey;
+        try {
+            $http = Http::withHeaders([
+                'Authorization' => "Bearer {$apiKey}",
+                'Accept' => 'application/json',
+            ]);
 
-            try {
-                $http = Http::withHeaders([
-                    'Authorization' => "Bearer {$apiKey}",
-                    'Accept' => 'application/json',
-                ]);
+            // Skip SSL verification for local .test domains (Laravel Herd)
+            if (str_ends_with((string) $app['url'], '.test')) {
+                $http = $http->withoutVerifying();
+            }
 
-                // Skip SSL verification for local .test domains (Laravel Herd)
-                if (str_ends_with((string) $app['url'], '.test')) {
-                    $http = $http->withoutVerifying();
-                }
+            Log::info("ToggleUserActiveInSecondaryApp: Sending {$action} request", [
+                'app_key' => $this->appKey,
+                'app_url' => $app['url'],
+                'user_email' => $this->userEmail,
+                'is_active' => $this->isActive,
+            ]);
 
-                Log::info("ToggleUserActiveInSecondaryApp: Sending {$action} request", [
-                    'app_url' => $app['url'],
-                    'user_email' => $this->userEmail,
+            $response = $http->timeout(10)
+                ->post("{$app['url']}/api/toggle-user-active", [
+                    'email' => $this->userEmail,
                     'is_active' => $this->isActive,
                 ]);
 
-                $response = $http->timeout(10)
-                    ->post("{$app['url']}/api/toggle-user-active", [
-                        'email' => $this->userEmail,
-                        'is_active' => $this->isActive,
-                    ]);
-
-                if ($response->successful()) {
-                    Log::info("User {$action} successful for {$this->userEmail} to {$app['url']}");
-                } else {
-                    Log::warning("User {$action} failed for {$this->userEmail} to {$app['url']}: {$response->body()}");
-                }
-            } catch (Exception $e) {
-                Log::error("Exception during user {$action} for {$this->userEmail}: {$e->getMessage()}");
+            if ($response->successful()) {
+                Log::info("User {$action} successful for {$this->userEmail} to {$app['url']}");
+            } else {
+                Log::warning("User {$action} failed for {$this->userEmail} to {$app['url']}: {$response->body()}");
             }
+        } catch (Exception $e) {
+            Log::error("Exception during user {$action} for {$this->userEmail}: {$e->getMessage()}");
         }
     }
 }

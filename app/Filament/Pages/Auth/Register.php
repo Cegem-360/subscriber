@@ -38,7 +38,7 @@ final class Register extends BaseRegister
                 email: $user->email,
                 name: $user->name,
                 password: $this->rawPassword,
-                role: $user->role?->value ?? UserRole::Subscriber->value,
+                role: $user->role?->value ?? UserRole::Manager->value,
                 ownerEmail: $user->email,
             ),
             new CreateTeamInSecondaryApp(

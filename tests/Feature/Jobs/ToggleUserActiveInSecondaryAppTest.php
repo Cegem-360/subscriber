@@ -24,7 +24,7 @@ beforeEach(function (): void {
     config(['microservices.default_api_key' => 'default-key']);
 });
 
-it('sends activate request to secondary apps', function (): void {
+it('sends activate request to specific app', function (): void {
     Http::fake([
         'https://controling.test/api/toggle-user-active' => Http::response([
             'message' => 'User activated successfully',
@@ -34,6 +34,7 @@ it('sends activate request to secondary apps', function (): void {
     $job = new ToggleUserActiveInSecondaryApp(
         userEmail: 'test@example.com',
         isActive: true,
+        appKey: 'controling',
     );
 
     $job->handle(resolve(SecondaryAppService::class));
@@ -43,7 +44,7 @@ it('sends activate request to secondary apps', function (): void {
         && $request['is_active'] === true);
 });
 
-it('sends deactivate request to secondary apps', function (): void {
+it('sends deactivate request to specific app', function (): void {
     Http::fake([
         'https://controling.test/api/toggle-user-active' => Http::response([
             'message' => 'User deactivated successfully',
@@ -53,6 +54,7 @@ it('sends deactivate request to secondary apps', function (): void {
     $job = new ToggleUserActiveInSecondaryApp(
         userEmail: 'test@example.com',
         isActive: false,
+        appKey: 'controling',
     );
 
     $job->handle(resolve(SecondaryAppService::class));
@@ -80,12 +82,40 @@ it('logs successful activation', function (): void {
     $job = new ToggleUserActiveInSecondaryApp(
         userEmail: 'test@example.com',
         isActive: true,
+        appKey: 'controling',
     );
 
     $job->handle(resolve(SecondaryAppService::class));
 });
 
-it('is dispatched when subscription is created', function (): void {
+it('is dispatched when subscription is created with plan category', function (): void {
+    Queue::fake();
+
+    $user = User::factory()->create([
+        'company_name' => 'Test Company Kft.',
+        'email' => 'owner@example.com',
+    ]);
+
+    $planCategory = \App\Models\Plan\PlanCategory::factory()->create([
+        'slug' => 'controling',
+    ]);
+
+    $plan = \App\Models\Plan::factory()->create([
+        'plan_category_id' => $planCategory->id,
+    ]);
+
+    $this->actingAs($user);
+
+    Subscription::factory()->create([
+        'plan_id' => $plan->id,
+    ]);
+
+    Queue::assertPushed(ToggleUserActiveInSecondaryApp::class, fn ($job): bool => $job->userEmail === 'owner@example.com'
+        && $job->isActive === true
+        && $job->appKey === 'controling');
+});
+
+it('is not dispatched when subscription has no plan category', function (): void {
     Queue::fake();
 
     $user = User::factory()->create([
@@ -97,6 +127,5 @@ it('is dispatched when subscription is created', function (): void {
 
     Subscription::factory()->create();
 
-    Queue::assertPushed(ToggleUserActiveInSecondaryApp::class, fn ($job): bool => $job->userEmail === 'owner@example.com'
-        && $job->isActive === true);
+    Queue::assertNotPushed(ToggleUserActiveInSecondaryApp::class);
 });

@@ -19,7 +19,15 @@ class SubscriptionObserver
             $subscription->update(['user_id' => Auth::id()]);
 
             $user = Auth::user();
-            dispatch(new ToggleUserActiveInSecondaryApp(userEmail: $user->email, isActive: true));
+            $appKey = $subscription->plan?->planCategory?->slug;
+
+            if ($appKey) {
+                dispatch(new ToggleUserActiveInSecondaryApp(
+                    userEmail: $user->email,
+                    isActive: true,
+                    appKey: $appKey,
+                ));
+            }
         }
     }
 
