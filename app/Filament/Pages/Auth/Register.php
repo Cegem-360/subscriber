@@ -19,17 +19,25 @@ use Illuminate\Support\Facades\Log;
 
 final class Register extends BaseRegister
 {
+    protected ?string $rawPassword = null;
+
+    protected function beforeValidate(): void
+    {
+        // Capture raw password before form dehydration hashes it
+        $this->rawPassword = $this->data['password'] ?? null;
+    }
+
     protected function handleRegistration(array $data): Model
     {
-        $rawPassword = $data['password'];
-        Log::info('Registering user with email: ' . $data['email'] . ' and password: ' . $rawPassword);
+        Log::info('Register: raw password = ' . $this->rawPassword);
+
         $user = parent::handleRegistration($data);
 
         Bus::chain([
             new CreateUserInSecondaryApp(
                 email: $user->email,
                 name: $user->name,
-                password: $rawPassword,
+                password: $this->rawPassword,
                 role: $user->role?->value ?? UserRole::Subscriber->value,
                 ownerEmail: $user->email,
             ),

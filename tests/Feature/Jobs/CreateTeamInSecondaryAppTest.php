@@ -113,6 +113,10 @@ it('is dispatched from Register page handleRegistration', function (): void {
 
     $register = new \App\Filament\Pages\Auth\Register();
 
+    // Set raw password via reflection (simulates beforeValidate hook)
+    $rawPasswordProperty = new ReflectionProperty($register, 'rawPassword');
+    $rawPasswordProperty->setValue($register, 'password123');
+
     // Use reflection to call protected method
     $method = new ReflectionMethod($register, 'handleRegistration');
 
