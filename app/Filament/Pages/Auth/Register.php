@@ -15,13 +15,14 @@ use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Schema;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Log;
 
 final class Register extends BaseRegister
 {
     protected function handleRegistration(array $data): Model
     {
         $rawPassword = $data['password'];
-
+        Log::info('Registering user with email: ' . $data['email'] . ' and password: ' . $rawPassword);
         $user = parent::handleRegistration($data);
 
         Bus::chain([
