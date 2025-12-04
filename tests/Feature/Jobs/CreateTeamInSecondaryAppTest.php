@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 use App\Jobs\CreateTeamInSecondaryApp;
+use App\Jobs\CreateUserInSecondaryApp;
 use App\Services\SecondaryAppService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Queue;
 
 uses(RefreshDatabase::class);
 
@@ -108,7 +109,7 @@ it('logs warning when team creation fails', function (): void {
 });
 
 it('is dispatched from Register page handleRegistration', function (): void {
-    Queue::fake();
+    Bus::fake();
 
     $register = new \App\Filament\Pages\Auth\Register();
 
@@ -127,6 +128,11 @@ it('is dispatched from Register page handleRegistration', function (): void {
         'country' => \App\Enums\Country::Hungary->value,
     ]);
 
-    Queue::assertPushed(CreateTeamInSecondaryApp::class, fn ($job): bool => $job->teamName === 'Test Company Kft.'
-        && $job->userEmail === 'test-reg@example.com');
+    Bus::assertChained([
+        fn (CreateUserInSecondaryApp $job): bool => $job->email === 'test-reg@example.com'
+            && $job->name === 'Test User'
+            && $job->password === 'password123',
+        fn (CreateTeamInSecondaryApp $job): bool => $job->teamName === 'Test Company Kft.'
+            && $job->userEmail === 'test-reg@example.com',
+    ]);
 });

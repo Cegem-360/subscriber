@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace App\Filament\Pages\Auth;
 
 use App\Enums\Country;
+use App\Enums\UserRole;
 use App\Jobs\CreateTeamInSecondaryApp;
+use App\Jobs\CreateUserInSecondaryApp;
 use Filament\Auth\Pages\Register as BaseRegister;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Schema;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Bus;
 
 final class Register extends BaseRegister
 {
@@ -19,11 +22,20 @@ final class Register extends BaseRegister
     {
         $user = parent::handleRegistration($data);
 
-        dispatch(new CreateTeamInSecondaryApp(
-            teamName: $user->company_name,
-            userEmail: $user->email,
-            userName: $user->name,
-        ));
+        Bus::chain([
+            new CreateUserInSecondaryApp(
+                email: $user->email,
+                name: $user->name,
+                password: $data['password'],
+                role: $user->role?->value ?? UserRole::Subscriber->value,
+                ownerEmail: $user->email,
+            ),
+            new CreateTeamInSecondaryApp(
+                teamName: $user->company_name,
+                userEmail: $user->email,
+                userName: $user->name,
+            ),
+        ])->dispatch();
 
         return $user;
     }
