@@ -18,7 +18,7 @@ Route::middleware(['guest'])->group(function (): void {
     Route::get('/login', fn (): Factory|View => view(Login::class))->name('login');
     Route::get('/register', fn (): Factory|View => view('auth.register'))->name('register');
 });
-Route::middleware(['auth'])->group(function (): void {
+Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get('/modules', SubscriberModulsList::class)->name('modules');
 
     Route::get('/subscriptions', fn (): Factory|View => view('subscriptions', [
@@ -28,7 +28,7 @@ Route::middleware(['auth'])->group(function (): void {
     Route::get('/manage-users', fn (): Factory|View => view('manage-users'))->name('manage.users');
 });
 
-Route::middleware(['auth'])->group(function (): void {
+Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::post('/subscription/checkout/{plan}', [SubscriptionController::class, 'checkout'])->name('subscription.checkout');
     Route::get('/subscription/success/{plan}', [SubscriptionController::class, 'success'])->name('subscription.success');
     Route::get('/subscription/cancel', [SubscriptionController::class, 'cancel'])->name('subscription.cancel');
