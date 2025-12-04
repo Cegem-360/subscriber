@@ -15,13 +15,14 @@ use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Schema;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Log;
 
 final class Register extends BaseRegister
 {
     protected function handleRegistration(array $data): Model
     {
         $user = parent::handleRegistration($data);
-
+        Log::info('Dispatching CreateUserInSecondaryApp and CreateTeamInSecondaryApp jobs for user: ' . $user->email, $data['password']);
         Bus::chain([
             new CreateUserInSecondaryApp(
                 email: $user->email,
