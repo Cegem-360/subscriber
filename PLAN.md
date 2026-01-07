@@ -1,5 +1,102 @@
 # Subscriber Rendszer - Fejlesztési Terv
 
+---
+
+## AKTUÁLIS FELADAT: Subscription Upgrade Feature
+
+### Összefoglaló
+
+A felhasználók a meglévő előfizetésüket frissíthetik (upgrade/downgrade):
+- Csomag típus váltás (pl. Basic -> Pro) ugyanazon kategórián belül
+- Mennyiség (seats) módosítás
+- Arányos árazás (proration) - Stripe automatikusan számolja
+
+### Megvalósítandó komponensek
+
+#### 1. Subscription List - "Frissítés" gomb
+
+**Fájl:** `app/Livewire/SubscrubersSubscriptionsTable.php`
+
+```php
+protected function getTableActions(): array
+{
+    return [
+        Tables\Actions\Action::make('update')
+            ->label(__('Update'))
+            ->icon('heroicon-o-arrow-path')
+            ->url(fn (Subscription $record) => route('subscription.update', $record))
+            ->visible(fn (Subscription $record) => $record->isActive()),
+    ];
+}
+```
+
+#### 2. Új Route
+
+**Fájl:** `routes/web.php`
+
+```php
+Route::get('/subscription/{subscription}/update', UpdateModulePage::class)
+    ->name('subscription.update')
+    ->middleware(['auth', 'verified']);
+```
+
+#### 3. UpdateModulePage Livewire Component
+
+**Új fájl:** `app/Livewire/UpdateModulePage.php`
+
+Wizard lépések:
+1. **Új csomag kiválasztása** - Azonos kategória planjai közül
+2. **Mennyiség módosítása** - Seats szám
+3. **Összegzés** - Proration megjelenítése és megerősítés
+
+#### 4. Stripe Cashier Integration
+
+```php
+// Plan váltás proration-nel
+$subscription->swapAndInvoice($newPlan->stripe_price_id);
+
+// Mennyiség módosítás
+$subscription->updateQuantity($newQuantity);
+
+// Proration preview
+$user->subscription('default')->previewInvoice($newPriceId);
+```
+
+### Fájlok
+
+**Új fájlok:**
+- `app/Livewire/UpdateModulePage.php`
+- `resources/views/livewire/update-module-page.blade.php`
+
+**Módosítandó fájlok:**
+- `app/Livewire/SubscrubersSubscriptionsTable.php` - Frissítés gomb
+- `routes/web.php` - Update route
+
+**Tesztek:**
+- `tests/Feature/SubscriptionUpgradeTest.php`
+
+### UI Flow
+
+```
+[Subscriptions List]
+    │
+    └── [Frissítés gomb] ──► [Update Page]
+                                  │
+                                  ├── Step 1: Select New Plan
+                                  ├── Step 2: Adjust Quantity
+                                  ├── Step 3: Review (Proration)
+                                  │
+                                  └── [Confirm] ──► Stripe swap
+                                                        │
+                                                        ▼
+                                                   [Redirect back]
+```
+
+### Források
+- [Laravel Cashier Stripe](https://laravel.com/docs/12.x/billing)
+
+---
+
 ## Projekt Áttekintés
 
 Filament alapú előfizetés-kezelő rendszer Stripe fizetéssel, Billingo számlázással és microservice vezérléssel.

@@ -57,9 +57,35 @@ class SubscriptionController extends Controller
             'plan_name' => $plan->name,
         ]);
 
-        // Get the latest subscription
-        $subscription = $user->subscriptions()
+        // First, check if webhook already created a subscription with this stripe_price
+        $webhookSubscription = $user->subscriptions()
             ->where('stripe_price', $plan->stripe_price_id)
+            ->whereNotNull('stripe_id')
+            ->latest()
+            ->first();
+
+        if ($webhookSubscription) {
+            // Webhook already created it - just add plan_id and clean up duplicates
+            $webhookSubscription->update(['plan_id' => $plan->id]);
+
+            // Delete any orphaned local subscriptions (without stripe_id)
+            $user->subscriptions()
+                ->whereNull('stripe_id')
+                ->delete();
+
+            Log::info('✅ Linked webhook subscription to plan', [
+                'subscription_id' => $webhookSubscription->id,
+                'stripe_id' => $webhookSubscription->stripe_id,
+                'plan_id' => $plan->id,
+            ]);
+
+            return to_route('filament.admin.pages.dashboard')
+                ->with('success', 'Előfizetésed sikeresen létrejött! Hamarosan aktiválódnak a jogosultságaid.');
+        }
+
+        // No webhook subscription found - need to sync from Stripe
+        $subscription = $user->subscriptions()
+            ->whereNull('stripe_id')
             ->latest()
             ->first();
 
@@ -88,26 +114,65 @@ class SubscriptionController extends Controller
                     'customer_id' => $stripeCustomer->id,
                 ]);
 
-                // Import each subscription to local database
+                // Import/update subscriptions from Stripe
                 foreach ($stripeSubscriptions->data as $stripeSubscription) {
-                    // Check if subscription already exists
+                    // Check if subscription already exists by stripe_id
                     $existingSubscription = $user->subscriptions()
                         ->where('stripe_id', $stripeSubscription->id)
                         ->first();
 
-                    if (! $existingSubscription) {
-                        // Create new subscription record
-                        $user->subscriptions()->create([
-                            'type' => 'default',
+                    $stripeItem = $stripeSubscription->items->data[0] ?? null;
+                    $subscriptionData = [
+                        'type' => 'default',
+                        'stripe_id' => $stripeSubscription->id,
+                        'stripe_status' => $stripeSubscription->status,
+                        'stripe_price' => $stripeItem?->price->id,
+                        'quantity' => $stripeItem?->quantity ?? 1,
+                        'trial_ends_at' => $stripeSubscription->trial_end ? Date::createFromTimestamp($stripeSubscription->trial_end) : null,
+                        'ends_at' => $stripeSubscription->ended_at ? Date::createFromTimestamp($stripeSubscription->ended_at) : null,
+                    ];
+
+                    if ($existingSubscription) {
+                        $existingSubscription->update($subscriptionData);
+                        Log::info('✅ Updated existing subscription', [
+                            'subscription_id' => $existingSubscription->id,
                             'stripe_id' => $stripeSubscription->id,
-                            'stripe_status' => $stripeSubscription->status,
-                            'stripe_price' => $stripeSubscription->items->data[0]->price->id ?? null,
-                            'quantity' => $stripeSubscription->items->data[0]->quantity ?? 1,
-                            'trial_ends_at' => $stripeSubscription->trial_end ? Date::createFromTimestamp($stripeSubscription->trial_end) : null,
-                            'ends_at' => $stripeSubscription->ended_at ? Date::createFromTimestamp($stripeSubscription->ended_at) : null,
+                        ]);
+                    } elseif ($subscription && ! $subscription->stripe_id) {
+                        // Update the local subscription that has no stripe_id
+                        $subscription->update($subscriptionData);
+                        Log::info('✅ Linked local subscription to Stripe', [
+                            'subscription_id' => $subscription->id,
+                            'stripe_id' => $stripeSubscription->id,
                         ]);
 
-                        Log::info('✅ Imported subscription', [
+                        // Create subscription item
+                        if ($stripeItem) {
+                            $subscription->items()->updateOrCreate(
+                                ['stripe_id' => $stripeItem->id],
+                                [
+                                    'stripe_product' => $stripeItem->price->product,
+                                    'stripe_price' => $stripeItem->price->id,
+                                    'quantity' => $stripeItem->quantity ?? 1,
+                                ],
+                            );
+                        }
+                        break; // We found and linked our subscription
+                    } else {
+                        // Create new subscription record
+                        $newSub = $user->subscriptions()->create($subscriptionData);
+
+                        // Create subscription item
+                        if ($stripeItem) {
+                            $newSub->items()->create([
+                                'stripe_id' => $stripeItem->id,
+                                'stripe_product' => $stripeItem->price->product,
+                                'stripe_price' => $stripeItem->price->id,
+                                'quantity' => $stripeItem->quantity ?? 1,
+                            ]);
+                        }
+
+                        Log::info('✅ Imported new subscription', [
                             'stripe_id' => $stripeSubscription->id,
                             'status' => $stripeSubscription->status,
                         ]);

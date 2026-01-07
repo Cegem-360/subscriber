@@ -215,6 +215,7 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
             'role' => UserRole::Subscriber,
             'subscription_id' => $subscription->id,
             'email_verified_at' => now(),
+            'company_name' => $subscription->user?->company_name ?? '-',
         ]);
 
         // Sync user to secondary apps with raw password

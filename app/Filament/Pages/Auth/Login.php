@@ -6,6 +6,7 @@ namespace App\Filament\Pages\Auth;
 
 use Filament\Auth\Http\Responses\Contracts\LoginResponse;
 use Filament\Auth\Pages\Login as BasePage;
+use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 
 final class Login extends BasePage
@@ -13,6 +14,16 @@ final class Login extends BasePage
     public function mount(): void
     {
         parent::mount();
+
+        // Show notification from email verification redirect
+        if ($notification = session('notification')) {
+            Notification::make()
+                ->title($notification['title'] ?? '')
+                ->body($notification['body'] ?? '')
+                ->{$notification['status'] ?? 'info'}()
+                ->send();
+        }
+
         if (app()->environment('local')) {
             $this->form->fill([
                 'email' => 'admin@admin.com',

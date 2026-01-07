@@ -1,6 +1,7 @@
 @php
     $statePath = $getStatePath();
     $selected = $getState();
+    $currentPlanId = $currentPlanId ?? null;
 @endphp
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -15,6 +16,15 @@
             <input type="radio" name="{{ $statePath }}" value="{{ $plan->id }}"
                 wire:model.live="{{ $statePath }}" class="sr-only" id="plan-{{ $plan->id }}"
                 {{ $selected == $plan->id ? 'checked' : '' }} />
+
+            {{-- Current plan badge --}}
+            @if ($currentPlanId && $currentPlanId == $plan->id)
+                <div class="absolute top-3 left-3">
+                    <span class="inline-flex items-center px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                        {{ __('Current') }}
+                    </span>
+                </div>
+            @endif
 
             {{-- Selected indicator --}}
             @if ($selected == $plan->id)

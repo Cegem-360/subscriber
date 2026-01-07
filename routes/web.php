@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\SubscriptionController;
 use App\Livewire\SubscriberModulsList;
-use Illuminate\Auth\Events\Login;
+use App\Livewire\UpdateModulePage;
+use App\Livewire\ViewSubscriptionPage;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -15,13 +17,18 @@ use Laravel\Cashier\Events\WebhookReceived;
 Route::get('/', fn (): Factory|View => view('welcome'))->name('welcome');
 Route::get('/module-order', fn (): Factory|View => view('module-order'))->name('module.order');
 
-// Email verification route - redirects to Filament's verification page
+// Email verification routes
 Route::get('/email/verify', fn () => redirect()->route('filament.admin.auth.email-verification.prompt'))
-    ->middleware('auth')
+    ->middleware(['auth'])
     ->name('verification.notice');
 
+// Guest-accessible email verification (no login required)
+Route::get('/email/verify/{id}/{hash}', EmailVerificationController::class)
+    ->middleware(['guest', 'signed'])
+    ->name('verification.verify');
+
 Route::middleware(['guest'])->group(function (): void {
-    Route::get('/login', fn (): Factory|View => view(Login::class))->name('login');
+    Route::get('/login', fn () => redirect()->route('filament.admin.auth.login'))->name('login');
     Route::get('/register', fn (): Factory|View => view('auth.register'))->name('register');
 });
 Route::middleware(['auth', 'verified'])->group(function (): void {
@@ -30,6 +37,9 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get('/subscriptions', fn (): Factory|View => view('subscriptions', [
         'subscriptions' => Auth::user()->subscriptions,
     ]))->name('subscriptions');
+
+    Route::get('/subscription/{subscription}', ViewSubscriptionPage::class)->name('subscription.view');
+    Route::get('/subscription/{subscription}/update', UpdateModulePage::class)->name('subscription.update');
 
     Route::get('/manage-users', fn (): Factory|View => view('manage-users'))->name('manage.users');
 });

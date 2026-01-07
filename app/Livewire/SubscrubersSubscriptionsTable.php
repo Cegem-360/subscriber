@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire;
 
 use App\Models\Subscription;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
@@ -61,7 +62,15 @@ class SubscrubersSubscriptionsTable extends Component implements HasActions, Has
                 //
             ])
             ->recordActions([
-                //
+                Action::make('view')
+                    ->label(__('View'))
+                    ->icon('heroicon-o-eye')
+                    ->url(fn (Subscription $record): string => route('subscription.view', $record)),
+                Action::make('update')
+                    ->label(__('Update'))
+                    ->icon('heroicon-o-arrow-path')
+                    ->url(fn (Subscription $record): string => route('subscription.update', $record))
+                    ->visible(fn (Subscription $record): bool => $record->isActive()),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

@@ -108,4 +108,9 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
     {
         return $this->role === UserRole::Manager;
     }
+
+    public function hasValidVerificationHash(string $hash): bool
+    {
+        return hash_equals($hash, hash('sha1', $this->getEmailForVerification()));
+    }
 }
