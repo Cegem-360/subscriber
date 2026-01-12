@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-BKKs0U95.css",
+    "file": "assets/app-cIy4Cmdi.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -8,13 +8,21 @@
     "file": "assets/cegem360-logo-BdDtjedL.png",
     "src": "resources/images/cegem360-logo.png"
   },
+  "resources/images/hp_cusromers-srory-5.webp": {
+    "file": "assets/hp_cusromers-srory-5-Bbr0H707.webp",
+    "src": "resources/images/hp_cusromers-srory-5.webp"
+  },
+  "resources/images/products-main-img.webp": {
+    "file": "assets/products-main-img-uM7TE1dK.webp",
+    "src": "resources/images/products-main-img.webp"
+  },
   "resources/js/app.js": {
-    "file": "assets/app-B184wjn_.js",
+    "file": "assets/app-O5RS8291.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-BKKs0U95.css"
+      "assets/app-cIy4Cmdi.css"
     ]
   }
 }
