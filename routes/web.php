@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\SubscriptionController;
+use App\Livewire\StyleGuide;
 use App\Livewire\SubscriberModulsList;
 use App\Livewire\UpdateModulePage;
 use App\Livewire\ViewSubscriptionPage;
@@ -14,8 +15,10 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Laravel\Cashier\Events\WebhookReceived;
 
-Route::get('/', fn (): Factory|View => view('welcome'))->name('welcome');
+Route::get('/', fn (): Factory|View => view('home'))->name('home');
+Route::get('/welcome', fn (): Factory|View => view('welcome'))->name('welcome');
 Route::get('/module-order', fn (): Factory|View => view('module-order'))->name('module.order');
+Route::get('/style-guide', StyleGuide::class)->name('style-guide');
 
 // Email verification routes
 Route::get('/email/verify', fn () => redirect()->route('filament.admin.auth.email-verification.prompt'))
