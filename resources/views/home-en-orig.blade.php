@@ -10,26 +10,27 @@
                         style="box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);">
                         <span
                             class="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-success-500 via-warning-500 to-danger-500 mr-2.5"></span>
-                        <span class="text-sm font-medium text-text-primary">Vállalatirányítási platform</span>
+                        <span class="text-sm font-medium text-text-primary">AI work platform</span>
                     </div>
 
                     {{-- Main headline --}}
                     <h1 class="text-4xl md:text-5xl lg:text-[3.5rem] text-text-primary leading-[1.15] tracking-tight mb-6"
                         style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                        Vegye kézbe cége irányítását<br>
-                        — egyetlen rendszerből
+                        From managing work,<br>
+                        to doing the work for you
                     </h1>
 
                     {{-- Subheadline --}}
                     <p class="text-xl lg:text-2xl text-text-secondary mb-8 leading-relaxed">
-                        Testreszabott vállalatirányítási megoldások ipari cégeknek: CRM, kontrolling, beszerzés, értékesítés és automatizált munkafolyamatok — amelyek valódi eredményeket hoznak.
+                        Agentic AI products that deliver results across projects, marketing, sales, operations, and
+                        engineering.
                     </p>
 
                     {{-- CTA Button --}}
                     <a href="{{ route('register') }}"
                         class="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-full text-base font-medium hover:bg-primary-700 transition-colors"
                         style="box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
-                        <span>Kérjen bemutatkozást</span>
+                        <span>Get Started</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
@@ -38,16 +39,16 @@
 
                     {{-- No credit card text --}}
                     <p class="text-sm text-text-tertiary mt-4 flex items-center gap-2">
-                        <span>Bankkártya nélkül indíthat</span>
+                        <span>No credit card needed</span>
                         <span class="text-text-disabled">✦</span>
-                        <span>Személyre szabott demó 30 percben</span>
+                        <span>Unlimited time on Free plan</span>
                     </p>
                 </div>
 
                 {{-- Right: Card (Zoho vertical layout) --}}
                 <div class="bg-surface-primary rounded-2xl p-8 w-full lg:w-[340px] shrink-0"
                     style="box-shadow: 0 12px 50px -6px rgba(96, 92, 212, 0.35), 0 0 1px rgba(96, 92, 212, 0.2);">
-                    <p class="text-[11px] font-semibold text-text-tertiary uppercase tracking-widest mb-6">Fő modulok
+                    <p class="text-[11px] font-semibold text-text-tertiary uppercase tracking-widest mb-6">Featured Apps
                     </p>
 
                     <div class="space-y-5">
@@ -66,11 +67,50 @@
                                 <p
                                     class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     CRM</p>
-                                <p class="text-[13px] text-text-tertiary mt-1">Kövesse nyomon ügyfeleit az első megkeresésől a szerződéskötésig.</p>
+                                <p class="text-[13px] text-text-tertiary mt-1">Convert leads and close sales deals
+                                    faster.</p>
                             </div>
                         </a>
 
-                        {{-- App Item 2: Kontrolling --}}
+                        {{-- App Item 2: Mail --}}
+                        <a href="#" class="flex items-center gap-4 group">
+                            <div
+                                class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center shrink-0">
+                                <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p
+                                    class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                    Mail</p>
+                                <p class="text-[13px] text-text-tertiary mt-1">Secure email hosting for teams.</p>
+                            </div>
+                        </a>
+
+                        {{-- App Item 3: Desk --}}
+                        <a href="#" class="flex items-center gap-4 group">
+                            <div
+                                class="w-10 h-10 bg-success-100 rounded-full flex items-center justify-center shrink-0">
+                                <svg class="w-5 h-5 text-success-600" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p
+                                    class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                    Desk</p>
+                                <p class="text-[13px] text-text-tertiary mt-1">Helpdesk software for support teams.</p>
+                            </div>
+                        </a>
+
+                        {{-- App Item 4: Books --}}
                         <a href="#" class="flex items-center gap-4 group">
                             <div
                                 class="w-10 h-10 bg-warning-100 rounded-full flex items-center justify-center shrink-0">
@@ -84,67 +124,28 @@
                             <div class="flex-1 min-w-0">
                                 <p
                                     class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
-                                    Kontrolling</p>
-                                <p class="text-[13px] text-text-tertiary mt-1">Valós idejű pénzügyi áttekintés és döntéstámogató riportok.</p>
+                                    Books</p>
+                                <p class="text-[13px] text-text-tertiary mt-1">Online accounting for growing businesses.
+                                </p>
                             </div>
                         </a>
 
-                        {{-- App Item 3: Beszerzés-logisztika --}}
-                        <a href="#" class="flex items-center gap-4 group">
-                            <div
-                                class="w-10 h-10 bg-success-100 rounded-full flex items-center justify-center shrink-0">
-                                <svg class="w-5 h-5 text-success-600" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <p
-                                    class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
-                                    Beszerzés-logisztika</p>
-                                <p class="text-[13px] text-text-tertiary mt-1">Raktárkészlet és szállítások egy átlátható rendszerben.</p>
-                            </div>
-                        </a>
-
-                        {{-- App Item 4: Értékesítés --}}
-                        <a href="#" class="flex items-center gap-4 group">
-                            <div
-                                class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center shrink-0">
-                                <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                        d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <p
-                                    class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
-                                    Értékesítés</p>
-                                <p class="text-[13px] text-text-tertiary mt-1">Ajánlatok és megrendelések egy helyen.</p>
-                            </div>
-                        </a>
-
-                        {{-- App Item 5: Automatizálás --}}
+                        {{-- App Item 5: People --}}
                         <a href="#" class="flex items-center gap-4 group">
                             <div class="w-10 h-10 bg-danger-100 rounded-full flex items-center justify-center shrink-0">
                                 <svg class="w-5 h-5 text-danger-600" fill="none" stroke="currentColor"
                                     viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
-                                    </path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z">
+                                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
                                     </path>
                                 </svg>
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p
                                     class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
-                                    Automatizálás</p>
-                                <p class="text-[13px] text-text-tertiary mt-1">Szabadítsa fel csapata idejét az ismétlődő feladatoktól.</p>
+                                    People</p>
+                                <p class="text-[13px] text-text-tertiary mt-1">Organize and simplify your HR processes.
+                                </p>
                             </div>
                         </a>
                     </div>
@@ -152,7 +153,7 @@
                     {{-- Explore All Link --}}
                     <a href="#"
                         class="inline-flex items-center gap-1 text-primary-600 text-sm font-medium mt-6 hover:text-primary-800 transition-colors">
-                        Fedezze fel moduljainkat
+                        Explore all products
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
                             </path>
@@ -173,27 +174,29 @@
                     <button @click="activeTab = 'projects'"
                         :class="activeTab === 'projects' ? 'bg-primary-600 text-white' :
                             'text-text-secondary hover:text-text-primary'"
-                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Kontrolling</button>
+                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Projects</button>
                     <button @click="activeTab = 'sales'"
                         :class="activeTab === 'sales' ? 'bg-[#0f7b6c] text-white' :
                             'text-text-secondary hover:text-text-primary'"
-                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">CRM</button>
+                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Sales</button>
                     <button @click="activeTab = 'marketing'"
                         :class="activeTab === 'marketing' ? 'bg-primary-500 text-white' :
                             'text-text-secondary hover:text-text-primary'"
-                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Értékesítés</button>
+                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Marketing</button>
                     <button @click="activeTab = 'itops'"
                         :class="activeTab === 'itops' ? 'bg-[#7a1a42] text-white' :
                             'text-text-secondary hover:text-text-primary'"
-                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Beszerzés</button>
+                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">IT &
+                        Ops</button>
                     <button @click="activeTab = 'engineering'"
                         :class="activeTab === 'engineering' ? 'bg-success-600 text-white' :
                             'text-text-secondary hover:text-text-primary'"
-                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Automatizálás</button>
+                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Product &
+                        Engineering</button>
                     <button @click="activeTab = 'leadership'"
                         :class="activeTab === 'leadership' ? 'bg-primary-600 text-white' :
                             'text-text-secondary hover:text-text-primary'"
-                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Vezetés</button>
+                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Leadership</button>
                 </div>
             </div>
 
@@ -201,7 +204,7 @@
             <div class="flex flex-col lg:flex-row gap-6 items-stretch">
                 {{-- Left: Colored Product Card --}}
                 <div class="lg:w-130 shrink-0">
-                    {{-- Kontrolling Tab --}}
+                    {{-- Projects Tab --}}
                     <div x-show="activeTab === 'projects'" x-transition:enter="transition ease-out duration-200"
                         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                         class="bg-primary-600 rounded-3xl p-10 h-full flex flex-col justify-between min-h-120">
@@ -216,16 +219,17 @@
                                     </svg>
                                 </div>
                                 <span class="text-white/90 text-sm font-medium"><strong
-                                        class="font-bold">cégem360</strong> kontrolling</span>
+                                        class="font-bold">monday</strong> work management</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Lássa át vállalata<br>pénzügyeit valós időben</h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Kövesse nyomon a bevételeket, költségeket és cash flow-t egyetlen irányítópulton. Azonnali riportok segítik a döntéshozatalt.
+                                style="font-family: 'Poppins', sans-serif;">Drive execution<br>at scale</h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Deliver projects,
+                                programs, and portfolios with full resource visibility and AI-powered risk detection.
                             </p>
                         </div>
                         <a href="#"
                             class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
-                            Kérjen demót
+                            Get Started
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -233,7 +237,7 @@
                         </a>
                     </div>
 
-                    {{-- CRM Tab --}}
+                    {{-- Sales Tab --}}
                     <div x-show="activeTab === 'sales'" x-transition:enter="transition ease-out duration-200"
                         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                         class="bg-[#0f7b6c] rounded-3xl p-10 h-full flex flex-col justify-between min-h-120">
@@ -246,15 +250,16 @@
                                     </svg>
                                 </div>
                                 <span class="text-white/90 text-sm font-medium"><strong
-                                        class="font-bold">cégem360</strong> CRM</span>
+                                        class="font-bold">monday</strong> CRM</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Növelje árbevételét<br>rendszerezett ügyfélkezeléssel</h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Minden ügyfél, ajánlat és kapcsolatfelvétel egy helyen. Automatikus emlékeztetők és értékesítési pipeline — hogy csapata a lezárásra koncentrálhasson.</p>
+                                style="font-family: 'Poppins', sans-serif;">Accelerate<br>revenue growth</h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Free your teams from data
+                                entry to focus on sales and nurture, with AI actions and code-free automations.</p>
                         </div>
                         <a href="#"
                             class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
-                            Kérjen demót
+                            Get Started
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -262,7 +267,7 @@
                         </a>
                     </div>
 
-                    {{-- Értékesítés Tab --}}
+                    {{-- Marketing Tab --}}
                     <div x-show="activeTab === 'marketing'" x-transition:enter="transition ease-out duration-200"
                         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                         class="bg-primary-500 rounded-3xl p-10 h-full flex flex-col justify-between min-h-120">
@@ -277,16 +282,17 @@
                                     </svg>
                                 </div>
                                 <span class="text-white/90 text-sm font-medium"><strong
-                                        class="font-bold">cégem360</strong> értékesítés</span>
+                                        class="font-bold">monday</strong> work management</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Mérje és növelje<br>értékesítési hatékonyságát</h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Integrálja az értékesítési és marketing tevékenységeket. Tudja, melyik kampány honnan hozott ügyfelet — adatalapú döntésekkel növelje a konverziót.
+                                style="font-family: 'Poppins', sans-serif;">Amplify marketing<br>impact</h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Align marketing around
+                                shared goals with AI that streamlines briefs, flags delays, and drives campaign impact.
                             </p>
                         </div>
                         <a href="#"
                             class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
-                            Kérjen demót
+                            Get Started
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -294,7 +300,7 @@
                         </a>
                     </div>
 
-                    {{-- IT & Ops Tab → Beszerzés --}}
+                    {{-- IT & Ops Tab --}}
                     <div x-show="activeTab === 'itops'" x-transition:enter="transition ease-out duration-200"
                         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                         class="bg-[#7a1a42] rounded-3xl p-10 h-full flex flex-col justify-between min-h-120">
@@ -307,15 +313,16 @@
                                     </svg>
                                 </div>
                                 <span class="text-white/90 text-sm font-medium"><strong
-                                        class="font-bold">cégem360</strong> beszerzés</span>
+                                        class="font-bold">monday</strong> service</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Optimalizálja beszerzési<br>és logisztikai folyamatait</h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Kövesse nyomon készleteit és szállításait egyetlen felületen. A rendszer figyelmeztet, ha beavatkozás szükséges — Ön pedig időben cselekedhet.</p>
+                                style="font-family: 'Poppins', sans-serif;">Scale exceptional<br>service</h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Empower teams to resolve
+                                requests faster with AI that triages, routes, and guides each issue to resolution.</p>
                         </div>
                         <a href="#"
                             class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
-                            Kérjen demót
+                            Get Started
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -323,7 +330,7 @@
                         </a>
                     </div>
 
-                    {{-- Product & Engineering Tab → Automatizálás --}}
+                    {{-- Product & Engineering Tab --}}
                     <div x-show="activeTab === 'engineering'" x-transition:enter="transition ease-out duration-200"
                         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                         class="bg-success-600 rounded-3xl p-10 h-full flex flex-col justify-between min-h-120">
@@ -336,15 +343,16 @@
                                     </svg>
                                 </div>
                                 <span class="text-white/90 text-sm font-medium"><strong
-                                        class="font-bold">cégem360</strong> automatizálás</span>
+                                        class="font-bold">monday</strong> dev</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Automatizálja az<br>ismétlődő feladatokat</h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Szabjon meg szabályokat és hagyja, hogy a rendszer dolgozzon Ön helyett. Gyorsabb reakcióidő, kevesebb emberi hiba, több idő a stratégiai feladatokra.</p>
+                                style="font-family: 'Poppins', sans-serif;">Launch quality<br>products faster</h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Plan roadmaps, execute
+                                sprints, and ship with precision using AI-powered guidance.</p>
                         </div>
                         <a href="#"
                             class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
-                            Kérjen demót
+                            Get Started
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -352,7 +360,7 @@
                         </a>
                     </div>
 
-                    {{-- Leadership Tab → Vezetés --}}
+                    {{-- Leadership Tab --}}
                     <div x-show="activeTab === 'leadership'" x-transition:enter="transition ease-out duration-200"
                         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                         class="bg-primary-600 rounded-3xl p-10 h-full flex flex-col justify-between min-h-120">
@@ -365,15 +373,16 @@
                                     </svg>
                                 </div>
                                 <span class="text-white/90 text-sm font-medium"><strong
-                                        class="font-bold">cégem360</strong> platform</span>
+                                        class="font-bold">monday</strong> platform</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Döntsön adatok<br>alapján, ne megérzésből</h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Gyors áttekintés a vállalat egészéről: pénzügy, értékesítés, projektek — egy dashboardon. Legyen mindig képben, és hozza meg a megfelelő döntéseket.</p>
+                                style="font-family: 'Poppins', sans-serif;">Lead with clear<br>foresight</h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Keep strategic goals on
+                                track with AI risk flagging and cross-org data to make real-time decisions.</p>
                         </div>
                         <a href="#"
                             class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
-                            Kérjen demót
+                            Get Started
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -388,129 +397,138 @@
                     <div x-show="activeTab === 'projects'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">IPARI ÜGYFÉL</p>
-                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-primary-600">30%
-                                költségcsökkenés</span><br>valós idejű adatokkal</p>
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">HOLT CAT</p>
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-primary-600">$4M
+                                saved</span> with<br>optimized processes</p>
                     </div>
                     <div x-show="activeTab === 'sales'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">PARTNERÜNK
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">KC PETROLEUM
                         </p>
-                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-[#0f7b6c]">40%-kal
-                                több ajánlat</span><br>kevesebb adminnal</p>
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-[#0f7b6c]">18x
+                                ROI</span> achieved<br>in the first year</p>
                     </div>
                     <div x-show="activeTab === 'marketing'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">CRM ÜGYFÉL</p>
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">CANVA</p>
                         <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span
-                                class="text-primary-500">2x konverzió</span><br>strukturált adatokkal</p>
+                                class="text-primary-500">300% increase</span> in<br>creative output</p>
                     </div>
                     <div x-show="activeTab === 'itops'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">LOGISZTIKAI PARTNER</p>
-                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-[#7a1a42]">20%
-                                készletoptimalizálás</span><br>automatikus riasztásokkal</p>
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">ZOPA BANK</p>
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-[#7a1a42]">55
+                                hours</span> saved<br>per month</p>
                     </div>
                     <div x-show="activeTab === 'engineering'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">AUTOMATIZÁLT ÜGYFÉL</p>
-                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-success-600">50%
-                                kevesebb manuális munka</span><br>szabályalapú folyamatokkal</p>
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">VISTRA</p>
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-success-600">28%
+                                faster</span> time<br>to market</p>
                     </div>
                     <div x-show="activeTab === 'leadership'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">VEZETŐ ÜGYFÉL</p>
-                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-primary-600">Azonnali
-                                áttekintés</span><br>egy dashboardon</p>
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">VML</p>
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-primary-600">11%
+                                efficiency</span> gained<br>per month</p>
                     </div>
 
                     {{-- Testimonial Quote Card --}}
                     <div x-show="activeTab === 'projects'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Végre látom, hova fogy a pénz, és miért. A havi zárásunk napok helyett órákra csökkent."</p>
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"monday.com gives us the visibility
+                            to get everyone on the same page and track all the moving parts of our projects."</p>
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center text-primary-600 font-semibold text-sm">
-                                NT</div>
+                                JD</div>
                             <div>
-                                <p class="text-text-primary font-semibold text-sm">Nagy Tamás</p>
-                                <p class="text-text-tertiary text-xs">Pénzügyi igazgató, Ipari gyártó cég</p>
+                                <p class="text-text-primary font-semibold text-sm">Jason Doan</p>
+                                <p class="text-text-tertiary text-xs">VP of Operations, HOLT CAT</p>
                             </div>
                         </div>
                     </div>
                     <div x-show="activeTab === 'sales'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Tudom, melyik ügyféllel mikor beszéltünk utoljára, és mit ígértünk. Nincs több elveszett érdeklődő."</p>
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"As a VP, trying to look at a
+                            30,000-ft view, I can see the percentage of successful opportunities and know-how to analyze
+                            the market."</p>
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 bg-[#0f7b6c]/10 rounded-full flex items-center justify-center text-[#0f7b6c] font-semibold text-sm">
-                                KA</div>
+                                CS</div>
                             <div>
-                                <p class="text-text-primary font-semibold text-sm">Kovács Anna</p>
-                                <p class="text-text-tertiary text-xs">Értékesítési vezető, B2B szolgáltató</p>
+                                <p class="text-text-primary font-semibold text-sm">Christopher Stone</p>
+                                <p class="text-text-tertiary text-xs">VP Business Development, KC Petroleum</p>
                             </div>
                         </div>
                     </div>
                     <div x-show="activeTab === 'marketing'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Látom, melyik kampányunk hozott valódi vevőt — és melyikre ne költsünk többet."</p>
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"monday.com isn't just another tool
+                            in the mix, but a work operating system that supports our need for efficiency at scale."</p>
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center text-primary-600 font-semibold text-sm">
-                                SB</div>
+                                VD</div>
                             <div>
-                                <p class="text-text-primary font-semibold text-sm">Szabó Béla</p>
-                                <p class="text-text-tertiary text-xs">Marketing igazgató, Kereskedelmi cég</p>
+                                <p class="text-text-primary font-semibold text-sm">Vic Diesta</p>
+                                <p class="text-text-tertiary text-xs">Creative Operations Lead, Canva</p>
                             </div>
                         </div>
                     </div>
                     <div x-show="activeTab === 'itops'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Korábban Excelben nyomon követni a készleteket rémálom volt. Most egy kattintás, és látom, mi hiányzik."</p>
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"With monday service, 98% of our
+                            tickets are automatically categorized and assigned by AI. We resolve each 6-7 mins faster."
+                        </p>
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 bg-[#7a1a42]/10 rounded-full flex items-center justify-center text-[#7a1a42] font-semibold text-sm">
-                                TG</div>
+                                CC</div>
                             <div>
-                                <p class="text-text-primary font-semibold text-sm">Tóth Gábor</p>
-                                <p class="text-text-tertiary text-xs">Logisztikai vezető, Gyártó vállalat</p>
+                                <p class="text-text-primary font-semibold text-sm">Clive Camilleri</p>
+                                <p class="text-text-tertiary text-xs">Head of People & Ops, Zopa Bank</p>
                             </div>
                         </div>
                     </div>
                     <div x-show="activeTab === 'engineering'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"A rendszer automatikusan emlékeztet a határidőkre, és értesíti a kollégát, ha rá vár egy feladat. Nekem nem kell utánajárni."</p>
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"monday dev ensures clear alignment
+                            between what we're building and market demand. Does it help us move faster? Without a
+                            doubt."</p>
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 bg-success-100 rounded-full flex items-center justify-center text-success-600 font-semibold text-sm">
-                                VE</div>
+                                AS</div>
                             <div>
-                                <p class="text-text-primary font-semibold text-sm">Varga Eszter</p>
-                                <p class="text-text-tertiary text-xs">Üzemeltetési igazgató, Ipari cég</p>
+                                <p class="text-text-primary font-semibold text-sm">Alan Schmoll</p>
+                                <p class="text-text-tertiary text-xs">Executive VP, Vistra Platform</p>
                             </div>
                         </div>
                     </div>
                     <div x-show="activeTab === 'leadership'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Reggeli kávé mellett megnézem a dashboardot, és tudom, mi történt tegnap — minden területen."</p>
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Now in real-time, we can identify
+                            health metrics and risks, whether they're coming from our side or the client side."</p>
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center text-primary-600 font-semibold text-sm">
-                                HP</div>
+                                PW</div>
                             <div>
-                                <p class="text-text-primary font-semibold text-sm">Horváth Péter</p>
-                                <p class="text-text-tertiary text-xs">Ügyvezető, Közepes méretű vállalkozás</p>
+                                <p class="text-text-primary font-semibold text-sm">Paul Willie</p>
+                                <p class="text-text-tertiary text-xs">COO, VML</p>
                             </div>
                         </div>
                     </div>
@@ -528,12 +546,12 @@
                     {{-- Main Headline --}}
                     <h2 class="text-4xl md:text-5xl text-text-primary leading-tight mb-12"
                         style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                        Egy rendszer,<br>minden üzleti területre
+                        Solve work challenges<br>with AI-first products
                     </h2>
 
                     {{-- Product Cards Grid --}}
                     <div class="grid grid-cols-2 gap-4">
-                        {{-- Work Management Card → Kontrolling --}}
+                        {{-- Work Management Card --}}
                         <div class="relative group">
                             <div class="absolute -inset-0.5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"
                                 style="background: linear-gradient(90deg, #fb275d, #ffcb00, #00ca72, #6161ff);"></div>
@@ -550,13 +568,15 @@
                                         </svg>
                                     </div>
                                     <div>
-                                        <p class="text-lg font-bold text-text-primary">cégem360</p>
-                                        <p class="text-base text-text-tertiary -mt-0.5">kontrolling</p>
+                                        <p class="text-lg font-bold text-text-primary">monday</p>
+                                        <p class="text-base text-text-tertiary -mt-0.5">work management</p>
                                     </div>
                                 </div>
-                                <p class="text-text-secondary text-lg leading-relaxed mb-5">Valós idejű pénzügyi adatok és riportok — döntéstámogatás pillanatok alatt.</p>
+                                <p class="text-text-secondary text-lg leading-relaxed mb-5">Drive projects and
+                                    processes forward with AI insights</p>
                                 <a href="#"
-                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon meg többet</a>
+                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Learn
+                                    more</a>
                             </div>
                         </div>
 
@@ -574,17 +594,19 @@
                                         </svg>
                                     </div>
                                     <div>
-                                        <p class="text-lg font-bold text-text-primary">cégem360</p>
+                                        <p class="text-lg font-bold text-text-primary">monday</p>
                                         <p class="text-base text-text-tertiary -mt-0.5">CRM</p>
                                     </div>
                                 </div>
-                                <p class="text-text-secondary text-lg leading-relaxed mb-5">Átlátható ügyfélkezelés — a kapcsolatfelvételtől a lezárt üzletig.</p>
+                                <p class="text-text-secondary text-lg leading-relaxed mb-5">Automate full customer
+                                    journeys with AI actions</p>
                                 <a href="#"
-                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon meg többet</a>
+                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Learn
+                                    more</a>
                             </div>
                         </div>
 
-                        {{-- Dev Card → Beszerzés --}}
+                        {{-- Dev Card --}}
                         <div class="relative group">
                             <div class="absolute -inset-0.5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"
                                 style="background: linear-gradient(90deg, #fb275d, #ffcb00, #00ca72, #6161ff);"></div>
@@ -599,17 +621,19 @@
                                         </svg>
                                     </div>
                                     <div>
-                                        <p class="text-lg font-bold text-text-primary">cégem360</p>
-                                        <p class="text-base text-text-tertiary -mt-0.5">beszerzés</p>
+                                        <p class="text-lg font-bold text-text-primary">monday</p>
+                                        <p class="text-base text-text-tertiary -mt-0.5">dev</p>
                                     </div>
                                 </div>
-                                <p class="text-text-secondary text-lg leading-relaxed mb-5">Készletnyilvántartás és szállítások — egy felületen, valós időben.</p>
+                                <p class="text-text-secondary text-lg leading-relaxed mb-5">Ship quality software with
+                                    AI-guided sprints</p>
                                 <a href="#"
-                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon meg többet</a>
+                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Learn
+                                    more</a>
                             </div>
                         </div>
 
-                        {{-- Service Card → Értékesítés --}}
+                        {{-- Service Card --}}
                         <div class="relative group">
                             <div class="absolute -inset-0.5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"
                                 style="background: linear-gradient(90deg, #fb275d, #ffcb00, #00ca72, #6161ff);"></div>
@@ -623,13 +647,15 @@
                                         </svg>
                                     </div>
                                     <div>
-                                        <p class="text-lg font-bold text-text-primary">cégem360</p>
-                                        <p class="text-base text-text-tertiary -mt-0.5">értékesítés</p>
+                                        <p class="text-lg font-bold text-text-primary">monday</p>
+                                        <p class="text-base text-text-tertiary -mt-0.5">service</p>
                                     </div>
                                 </div>
-                                <p class="text-text-secondary text-lg leading-relaxed mb-5">Árajánlatok, megrendelések és kampánykövetés — minden egy helyen.</p>
+                                <p class="text-text-secondary text-lg leading-relaxed mb-5">Deliver standout service
+                                    with AI ticket handling</p>
                                 <a href="#"
-                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon meg többet</a>
+                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Learn
+                                    more</a>
                             </div>
                         </div>
                     </div>
@@ -640,12 +666,13 @@
                     {{-- Description and CTAs --}}
                     <div class="mb-8">
                         <p class="text-text-secondary text-xl lg:text-2xl leading-relaxed mb-6">
-                            Minden modul önállóan is értékes, együtt pedig összehangolt működést biztosít az egész vállalaton belül.
+                            Each product solves departmental needs, and together, they power seamless operations across
+                            your organization.
                         </p>
                         <div class="flex items-center gap-4">
                             <a href="{{ route('register') }}"
                                 class="inline-flex items-center gap-2 bg-dark-900 text-white px-7 py-3.5 rounded-full text-base font-medium hover:bg-dark-800 transition-colors">
-                                Ingyenes kezdés
+                                Get Started
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -653,7 +680,7 @@
                             </a>
                             <a href="#"
                                 class="inline-flex items-center gap-2 bg-surface-primary text-text-primary px-7 py-3.5 rounded-full text-base font-medium border border-border-default hover:bg-surface-secondary transition-colors">
-                                Bemutató kérése
+                                Request a demo
                             </a>
                         </div>
                     </div>
@@ -662,22 +689,22 @@
                     <div class="relative flex-1 min-h-80 rounded-2xl overflow-hidden">
                         {{-- Background Image --}}
                         <img src="{{ Vite::asset('resources/images/products-main-img.webp') }}"
-                            alt="Csapatmunka" class="absolute inset-0 w-full h-full object-cover">
+                            alt="Team collaboration" class="absolute inset-0 w-full h-full object-cover">
 
                         {{-- Floating Labels --}}
                         <div class="absolute top-24 right-12">
-                            <span class="bg-[#0f7b6c] text-white text-sm font-medium px-4 py-2 rounded-lg">Értékesítés</span>
+                            <span class="bg-[#0f7b6c] text-white text-sm font-medium px-4 py-2 rounded-lg">Sales</span>
                         </div>
                         <div class="absolute top-30 left-60">
                             <span
-                                class="bg-success-500 text-white text-sm font-medium px-4 py-2 rounded-lg">Kontrolling</span>
+                                class="bg-success-500 text-white text-sm font-medium px-4 py-2 rounded-lg">Engineering</span>
                         </div>
                         <div class="absolute top-1/2 left-1/6">
-                            <span class="bg-danger-500 text-white text-sm font-medium px-4 py-2 rounded-lg">Beszerzés</span>
+                            <span class="bg-danger-500 text-white text-sm font-medium px-4 py-2 rounded-lg">IT</span>
                         </div>
                         <div class="absolute bottom-24 right-16">
                             <span
-                                class="bg-primary-500 text-white text-sm font-medium px-4 py-2 rounded-lg">CRM</span>
+                                class="bg-primary-500 text-white text-sm font-medium px-4 py-2 rounded-lg">Marketing</span>
                         </div>
                     </div>
                 </div>
@@ -685,13 +712,13 @@
         </div>
     </section>
 
-    {{-- Section 4: A Cégem360 előnyei (Bento Grid) --}}
+    {{-- Section 4: The monday.com difference (Bento Grid) --}}
     <section class="bg-surface-primary py-20">
         <div class="max-w-7xl mx-auto px-6">
             {{-- Section Headline --}}
             <h2 class="text-4xl md:text-5xl text-text-primary text-center mb-16"
                 style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                A Cégem360 előnyei
+                The monday.com difference
             </h2>
 
             {{-- Bento Grid --}}
@@ -707,31 +734,32 @@
                     </svg>
                 </div>
 
-                {{-- Rugalmas, mégis egységes --}}
+                {{-- Flexible yet standardized (large, right) --}}
                 <div
                     class="col-span-12 md:col-span-8 bg-success-500 rounded-3xl p-10 lg:p-12 flex items-center min-h-56">
                     <div class="flex flex-col md:flex-row md:items-center gap-6 md:gap-16">
                         <h3 class="text-white text-3xl md:text-[2.5rem] lg:text-[2.75rem] font-medium leading-[1.15]"
                             style="font-family: 'Poppins', sans-serif;">
-                            Rugalmas,<br>mégis egységes
+                            Flexible yet<br>standardized
                         </h3>
                         <p class="text-white/90 text-lg lg:text-xl leading-relaxed max-w-md">
-                            Alakítsa a rendszert az igényeihez — kód nélkül. Közben tartsa meg a vállalati szintű egységességet.
+                            Build custom workflows with a no-code interface, while defining admin controls to maintain
+                            cross-org consistency.
                         </p>
                     </div>
                 </div>
 
                 {{-- Row 2 --}}
-                {{-- Amit a csapat szeret használni --}}
+                {{-- Products teams love to use (large, left) --}}
                 <div
                     class="col-span-12 md:col-span-7 bg-primary-500 rounded-3xl p-10 lg:p-12 flex items-center min-h-56">
                     <div class="flex flex-col md:flex-row md:items-center gap-6 md:gap-12">
                         <h3 class="text-white text-3xl md:text-[2.5rem] lg:text-[2.75rem] font-medium leading-[1.15]"
                             style="font-family: 'Poppins', sans-serif;">
-                            Amit a csapat<br>szeret használni
+                            Products teams<br>love to use
                         </h3>
                         <p class="text-white/90 text-lg lg:text-xl leading-relaxed max-w-sm">
-                            Intuitív felület, amit a kollégák tényleg használnak — nem kényszerből, hanem örömmel.
+                            Onboard your entire organization with intuitive products they'll love to use.
                         </p>
                     </div>
                 </div>
@@ -762,16 +790,16 @@
                     </svg>
                 </div>
 
-                {{-- Gyors eredmények --}}
+                {{-- Fast time to value (large, right) --}}
                 <div
                     class="col-span-12 md:col-span-8 bg-danger-400 rounded-3xl p-10 lg:p-12 flex items-center min-h-56">
                     <div class="flex flex-col md:flex-row md:items-center gap-6 md:gap-16">
                         <h3 class="text-white text-3xl md:text-[2.5rem] lg:text-[2.75rem] font-medium leading-[1.15]"
                             style="font-family: 'Poppins', sans-serif;">
-                            Gyors<br>eredmények
+                            Fast time to<br>value
                         </h3>
                         <p class="text-white/90 text-lg lg:text-xl leading-relaxed max-w-md">
-                            Napok alatt bevezethető, percek alatt megtanulható. Így azonnal megtérül a befektetés.
+                            See value fast with products that are quick to implement and even easier to learn.
                         </p>
                     </div>
                 </div>
@@ -786,11 +814,11 @@
             <div class="flex items-start justify-between mb-12">
                 <h2 class="text-4xl md:text-5xl lg:text-[3.5rem] text-text-primary leading-tight max-w-2xl"
                     style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    Sikertörténetek: hogyan segít a Cégem360 az ipari cégeknek?
+                    Leading brands drive efficient growth with monday.com
                 </h2>
                 <a href="#"
                     class="hidden md:inline-flex items-center gap-2 bg-text-primary text-white px-7 py-3.5 rounded-full text-base font-medium hover:bg-dark-700 transition-colors shrink-0">
-                    Kapcsolatfelvétel
+                    Contact sales
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -890,7 +918,8 @@
                                 <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/67e2f63a9b1842822745591c_mcdonalds-15-logo-png-transparent.avif"
                                     alt="McDonald's" class="h-10 w-auto max-w-28 object-contain">
                                 <a href="#"
-                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">Esettanulmány</a>
+                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">See
+                                    the case study</a>
                             </div>
                             <div class="w-full h-40 rounded-xl mb-5 overflow-hidden">
                                 <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/67e2f6b041ce2963c90ef8ef_visual-karsa-y8fS7CSN-Vw-unsplash.avif"
@@ -916,7 +945,8 @@
                                 <img src="https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/remote_mondaycom_static/img/customers/logos-v2/HoltCat.png"
                                     alt="HOLT CAT" class="h-8 w-auto max-w-28 object-contain">
                                 <a href="#"
-                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">Esettanulmány</a>
+                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">See
+                                    the case study</a>
                             </div>
                             <div class="w-full h-40 rounded-xl mb-5 overflow-hidden">
                                 <img src="https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/remote_mondaycom_static/uploads/MaayanDagan/63f73c80-46ae-4158-871d-c4ee43bf3a1e_HOLT5.png"
@@ -941,7 +971,8 @@
                                 <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/66fbd753a720abab15120c77_Canva_Logo.svg"
                                     alt="Canva" class="h-8 w-auto max-w-28 object-contain">
                                 <a href="#"
-                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">Esettanulmány</a>
+                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">See
+                                    the case study</a>
                             </div>
                             <div class="w-full h-40 rounded-xl mb-5 overflow-hidden">
                                 <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/6720cc84a8ee5cd3ba51161d_canva.avif"
@@ -966,7 +997,8 @@
                                 <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/67e308bf93fb14fdddd63880_Vistra_Logo_Vistra_Blue_RGB_b4198462-0d47-4a43-8524-1b55ebf4082c_1024x.avif"
                                     alt="Vistra" class="h-6 w-auto max-w-28 object-contain">
                                 <a href="#"
-                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">Esettanulmány</a>
+                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">See
+                                    the case study</a>
                             </div>
                             <div class="w-full h-40 rounded-xl mb-5 overflow-hidden">
                                 <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/67e30e370a822e0ddc743d9b_verne-ho-0LAJfSNa-xQ-unsplash.avif"
@@ -991,7 +1023,8 @@
                                 <img src="https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/remote_mondaycom_static/img/customers/logos-v2/universal.png"
                                     alt="Universal Music Group" class="h-10 w-auto max-w-28 object-contain">
                                 <a href="#"
-                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">Esettanulmány</a>
+                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">See
+                                    the case study</a>
                             </div>
                             <div class="w-full h-40 rounded-xl mb-5 overflow-hidden">
                                 <img src="{{ Vite::asset('resources/images/hp_cusromers-srory-5.webp') }}"
@@ -1016,7 +1049,8 @@
                                 <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/66fe4e1ab5f3de574e762686_compass.svg"
                                     alt="Compass" class="h-6 w-auto max-w-28 object-contain">
                                 <a href="#"
-                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">Esettanulmány</a>
+                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">See
+                                    the case study</a>
                             </div>
                             <div class="w-full h-40 rounded-xl mb-5 overflow-hidden">
                                 <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/6720cd94d5cf9e8b0e3e4be5_compass.avif"
@@ -1041,7 +1075,8 @@
                                 <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/66fbc36c01eba16bf8a29247_VML.svg"
                                     alt="VML" class="h-6 w-auto max-w-28 object-contain">
                                 <a href="#"
-                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">Esettanulmány</a>
+                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">See
+                                    the case study</a>
                             </div>
                             <div class="w-full h-40 rounded-xl mb-5 overflow-hidden">
                                 <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/6720e6a6096540e78d4c7c50_Screenshot%202024-10-29%20at%2015.43.43.avif"
@@ -1066,7 +1101,8 @@
                                 <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/6703c06032a4d282266d7374_Call%20Box%20Logo.svg"
                                     alt="Call Box" class="h-6 w-auto max-w-28 object-contain">
                                 <a href="#"
-                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">Esettanulmány</a>
+                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">See
+                                    the case study</a>
                             </div>
                             <div class="w-full h-40 rounded-xl mb-5 overflow-hidden">
                                 <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/6720fe11d4ea96e33f16d8f4_GettyImages-2165167605.avif"
@@ -1091,7 +1127,8 @@
                                 <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/66fd445e4d98faf22b5d93cb_Deezer_logo%2C_2023.svg"
                                     alt="Deezer" class="h-6 w-auto max-w-28 object-contain">
                                 <a href="#"
-                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">Esettanulmány</a>
+                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">See
+                                    the case study</a>
                             </div>
                             <div class="w-full h-40 rounded-xl mb-5 overflow-hidden">
                                 <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/6720e84e5e31406127d92514_deezer.avif"
