@@ -20,18 +20,24 @@ class PlanCategorySeeder extends Seeder
                 'slug' => 'controlling',
                 'url' => 'https://controlling.cegem360.eu',
                 'description' => 'Controlling plan category',
+                'color' => '#10B981',
+                'icon' => 'chart-bar',
             ],
             [
                 'name' => 'CRM',
                 'slug' => 'crm',
                 'url' => 'https://crm.cegem360.eu',
                 'description' => 'CRM plan category',
+                'color' => '#6366F1',
+                'icon' => 'users',
             ],
             [
                 'name' => 'CRM and Contacts',
                 'slug' => 'crm-and-contacts',
                 'url' => 'https://crm-contacts.cegem360.eu',
                 'description' => 'CRM and Contacts plan category',
+                'color' => '#F59E0B',
+                'icon' => 'shopping-cart',
             ],
         ]);
     }

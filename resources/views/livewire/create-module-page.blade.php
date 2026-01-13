@@ -1,5 +1,5 @@
-<div class="max-w-4xl mx-auto">
-    <form wire:submit="create" class="space-y-6 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm">
+<div>
+    <form wire:submit="create" class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
         {{ $this->form }}
     </form>
 

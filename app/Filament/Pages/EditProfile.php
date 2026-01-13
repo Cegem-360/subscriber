@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Log;
 
 final class EditProfile extends BaseEditProfile
 {
-    protected static string $layout = 'components.layouts.app';
+    protected static string $layout = 'components.layouts.dashboard';
 
     public string $view = 'filament.pages.edit-profile';
 

@@ -20,6 +20,8 @@ class PlanCategory extends Model
         'url',
         'slug',
         'description',
+        'color',
+        'icon',
     ];
 
     public function plans(): HasMany

@@ -1,5 +1,5 @@
-<x-layouts.app>
-    <div class="container mx-auto px-4 py-8">
-        <livewire:subscrubers-subscriptions-table>
-    </div>
-</x-layouts.app>
+<x-layouts.dashboard>
+    <x-slot:title>Előfizetések</x-slot:title>
+
+    <livewire:subscrubers-subscriptions-table />
+</x-layouts.dashboard>

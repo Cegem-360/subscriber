@@ -8,6 +8,8 @@ use App\Models\Subscription;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Fieldset;
+use Filament\Support\Colors\Color;
+use Filament\Support\Facades\FilamentColor;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
@@ -30,6 +32,12 @@ final class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Cashier::useSubscriptionModel(Subscription::class);
+
+        // Set Filament colors globally (for standalone components outside panel)
+        FilamentColor::register([
+            'primary' => Color::Indigo,
+        ]);
+
         Fieldset::configureUsing(fn (Fieldset $fieldset) => $fieldset->translateLabel());
         TextInput::configureUsing(fn (TextInput $textInput) => $textInput->translateLabel());
         Select::configureUsing(fn (Select $select) => $select->translateLabel());

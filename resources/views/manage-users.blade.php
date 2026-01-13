@@ -1,7 +1,5 @@
-<x-layouts.app>
-    <div class="flex justify-center">
-        <div class="w-full max-w-6xl px-4">
-            <livewire:manage-users />
-        </div>
-    </div>
-</x-layouts.app>
+<x-layouts.dashboard>
+    <x-slot:title>Felhasználók kezelése</x-slot:title>
+
+    <livewire:manage-users />
+</x-layouts.dashboard>
