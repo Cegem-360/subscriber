@@ -22,7 +22,8 @@
 
                     {{-- Subheadline --}}
                     <p class="text-xl lg:text-2xl text-text-secondary mb-8 leading-relaxed">
-                        Testreszabott vállalatirányítási megoldások ipari cégeknek: CRM, kontrolling, beszerzés, értékesítés és automatizált munkafolyamatok — amelyek valódi eredményeket hoznak.
+                        Testreszabott vállalatirányítási megoldások ipari cégeknek: CRM, kontrolling, beszerzés,
+                        értékesítés és automatizált munkafolyamatok — amelyek valódi eredményeket hoznak.
                     </p>
 
                     {{-- CTA Button --}}
@@ -66,7 +67,8 @@
                                 <p
                                     class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     CRM</p>
-                                <p class="text-[13px] text-text-tertiary mt-1">Kövesse nyomon ügyfeleit az első megkeresésől a szerződéskötésig.</p>
+                                <p class="text-[13px] text-text-tertiary mt-1">Kövesse nyomon ügyfeleit az első
+                                    megkeresésől a szerződéskötésig.</p>
                             </div>
                         </a>
 
@@ -85,7 +87,8 @@
                                 <p
                                     class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     Kontrolling</p>
-                                <p class="text-[13px] text-text-tertiary mt-1">Valós idejű pénzügyi áttekintés és döntéstámogató riportok.</p>
+                                <p class="text-[13px] text-text-tertiary mt-1">Valós idejű pénzügyi áttekintés és
+                                    döntéstámogató riportok.</p>
                             </div>
                         </a>
 
@@ -104,7 +107,8 @@
                                 <p
                                     class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     Beszerzés-logisztika</p>
-                                <p class="text-[13px] text-text-tertiary mt-1">Raktárkészlet és szállítások egy átlátható rendszerben.</p>
+                                <p class="text-[13px] text-text-tertiary mt-1">Raktárkészlet és szállítások egy
+                                    átlátható rendszerben.</p>
                             </div>
                         </a>
 
@@ -123,7 +127,8 @@
                                 <p
                                     class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     Értékesítés</p>
-                                <p class="text-[13px] text-text-tertiary mt-1">Ajánlatok és megrendelések egy helyen.</p>
+                                <p class="text-[13px] text-text-tertiary mt-1">Ajánlatok és megrendelések egy helyen.
+                                </p>
                             </div>
                         </a>
 
@@ -144,7 +149,8 @@
                                 <p
                                     class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     Automatizálás</p>
-                                <p class="text-[13px] text-text-tertiary mt-1">Szabadítsa fel csapata idejét az ismétlődő feladatoktól.</p>
+                                <p class="text-[13px] text-text-tertiary mt-1">Szabadítsa fel csapata idejét az
+                                    ismétlődő feladatoktól.</p>
                             </div>
                         </a>
                     </div>
@@ -219,8 +225,11 @@
                                         class="font-bold">cégem360</strong> kontrolling</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Lássa át vállalata<br>pénzügyeit valós időben</h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Kövesse nyomon a bevételeket, költségeket és cash flow-t egyetlen irányítópulton. Azonnali riportok segítik a döntéshozatalt.
+                                style="font-family: 'Poppins', sans-serif;">Lássa át vállalata<br>pénzügyeit valós
+                                időben</h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Kövesse nyomon a
+                                bevételeket, költségeket és cash flow-t egyetlen irányítópulton. Azonnali riportok
+                                segítik a döntéshozatalt.
                             </p>
                         </div>
                         <a href="#"
@@ -249,8 +258,11 @@
                                         class="font-bold">cégem360</strong> CRM</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Növelje árbevételét<br>rendszerezett ügyfélkezeléssel</h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Minden ügyfél, ajánlat és kapcsolatfelvétel egy helyen. Automatikus emlékeztetők és értékesítési pipeline — hogy csapata a lezárásra koncentrálhasson.</p>
+                                style="font-family: 'Poppins', sans-serif;">Növelje árbevételét<br>rendszerezett
+                                ügyfélkezeléssel</h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Minden ügyfél, ajánlat és
+                                kapcsolatfelvétel egy helyen. Automatikus emlékeztetők és értékesítési pipeline — hogy
+                                csapata a lezárásra koncentrálhasson.</p>
                         </div>
                         <a href="#"
                             class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
@@ -280,8 +292,11 @@
                                         class="font-bold">cégem360</strong> értékesítés</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Mérje és növelje<br>értékesítési hatékonyságát</h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Integrálja az értékesítési és marketing tevékenységeket. Tudja, melyik kampány honnan hozott ügyfelet — adatalapú döntésekkel növelje a konverziót.
+                                style="font-family: 'Poppins', sans-serif;">Mérje és növelje<br>értékesítési
+                                hatékonyságát</h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Integrálja az értékesítési
+                                és marketing tevékenységeket. Tudja, melyik kampány honnan hozott ügyfelet — adatalapú
+                                döntésekkel növelje a konverziót.
                             </p>
                         </div>
                         <a href="#"
@@ -310,8 +325,11 @@
                                         class="font-bold">cégem360</strong> beszerzés</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Optimalizálja beszerzési<br>és logisztikai folyamatait</h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Kövesse nyomon készleteit és szállításait egyetlen felületen. A rendszer figyelmeztet, ha beavatkozás szükséges — Ön pedig időben cselekedhet.</p>
+                                style="font-family: 'Poppins', sans-serif;">Optimalizálja beszerzési<br>és logisztikai
+                                folyamatait</h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Kövesse nyomon készleteit
+                                és szállításait egyetlen felületen. A rendszer figyelmeztet, ha beavatkozás szükséges —
+                                Ön pedig időben cselekedhet.</p>
                         </div>
                         <a href="#"
                             class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
@@ -339,8 +357,11 @@
                                         class="font-bold">cégem360</strong> automatizálás</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Automatizálja az<br>ismétlődő feladatokat</h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Szabjon meg szabályokat és hagyja, hogy a rendszer dolgozzon Ön helyett. Gyorsabb reakcióidő, kevesebb emberi hiba, több idő a stratégiai feladatokra.</p>
+                                style="font-family: 'Poppins', sans-serif;">Automatizálja az<br>ismétlődő feladatokat
+                            </h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Szabjon meg szabályokat és
+                                hagyja, hogy a rendszer dolgozzon Ön helyett. Gyorsabb reakcióidő, kevesebb emberi hiba,
+                                több idő a stratégiai feladatokra.</p>
                         </div>
                         <a href="#"
                             class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
@@ -368,8 +389,11 @@
                                         class="font-bold">cégem360</strong> platform</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Döntsön adatok<br>alapján, ne megérzésből</h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Gyors áttekintés a vállalat egészéről: pénzügy, értékesítés, projektek — egy dashboardon. Legyen mindig képben, és hozza meg a megfelelő döntéseket.</p>
+                                style="font-family: 'Poppins', sans-serif;">Döntsön adatok<br>alapján, ne megérzésből
+                            </h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Gyors áttekintés a
+                                vállalat egészéről: pénzügy, értékesítés, projektek — egy dashboardon. Legyen mindig
+                                képben, és hozza meg a megfelelő döntéseket.</p>
                         </div>
                         <a href="#"
                             class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
@@ -388,7 +412,8 @@
                     <div x-show="activeTab === 'projects'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">IPARI ÜGYFÉL</p>
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">IPARI ÜGYFÉL
+                        </p>
                         <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-primary-600">30%
                                 költségcsökkenés</span><br>valós idejű adatokkal</p>
                     </div>
@@ -397,35 +422,41 @@
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
                         <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">PARTNERÜNK
                         </p>
-                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-[#0f7b6c]">40%-kal
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span
+                                class="text-[#0f7b6c]">40%-kal
                                 több ajánlat</span><br>kevesebb adminnal</p>
                     </div>
                     <div x-show="activeTab === 'marketing'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">CRM ÜGYFÉL</p>
-                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span
-                                class="text-primary-500">2x konverzió</span><br>strukturált adatokkal</p>
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">CRM ÜGYFÉL
+                        </p>
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-primary-500">2x
+                                konverzió</span><br>strukturált adatokkal</p>
                     </div>
                     <div x-show="activeTab === 'itops'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">LOGISZTIKAI PARTNER</p>
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">LOGISZTIKAI
+                            PARTNER</p>
                         <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-[#7a1a42]">20%
                                 készletoptimalizálás</span><br>automatikus riasztásokkal</p>
                     </div>
                     <div x-show="activeTab === 'engineering'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">AUTOMATIZÁLT ÜGYFÉL</p>
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">AUTOMATIZÁLT
+                            ÜGYFÉL</p>
                         <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-success-600">50%
                                 kevesebb manuális munka</span><br>szabályalapú folyamatokkal</p>
                     </div>
                     <div x-show="activeTab === 'leadership'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">VEZETŐ ÜGYFÉL</p>
-                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-primary-600">Azonnali
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">VEZETŐ ÜGYFÉL
+                        </p>
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span
+                                class="text-primary-600">Azonnali
                                 áttekintés</span><br>egy dashboardon</p>
                     </div>
 
@@ -433,7 +464,8 @@
                     <div x-show="activeTab === 'projects'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Végre látom, hova fogy a pénz, és miért. A havi zárásunk napok helyett órákra csökkent."</p>
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Végre látom, hova fogy a pénz, és
+                            miért. A havi zárásunk napok helyett órákra csökkent."</p>
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center text-primary-600 font-semibold text-sm">
@@ -447,7 +479,8 @@
                     <div x-show="activeTab === 'sales'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Tudom, melyik ügyféllel mikor beszéltünk utoljára, és mit ígértünk. Nincs több elveszett érdeklődő."</p>
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Tudom, melyik ügyféllel mikor
+                            beszéltünk utoljára, és mit ígértünk. Nincs több elveszett érdeklődő."</p>
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 bg-[#0f7b6c]/10 rounded-full flex items-center justify-center text-[#0f7b6c] font-semibold text-sm">
@@ -461,7 +494,8 @@
                     <div x-show="activeTab === 'marketing'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Látom, melyik kampányunk hozott valódi vevőt — és melyikre ne költsünk többet."</p>
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Látom, melyik kampányunk hozott
+                            valódi vevőt — és melyikre ne költsünk többet."</p>
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center text-primary-600 font-semibold text-sm">
@@ -475,7 +509,8 @@
                     <div x-show="activeTab === 'itops'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Korábban Excelben nyomon követni a készleteket rémálom volt. Most egy kattintás, és látom, mi hiányzik."</p>
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Korábban Excelben nyomon követni a
+                            készleteket rémálom volt. Most egy kattintás, és látom, mi hiányzik."</p>
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 bg-[#7a1a42]/10 rounded-full flex items-center justify-center text-[#7a1a42] font-semibold text-sm">
@@ -489,7 +524,9 @@
                     <div x-show="activeTab === 'engineering'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"A rendszer automatikusan emlékeztet a határidőkre, és értesíti a kollégát, ha rá vár egy feladat. Nekem nem kell utánajárni."</p>
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"A rendszer automatikusan
+                            emlékeztet a határidőkre, és értesíti a kollégát, ha rá vár egy feladat. Nekem nem kell
+                            utánajárni."</p>
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 bg-success-100 rounded-full flex items-center justify-center text-success-600 font-semibold text-sm">
@@ -503,7 +540,8 @@
                     <div x-show="activeTab === 'leadership'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Reggeli kávé mellett megnézem a dashboardot, és tudom, mi történt tegnap — minden területen."</p>
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Reggeli kávé mellett megnézem a
+                            dashboardot, és tudom, mi történt tegnap — minden területen."</p>
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center text-primary-600 font-semibold text-sm">
@@ -554,9 +592,11 @@
                                         <p class="text-base text-text-tertiary -mt-0.5">kontrolling</p>
                                     </div>
                                 </div>
-                                <p class="text-text-secondary text-lg leading-relaxed mb-5">Valós idejű pénzügyi adatok és riportok — döntéstámogatás pillanatok alatt.</p>
+                                <p class="text-text-secondary text-lg leading-relaxed mb-5">Valós idejű pénzügyi adatok
+                                    és riportok — döntéstámogatás pillanatok alatt.</p>
                                 <a href="#"
-                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon meg többet</a>
+                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon
+                                    meg többet</a>
                             </div>
                         </div>
 
@@ -578,9 +618,11 @@
                                         <p class="text-base text-text-tertiary -mt-0.5">CRM</p>
                                     </div>
                                 </div>
-                                <p class="text-text-secondary text-lg leading-relaxed mb-5">Átlátható ügyfélkezelés — a kapcsolatfelvételtől a lezárt üzletig.</p>
+                                <p class="text-text-secondary text-lg leading-relaxed mb-5">Átlátható ügyfélkezelés — a
+                                    kapcsolatfelvételtől a lezárt üzletig.</p>
                                 <a href="#"
-                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon meg többet</a>
+                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon
+                                    meg többet</a>
                             </div>
                         </div>
 
@@ -603,9 +645,11 @@
                                         <p class="text-base text-text-tertiary -mt-0.5">beszerzés</p>
                                     </div>
                                 </div>
-                                <p class="text-text-secondary text-lg leading-relaxed mb-5">Készletnyilvántartás és szállítások — egy felületen, valós időben.</p>
+                                <p class="text-text-secondary text-lg leading-relaxed mb-5">Készletnyilvántartás és
+                                    szállítások — egy felületen, valós időben.</p>
                                 <a href="#"
-                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon meg többet</a>
+                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon
+                                    meg többet</a>
                             </div>
                         </div>
 
@@ -627,9 +671,11 @@
                                         <p class="text-base text-text-tertiary -mt-0.5">értékesítés</p>
                                     </div>
                                 </div>
-                                <p class="text-text-secondary text-lg leading-relaxed mb-5">Árajánlatok, megrendelések és kampánykövetés — minden egy helyen.</p>
+                                <p class="text-text-secondary text-lg leading-relaxed mb-5">Árajánlatok, megrendelések
+                                    és kampánykövetés — minden egy helyen.</p>
                                 <a href="#"
-                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon meg többet</a>
+                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon
+                                    meg többet</a>
                             </div>
                         </div>
                     </div>
@@ -640,7 +686,8 @@
                     {{-- Description and CTAs --}}
                     <div class="mb-8">
                         <p class="text-text-secondary text-xl lg:text-2xl leading-relaxed mb-6">
-                            Minden modul önállóan is értékes, együtt pedig összehangolt működést biztosít az egész vállalaton belül.
+                            Minden modul önállóan is értékes, együtt pedig összehangolt működést biztosít az egész
+                            vállalaton belül.
                         </p>
                         <div class="flex items-center gap-4">
                             <a href="{{ route('register') }}"
@@ -661,23 +708,24 @@
                     {{-- Team Image with Labels --}}
                     <div class="relative flex-1 min-h-80 rounded-2xl overflow-hidden">
                         {{-- Background Image --}}
-                        <img src="{{ Vite::asset('resources/images/products-main-img.webp') }}"
-                            alt="Csapatmunka" class="absolute inset-0 w-full h-full object-cover">
+                        <img src="{{ Vite::asset('resources/images/products-main-img.webp') }}" alt="Csapatmunka"
+                            class="absolute inset-0 w-full h-full object-cover">
 
                         {{-- Floating Labels --}}
                         <div class="absolute top-24 right-12">
-                            <span class="bg-[#0f7b6c] text-white text-sm font-medium px-4 py-2 rounded-lg">Értékesítés</span>
+                            <span
+                                class="bg-[#0f7b6c] text-white text-sm font-medium px-4 py-2 rounded-lg">Értékesítés</span>
                         </div>
                         <div class="absolute top-30 left-60">
                             <span
                                 class="bg-success-500 text-white text-sm font-medium px-4 py-2 rounded-lg">Kontrolling</span>
                         </div>
                         <div class="absolute top-1/2 left-1/6">
-                            <span class="bg-danger-500 text-white text-sm font-medium px-4 py-2 rounded-lg">Beszerzés</span>
+                            <span
+                                class="bg-danger-500 text-white text-sm font-medium px-4 py-2 rounded-lg">Beszerzés</span>
                         </div>
                         <div class="absolute bottom-24 right-16">
-                            <span
-                                class="bg-primary-500 text-white text-sm font-medium px-4 py-2 rounded-lg">CRM</span>
+                            <span class="bg-primary-500 text-white text-sm font-medium px-4 py-2 rounded-lg">CRM</span>
                         </div>
                     </div>
                 </div>
@@ -716,7 +764,8 @@
                             Rugalmas,<br>mégis egységes
                         </h3>
                         <p class="text-white/90 text-lg lg:text-xl leading-relaxed max-w-md">
-                            Alakítsa a rendszert az igényeihez — kód nélkül. Közben tartsa meg a vállalati szintű egységességet.
+                            Alakítsa a rendszert az igényeihez — kód nélkül. Közben tartsa meg a vállalati szintű
+                            egységességet.
                         </p>
                     </div>
                 </div>
@@ -1148,7 +1197,7 @@
     </section>
 
     {{-- Section 6: Trusted By / Social Proof --}}
-    <section class="bg-surface-secondary border-y border-border-light py-16">
+    <section class="hidden bg-surface-secondary border-y border-border-light py-16">
         <div class="max-w-7xl mx-auto px-6">
             <p class="text-center text-text-tertiary text-sm uppercase tracking-wider mb-10">
                 Több mint 500+ vállalat bízik bennünk
@@ -1233,7 +1282,7 @@
     </section>
 
     {{-- Section 3: Features / Value Proposition --}}
-    <section id="features" class="bg-surface-primary py-24">
+    <section id="features" class="hidden bg-surface-primary py-24">
         <div class="max-w-7xl mx-auto px-6">
             {{-- Section header --}}
             <div class="text-center max-w-3xl mx-auto mb-16">
@@ -1406,7 +1455,7 @@
             </div>
 
             {{-- Bottom CTA --}}
-            <div class="text-center mt-16">
+            <div class="hidden text-center mt-16">
                 <a href="{{ route('register') }}" class="btn btn-primary btn-lg">
                     Próbálja ki ingyen
                 </a>

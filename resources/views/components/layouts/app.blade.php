@@ -31,6 +31,8 @@
 
         {{ $slot }}
 
+        <x-layouts.footer />
+
         @livewire('notifications')
 
         @filamentScripts

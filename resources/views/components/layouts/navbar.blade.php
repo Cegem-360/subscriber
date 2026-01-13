@@ -1,73 +1,168 @@
-<nav class="bg-white shadow-sm dark:bg-gray-800">
+<nav class="bg-white border-b border-gray-100" x-data="{ mobileMenuOpen: false, openDropdown: null }">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
-            {{-- Logo --}}
-            <div class="shrink-0">
-                <a href="{{ route('welcome') }}" class="flex items-center">
-                    <img src="{{ Vite::asset('resources/images/cegem360-logo.png') }}" alt="cégem360.eu" class="h-10">
-                </a>
-            </div>
-            @auth
-                {{-- Navigation Links --}}
-                <div class="flex gap-4">
-                    <a href="{{ route('modules') }}"
-                        class="inline-flex items-center rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:bg-green-500 dark:hover:bg-green-600">
-                        Moduljaim
-                    </a>
-                </div>
-            @endauth
-            {{-- Navigation Links --}}
-            <div class="flex  gap-4">
-                <a href="{{ route('module.order') }}"
-                    class="inline-flex items-center rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:bg-green-500 dark:hover:bg-green-600">
-                    Rendelés
+            {{-- Left: Logo --}}
+            <div class="flex items-center">
+                <a href="{{ route('home') }}" class="flex items-center">
+                    <img src="{{ Vite::asset('resources/images/cegem360-logo.png') }}" alt="Cégem360" class="h-10">
                 </a>
             </div>
 
-            @auth
-
-                {{-- Navigation Links --}}
-                <div class="flex gap-4">
-                    <a href="{{ route('subscriptions') }}"
-                        class="inline-flex items-center rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:bg-green-500 dark:hover:bg-green-600">
-                        Előfizetések
-                    </a>
-                </div>
-                @if(auth()->user()->isAdmin() || auth()->user()->isManager())
-                    <div class="flex gap-4">
-                        <a href="{{ route('manage.users') }}"
-                            class="inline-flex items-center rounded-md bg-yellow-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 dark:bg-yellow-500 dark:hover:bg-yellow-600">
-                            Felhasználók
-                        </a>
+            {{-- Center: Navigation Links with Dropdowns --}}
+            <div class="hidden lg:flex items-center gap-1">
+                {{-- Products Dropdown --}}
+                <div class="relative" @mouseenter="openDropdown = 'products'" @mouseleave="openDropdown = null">
+                    <button class="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                        Termékek
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div x-show="openDropdown === 'products'" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="absolute left-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Munkamenedzsment</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">CRM</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Fejlesztés</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Ügyfélszolgálat</a>
                     </div>
-                @endif
-                {{-- Bejelentkezés gomb --}}
-                <div>
-                    <a href="{{ route('filament.admin.auth.profile') }}"
-                        class="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-500 dark:hover:bg-blue-600">
-                        Profilom
-                    </a>
                 </div>
-                {{-- Navigation Links --}}
-                <div class="flex gap-4">
-                    <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
-                        @csrf
-                        <button type="submit"
-                            class="inline-flex items-center rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-500 dark:hover:bg-blue-600">
-                            Kijelentkezés
-                        </button>
-                    </form>
+
+                {{-- Solutions Dropdown --}}
+                <div class="relative" @mouseenter="openDropdown = 'solutions'" @mouseleave="openDropdown = null">
+                    <button class="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                        Megoldások
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div x-show="openDropdown === 'solutions'" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="absolute left-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">KKV</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Nagyvállalat</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Non-profit</a>
+                    </div>
                 </div>
-            @endauth
-            @guest
-                {{-- Bejelentkezés gomb --}}
-                <div>
-                    <a href="/admin"
-                        class="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-500 dark:hover:bg-blue-600">
+
+                {{-- Resources Dropdown --}}
+                <div class="relative" @mouseenter="openDropdown = 'resources'" @mouseleave="openDropdown = null">
+                    <button class="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                        Erőforrások
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div x-show="openDropdown === 'resources'" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="absolute left-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Súgó</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Blog</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Akadémia</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Közösség</a>
+                    </div>
+                </div>
+
+                {{-- Enterprise (no dropdown) --}}
+                <a href="#" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                    Nagyvállalat
+                </a>
+            </div>
+
+            {{-- Right: Actions --}}
+            <div class="hidden lg:flex items-center gap-4">
+                {{-- Pricing --}}
+                <a href="#" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                    Árazás
+                </a>
+
+                @guest
+                    {{-- Log in --}}
+                    <a href="/admin" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
                         Bejelentkezés
                     </a>
-                </div>
+
+                    {{-- Contact sales (outlined) --}}
+                    <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-indigo-600 border border-indigo-600 rounded-full hover:bg-indigo-50 transition-colors">
+                        Kapcsolat
+                    </a>
+
+                    {{-- Get Started (filled) --}}
+                    <a href="{{ route('filament.admin.auth.register') }}" class="inline-flex items-center gap-1 px-5 py-2 text-sm font-medium text-white bg-indigo-600 rounded-full hover:bg-indigo-700 transition-colors">
+                        Kezdés
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </a>
+                @endguest
+
+                @auth
+                    {{-- User menu for authenticated users --}}
+                    <a href="{{ route('modules') }}" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                        Moduljaim
+                    </a>
+
+                    <a href="{{ route('subscriptions') }}" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                        Előfizetések
+                    </a>
+
+                    @if(auth()->user()->isAdmin() || auth()->user()->isManager())
+                        <a href="{{ route('manage.users') }}" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                            Felhasználók
+                        </a>
+                    @endif
+
+                    {{-- User dropdown --}}
+                    <div class="relative" @mouseenter="openDropdown = 'user'" @mouseleave="openDropdown = null">
+                        <button class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                            <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-semibold text-sm">
+                                {{ substr(auth()->user()->name ?? auth()->user()->email, 0, 1) }}
+                            </div>
+                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div x-show="openDropdown === 'user'" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                            <a href="{{ route('filament.admin.auth.profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Profilom</a>
+                            <hr class="my-1 border-gray-200">
+                            <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
+                                @csrf
+                                <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                                    Kijelentkezés
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                @endauth
+
+            </div>
+
+            {{-- Mobile menu button --}}
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden p-2 text-gray-400 hover:text-gray-600 transition-colors">
+                <svg x-show="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <svg x-show="mobileMenuOpen" x-cloak class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+        </div>
+    </div>
+
+    {{-- Mobile menu --}}
+    <div x-show="mobileMenuOpen" x-collapse class="lg:hidden border-t border-gray-200">
+        <div class="px-4 py-4 space-y-3">
+            <a href="#" class="block py-2 text-sm font-medium text-gray-700">Termékek</a>
+            <a href="#" class="block py-2 text-sm font-medium text-gray-700">AI</a>
+            <a href="#" class="block py-2 text-sm font-medium text-gray-700">Megoldások</a>
+            <a href="#" class="block py-2 text-sm font-medium text-gray-700">Erőforrások</a>
+            <a href="#" class="block py-2 text-sm font-medium text-gray-700">Nagyvállalat</a>
+            <a href="#" class="block py-2 text-sm font-medium text-gray-700">Árazás</a>
+
+            <hr class="border-gray-200">
+
+            @guest
+                <a href="/admin" class="block py-2 text-sm font-medium text-gray-700">Bejelentkezés</a>
+                <a href="#" class="block py-2 text-sm font-medium text-indigo-600">Kapcsolat</a>
+                <a href="{{ route('filament.admin.auth.register') }}" class="block w-full text-center py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-full">
+                    Kezdés
+                </a>
             @endguest
+
+            @auth
+                <a href="{{ route('modules') }}" class="block py-2 text-sm font-medium text-gray-700">Moduljaim</a>
+                <a href="{{ route('subscriptions') }}" class="block py-2 text-sm font-medium text-gray-700">Előfizetések</a>
+                @if(auth()->user()->isAdmin() || auth()->user()->isManager())
+                    <a href="{{ route('manage.users') }}" class="block py-2 text-sm font-medium text-gray-700">Felhasználók</a>
+                @endif
+                <a href="{{ route('filament.admin.auth.profile') }}" class="block py-2 text-sm font-medium text-gray-700">Profilom</a>
+                <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
+                    @csrf
+                    <button type="submit" class="block w-full text-left py-2 text-sm font-medium text-red-600">
+                        Kijelentkezés
+                    </button>
+                </form>
+            @endauth
         </div>
     </div>
 </nav>
