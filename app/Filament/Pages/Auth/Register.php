@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\Log;
 
 final class Register extends BaseRegister
 {
+    public string $view = 'filament.pages.auth.register';
+
+    protected static string $layout = 'filament.layouts.auth-split';
+
     protected ?string $rawPassword = null;
 
     protected function beforeValidate(): void
@@ -60,7 +64,8 @@ final class Register extends BaseRegister
                 $this->getPasswordFormComponent(),
                 $this->getPasswordConfirmationFormComponent(),
                 $this->getCompanyFieldset(),
-            ]);
+            ])
+            ->columns(2);
     }
 
     private function getCompanyFieldset(): Fieldset
@@ -93,6 +98,7 @@ final class Register extends BaseRegister
                     ->default(Country::Hungary)
                     ->required(),
             ])
-            ->columns(2);
+            ->columns(2)
+            ->columnSpanFull();
     }
 }

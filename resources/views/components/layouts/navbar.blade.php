@@ -133,7 +133,6 @@
     <div x-show="mobileMenuOpen" x-collapse class="lg:hidden border-t border-gray-200">
         <div class="px-4 py-4 space-y-3">
             <a href="#" class="block py-2 text-sm font-medium text-gray-700">Termékek</a>
-            <a href="#" class="block py-2 text-sm font-medium text-gray-700">AI</a>
             <a href="#" class="block py-2 text-sm font-medium text-gray-700">Megoldások</a>
             <a href="#" class="block py-2 text-sm font-medium text-gray-700">Erőforrások</a>
             <a href="#" class="block py-2 text-sm font-medium text-gray-700">Nagyvállalat</a>
