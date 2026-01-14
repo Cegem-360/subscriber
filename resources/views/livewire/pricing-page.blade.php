@@ -537,7 +537,7 @@
                 Készen áll a hatékonyabb működésre?
             </h2>
             <p class="mx-auto mt-4 max-w-xl text-lg text-indigo-100">
-                Próbálja ki bármelyik modult 14 napig ingyenesen. Nincs bankkártya szükséges, nincs elköteleződés.
+                Próbálja ki bármelyik modult 14 napig ingyenesen. Nincs elkötelezettség, nem szükséges bankkártya.
             </p>
             <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <a href="{{ route('register') }}"
