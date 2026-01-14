@@ -526,4 +526,14 @@
         background-color: var(--color-danger-100);
         color: var(--color-danger-700);
     }
+
+    /* Scrollbar hide utility */
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
 }

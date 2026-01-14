@@ -60,7 +60,7 @@
             {{-- Right: Actions --}}
             <div class="hidden lg:flex items-center gap-4">
                 {{-- Pricing --}}
-                <a href="#" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                <a href="{{ route('pricing') }}" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
                     Árazás
                 </a>
 
@@ -136,7 +136,7 @@
             <a href="#" class="block py-2 text-sm font-medium text-gray-700">Megoldások</a>
             <a href="#" class="block py-2 text-sm font-medium text-gray-700">Erőforrások</a>
             <a href="#" class="block py-2 text-sm font-medium text-gray-700">Nagyvállalat</a>
-            <a href="#" class="block py-2 text-sm font-medium text-gray-700">Árazás</a>
+            <a href="{{ route('pricing') }}" class="block py-2 text-sm font-medium text-gray-700">Árazás</a>
 
             <hr class="border-gray-200">
 
