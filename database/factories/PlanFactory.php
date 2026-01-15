@@ -33,8 +33,8 @@ class PlanFactory extends Factory
             'price' => $priceHuf,
             'price_eur' => (int) round($priceHuf / 400),
             'billing_period' => $this->faker->randomElement(BillingPeriod::cases()),
-            'stripe_price_id' => 'price_' . $this->faker->unique()->regexify('[a-zA-Z0-9]{24}'),
-            'stripe_product_id' => 'prod_' . $this->faker->unique()->regexify('[a-zA-Z0-9]{14}'),
+            'stripe_price_id' => null,
+            'stripe_product_id' => null,
             'features' => [
                 'API Access',
                 'Email Support',

@@ -11,6 +11,7 @@ use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ViewField;
+use Filament\Notifications\Notification;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Wizard;
@@ -115,6 +116,16 @@ class CreateModulePage extends Component implements HasActions, HasSchemas
         $data = $this->form->getState();
         $plan = Plan::query()->findOrFail($data['plan_id']);
         $quantity = (int) $data['quantity'];
+
+        if (! $plan->stripe_price_id) {
+            Notification::make()
+                ->title('Ez a csomag még nincs szinkronizálva a Stripe-pal.')
+                ->body('Kérjük, futtassa a `php artisan stripe:sync-prices` parancsot.')
+                ->danger()
+                ->send();
+
+            return;
+        }
 
         // Don't create local subscription - let webhook handle it
         // Just redirect to Stripe checkout with plan info in metadata

@@ -22,6 +22,7 @@ it('has correct fillable attributes', function (): void {
         'price_eur',
         'billing_period',
         'stripe_price_id',
+        'stripe_price_id_eur',
         'stripe_product_id',
         'features',
         'is_active',

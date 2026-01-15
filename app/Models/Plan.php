@@ -26,6 +26,7 @@ class Plan extends Model
         'price_eur',
         'billing_period',
         'stripe_price_id',
+        'stripe_price_id_eur',
         'stripe_product_id',
         'features',
         'is_active',
