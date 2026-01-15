@@ -1,6 +1,6 @@
 <x-layouts.app>
     {{-- Section 1: Hero (Zoho layout + Monday.com style) --}}
-    <section class="bg-gradient-to-b from-primary-50/60 to-surface-secondary">
+    <section class="bg-linear-to-b from-primary-50/60 to-surface-secondary">
         <div class="max-w-7xl mx-auto px-6 py-16 lg:py-24">
             <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
                 {{-- Left: Content --}}
@@ -9,7 +9,7 @@
                     <div class="inline-flex items-center px-4 py-1.5 rounded-full border border-border-light/80 bg-surface-primary mb-8"
                         style="box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);">
                         <span
-                            class="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-success-500 via-warning-500 to-danger-500 mr-2.5"></span>
+                            class="w-1.5 h-1.5 rounded-full bg-linear-to-r from-success-500 via-warning-500 to-danger-500 mr-2.5"></span>
                         <span class="text-sm font-medium text-text-primary">Vállalatirányítási platform</span>
                     </div>
 
@@ -46,7 +46,7 @@
                 </div>
 
                 {{-- Right: Card (Zoho vertical layout) --}}
-                <div class="bg-surface-primary rounded-2xl p-8 w-full lg:w-[340px] shrink-0"
+                <div class="bg-surface-primary rounded-2xl p-8 w-full lg:w-85 shrink-0"
                     style="box-shadow: 0 12px 50px -6px rgba(96, 92, 212, 0.35), 0 0 1px rgba(96, 92, 212, 0.2);">
                     <p class="text-[11px] font-semibold text-text-tertiary uppercase tracking-widest mb-6">Fő modulok
                     </p>

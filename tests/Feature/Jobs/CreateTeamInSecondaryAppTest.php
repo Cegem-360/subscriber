@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Filament\Pages\Auth\Register;
+use App\Enums\Country;
 use App\Jobs\CreateTeamInSecondaryApp;
 use App\Jobs\CreateUserInSecondaryApp;
 use App\Services\SecondaryAppService;
@@ -111,7 +113,7 @@ it('logs warning when team creation fails', function (): void {
 it('is dispatched from Register page handleRegistration', function (): void {
     Bus::fake();
 
-    $register = new \App\Filament\Pages\Auth\Register();
+    $register = new Register();
 
     // Set raw password via reflection (simulates beforeValidate hook)
     $rawPasswordProperty = new ReflectionProperty($register, 'rawPassword');
@@ -129,7 +131,7 @@ it('is dispatched from Register page handleRegistration', function (): void {
         'address' => 'Test Street 123',
         'city' => 'Budapest',
         'postal_code' => '1234',
-        'country' => \App\Enums\Country::Hungary->value,
+        'country' => Country::Hungary->value,
     ]);
 
     Bus::assertChained([

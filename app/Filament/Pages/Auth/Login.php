@@ -9,7 +9,6 @@ use Filament\Auth\Pages\Login as BasePage;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
-use Filament\Schemas\Components\Component;
 use Illuminate\Support\Facades\Auth;
 
 final class Login extends BasePage
@@ -18,7 +17,7 @@ final class Login extends BasePage
 
     protected static string $layout = 'filament.layouts.auth';
 
-    protected function getEmailFormComponent(): Component
+    protected function getEmailFormComponent(): TextInput
     {
         return TextInput::make('email')
             ->label('Add meg a munkahelyi e-mail címed')
@@ -30,7 +29,7 @@ final class Login extends BasePage
             ->extraInputAttributes(['tabindex' => 1]);
     }
 
-    protected function getPasswordFormComponent(): Component
+    protected function getPasswordFormComponent(): TextInput
     {
         return TextInput::make('password')
             ->label('Jelszó')
@@ -41,7 +40,7 @@ final class Login extends BasePage
             ->extraInputAttributes(['tabindex' => 2]);
     }
 
-    protected function getRememberFormComponent(): Component
+    protected function getRememberFormComponent(): Checkbox
     {
         return Checkbox::make('remember')
             ->label('Emlékezz rám')

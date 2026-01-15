@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Mcp\Tools;
 
+use Exception;
+use BackedEnum;
+use Filament\Facades\Filament\Resources\Resource;
 use Filament\Facades\Filament;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
 use Laravel\Mcp\Request;
@@ -35,7 +38,7 @@ class ListFilamentResourcesTool extends Tool
             }
 
             Filament::setCurrentPanel($panel);
-        } catch (\Exception $e) {
+        } catch (Exception) {
             return Response::error("Panel '{$panelId}' not found.");
         }
 
@@ -43,7 +46,7 @@ class ListFilamentResourcesTool extends Tool
 
         $result = [];
         foreach ($resources as $resourceClass) {
-            /** @var class-string<\Filament\Resources\Resource> $resourceClass */
+            /** @var class-string<Resource> $resourceClass */
             $result[] = [
                 'class' => $resourceClass,
                 'model' => $resourceClass::getModel(),
@@ -62,7 +65,7 @@ class ListFilamentResourcesTool extends Tool
     /**
      * Get the tool's input schema.
      *
-     * @return array<string, \Illuminate\Contracts\JsonSchema\JsonSchema>
+     * @return array<string, JsonSchema>
      */
     public function schema(JsonSchema $schema): array
     {
@@ -82,7 +85,7 @@ class ListFilamentResourcesTool extends Tool
             return $icon;
         }
 
-        if ($icon instanceof \BackedEnum) {
+        if ($icon instanceof BackedEnum) {
             return $icon->value;
         }
 

@@ -62,7 +62,7 @@ class ToggleUserActiveInSecondaryApp implements ShouldQueue
             ]);
 
             // Skip SSL verification for local .test domains (Laravel Herd)
-            if (str_ends_with((string) $app['url'], '.test')) {
+            if (str_ends_with($app['url'], '.test')) {
                 $http = $http->withoutVerifying();
             }
 

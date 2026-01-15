@@ -17,7 +17,7 @@ it('allows guest to verify email with valid signed link', function (): void {
     $verificationUrl = URL::temporarySignedRoute(
         'verification.verify',
         now()->addMinutes(60),
-        ['id' => $user->id, 'hash' => sha1($user->email)],
+        ['id' => $user->id, 'hash' => sha1((string) $user->email)],
     );
 
     $response = $this->get($verificationUrl);
@@ -28,9 +28,7 @@ it('allows guest to verify email with valid signed link', function (): void {
 
     expect($user->fresh()->hasVerifiedEmail())->toBeTrue();
 
-    Event::assertDispatched(Verified::class, function ($event) use ($user) {
-        return $event->user->id === $user->id;
-    });
+    Event::assertDispatched(Verified::class, fn($event): bool => $event->user->id === $user->id);
 });
 
 it('shows info notification when email is already verified', function (): void {
@@ -41,7 +39,7 @@ it('shows info notification when email is already verified', function (): void {
     $verificationUrl = URL::temporarySignedRoute(
         'verification.verify',
         now()->addMinutes(60),
-        ['id' => $user->id, 'hash' => sha1($user->email)],
+        ['id' => $user->id, 'hash' => sha1((string) $user->email)],
     );
 
     $response = $this->get($verificationUrl);
@@ -73,7 +71,7 @@ it('rejects unsigned verification link', function (): void {
         'email_verified_at' => null,
     ]);
 
-    $response = $this->get("/email/verify/{$user->id}/" . sha1($user->email));
+    $response = $this->get("/email/verify/{$user->id}/" . sha1((string) $user->email));
 
     $response->assertForbidden();
     expect($user->fresh()->hasVerifiedEmail())->toBeFalse();
@@ -90,7 +88,7 @@ it('does not require authentication to verify email', function (): void {
     $verificationUrl = URL::temporarySignedRoute(
         'verification.verify',
         now()->addMinutes(60),
-        ['id' => $user->id, 'hash' => sha1($user->email)],
+        ['id' => $user->id, 'hash' => sha1((string) $user->email)],
     );
 
     $response = $this->get($verificationUrl);

@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace App\Mcp\Tools;
 
+use Exception;
+use Filament\Schemas\Schema;
+use Filament\Resources\Pages\CreateRecord;
+use Throwable;
+use Filament\Tables\Table;
+use Filament\Resources\Pages\ListRecords;
 use Filament\Facades\Filament;
 use Filament\Tables\Columns\Column;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
@@ -41,7 +47,7 @@ class GetFilamentResourceSchemaTool extends Tool
             }
 
             Filament::setCurrentPanel($panel);
-        } catch (\Exception $e) {
+        } catch (Exception) {
             return Response::error("Panel '{$panelId}' not found.");
         }
 
@@ -58,7 +64,7 @@ class GetFilamentResourceSchemaTool extends Tool
     /**
      * Get the tool's input schema.
      *
-     * @return array<string, \Illuminate\Contracts\JsonSchema\JsonSchema>
+     * @return array<string, JsonSchema>
      */
     public function schema(JsonSchema $schema): array
     {
@@ -81,11 +87,11 @@ class GetFilamentResourceSchemaTool extends Tool
             $record = new $model();
 
             $schema = $resourceClass::form(
-                \Filament\Schemas\Schema::make(new \Filament\Resources\Pages\CreateRecord()),
+                Schema::make(new CreateRecord()),
             );
 
             return $this->extractSchemaComponents($schema->getComponents());
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return ['error' => $e->getMessage()];
         }
     }
@@ -97,11 +103,11 @@ class GetFilamentResourceSchemaTool extends Tool
     {
         try {
             $table = $resourceClass::table(
-                \Filament\Tables\Table::make(new \Filament\Resources\Pages\ListRecords()),
+                Table::make(new ListRecords()),
             );
 
             $columns = collect($table->getColumns())
-                ->map(fn (Column $column) => [
+                ->map(fn (Column $column): array => [
                     'name' => $column->getName(),
                     'label' => $column->getLabel(),
                     'type' => class_basename($column),
@@ -112,7 +118,7 @@ class GetFilamentResourceSchemaTool extends Tool
                 ->all();
 
             $filters = collect($table->getFilters())
-                ->map(fn ($filter) => [
+                ->map(fn ($filter): array => [
                     'name' => $filter->getName(),
                     'label' => $filter->getLabel(),
                     'type' => class_basename($filter),
@@ -124,7 +130,7 @@ class GetFilamentResourceSchemaTool extends Tool
                 'columns' => $columns,
                 'filters' => $filters,
             ];
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return ['error' => $e->getMessage()];
         }
     }
@@ -132,7 +138,7 @@ class GetFilamentResourceSchemaTool extends Tool
     private function extractSchemaComponents(array $components): array
     {
         return collect($components)
-            ->map(function ($component) {
+            ->map(function ($component): array {
                 $data = [
                     'type' => class_basename($component),
                 ];

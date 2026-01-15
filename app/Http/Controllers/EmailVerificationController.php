@@ -12,15 +12,14 @@ final class EmailVerificationController extends Controller
 {
     public function __invoke(int $id, string $hash): RedirectResponse
     {
-        $user = User::findOrFail($id);
+        $user = User::query()->findOrFail($id);
 
         if (! $user->hasValidVerificationHash($hash)) {
             abort(403, __('Invalid verification link.'));
         }
 
         if ($user->hasVerifiedEmail()) {
-            return redirect()
-                ->route('filament.admin.auth.login')
+            return to_route('filament.admin.auth.login')
                 ->with('notification', [
                     'status' => 'info',
                     'title' => __('Email already verified'),
@@ -32,8 +31,7 @@ final class EmailVerificationController extends Controller
             event(new Verified($user));
         }
 
-        return redirect()
-            ->route('filament.admin.auth.login')
+        return to_route('filament.admin.auth.login')
             ->with('notification', [
                 'status' => 'success',
                 'title' => __('Email verified successfully'),

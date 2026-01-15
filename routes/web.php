@@ -11,21 +11,22 @@ use App\Livewire\UpdateModulePage;
 use App\Livewire\ViewSubscriptionPage;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Laravel\Cashier\Events\WebhookReceived;
 
-Route::get('/', fn (): Factory|View => view('home'))->name('home');
-Route::get('/welcome', fn (): Factory|View => view('welcome'))->name('welcome');
-Route::get('/module-order', fn (): Factory|View => view('module-order'))->name('module.order');
-Route::get('/style-guide', StyleGuide::class)->name('style-guide');
-Route::get('/arak', PricingPage::class)->name('pricing');
-
+Route::get(uri: '/', action: fn (): Factory|View => view(view: 'home'))->name(name: 'home');
+Route::get(uri: '/welcome', action: fn (): Factory|View => view(view: 'welcome'))->name(name: 'welcome');
+Route::get(uri: '/module-order', action: fn (): Factory|View => view(view: 'module-order'))->name(name: 'module.order');
+Route::get(uri: '/style-guide', action: StyleGuide::class)->name(name: 'style-guide');
+Route::get(uri: '/arak', action: PricingPage::class)->name(name: 'pricing');
 // Email verification routes
-Route::get('/email/verify', fn () => redirect()->route('filament.admin.auth.email-verification.prompt'))
-    ->middleware(['auth'])
-    ->name('verification.notice');
+Route::get(uri: '/email/verify', action: fn (): Redirector|RedirectResponse => to_route(route: 'filament.admin.auth.email-verification.prompt'))
+    ->middleware(middleware: ['auth'])
+    ->name(name: 'verification.notice');
 
 // Guest-accessible email verification (no login required)
 Route::get('/email/verify/{id}/{hash}', EmailVerificationController::class)
@@ -33,30 +34,28 @@ Route::get('/email/verify/{id}/{hash}', EmailVerificationController::class)
     ->name('verification.verify');
 
 Route::middleware(['guest'])->group(function (): void {
-    Route::get('/login', fn () => redirect()->route('filament.admin.auth.login'))->name('login');
-    Route::get('/register', fn (): Factory|View => view('auth.register'))->name('register');
+    Route::get(uri: '/login', action: fn (): Redirector|RedirectResponse => to_route(route: 'filament.admin.auth.login'))->name(name: 'login');
+    Route::get(uri: '/register', action: fn (): Redirector|RedirectResponse => to_route(route: 'filament.admin.auth.register'))->name(name: 'register');
 });
 Route::middleware(['auth', 'verified'])->group(function (): void {
-    Route::get('/modules', SubscriberModulsList::class)->name('modules');
+    Route::get(uri: '/modules', action: SubscriberModulsList::class)->name(name: 'modules');
 
-    Route::get('/subscriptions', fn (): Factory|View => view('subscriptions', [
+    Route::get(uri: '/subscriptions', action: fn (): Factory|View => view('subscriptions', [
         'subscriptions' => Auth::user()->subscriptions,
     ]))->name('subscriptions');
 
-    Route::get('/subscription/{subscription}', ViewSubscriptionPage::class)->name('subscription.view');
-    Route::get('/subscription/{subscription}/update', UpdateModulePage::class)->name('subscription.update');
+    Route::get(uri: '/subscription/{subscription}', action: ViewSubscriptionPage::class)->name(name: 'subscription.view');
+    Route::get(uri: '/subscription/{subscription}/update', action: UpdateModulePage::class)->name(name: 'subscription.update');
 
-    Route::get('/manage-users', fn (): Factory|View => view('manage-users'))->name('manage.users');
-});
+    Route::get(uri: '/manage-users', action: fn (): Factory|View => view('manage-users'))->name(name: 'manage.users');
 
-Route::middleware(['auth', 'verified'])->group(function (): void {
-    Route::post('/subscription/checkout/{plan}', [SubscriptionController::class, 'checkout'])->name('subscription.checkout');
-    Route::get('/subscription/success/{plan}', [SubscriptionController::class, 'success'])->name('subscription.success');
-    Route::get('/subscription/cancel', [SubscriptionController::class, 'cancel'])->name('subscription.cancel');
+    Route::post(uri: '/subscription/checkout/{plan}', action: [SubscriptionController::class, 'checkout'])->name(name: 'subscription.checkout');
+    Route::get(uri: '/subscription/success/{plan}', action: [SubscriptionController::class, 'success'])->name(name: 'subscription.success');
+    Route::get(uri: '/subscription/cancel', action: [SubscriptionController::class, 'cancel'])->name(name: 'subscription.cancel');
 });
 
 // Debug endpoint - trigger event manually
-Route::get('/stripe/webhook/debug', function () {
+Route::get(uri: '/stripe/webhook/debug', action: function () {
     Log::info('🔍 Debug: Manually triggering WebhookReceived event');
 
     $payload = [
@@ -77,4 +76,4 @@ Route::get('/stripe/webhook/debug', function () {
         'message' => 'Event triggered manually',
         'check_logs' => storage_path('logs/laravel.log'),
     ]);
-})->name('webhook.debug');
+})->name(name: 'webhook.debug');

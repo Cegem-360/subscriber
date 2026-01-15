@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Mcp\Tools;
 
+use Exception;
+use Filament\Panel;
+use Filament\Contracts\Plugin;
+use Throwable;
 use Filament\Facades\Filament;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
 use Laravel\Mcp\Request;
@@ -39,7 +43,7 @@ class GetFilamentPanelInfoTool extends Tool
                     $this->getPanelInfo($panel),
                     JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES,
                 ));
-            } catch (\Exception $e) {
+            } catch (Exception) {
                 return Response::error("Panel '{$panelId}' not found.");
             }
         }
@@ -57,7 +61,7 @@ class GetFilamentPanelInfoTool extends Tool
     /**
      * Get the tool's input schema.
      *
-     * @return array<string, \Illuminate\Contracts\JsonSchema\JsonSchema>
+     * @return array<string, JsonSchema>
      */
     public function schema(JsonSchema $schema): array
     {
@@ -67,7 +71,7 @@ class GetFilamentPanelInfoTool extends Tool
         ];
     }
 
-    private function getPanelInfo(\Filament\Panel $panel): array
+    private function getPanelInfo(Panel $panel): array
     {
         return [
             'id' => $panel->getId(),
@@ -82,26 +86,20 @@ class GetFilamentPanelInfoTool extends Tool
             'pages_count' => \count($panel->getPages()),
             'widgets_count' => \count($panel->getWidgets()),
             'plugins' => array_map(
-                fn ($plugin) => $plugin->getId(),
+                fn (Plugin $plugin): string => $plugin->getId(),
                 $panel->getPlugins(),
             ),
             'colors' => $this->getColors($panel),
         ];
     }
 
-    private function getColors(\Filament\Panel $panel): array
+    private function getColors(Panel $panel): array
     {
         try {
             $colors = $panel->getColors();
 
-            return array_map(function ($color) {
-                if (\is_array($color)) {
-                    return $color;
-                }
-
-                return (string) $color;
-            }, $colors);
-        } catch (\Throwable) {
+            return array_map(fn(array|string $color): array|string => $color, $colors);
+        } catch (Throwable) {
             return [];
         }
     }

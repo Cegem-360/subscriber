@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Models\Plan\PlanCategory;
+use App\Models\Plan;
 use App\Jobs\ToggleUserActiveInSecondaryApp;
 use App\Models\Subscription;
 use App\Models\User;
@@ -96,11 +98,11 @@ it('is dispatched when subscription is created with plan category', function ():
         'email' => 'owner@example.com',
     ]);
 
-    $planCategory = \App\Models\Plan\PlanCategory::factory()->create([
+    $planCategory = PlanCategory::factory()->create([
         'slug' => 'controling',
     ]);
 
-    $plan = \App\Models\Plan::factory()->create([
+    $plan = Plan::factory()->create([
         'plan_category_id' => $planCategory->id,
     ]);
 

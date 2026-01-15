@@ -23,7 +23,7 @@ final class Register extends BaseRegister
 
     protected static string $layout = 'filament.layouts.auth-split';
 
-    protected ?string $rawPassword = null;
+    private ?string $rawPassword = null;
 
     protected function beforeValidate(): void
     {

@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace App\Mcp\Tools;
 
+use Exception;
+use Filament\Widgets\ChartWidget;
+use Filament\Widgets\StatsOverviewWidget;
+use Filament\Widgets\TableWidget;
+use ReflectionProperty;
 use Filament\Facades\Filament;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
 use Laravel\Mcp\Request;
@@ -35,7 +40,7 @@ class ListFilamentWidgetsTool extends Tool
             }
 
             Filament::setCurrentPanel($panel);
-        } catch (\Exception $e) {
+        } catch (Exception) {
             return Response::error("Panel '{$panelId}' not found.");
         }
 
@@ -58,7 +63,7 @@ class ListFilamentWidgetsTool extends Tool
     /**
      * Get the tool's input schema.
      *
-     * @return array<string, \Illuminate\Contracts\JsonSchema\JsonSchema>
+     * @return array<string, JsonSchema>
      */
     public function schema(JsonSchema $schema): array
     {
@@ -70,15 +75,15 @@ class ListFilamentWidgetsTool extends Tool
 
     private function getWidgetType(string $widgetClass): string
     {
-        if (is_subclass_of($widgetClass, \Filament\Widgets\ChartWidget::class)) {
+        if (is_subclass_of($widgetClass, ChartWidget::class)) {
             return 'chart';
         }
 
-        if (is_subclass_of($widgetClass, \Filament\Widgets\StatsOverviewWidget::class)) {
+        if (is_subclass_of($widgetClass, StatsOverviewWidget::class)) {
             return 'stats';
         }
 
-        if (is_subclass_of($widgetClass, \Filament\Widgets\TableWidget::class)) {
+        if (is_subclass_of($widgetClass, TableWidget::class)) {
             return 'table';
         }
 
@@ -88,7 +93,7 @@ class ListFilamentWidgetsTool extends Tool
     private function getWidgetSort(string $widgetClass): ?int
     {
         if (property_exists($widgetClass, 'sort')) {
-            return (new \ReflectionProperty($widgetClass, 'sort'))->getDefaultValue();
+            return (new ReflectionProperty($widgetClass, 'sort'))->getDefaultValue();
         }
 
         return null;
@@ -97,7 +102,7 @@ class ListFilamentWidgetsTool extends Tool
     private function getColumnSpan(string $widgetClass): mixed
     {
         if (property_exists($widgetClass, 'columnSpan')) {
-            return (new \ReflectionProperty($widgetClass, 'columnSpan'))->getDefaultValue();
+            return (new ReflectionProperty($widgetClass, 'columnSpan'))->getDefaultValue();
         }
 
         return null;

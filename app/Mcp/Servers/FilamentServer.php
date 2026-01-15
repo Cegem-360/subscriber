@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Mcp\Servers;
 
+use Laravel\Mcp\Server\Tool;
+use Laravel\Mcp\Server\Resource;
+use Laravel\Mcp\Server\Prompt;
 use App\Mcp\Tools\GetFilamentPanelInfoTool;
 use App\Mcp\Tools\GetFilamentResourceSchemaTool;
 use App\Mcp\Tools\ListFilamentPagesTool;
@@ -48,7 +51,7 @@ class FilamentServer extends Server
     /**
      * The tools registered with this MCP server.
      *
-     * @var array<int, class-string<\Laravel\Mcp\Server\Tool>>
+     * @var array<int, class-string<Tool>>
      */
     protected array $tools = [
         ListFilamentResourcesTool::class,
@@ -61,7 +64,7 @@ class FilamentServer extends Server
     /**
      * The resources registered with this MCP server.
      *
-     * @var array<int, class-string<\Laravel\Mcp\Server\Resource>>
+     * @var array<int, class-string<Resource>>
      */
     protected array $resources = [
         //
@@ -70,7 +73,7 @@ class FilamentServer extends Server
     /**
      * The prompts registered with this MCP server.
      *
-     * @var array<int, class-string<\Laravel\Mcp\Server\Prompt>>
+     * @var array<int, class-string<Prompt>>
      */
     protected array $prompts = [
         //
