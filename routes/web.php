@@ -21,7 +21,6 @@ use Laravel\Cashier\Events\WebhookReceived;
 
 Route::get(uri: '/', action: fn (): Factory|View => view(view: 'home'))->name(name: 'home');
 Route::get(uri: '/welcome', action: fn (): Factory|View => view(view: 'welcome'))->name(name: 'welcome');
-Route::get(uri: '/module-order', action: fn (): Factory|View => view(view: 'module-order'))->name(name: 'module.order');
 Route::get(uri: '/style-guide', action: StyleGuide::class)->name(name: 'style-guide');
 Route::get(uri: '/arak', action: PricingPage::class)->name(name: 'pricing');
 Route::get(uri: '/ajanlatkeres', action: QuoteRequestPage::class)->name(name: 'quote-request');
@@ -41,6 +40,7 @@ Route::middleware(['guest'])->group(function (): void {
 });
 Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get(uri: '/modules', action: SubscriberModulsList::class)->name(name: 'modules');
+    Route::get(uri: '/module-order', action: fn (): Factory|View => view(view: 'module-order'))->name(name: 'module.order');
 
     Route::get(uri: '/subscriptions', action: fn (): Factory|View => view('subscriptions', [
         'subscriptions' => Auth::user()->subscriptions,
