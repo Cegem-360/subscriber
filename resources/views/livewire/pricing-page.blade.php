@@ -1,6 +1,6 @@
 <div>
     {{-- Hero Section --}}
-    <section class="bg-gradient-to-b from-gray-50 to-white py-16 lg:py-20">
+    <section class="bg-linear-to-b from-gray-50 to-white py-16 lg:py-20">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                 <h1 class="mb-6 text-3xl font-semibold text-gray-900 sm:text-4xl lg:text-5xl">
@@ -98,17 +98,14 @@
                                 <div class="mb-4">
                                     <div class="flex items-baseline">
                                         <span
-                                            class="text-3xl font-bold text-gray-900">{{ $this->calculatePrice($module['yearlyPriceHUF']) }}</span>
-                                        <span
-                                            class="ml-1 text-lg text-gray-500">{{ $this->getCurrencySymbol() }}</span>
+                                            class="text-3xl font-bold text-gray-900">{{ $this->calculatePrice($module) }}</span>
                                         <span class="ml-2 text-sm text-gray-500">/
                                             {{ $isYearly ? 'év' : 'hó' }}</span>
                                     </div>
                                     @if (!$isYearly)
                                         <p class="mt-1 text-xs text-gray-500">
                                             Éves előfizetéssel:
-                                            {{ $this->calculateYearlyPrice($module['yearlyPriceHUF']) }}
-                                            {{ $this->getCurrencySymbol() }}
+                                            {{ $this->calculateYearlyPrice($module) }}
                                         </p>
                                     @endif
                                 </div>
@@ -167,7 +164,7 @@
                         <span class="text-sm font-medium text-indigo-600">Enterprise</span>
                     </div>
                     <h2 class="text-3xl font-semibold text-gray-900">
-                        Enterprise megoldás nagyvállalatoknak
+                        Enterprise megoldás egyedi igényeknek
                     </h2>
                     <p class="mt-4 text-lg text-gray-600">
                         Egyedi igények, dedikált erőforrások, személyre szabott támogatás. Vegye fel velünk a
@@ -226,7 +223,7 @@
                         </li>
                     </ul>
                     <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-                        <a href="#"
+                        <a href="{{ route('quote-request') }}"
                             class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-indigo-700">
                             Ajánlatot kérek
                         </a>
@@ -253,7 +250,7 @@
             </div>
 
             <div class="overflow-x-auto">
-                <table class="w-full min-w-[800px] border-collapse">
+                <table class="w-full min-w-200 border-collapse">
                     <thead>
                         <tr class="border-b border-gray-200">
                             <th class="py-5 px-4 text-left text-base font-semibold text-gray-900 w-1/4">Funkció</th>
@@ -435,8 +432,7 @@
                             @foreach ($this->modules as $module)
                                 <td class="py-5 px-3 text-center">
                                     <span
-                                        class="text-base font-semibold text-gray-900">{{ $this->calculateYearlyPrice($module['yearlyPriceHUF']) }}</span>
-                                    <span class="text-sm text-gray-500">{{ $this->getCurrencySymbol() }}</span>
+                                        class="text-base font-semibold text-gray-900">{{ $this->calculateYearlyPrice($module) }}</span>
                                 </td>
                             @endforeach
                         </tr>

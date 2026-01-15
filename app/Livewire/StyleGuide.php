@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\Livewire;
 
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
+#[Layout('components.layouts.app')]
 class StyleGuide extends Component
 {
     public function render(): View
     {
-        return view('livewire.style-guide')
-            ->layout('components.layouts.app');
+        return view('livewire.style-guide');
     }
 }

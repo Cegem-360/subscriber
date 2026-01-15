@@ -7,6 +7,7 @@ namespace App\Filament\Resources\PlanCategories;
 use App\Filament\Resources\PlanCategories\Pages\CreatePlanCategory;
 use App\Filament\Resources\PlanCategories\Pages\EditPlanCategory;
 use App\Filament\Resources\PlanCategories\Pages\ListPlanCategories;
+use App\Filament\Resources\PlanCategories\RelationManagers\PlansRelationManager;
 use App\Filament\Resources\PlanCategories\Schemas\PlanCategoryForm;
 use App\Filament\Resources\PlanCategories\Tables\PlanCategoriesTable;
 use App\Models\Plan\PlanCategory;
@@ -43,7 +44,7 @@ class PlanCategoryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            PlansRelationManager::class,
         ];
     }
 

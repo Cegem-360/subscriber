@@ -23,6 +23,7 @@ class Plan extends Model
         'plan_category_id',
         'description',
         'price',
+        'price_eur',
         'billing_period',
         'stripe_price_id',
         'stripe_product_id',
@@ -37,6 +38,7 @@ class Plan extends Model
             'features' => 'array',
             'is_active' => 'boolean',
             'price' => 'decimal:2',
+            'price_eur' => 'decimal:2',
             'billing_period' => BillingPeriod::class,
         ];
     }

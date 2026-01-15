@@ -23,12 +23,15 @@ class PlanFactory extends Factory
         $name = $this->faker->words(2, true);
         $slug = Str::slug($name) . '-' . $this->faker->unique()->randomNumber(5);
 
+        $priceHuf = $this->faker->randomElement([120000, 180000, 240000, 360000, 480000]);
+
         return [
             'name' => Str::title($name) . ' Plan',
             'slug' => $slug,
             'plan_category_id' => null,
             'description' => $this->faker->sentence(),
-            'price' => $this->faker->randomFloat(2, 9.99, 199.99),
+            'price' => $priceHuf,
+            'price_eur' => (int) round($priceHuf / 400),
             'billing_period' => $this->faker->randomElement(BillingPeriod::cases()),
             'stripe_price_id' => 'price_' . $this->faker->unique()->regexify('[a-zA-Z0-9]{24}'),
             'stripe_product_id' => 'prod_' . $this->faker->unique()->regexify('[a-zA-Z0-9]{14}'),

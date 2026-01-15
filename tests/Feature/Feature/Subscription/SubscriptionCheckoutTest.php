@@ -90,6 +90,8 @@ it('redirects to success page after successful checkout', function (): void {
 });
 
 it('redirects to dashboard when cancelling checkout', function (): void {
+    $this->withoutMiddleware();
+
     $user = User::factory()->create();
 
     $response = $this->actingAs($user)->get(route('subscription.cancel'));

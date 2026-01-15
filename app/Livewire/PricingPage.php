@@ -4,21 +4,35 @@ declare(strict_types=1);
 
 namespace App\Livewire;
 
+use App\Enums\BillingPeriod;
+use App\Models\Plan\PlanCategory;
+use App\Services\CurrencyService;
+use Illuminate\Support\Collection;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
+#[Layout('components.layouts.app')]
 final class PricingPage extends Component
 {
     public string $currency = 'HUF';
 
     public bool $isYearly = true;
 
-    private const EUR_RATE = 400;
-
-    private const MONTHLY_MARKUP = 1.20;
+    public function mount(): void
+    {
+        $this->currency = app(CurrencyService::class)->getCurrentCurrency();
+    }
 
     public function toggleCurrency(): void
     {
-        $this->currency = $this->currency === 'HUF' ? 'EUR' : 'HUF';
+        $currencyService = app(CurrencyService::class);
+
+        $newCurrency = $this->currency === CurrencyService::CURRENCY_HUF
+            ? CurrencyService::CURRENCY_EUR
+            : CurrencyService::CURRENCY_HUF;
+
+        $currencyService->setCurrentCurrency($newCurrency);
+        $this->currency = $newCurrency;
     }
 
     public function toggleBillingCycle(): void
@@ -26,148 +40,71 @@ final class PricingPage extends Component
         $this->isYearly = ! $this->isYearly;
     }
 
-    public function getModulesProperty(): array
+    /**
+     * @return Collection<int, array<string, mixed>>
+     */
+    public function getModulesProperty(): Collection
     {
-        return [
-            [
-                'id' => 'kontrolling',
-                'name' => 'Kontrolling',
-                'subtitle' => 'és döntéstámogatás',
-                'description' => 'Valós idejű marketing és pénzügyi adatok egyetlen dashboardon.',
-                'yearlyPriceHUF' => 350000,
-                'color' => '#10B981',
-                'icon' => 'chart-bar',
-                'features' => [
-                    'Google Analytics 4 integráció',
-                    'Google Search Console integráció',
-                    'Google Ads integráció',
-                    'Egyedi KPI-ok beállítása',
-                    'Automatikus heti/havi riportok',
-                    'E-mail és push értesítések',
-                    'Korlátlan felhasználó',
-                ],
-            ],
-            [
-                'id' => 'beszerzes',
-                'name' => 'Beszerzés',
-                'subtitle' => 'és logisztika',
-                'description' => 'Raktárkészlet-nyilvántartás, beszállítói megrendelések és szállítmánykövetés.',
-                'yearlyPriceHUF' => 370000,
-                'color' => '#F59E0B',
-                'icon' => 'cube',
-                'features' => [
-                    'Raktárkészlet nyilvántartás',
-                    'Beszállítói adatbázis',
-                    'Megrendelés-kezelés',
-                    'Szállítmánykövetés',
-                    'Automatikus készletfigyelmeztetés',
-                    'Beszerzési javaslatok',
-                    'Korlátlan felhasználó',
-                ],
-            ],
-            [
-                'id' => 'gyartas',
-                'name' => 'Gyártásirányítás',
-                'subtitle' => 'és termelés',
-                'description' => 'Termelési folyamatok tervezése, gyártási megrendelések és kapacitás-optimalizálás.',
-                'yearlyPriceHUF' => 370000,
-                'color' => '#6366F1',
-                'icon' => 'cog',
-                'features' => [
-                    'Gyártási megrendelések kezelése',
-                    'Termelési ütemezés',
-                    'Kapacitástervezés',
-                    'Anyagszükséglet-tervezés (MRP)',
-                    'Minőségellenőrzés',
-                    'Gépkihasználtság követés',
-                    'Korlátlan felhasználó',
-                ],
-            ],
-            [
-                'id' => 'automatizalas',
-                'name' => 'Automatizálás',
-                'subtitle' => 'és workflow',
-                'description' => 'Ismétlődő feladatok automatizálása, jóváhagyási folyamatok — programozás nélkül.',
-                'yearlyPriceHUF' => 370000,
-                'color' => '#8B5CF6',
-                'icon' => 'refresh',
-                'features' => [
-                    'Vizuális workflow építő',
-                    'Jóváhagyási folyamatok',
-                    'Automatikus értesítések',
-                    'Határidő-emlékeztetők',
-                    'Dokumentum-generálás',
-                    'Feltételes logika',
-                    'Korlátlan felhasználó',
-                ],
-            ],
-            [
-                'id' => 'ertekesites',
-                'name' => 'Értékesítés',
-                'subtitle' => 'és pipeline',
-                'description' => 'Ajánlatok készítése, megrendelés-kezelés és értékesítési teljesítmény nyomon követése.',
-                'yearlyPriceHUF' => 250000,
-                'color' => '#EF4444',
-                'icon' => 'currency-dollar',
-                'features' => [
-                    'Ajánlatkészítés',
-                    'Megrendelés-kezelés',
-                    'Értékesítési pipeline',
-                    'Teljesítmény dashboard',
-                    'Jutalékszámítás',
-                    'Dokumentumsablonok',
-                    'Korlátlan felhasználó',
-                ],
-            ],
-            [
-                'id' => 'crm',
-                'name' => 'CRM',
-                'subtitle' => 'ügyfélkapcsolat-kezelés',
-                'description' => 'Ügyfelek és kapcsolatok kezelése az első megkeresésétől a hosszú távú partnerségig.',
-                'yearlyPriceHUF' => 250000,
-                'color' => '#0EA5E9',
-                'icon' => 'users',
-                'features' => [
-                    'Ügyfél-adatbázis',
-                    'Kapcsolattartók kezelése',
-                    'Kommunikációs előzmények',
-                    'Feladat és emlékeztető',
-                    'Lead kezelés',
-                    'Ügyfélosztályozás',
-                    'Korlátlan felhasználó',
-                ],
-            ],
-        ];
+        return PlanCategory::query()
+            ->with(['plans' => fn ($query) => $query->where('is_active', true)])
+            ->get()
+            ->map(function (PlanCategory $category) {
+                $yearlyPlan = $category->plans
+                    ->where('billing_period', BillingPeriod::Yearly)
+                    ->first();
+
+                $monthlyPlan = $category->plans
+                    ->where('billing_period', BillingPeriod::Monthly)
+                    ->first();
+
+                return [
+                    'id' => $category->slug,
+                    'name' => $category->name,
+                    'subtitle' => $category->description,
+                    'description' => $category->description,
+                    'yearlyPriceHUF' => $yearlyPlan ? (int) $yearlyPlan->price : 0,
+                    'yearlyPriceEUR' => $yearlyPlan ? (int) ($yearlyPlan->price_eur ?? 0) : 0,
+                    'monthlyPriceHUF' => $monthlyPlan ? (int) $monthlyPlan->price : 0,
+                    'monthlyPriceEUR' => $monthlyPlan ? (int) ($monthlyPlan->price_eur ?? 0) : 0,
+                    'color' => $category->color ?? '#6366F1',
+                    'icon' => $category->icon ?? 'cube',
+                    'features' => $yearlyPlan?->features ?? [],
+                ];
+            });
     }
 
-    public function calculatePrice(int $yearlyPriceHUF): string
+    /**
+     * @param  array<string, mixed>  $module
+     */
+    public function calculatePrice(array $module): string
     {
+        $currencyService = app(CurrencyService::class);
+
         if ($this->isYearly) {
-            $price = $this->currency === 'EUR'
-                ? round($yearlyPriceHUF / self::EUR_RATE)
-                : $yearlyPriceHUF;
+            $price = $this->currency === CurrencyService::CURRENCY_EUR
+                ? $module['yearlyPriceEUR']
+                : $module['yearlyPriceHUF'];
         } else {
-            $monthlyHUF = round(($yearlyPriceHUF / 12) * self::MONTHLY_MARKUP);
-            $price = $this->currency === 'EUR'
-                ? round($monthlyHUF / self::EUR_RATE)
-                : $monthlyHUF;
+            $price = $this->currency === CurrencyService::CURRENCY_EUR
+                ? $module['monthlyPriceEUR']
+                : $module['monthlyPriceHUF'];
         }
 
-        return number_format($price, 0, ',', ' ');
+        return $currencyService->format((float) $price, $this->currency);
     }
 
-    public function calculateYearlyPrice(int $yearlyPriceHUF): string
+    /**
+     * @param  array<string, mixed>  $module
+     */
+    public function calculateYearlyPrice(array $module): string
     {
-        $price = $this->currency === 'EUR'
-            ? round($yearlyPriceHUF / self::EUR_RATE)
-            : $yearlyPriceHUF;
+        $currencyService = app(CurrencyService::class);
 
-        return number_format($price, 0, ',', ' ');
-    }
+        $price = $this->currency === CurrencyService::CURRENCY_EUR
+            ? $module['yearlyPriceEUR']
+            : $module['yearlyPriceHUF'];
 
-    public function getCurrencySymbol(): string
-    {
-        return $this->currency === 'EUR' ? '€' : 'Ft';
+        return $currencyService->format((float) $price, $this->currency);
     }
 
     public function getFaqsProperty(): array
@@ -206,7 +143,6 @@ final class PricingPage extends Component
 
     public function render()
     {
-        return view('livewire.pricing-page')
-            ->layout('components.layouts.app');
+        return view('livewire.pricing-page');
     }
 }

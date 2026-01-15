@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\SubscriptionController;
 use App\Livewire\PricingPage;
+use App\Livewire\QuoteRequestPage;
 use App\Livewire\StyleGuide;
 use App\Livewire\SubscriberModulsList;
 use App\Livewire\UpdateModulePage;
@@ -23,6 +24,7 @@ Route::get(uri: '/welcome', action: fn (): Factory|View => view(view: 'welcome')
 Route::get(uri: '/module-order', action: fn (): Factory|View => view(view: 'module-order'))->name(name: 'module.order');
 Route::get(uri: '/style-guide', action: StyleGuide::class)->name(name: 'style-guide');
 Route::get(uri: '/arak', action: PricingPage::class)->name(name: 'pricing');
+Route::get(uri: '/ajanlatkeres', action: QuoteRequestPage::class)->name(name: 'quote-request');
 // Email verification routes
 Route::get(uri: '/email/verify', action: fn (): Redirector|RedirectResponse => to_route(route: 'filament.admin.auth.email-verification.prompt'))
     ->middleware(middleware: ['auth'])
@@ -44,14 +46,16 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
         'subscriptions' => Auth::user()->subscriptions,
     ]))->name('subscriptions');
 
-    Route::get(uri: '/subscription/{subscription}', action: ViewSubscriptionPage::class)->name(name: 'subscription.view');
-    Route::get(uri: '/subscription/{subscription}/update', action: UpdateModulePage::class)->name(name: 'subscription.update');
-
     Route::get(uri: '/manage-users', action: fn (): Factory|View => view('manage-users'))->name(name: 'manage.users');
 
+    // Subscription routes - specific routes before wildcard routes
     Route::post(uri: '/subscription/checkout/{plan}', action: [SubscriptionController::class, 'checkout'])->name(name: 'subscription.checkout');
     Route::get(uri: '/subscription/success/{plan}', action: [SubscriptionController::class, 'success'])->name(name: 'subscription.success');
     Route::get(uri: '/subscription/cancel', action: [SubscriptionController::class, 'cancel'])->name(name: 'subscription.cancel');
+
+    // Wildcard subscription routes - must come after specific routes
+    Route::get(uri: '/subscription/{subscription}', action: ViewSubscriptionPage::class)->name(name: 'subscription.view');
+    Route::get(uri: '/subscription/{subscription}/update', action: UpdateModulePage::class)->name(name: 'subscription.update');
 });
 
 // Debug endpoint - trigger event manually
