@@ -36,50 +36,13 @@
                     </a>
                 </div>
             @else
-                {{-- Quote Request Form --}}
+                {{-- Quote Request Form with Filament inputs --}}
                 <div class="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
-                    <form wire:submit="submit" class="space-y-6">
-                        {{-- Name Field --}}
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700">
-                                Név <span class="text-red-500">*</span>
-                            </label>
-                            <input type="text" id="name" wire:model="name"
-                                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm @error('name') border-red-300 @enderror"
-                                placeholder="Az Ön neve">
-                            @error('name')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        {{-- Email Field --}}
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700">
-                                Email <span class="text-red-500">*</span>
-                            </label>
-                            <input type="email" id="email" wire:model="email"
-                                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm @error('email') border-red-300 @enderror"
-                                placeholder="pelda@email.hu">
-                            @error('email')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        {{-- Message Field --}}
-                        <div>
-                            <label for="message" class="block text-sm font-medium text-gray-700">
-                                Üzenet <span class="text-red-500">*</span>
-                            </label>
-                            <textarea id="message" wire:model="message" rows="5"
-                                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm @error('message') border-red-300 @enderror"
-                                placeholder="Írja le igényeit, kérdéseit..."></textarea>
-                            @error('message')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
+                    <form wire:submit="submit">
+                        {{ $this->form }}
 
                         {{-- Submit Button --}}
-                        <div class="pt-4">
+                        <div class="mt-6">
                             <button type="submit"
                                 class="flex w-full items-center justify-center rounded-lg bg-indigo-600 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                 wire:loading.attr="disabled" wire:loading.class="opacity-75 cursor-not-allowed">
@@ -138,4 +101,5 @@
             @endif
         </div>
     </section>
+
 </div>

@@ -24,32 +24,32 @@ describe('QuoteRequestPage', function (): void {
     it('validates required fields', function (): void {
         Livewire::test(QuoteRequestPage::class)
             ->call('submit')
-            ->assertHasErrors(['name', 'email', 'message']);
+            ->assertHasErrors(['data.name', 'data.email', 'data.message']);
     });
 
     it('validates email format', function (): void {
         Livewire::test(QuoteRequestPage::class)
-            ->set('name', 'Test User')
-            ->set('email', 'invalid-email')
-            ->set('message', 'This is a test message for quote request.')
+            ->set('data.name', 'Test User')
+            ->set('data.email', 'invalid-email')
+            ->set('data.message', 'This is a test message for quote request.')
             ->call('submit')
-            ->assertHasErrors(['email']);
+            ->assertHasErrors(['data.email']);
     });
 
     it('validates minimum message length', function (): void {
         Livewire::test(QuoteRequestPage::class)
-            ->set('name', 'Test User')
-            ->set('email', 'test@example.com')
-            ->set('message', 'Short')
+            ->set('data.name', 'Test User')
+            ->set('data.email', 'test@example.com')
+            ->set('data.message', 'Short')
             ->call('submit')
-            ->assertHasErrors(['message']);
+            ->assertHasErrors(['data.message']);
     });
 
     it('submits form successfully with valid data', function (): void {
         Livewire::test(QuoteRequestPage::class)
-            ->set('name', 'Test User')
-            ->set('email', 'test@example.com')
-            ->set('message', 'This is a test message for quote request.')
+            ->set('data.name', 'Test User')
+            ->set('data.email', 'test@example.com')
+            ->set('data.message', 'This is a test message for quote request.')
             ->call('submit')
             ->assertHasNoErrors()
             ->assertSet('submitted', true)
@@ -58,13 +58,13 @@ describe('QuoteRequestPage', function (): void {
 
     it('resets form fields after successful submission', function (): void {
         Livewire::test(QuoteRequestPage::class)
-            ->set('name', 'Test User')
-            ->set('email', 'test@example.com')
-            ->set('message', 'This is a test message for quote request.')
+            ->set('data.name', 'Test User')
+            ->set('data.email', 'test@example.com')
+            ->set('data.message', 'This is a test message for quote request.')
             ->call('submit')
-            ->assertSet('name', '')
-            ->assertSet('email', '')
-            ->assertSet('message', '');
+            ->assertSet('data.name', null)
+            ->assertSet('data.email', null)
+            ->assertSet('data.message', null);
     });
 
     it('displays enterprise features', function (): void {

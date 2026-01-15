@@ -4,33 +4,77 @@ declare(strict_types=1);
 
 namespace App\Livewire;
 
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Concerns\InteractsWithSchemas;
+use Filament\Schemas\Contracts\HasSchemas;
+use Filament\Schemas\Schema;
 use Illuminate\Contracts\View\View;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 
-class QuoteRequestPage extends Component
+class QuoteRequestPage extends Component implements HasSchemas
 {
-    #[Validate('required|string|min:2|max:255')]
-    public string $name = '';
+    use InteractsWithSchemas;
 
-    #[Validate('required|email|max:255')]
-    public string $email = '';
-
-    #[Validate('required|string|min:10|max:2000')]
-    public string $message = '';
+    public ?array $data = [];
 
     public bool $submitted = false;
 
+    public function mount(): void
+    {
+        $this->form->fill();
+    }
+
+    public function form(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                Section::make()
+                    ->schema([
+                        TextInput::make('name')
+                            ->label('Név')
+                            ->required()
+                            ->minLength(2)
+                            ->maxLength(255)
+                            ->placeholder('Az Ön neve'),
+
+                        TextInput::make('email')
+                            ->label('Email')
+                            ->email()
+                            ->required()
+                            ->maxLength(255)
+                            ->placeholder('pelda@email.hu'),
+
+                        Textarea::make('message')
+                            ->label('Üzenet')
+                            ->required()
+                            ->minLength(10)
+                            ->maxLength(2000)
+                            ->rows(5)
+                            ->placeholder('Írja le igényeit, kérdéseit...'),
+                    ])
+                    ->columns(1),
+            ])
+            ->statePath('data');
+    }
+
     public function submit(): void
     {
-        $this->validate();
+        $data = $this->form->getState();
 
         // TODO: Send email notification or store in database
-        // Mail::to(config('mail.admin_address'))->send(new QuoteRequestMail($this->name, $this->email, $this->message));
+        // Mail::to(config('mail.admin_address'))->send(new QuoteRequestMail($data));
+
+        Notification::make()
+            ->title('Köszönjük megkeresését!')
+            ->body('Munkatársunk hamarosan felveszi Önnel a kapcsolatot.')
+            ->success()
+            ->send();
 
         $this->submitted = true;
-
-        $this->reset(['name', 'email', 'message']);
+        $this->form->fill();
     }
 
     public function render(): View
