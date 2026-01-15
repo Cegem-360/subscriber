@@ -18,7 +18,7 @@ class PlanCategorySeeder extends Seeder
             [
                 'name' => 'Kontrolling és döntéstámogatás',
                 'slug' => 'kontrolling',
-                'url' => 'https://kontrolling.cegem360.eu',
+                'url' => 'https://controlling.cegem360.eu',
                 'description' => 'Valós idejű marketing és pénzügyi adatok egyetlen dashboardon. Google Analytics, Search Console és Ads integráció, KPI-ok, automatikus riportok.',
                 'color' => '#10B981',
                 'icon' => 'chart-bar',
