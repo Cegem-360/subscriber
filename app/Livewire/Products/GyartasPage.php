@@ -8,6 +8,7 @@ class GyartasPage extends Component
 {
     public function render()
     {
-        return view('livewire.products.gyartas-page');
+        return view('livewire.products.gyartas-page')
+            ->layout('components.layouts.app');
     }
 }

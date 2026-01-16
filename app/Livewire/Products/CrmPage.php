@@ -8,6 +8,7 @@ class CrmPage extends Component
 {
     public function render()
     {
-        return view('livewire.products.crm-page');
+        return view('livewire.products.crm-page')
+            ->layout('components.layouts.app');
     }
 }

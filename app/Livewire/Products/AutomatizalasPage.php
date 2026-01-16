@@ -8,6 +8,7 @@ class AutomatizalasPage extends Component
 {
     public function render()
     {
-        return view('livewire.products.automatizalas-page');
+        return view('livewire.products.automatizalas-page')
+            ->layout('components.layouts.app');
     }
 }

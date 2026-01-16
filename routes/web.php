@@ -33,6 +33,14 @@ Route::get(uri: '/megoldasok/kkv', action: SolutionsKkvPage::class)->name(name: 
 Route::get(uri: '/megoldasok/nagyvallalat', action: SolutionsEnterprisePage::class)->name(name: 'solutions.enterprise');
 Route::get(uri: '/megoldasok/nonprofit', action: SolutionsNonprofitPage::class)->name(name: 'solutions.nonprofit');
 
+// Product/Module pages
+Route::get(uri: '/termekek/crm', action: \App\Livewire\Products\CrmPage::class)->name(name: 'products.crm');
+Route::get(uri: '/termekek/kontrolling', action: \App\Livewire\Products\KontrollingPage::class)->name(name: 'products.kontrolling');
+Route::get(uri: '/termekek/beszerzes-logisztika', action: \App\Livewire\Products\BeszerzesPage::class)->name(name: 'products.beszerzes');
+Route::get(uri: '/termekek/ertekesites', action: \App\Livewire\Products\ErtekesitesPage::class)->name(name: 'products.ertekesites');
+Route::get(uri: '/termekek/gyartasiranyitas', action: \App\Livewire\Products\GyartasPage::class)->name(name: 'products.gyartas');
+Route::get(uri: '/termekek/automatizalas', action: \App\Livewire\Products\AutomatizalasPage::class)->name(name: 'products.automatizalas');
+
 // Email verification routes
 Route::get(uri: '/email/verify', action: fn (): Redirector|RedirectResponse => to_route(route: 'filament.admin.auth.email-verification.prompt'))
     ->middleware(middleware: ['auth'])

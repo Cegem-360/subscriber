@@ -16,11 +16,49 @@
                         Termékek
                         <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
-                    <div x-show="openDropdown === 'products'" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="absolute left-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Munkamenedzsment</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">CRM</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Fejlesztés</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Ügyfélszolgálat</a>
+                    <div x-show="openDropdown === 'products'" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="absolute left-0 top-full mt-1 w-72 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                        <a href="{{ route('products.crm') }}" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
+                            <x-module-icon module="crm" size="sm" />
+                            <div>
+                                <div class="font-medium">CRM</div>
+                                <div class="text-xs text-gray-500">Ügyfélkapcsolat-kezelés</div>
+                            </div>
+                        </a>
+                        <a href="{{ route('products.kontrolling') }}" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
+                            <x-module-icon module="kontrolling" size="sm" />
+                            <div>
+                                <div class="font-medium">Kontrolling</div>
+                                <div class="text-xs text-gray-500">Pénzügyi tervezés és elemzés</div>
+                            </div>
+                        </a>
+                        <a href="{{ route('products.beszerzes') }}" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
+                            <x-module-icon module="beszerzes" size="sm" />
+                            <div>
+                                <div class="font-medium">Beszerzés-logisztika</div>
+                                <div class="text-xs text-gray-500">Készlet és szállításkezelés</div>
+                            </div>
+                        </a>
+                        <a href="{{ route('products.ertekesites') }}" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
+                            <x-module-icon module="ertekesites" size="sm" />
+                            <div>
+                                <div class="font-medium">Értékesítés</div>
+                                <div class="text-xs text-gray-500">Ajánlatok és megrendelések</div>
+                            </div>
+                        </a>
+                        <a href="{{ route('products.gyartas') }}" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
+                            <x-module-icon module="gyartas" size="sm" />
+                            <div>
+                                <div class="font-medium">Gyártásirányítás</div>
+                                <div class="text-xs text-gray-500">Termelés és minőség</div>
+                            </div>
+                        </a>
+                        <a href="{{ route('products.automatizalas') }}" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
+                            <x-module-icon module="automatizalas" size="sm" />
+                            <div>
+                                <div class="font-medium">Automatizálás</div>
+                                <div class="text-xs text-gray-500">Workflow-k és triggerek</div>
+                            </div>
+                        </a>
                     </div>
                 </div>
 
@@ -132,7 +170,33 @@
     {{-- Mobile menu --}}
     <div x-show="mobileMenuOpen" x-collapse class="lg:hidden border-t border-gray-200">
         <div class="px-4 py-4 space-y-3">
-            <a href="#" class="block py-2 text-sm font-medium text-gray-700">Termékek</a>
+            <div class="py-2">
+                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Termékek</p>
+                <a href="{{ route('products.crm') }}" class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
+                    <x-module-icon module="crm" size="xs" />
+                    CRM
+                </a>
+                <a href="{{ route('products.kontrolling') }}" class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
+                    <x-module-icon module="kontrolling" size="xs" />
+                    Kontrolling
+                </a>
+                <a href="{{ route('products.beszerzes') }}" class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
+                    <x-module-icon module="beszerzes" size="xs" />
+                    Beszerzés-logisztika
+                </a>
+                <a href="{{ route('products.ertekesites') }}" class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
+                    <x-module-icon module="ertekesites" size="xs" />
+                    Értékesítés
+                </a>
+                <a href="{{ route('products.gyartas') }}" class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
+                    <x-module-icon module="gyartas" size="xs" />
+                    Gyártásirányítás
+                </a>
+                <a href="{{ route('products.automatizalas') }}" class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
+                    <x-module-icon module="automatizalas" size="xs" />
+                    Automatizálás
+                </a>
+            </div>
             <div class="py-2">
                 <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Megoldások</p>
                 <a href="{{ route('solutions.kkv') }}" class="block py-1.5 pl-3 text-sm text-gray-700">KKV</a>

@@ -8,6 +8,7 @@ class BeszerzesPage extends Component
 {
     public function render()
     {
-        return view('livewire.products.beszerzes-page');
+        return view('livewire.products.beszerzes-page')
+            ->layout('components.layouts.app');
     }
 }
