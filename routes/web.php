@@ -6,6 +6,9 @@ use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\SubscriptionController;
 use App\Livewire\PricingPage;
 use App\Livewire\QuoteRequestPage;
+use App\Livewire\SolutionsEnterprisePage;
+use App\Livewire\SolutionsKkvPage;
+use App\Livewire\SolutionsNonprofitPage;
 use App\Livewire\StyleGuide;
 use App\Livewire\SubscriberModulsList;
 use App\Livewire\UpdateModulePage;
@@ -24,6 +27,12 @@ Route::get(uri: '/welcome', action: fn (): Factory|View => view(view: 'welcome')
 Route::get(uri: '/style-guide', action: StyleGuide::class)->name(name: 'style-guide');
 Route::get(uri: '/arak', action: PricingPage::class)->name(name: 'pricing');
 Route::get(uri: '/ajanlatkeres', action: QuoteRequestPage::class)->name(name: 'quote-request');
+
+// Solutions pages
+Route::get(uri: '/megoldasok/kkv', action: SolutionsKkvPage::class)->name(name: 'solutions.kkv');
+Route::get(uri: '/megoldasok/nagyvallalat', action: SolutionsEnterprisePage::class)->name(name: 'solutions.enterprise');
+Route::get(uri: '/megoldasok/nonprofit', action: SolutionsNonprofitPage::class)->name(name: 'solutions.nonprofit');
+
 // Email verification routes
 Route::get(uri: '/email/verify', action: fn (): Redirector|RedirectResponse => to_route(route: 'filament.admin.auth.email-verification.prompt'))
     ->middleware(middleware: ['auth'])

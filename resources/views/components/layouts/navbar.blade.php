@@ -31,9 +31,9 @@
                         <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
                     <div x-show="openDropdown === 'solutions'" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="absolute left-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">KKV</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Nagyvállalat</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Non-profit</a>
+                        <a href="{{ route('solutions.kkv') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">KKV</a>
+                        <a href="{{ route('solutions.enterprise') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Nagyvállalat</a>
+                        <a href="{{ route('solutions.nonprofit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Non-profit</a>
                     </div>
                 </div>
 
@@ -52,7 +52,7 @@
                 </div>
 
                 {{-- Enterprise (no dropdown) --}}
-                <a href="#" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                <a href="{{ route('solutions.enterprise') }}" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
                     Nagyvállalat
                 </a>
             </div>
@@ -133,9 +133,13 @@
     <div x-show="mobileMenuOpen" x-collapse class="lg:hidden border-t border-gray-200">
         <div class="px-4 py-4 space-y-3">
             <a href="#" class="block py-2 text-sm font-medium text-gray-700">Termékek</a>
-            <a href="#" class="block py-2 text-sm font-medium text-gray-700">Megoldások</a>
+            <div class="py-2">
+                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Megoldások</p>
+                <a href="{{ route('solutions.kkv') }}" class="block py-1.5 pl-3 text-sm text-gray-700">KKV</a>
+                <a href="{{ route('solutions.enterprise') }}" class="block py-1.5 pl-3 text-sm text-gray-700">Nagyvállalat</a>
+                <a href="{{ route('solutions.nonprofit') }}" class="block py-1.5 pl-3 text-sm text-gray-700">Non-profit</a>
+            </div>
             <a href="#" class="block py-2 text-sm font-medium text-gray-700">Erőforrások</a>
-            <a href="#" class="block py-2 text-sm font-medium text-gray-700">Nagyvállalat</a>
             <a href="{{ route('pricing') }}" class="block py-2 text-sm font-medium text-gray-700">Árazás</a>
 
             <hr class="border-gray-200">
