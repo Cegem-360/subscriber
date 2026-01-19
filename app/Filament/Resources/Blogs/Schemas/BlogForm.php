@@ -27,6 +27,7 @@ class BlogForm
                     Grid::make(1)
                         ->schema([
                             Section::make('Alapadatok')
+                                ->columnSpanFull()
                                 ->schema([
                                     TextInput::make('title')
                                         ->label('Cím')
@@ -46,6 +47,7 @@ class BlogForm
                                         ->preload(),
                                 ]),
                             Section::make('Tartalom')
+                                ->columnSpanFull()
                                 ->schema([
                                     RichEditor::make('content')
                                         ->label('Tartalom')
@@ -64,7 +66,8 @@ class BlogForm
                                 ]),
                         ])
                         ->columnSpan(2),
-                    Grid::make(1)
+                    Grid::make()
+                        ->columnSpanFull()
                         ->schema([
                             Section::make('Média')
                                 ->schema([
@@ -98,8 +101,7 @@ class BlogForm
                                         ->label('Aktív')
                                         ->default(true),
                                 ]),
-                        ])
-                        ->columnSpan(1),
+                        ]),
                 ]),
             ]);
     }
