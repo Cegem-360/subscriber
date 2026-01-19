@@ -5,7 +5,7 @@
             <nav class="flex" aria-label="Breadcrumb">
                 <ol class="flex items-center space-x-2 text-sm">
                     <li>
-                        <a href="{{ route('blog.category', ['categorySlug' => $category->slug]) }}"
+                        <a href="{{ route('blog.category', ['blogCategory' => $category]) }}"
                             class="text-gray-500 hover:text-gray-700">
                             {{ $category->name }}
                         </a>
@@ -68,7 +68,7 @@
     {{-- Back to Category --}}
     <section class="bg-gray-50 py-8">
         <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-            <a href="{{ route('blog.category', ['categorySlug' => $category->slug]) }}"
+            <a href="{{ route('blog.category', ['blogCategory' => $category]) }}"
                 class="inline-flex items-center rounded-lg bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 transition-colors">
                 <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />

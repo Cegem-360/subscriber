@@ -42,4 +42,9 @@ class BlogCategory extends Model
     {
         $query->where('is_active', true);
     }
+
+    public function isActive(): bool
+    {
+        return $this->is_active;
+    }
 }

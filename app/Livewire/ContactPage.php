@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App\Livewire;
 
+use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
+#[Layout('components.layouts.app')]
 class ContactPage extends Component
 {
     public string $inquiryType = '';
@@ -74,9 +77,8 @@ class ContactPage extends Component
         $this->submitted = true;
     }
 
-    public function render()
+    public function render(): View
     {
-        return view('livewire.contact-page')
-            ->layout('components.layouts.app');
+        return view('livewire.contact-page');
     }
 }

@@ -56,4 +56,11 @@ class Blog extends Model
             ->whereNotNull('published_at')
             ->where('published_at', '<=', now());
     }
+
+    public function isPublished(): bool
+    {
+        return $this->is_active
+            && $this->published_at !== null
+            && $this->published_at->lte(now());
+    }
 }

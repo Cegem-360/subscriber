@@ -9,6 +9,7 @@ use App\Models\Blog\BlogCategory;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 #[Layout('components.layouts.app')]
 final class BlogPostPage extends Component
@@ -17,18 +18,17 @@ final class BlogPostPage extends Component
 
     public Blog $blog;
 
-    public function mount(string $categorySlug, string $blogSlug): void
+    public function mount(BlogCategory $blogCategory, Blog $blog): void
     {
-        $this->category = BlogCategory::query()
-            ->where('slug', $categorySlug)
-            ->where('is_active', true)
-            ->firstOrFail();
+        $isInvalidCategory = ! $blogCategory->isActive();
+        $isInvalidBlog = $blog->blog_category_id !== $blogCategory->id || ! $blog->isPublished();
 
-        $this->blog = Blog::query()
-            ->where('blog_category_id', $this->category->id)
-            ->where('slug', $blogSlug)
-            ->published()
-            ->firstOrFail();
+        if ($isInvalidCategory || $isInvalidBlog) {
+            throw new NotFoundHttpException();
+        }
+
+        $this->category = $blogCategory;
+        $this->blog = $blog;
     }
 
     public function render(): View

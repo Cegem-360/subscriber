@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 #[Layout('components.layouts.app')]
 final class BlogCategoryPage extends Component
@@ -19,15 +20,15 @@ final class BlogCategoryPage extends Component
     /** @var Collection<int, Blog> */
     public Collection $blogs;
 
-    public function mount(string $categorySlug): void
+    public function mount(BlogCategory $blogCategory): void
     {
-        $this->category = BlogCategory::query()
-            ->where('slug', $categorySlug)
-            ->where('is_active', true)
-            ->firstOrFail();
+        if (! $blogCategory->isActive()) {
+            throw new NotFoundHttpException();
+        }
 
-        $this->blogs = Blog::query()
-            ->where('blog_category_id', $this->category->id)
+        $this->category = $blogCategory;
+
+        $this->blogs = $blogCategory->blogs()
             ->published()
             ->orderByDesc('published_at')
             ->get();

@@ -33,7 +33,7 @@ describe('BlogCategoryPage', function (): void {
             'is_active' => true,
         ]);
 
-        Livewire::test(BlogCategoryPage::class, ['categorySlug' => 'teszt-kategoria'])
+        Livewire::test(BlogCategoryPage::class, ['blogCategory' => $category])
             ->assertSee('Teszt kategória')
             ->assertSee('Ez egy teszt leírás');
     });
@@ -44,7 +44,7 @@ describe('BlogCategoryPage', function (): void {
             'is_active' => true,
         ]);
 
-        $blog = Blog::factory()->create([
+        Blog::factory()->create([
             'blog_category_id' => $category->id,
             'title' => 'Teszt bejegyzés címe',
             'slug' => 'teszt-bejegyzes',
@@ -52,7 +52,7 @@ describe('BlogCategoryPage', function (): void {
             'published_at' => now()->subDay(),
         ]);
 
-        Livewire::test(BlogCategoryPage::class, ['categorySlug' => 'teszt-kategoria'])
+        Livewire::test(BlogCategoryPage::class, ['blogCategory' => $category])
             ->assertSee('Teszt bejegyzés címe');
     });
 
@@ -70,7 +70,7 @@ describe('BlogCategoryPage', function (): void {
             'published_at' => null,
         ]);
 
-        Livewire::test(BlogCategoryPage::class, ['categorySlug' => 'teszt-kategoria'])
+        Livewire::test(BlogCategoryPage::class, ['blogCategory' => $category])
             ->assertDontSee('Nem publikált bejegyzés');
     });
 
@@ -88,7 +88,7 @@ describe('BlogCategoryPage', function (): void {
             'published_at' => now()->subDay(),
         ]);
 
-        Livewire::test(BlogCategoryPage::class, ['categorySlug' => 'teszt-kategoria'])
+        Livewire::test(BlogCategoryPage::class, ['blogCategory' => $category])
             ->assertDontSee('Inaktív bejegyzés');
     });
 
@@ -106,7 +106,7 @@ describe('BlogCategoryPage', function (): void {
             'published_at' => now()->addDays(5),
         ]);
 
-        Livewire::test(BlogCategoryPage::class, ['categorySlug' => 'teszt-kategoria'])
+        Livewire::test(BlogCategoryPage::class, ['blogCategory' => $category])
             ->assertDontSee('Ütemezett bejegyzés');
     });
 
@@ -133,7 +133,7 @@ describe('BlogCategoryPage', function (): void {
             'is_active' => true,
         ]);
 
-        Livewire::test(BlogCategoryPage::class, ['categorySlug' => 'ures-kategoria'])
+        Livewire::test(BlogCategoryPage::class, ['blogCategory' => $category])
             ->assertSee('Nincs még bejegyzés');
     });
 });
@@ -165,7 +165,7 @@ describe('BlogPostPage', function (): void {
             'is_active' => true,
         ]);
 
-        Blog::factory()->create([
+        $blog = Blog::factory()->create([
             'blog_category_id' => $category->id,
             'title' => 'Bejegyzés címe',
             'slug' => 'bejegyzes-cime',
@@ -175,8 +175,8 @@ describe('BlogPostPage', function (): void {
         ]);
 
         Livewire::test(BlogPostPage::class, [
-            'categorySlug' => 'teszt-kategoria',
-            'blogSlug' => 'bejegyzes-cime',
+            'blogCategory' => $category,
+            'blog' => $blog,
         ])
             ->assertSee('Bejegyzés címe')
             ->assertSee('Ez a bejegyzés tartalma.');
@@ -189,7 +189,7 @@ describe('BlogPostPage', function (): void {
             'is_active' => true,
         ]);
 
-        Blog::factory()->create([
+        $blog = Blog::factory()->create([
             'blog_category_id' => $category->id,
             'slug' => 'teszt-post',
             'is_active' => true,
@@ -197,8 +197,8 @@ describe('BlogPostPage', function (): void {
         ]);
 
         Livewire::test(BlogPostPage::class, [
-            'categorySlug' => 'kategoria-nev',
-            'blogSlug' => 'teszt-post',
+            'blogCategory' => $category,
+            'blog' => $blog,
         ])
             ->assertSee('Kategória név');
     });

@@ -32,14 +32,14 @@
                     @foreach ($blogs as $blog)
                         <article class="group flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md">
                             @if ($blog->featured_image)
-                                <a href="{{ route('blog.show', ['categorySlug' => $category->slug, 'blogSlug' => $blog->slug]) }}"
+                                <a href="{{ route('blog.show', ['blogCategory' => $category, 'blog' => $blog]) }}"
                                     class="aspect-video overflow-hidden">
                                     <img src="{{ Storage::url($blog->featured_image) }}"
                                         alt="{{ $blog->title }}"
                                         class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
                                 </a>
                             @else
-                                <a href="{{ route('blog.show', ['categorySlug' => $category->slug, 'blogSlug' => $blog->slug]) }}"
+                                <a href="{{ route('blog.show', ['blogCategory' => $category, 'blog' => $blog]) }}"
                                     class="aspect-video overflow-hidden bg-gray-100 flex items-center justify-center">
                                     <svg class="h-12 w-12 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -56,7 +56,7 @@
                                 </div>
 
                                 <h2 class="mb-3 text-xl font-semibold text-gray-900 group-hover:text-indigo-600">
-                                    <a href="{{ route('blog.show', ['categorySlug' => $category->slug, 'blogSlug' => $blog->slug]) }}">
+                                    <a href="{{ route('blog.show', ['blogCategory' => $category, 'blog' => $blog]) }}">
                                         {{ $blog->title }}
                                     </a>
                                 </h2>
@@ -67,7 +67,7 @@
                                     </p>
                                 @endif
 
-                                <a href="{{ route('blog.show', ['categorySlug' => $category->slug, 'blogSlug' => $blog->slug]) }}"
+                                <a href="{{ route('blog.show', ['blogCategory' => $category, 'blog' => $blog]) }}"
                                     class="inline-flex items-center font-medium text-indigo-600 hover:text-indigo-500">
                                     Tovább olvasom
                                     <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

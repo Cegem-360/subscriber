@@ -39,8 +39,8 @@ Route::get(uri: '/arak', action: PricingPage::class)->name(name: 'pricing');
 Route::get(uri: '/ajanlatkeres', action: QuoteRequestPage::class)->name(name: 'quote-request');
 
 // Blog routes
-Route::get(uri: '/eroforrasok/{categorySlug}', action: BlogCategoryPage::class)->name(name: 'blog.category');
-Route::get(uri: '/eroforrasok/{categorySlug}/{blogSlug}', action: BlogPostPage::class)->name(name: 'blog.show');
+Route::get(uri: '/eroforrasok/{blogCategory:slug}', action: BlogCategoryPage::class)->name(name: 'blog.category');
+Route::get(uri: '/eroforrasok/{blogCategory:slug}/{blog:slug}', action: BlogPostPage::class)->name(name: 'blog.show');
 
 // Solutions pages
 Route::get(uri: '/megoldasok/kkv', action: SolutionsKkvPage::class)->name(name: 'solutions.kkv');
