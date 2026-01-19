@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\SubscriptionController;
+use App\Livewire\BlogCategoryPage;
+use App\Livewire\BlogPostPage;
 use App\Livewire\PricingPage;
 use App\Livewire\QuoteRequestPage;
 use App\Livewire\StyleGuide;
@@ -24,6 +26,11 @@ Route::get(uri: '/welcome', action: fn (): Factory|View => view(view: 'welcome')
 Route::get(uri: '/style-guide', action: StyleGuide::class)->name(name: 'style-guide');
 Route::get(uri: '/arak', action: PricingPage::class)->name(name: 'pricing');
 Route::get(uri: '/ajanlatkeres', action: QuoteRequestPage::class)->name(name: 'quote-request');
+
+// Blog routes
+Route::get(uri: '/eroforrasok/{categorySlug}', action: BlogCategoryPage::class)->name(name: 'blog.category');
+Route::get(uri: '/eroforrasok/{categorySlug}/{blogSlug}', action: BlogPostPage::class)->name(name: 'blog.show');
+
 // Email verification routes
 Route::get(uri: '/email/verify', action: fn (): Redirector|RedirectResponse => to_route(route: 'filament.admin.auth.email-verification.prompt'))
     ->middleware(middleware: ['auth'])
