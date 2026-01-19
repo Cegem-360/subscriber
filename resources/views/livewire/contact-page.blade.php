@@ -35,7 +35,7 @@
                     </div>
                     <h3 class="mb-2 text-lg font-semibold text-gray-900">Telefonon</h3>
                     <p class="mb-4 text-sm text-gray-600">H-P: 9:00 - 17:00</p>
-                    <a href="tel:+3612345678" class="text-lg font-semibold text-indigo-600 hover:underline">+36 1 234 5678</a>
+                    <a href="tel:+36203319550" class="text-lg font-semibold text-indigo-600 hover:underline">+36 20 331 9550</a>
                 </div>
 
                 {{-- Email --}}
@@ -60,7 +60,7 @@
                     </div>
                     <h3 class="mb-2 text-lg font-semibold text-gray-900">Személyesen</h3>
                     <p class="mb-4 text-sm text-gray-600">Előzetes egyeztetéssel</p>
-                    <p class="text-gray-700">1052 Budapest,<br>Váci utca 1.</p>
+                    <p class="text-gray-700">1146 Budapest,<br>Istvánmezei út 1-3. IV. emelet</p>
                 </div>
             </div>
         </div>
@@ -221,8 +221,8 @@
                 {{-- Info Side --}}
                 <div class="space-y-8">
                     {{-- Demo Booking --}}
-                    <div class="rounded-2xl bg-indigo-600 p-8 text-white">
-                        <h3 class="mb-4 text-xl font-bold">Foglaljon online demót</h3>
+                    <div class="rounded-2xl bg-indigo-600 p-8">
+                        <h3 class="mb-4 text-xl font-bold text-white">Foglaljon online demót</h3>
                         <p class="mb-6 text-indigo-100">30 perces személyre szabott bemutató, ahol megválaszoljuk kérdéseit és bemutatjuk a rendszert.</p>
                         <a href="{{ route('quote-request') }}" class="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 font-semibold text-indigo-600 transition hover:bg-indigo-50">
                             Demó foglalása
@@ -234,30 +234,28 @@
 
                     {{-- Sales Team --}}
                     <div class="rounded-2xl bg-white p-8 shadow-sm">
-                        <h3 class="mb-6 text-xl font-bold text-gray-900">Értékesítési csapatunk</h3>
-                        <div class="space-y-6">
-                            <div class="flex items-start gap-4">
-                                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-indigo-100 font-semibold text-indigo-700">NP</div>
-                                <div>
-                                    <div class="font-semibold text-gray-900">Nagy Péter</div>
-                                    <div class="text-sm text-gray-600">Budapest és környéke</div>
-                                    <a href="tel:+36301234567" class="text-sm text-indigo-600 hover:underline">+36 30 123 4567</a>
-                                </div>
+                        <h3 class="mb-6 text-xl font-bold text-gray-900">Értékesítés</h3>
+                        <div class="flex items-start gap-4">
+                            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-indigo-100 font-semibold text-indigo-700">
+                                <svg class="h-6 w-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
                             </div>
-                            <div class="flex items-start gap-4">
-                                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-indigo-100 font-semibold text-indigo-700">KA</div>
-                                <div>
-                                    <div class="font-semibold text-gray-900">Kovács Anna</div>
-                                    <div class="text-sm text-gray-600">Nyugat-Magyarország</div>
-                                    <a href="tel:+36301234568" class="text-sm text-indigo-600 hover:underline">+36 30 123 4568</a>
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-4">
-                                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-indigo-100 font-semibold text-indigo-700">TJ</div>
-                                <div>
-                                    <div class="font-semibold text-gray-900">Tóth János</div>
-                                    <div class="text-sm text-gray-600">Kelet-Magyarország</div>
-                                    <a href="tel:+36301234569" class="text-sm text-indigo-600 hover:underline">+36 30 123 4569</a>
+                            <div>
+                                <div class="font-semibold text-gray-900">Tóth Tamás</div>
+                                <div class="mt-2 space-y-1">
+                                    <a href="tel:+36203319550" class="flex items-center gap-2 text-sm text-indigo-600 hover:underline">
+                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                        </svg>
+                                        +36 20 331 9550
+                                    </a>
+                                    <a href="mailto:tamas@cegem360.hu" class="flex items-center gap-2 text-sm text-indigo-600 hover:underline">
+                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                        </svg>
+                                        tamas@cegem360.hu
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -413,7 +411,7 @@
     <section class="bg-gray-100">
         <div class="h-96 w-full">
             <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2695.6843974648984!2d19.048144!3d47.494556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4741dc403a5a7e59%3A0xc0e01b8a99c1b6c7!2sV%C3%A1ci%20u.%201%2C%20Budapest%2C%201052!5e0!3m2!1sen!2shu!4v1704067200000!5m2!1sen!2shu"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2694.4831693457584!2d19.0846!3d47.5068!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4741dc6f3e3a3c65%3A0x1!2sIstv%C3%A1nmezei%20%C3%BAt%201-3%2C%20Budapest%2C%201146!5e0!3m2!1sen!2shu!4v1704067200000!5m2!1sen!2shu"
                 width="100%"
                 height="100%"
                 style="border:0;"
