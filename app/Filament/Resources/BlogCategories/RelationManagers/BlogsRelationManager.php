@@ -48,6 +48,7 @@ class BlogsRelationManager extends RelationManager
                             ->maxLength(255),
                     ]),
                 Section::make('Tartalom')
+                    ->columnSpanFull()
                     ->schema([
                         RichEditor::make('content')
                             ->label('Tartalom')
