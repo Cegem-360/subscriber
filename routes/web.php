@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\SubscriptionController;
+use App\Livewire\ContactPage;
+use App\Livewire\CustomSolutionsPage;
 use App\Livewire\PricingPage;
 use App\Livewire\QuoteRequestPage;
 use App\Livewire\SolutionsEnterprisePage;
@@ -32,6 +34,8 @@ Route::get(uri: '/ajanlatkeres', action: QuoteRequestPage::class)->name(name: 'q
 Route::get(uri: '/megoldasok/kkv', action: SolutionsKkvPage::class)->name(name: 'solutions.kkv');
 Route::get(uri: '/megoldasok/nagyvallalat', action: SolutionsEnterprisePage::class)->name(name: 'solutions.enterprise');
 Route::get(uri: '/megoldasok/nonprofit', action: SolutionsNonprofitPage::class)->name(name: 'solutions.nonprofit');
+Route::get(uri: '/egyedi-megoldasok', action: CustomSolutionsPage::class)->name(name: 'solutions.custom');
+Route::get(uri: '/kapcsolat', action: ContactPage::class)->name(name: 'contact');
 
 // Product/Module pages
 Route::get(uri: '/termekek/crm', action: \App\Livewire\Products\CrmPage::class)->name(name: 'products.crm');

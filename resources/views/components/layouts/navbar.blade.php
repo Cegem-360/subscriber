@@ -89,9 +89,9 @@
                     </div>
                 </div>
 
-                {{-- Enterprise (no dropdown) --}}
-                <a href="{{ route('solutions.enterprise') }}" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
-                    Nagyvállalat
+                {{-- Custom Solutions (no dropdown) --}}
+                <a href="{{ route('solutions.custom') }}" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                    Egyedi megoldások
                 </a>
             </div>
 
