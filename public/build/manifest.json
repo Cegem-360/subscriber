@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-uGRq7Ypf.css",
+    "file": "assets/app-GjJaAKLX.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -17,12 +17,12 @@
     "src": "resources/images/products-main-img.webp"
   },
   "resources/js/app.js": {
-    "file": "assets/app-DAMjOU4-.js",
+    "file": "assets/app-BsPz9mJN.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-uGRq7Ypf.css"
+      "assets/app-GjJaAKLX.css"
     ]
   }
 }

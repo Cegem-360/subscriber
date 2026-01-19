@@ -50,13 +50,6 @@ class BlogForm
                                     RichEditor::make('content')
                                         ->label('Tartalom')
                                         ->required()
-                                        ->toolbarButtons([
-                                            ['bold', 'italic', 'underline', 'strike', 'link'],
-                                            ['h2', 'h3'],
-                                            ['blockquote', 'bulletList', 'orderedList'],
-                                            ['undo', 'redo'],
-                                        ])
-                                        ->fileAttachmentsDirectory('blog-attachments')
                                         ->columnSpanFull(),
                                     Textarea::make('excerpt')
                                         ->label('Rövid leírás')
