@@ -41,7 +41,7 @@ class BlogsRelationManager extends RelationManager
                             ->required()
                             ->maxLength(255)
                             ->live(onBlur: true)
-                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state ?? ''))),
+                            ->afterStateUpdated(callback: fn (Set $set, ?string $state) => $set('slug', Str::slug($state ?? ''))),
                         TextInput::make('slug')
                             ->required()
                             ->unique(ignoreRecord: true)
@@ -53,6 +53,12 @@ class BlogsRelationManager extends RelationManager
                         RichEditor::make('content')
                             ->label('Tartalom')
                             ->required()
+                            ->toolbarButtons([
+                                ['bold', 'italic', 'underline', 'strike', 'link'],
+                                ['h2', 'h3'],
+                                ['blockquote', 'bulletList', 'orderedList'],
+                                ['undo', 'redo'],
+                            ])
                             ->columnSpanFull(),
                         Textarea::make('excerpt')
                             ->label('Rövid leírás')
