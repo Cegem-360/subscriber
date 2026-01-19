@@ -9,6 +9,12 @@ use App\Livewire\BlogPostPage;
 use App\Livewire\ContactPage;
 use App\Livewire\CustomSolutionsPage;
 use App\Livewire\PricingPage;
+use App\Livewire\Products\AutomatizalasPage;
+use App\Livewire\Products\BeszerzesPage;
+use App\Livewire\Products\CrmPage;
+use App\Livewire\Products\ErtekesitesPage;
+use App\Livewire\Products\GyartasPage;
+use App\Livewire\Products\KontrollingPage;
 use App\Livewire\QuoteRequestPage;
 use App\Livewire\SolutionsEnterprisePage;
 use App\Livewire\SolutionsKkvPage;
@@ -44,12 +50,12 @@ Route::get(uri: '/egyedi-megoldasok', action: CustomSolutionsPage::class)->name(
 Route::get(uri: '/kapcsolat', action: ContactPage::class)->name(name: 'contact');
 
 // Product/Module pages
-Route::get(uri: '/termekek/crm', action: \App\Livewire\Products\CrmPage::class)->name(name: 'products.crm');
-Route::get(uri: '/termekek/kontrolling', action: \App\Livewire\Products\KontrollingPage::class)->name(name: 'products.kontrolling');
-Route::get(uri: '/termekek/beszerzes-logisztika', action: \App\Livewire\Products\BeszerzesPage::class)->name(name: 'products.beszerzes');
-Route::get(uri: '/termekek/ertekesites', action: \App\Livewire\Products\ErtekesitesPage::class)->name(name: 'products.ertekesites');
-Route::get(uri: '/termekek/gyartasiranyitas', action: \App\Livewire\Products\GyartasPage::class)->name(name: 'products.gyartas');
-Route::get(uri: '/termekek/automatizalas', action: \App\Livewire\Products\AutomatizalasPage::class)->name(name: 'products.automatizalas');
+Route::get(uri: '/termekek/crm', action: CrmPage::class)->name(name: 'products.crm');
+Route::get(uri: '/termekek/kontrolling', action: KontrollingPage::class)->name(name: 'products.kontrolling');
+Route::get(uri: '/termekek/beszerzes-logisztika', action: BeszerzesPage::class)->name(name: 'products.beszerzes');
+Route::get(uri: '/termekek/ertekesites', action: ErtekesitesPage::class)->name(name: 'products.ertekesites');
+Route::get(uri: '/termekek/gyartasiranyitas', action: GyartasPage::class)->name(name: 'products.gyartas');
+Route::get(uri: '/termekek/automatizalas', action: AutomatizalasPage::class)->name(name: 'products.automatizalas');
 
 // Email verification routes
 Route::get(uri: '/email/verify', action: fn (): Redirector|RedirectResponse => to_route(route: 'filament.admin.auth.email-verification.prompt'))
