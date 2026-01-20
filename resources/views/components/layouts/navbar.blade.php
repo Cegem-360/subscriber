@@ -117,7 +117,8 @@
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Súgó</a>
                         <a href="{{ route('blog.category', ['blogCategory' => 'blog']) }}"
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Blog</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Akadémia</a>
+                        <a href="{{ route('blog.category', ['blogCategory' => 'akademia']) }}"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Akadémia</a>
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Közösség</a>
                     </div>
                 </div>
