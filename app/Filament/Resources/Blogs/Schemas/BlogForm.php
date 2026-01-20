@@ -72,6 +72,7 @@ class BlogForm
                                         RichEditor::make('content')
                                             ->label('Tartalom')
                                             ->required()
+                                            ->default('')
                                             ->toolbarButtons([
                                                 ['bold', 'italic', 'underline', 'strike', 'link'],
                                                 ['h2', 'h3'],
@@ -84,6 +85,7 @@ class BlogForm
                                             ->label('HTML tartalom')
                                             ->required()
                                             ->language(Language::Html)
+                                            ->default('')
                                             ->columnSpanFull()
                                             ->visible(fn (Get $get): bool => $get('editor_mode') === 'html'),
                                         Textarea::make('excerpt')
