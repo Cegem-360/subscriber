@@ -15,6 +15,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
@@ -68,26 +69,35 @@ class BlogForm
                                             ])
                                             ->default('visual')
                                             ->inline()
-                                            ->live(),
-                                        RichEditor::make('content')
-                                            ->label('Tartalom')
-                                            ->required()
-                                            ->default('')
-                                            ->toolbarButtons([
-                                                ['bold', 'italic', 'underline', 'strike', 'link'],
-                                                ['h2', 'h3'],
-                                                ['blockquote', 'bulletList', 'orderedList'],
-                                                ['undo', 'redo'],
-                                            ])
+                                            ->live()
+                                            ->afterStateUpdated(fn (ToggleButtons $component) => $component
+                                                ->getContainer()
+                                                ->getComponent('dynamicContentEditor')
+                                                ->getChildSchema()
+                                                ->fill()),
+                                        Group::make()
                                             ->columnSpanFull()
-                                            ->visible(fn (Get $get): bool => $get('editor_mode') !== 'html'),
-                                        CodeEditor::make('content')
-                                            ->label('HTML tartalom')
-                                            ->required()
-                                            ->language(Language::Html)
-                                            ->default('')
-                                            ->columnSpanFull()
-                                            ->visible(fn (Get $get): bool => $get('editor_mode') === 'html'),
+                                            ->key('dynamicContentEditor')
+                                            ->schema(fn (Get $get): array => $get('editor_mode') === 'html'
+                                                ? [
+                                                    CodeEditor::make('content')
+                                                        ->label('HTML tartalom')
+                                                        ->required()
+                                                        ->language(Language::Html)
+                                                        ->columnSpanFull(),
+                                                ]
+                                                : [
+                                                    RichEditor::make('content')
+                                                        ->label('Tartalom')
+                                                        ->required()
+                                                        ->toolbarButtons([
+                                                            ['bold', 'italic', 'underline', 'strike', 'link'],
+                                                            ['h2', 'h3'],
+                                                            ['blockquote', 'bulletList', 'orderedList'],
+                                                            ['undo', 'redo'],
+                                                        ])
+                                                        ->columnSpanFull(),
+                                                ]),
                                         Textarea::make('excerpt')
                                             ->label('Rövid leírás')
                                             ->rows(3)
