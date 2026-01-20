@@ -34,6 +34,20 @@ use Laravel\Cashier\Events\WebhookReceived;
 
 Route::get(uri: '/', action: fn (): Factory|View => view(view: 'home'))->name(name: 'home');
 Route::get(uri: '/welcome', action: fn (): Factory|View => view(view: 'welcome'))->name(name: 'welcome');
+
+// Language switch route
+Route::get('/language/{locale}', function (string $locale) {
+    if (! in_array($locale, ['en', 'hu'], true)) {
+        abort(400);
+    }
+
+    $cookie = cookie('locale', $locale, 60 * 24 * 365);
+
+    $referer = request()->headers->get('referer');
+    $redirectUrl = $referer ?: url()->previous();
+
+    return redirect($redirectUrl)->withCookie($cookie);
+})->name('language.switch');
 Route::get(uri: '/style-guide', action: StyleGuide::class)->name(name: 'style-guide');
 Route::get(uri: '/arak', action: PricingPage::class)->name(name: 'pricing');
 Route::get(uri: '/ajanlatkeres', action: QuoteRequestPage::class)->name(name: 'quote-request');

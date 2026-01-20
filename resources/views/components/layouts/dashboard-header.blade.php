@@ -39,6 +39,9 @@
 
     {{-- Right side - Actions --}}
     <div class="flex items-center gap-2">
+        {{-- Language Switcher --}}
+        <x-language-switcher />
+
         {{-- Quick add button --}}
         <a href="{{ route('module.order') }}"
             class="hidden sm:inline-flex items-center gap-2 px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition">

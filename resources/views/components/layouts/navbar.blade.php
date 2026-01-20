@@ -132,6 +132,9 @@
 
             {{-- Right: Actions --}}
             <div class="hidden lg:flex items-center gap-4">
+                {{-- Language Switcher --}}
+                <x-language-switcher />
+
                 {{-- Pricing --}}
                 <a href="{{ route('pricing') }}"
                     class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
@@ -276,6 +279,11 @@
             </div>
             <a href="#" class="block py-2 text-sm font-medium text-gray-700">Erőforrások</a>
             <a href="{{ route('pricing') }}" class="block py-2 text-sm font-medium text-gray-700">Árazás</a>
+
+            {{-- Language Switcher for Mobile --}}
+            <div class="py-2">
+                <x-language-switcher />
+            </div>
 
             <hr class="border-gray-200">
 
