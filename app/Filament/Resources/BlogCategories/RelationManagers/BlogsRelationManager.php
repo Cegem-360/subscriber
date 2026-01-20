@@ -14,9 +14,11 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\ToggleButtons;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
@@ -50,6 +52,20 @@ class BlogsRelationManager extends RelationManager
                 Section::make('Tartalom')
                     ->columnSpanFull()
                     ->schema([
+                        ToggleButtons::make('editor_mode')
+                            ->label('Szerkesztő mód')
+                            ->options([
+                                'visual' => 'Vizuális',
+                                'html' => 'HTML',
+                            ])
+                            ->icons([
+                                'visual' => 'heroicon-o-eye',
+                                'html' => 'heroicon-o-code-bracket',
+                            ])
+                            ->default('visual')
+                            ->inline()
+                            ->live()
+                            ->dehydrated(false),
                         RichEditor::make('content')
                             ->label('Tartalom')
                             ->required()
@@ -59,7 +75,15 @@ class BlogsRelationManager extends RelationManager
                                 ['blockquote', 'bulletList', 'orderedList'],
                                 ['undo', 'redo'],
                             ])
-                            ->columnSpanFull(),
+                            ->columnSpanFull()
+                            ->visible(fn (Get $get): bool => $get('editor_mode') !== 'html'),
+                        Textarea::make('content')
+                            ->label('HTML tartalom')
+                            ->required()
+                            ->rows(20)
+                            ->columnSpanFull()
+                            ->extraAttributes(['class' => 'font-mono text-sm'])
+                            ->visible(fn (Get $get): bool => $get('editor_mode') === 'html'),
                         Textarea::make('excerpt')
                             ->label('Rövid leírás')
                             ->rows(3)
