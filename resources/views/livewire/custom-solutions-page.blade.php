@@ -250,35 +250,35 @@
                     <div class="grid grid-cols-3 gap-4">
                         {{-- SAP --}}
                         <div class="flex h-20 items-center justify-center rounded-xl bg-white p-4 shadow-sm">
-                            <img src="{{ asset('images/integrations/sap.svg') }}" alt="SAP" class="h-9 w-auto">
+                            <img src="{{ Vite::asset('resources/images/integrations/sap.svg') }}" alt="SAP" class="h-9 w-auto">
                         </div>
                         {{-- Billingo --}}
                         <div class="flex h-20 items-center justify-center rounded-xl bg-white p-4 shadow-sm">
-                            <img src="{{ asset('images/integrations/billingo.svg') }}" alt="Billingo" class="h-9 w-auto">
+                            <img src="{{ Vite::asset('resources/images/integrations/billingo.svg') }}" alt="Billingo" class="h-9 w-auto">
                         </div>
                         {{-- Shopify --}}
                         <div class="flex h-20 items-center justify-center rounded-xl bg-white p-4 shadow-sm">
-                            <img src="{{ asset('images/integrations/shopify.svg') }}" alt="Shopify" class="h-7 w-auto">
+                            <img src="{{ Vite::asset('resources/images/integrations/shopify.svg') }}" alt="Shopify" class="h-7 w-auto">
                         </div>
                         {{-- Microsoft Teams --}}
                         <div class="flex h-20 items-center justify-center rounded-xl bg-white p-4 shadow-sm">
-                            <img src="{{ asset('images/integrations/teams.svg') }}" alt="Microsoft Teams" class="h-10 w-auto">
+                            <img src="{{ Vite::asset('resources/images/integrations/teams.svg') }}" alt="Microsoft Teams" class="h-10 w-auto">
                         </div>
                         {{-- Slack --}}
                         <div class="flex h-20 items-center justify-center rounded-xl bg-white p-4 shadow-sm">
-                            <img src="{{ asset('images/integrations/slack.svg') }}" alt="Slack" class="h-8 w-auto">
+                            <img src="{{ Vite::asset('resources/images/integrations/slack.svg') }}" alt="Slack" class="h-8 w-auto">
                         </div>
                         {{-- Nexon --}}
                         <div class="flex h-20 items-center justify-center rounded-xl bg-white p-4 shadow-sm">
-                            <img src="{{ asset('images/integrations/nexon.svg') }}" alt="Nexon" class="h-5 w-auto">
+                            <img src="{{ Vite::asset('resources/images/integrations/nexon.svg') }}" alt="Nexon" class="h-5 w-auto">
                         </div>
                         {{-- HubSpot --}}
                         <div class="flex h-20 items-center justify-center rounded-xl bg-white p-4 shadow-sm">
-                            <img src="{{ asset('images/integrations/hubspot.svg') }}" alt="HubSpot" class="h-10 w-auto">
+                            <img src="{{ Vite::asset('resources/images/integrations/hubspot.svg') }}" alt="HubSpot" class="h-10 w-auto">
                         </div>
                         {{-- Microsoft Dynamics --}}
                         <div class="flex h-20 items-center justify-center rounded-xl bg-white p-4 shadow-sm">
-                            <img src="{{ asset('images/integrations/dynamics.svg') }}" alt="Microsoft Dynamics 365" class="h-10 w-auto">
+                            <img src="{{ Vite::asset('resources/images/integrations/dynamics.svg') }}" alt="Microsoft Dynamics 365" class="h-10 w-auto">
                         </div>
                         <div class="flex h-20 items-center justify-center rounded-xl bg-indigo-100 p-4">
                             <span class="text-sm font-medium text-indigo-600">+50 további</span>

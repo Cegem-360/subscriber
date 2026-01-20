@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-uGRq7Ypf.css",
+    "file": "assets/app-vY9Pxx41.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -12,17 +12,49 @@
     "file": "assets/hp_cusromers-srory-5-Bbr0H707.webp",
     "src": "resources/images/hp_cusromers-srory-5.webp"
   },
+  "resources/images/integrations/billingo.svg": {
+    "file": "assets/billingo-CkyCyfCy.svg",
+    "src": "resources/images/integrations/billingo.svg"
+  },
+  "resources/images/integrations/dynamics.svg": {
+    "file": "assets/dynamics-CEgr5uYE.svg",
+    "src": "resources/images/integrations/dynamics.svg"
+  },
+  "resources/images/integrations/hubspot.svg": {
+    "file": "assets/hubspot-DpYPN0tf.svg",
+    "src": "resources/images/integrations/hubspot.svg"
+  },
+  "resources/images/integrations/nexon.svg": {
+    "file": "assets/nexon-DuV6mKOW.svg",
+    "src": "resources/images/integrations/nexon.svg"
+  },
+  "resources/images/integrations/sap.svg": {
+    "file": "assets/sap-B3lqfBXw.svg",
+    "src": "resources/images/integrations/sap.svg"
+  },
+  "resources/images/integrations/shopify.svg": {
+    "file": "assets/shopify-jOaqxJIt.svg",
+    "src": "resources/images/integrations/shopify.svg"
+  },
+  "resources/images/integrations/slack.svg": {
+    "file": "assets/slack-CZOgvw20.svg",
+    "src": "resources/images/integrations/slack.svg"
+  },
+  "resources/images/integrations/teams.svg": {
+    "file": "assets/teams-DbS2iVUw.svg",
+    "src": "resources/images/integrations/teams.svg"
+  },
   "resources/images/products-main-img.webp": {
     "file": "assets/products-main-img-uM7TE1dK.webp",
     "src": "resources/images/products-main-img.webp"
   },
   "resources/js/app.js": {
-    "file": "assets/app-DAMjOU4-.js",
+    "file": "assets/app-D6qr0mg1.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-uGRq7Ypf.css"
+      "assets/app-vY9Pxx41.css"
     ]
   }
 }
