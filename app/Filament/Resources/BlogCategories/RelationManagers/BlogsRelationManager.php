@@ -67,12 +67,7 @@ class BlogsRelationManager extends RelationManager
                             ])
                             ->default('visual')
                             ->inline()
-                            ->live()
-                            ->afterStateUpdated(fn (ToggleButtons $component) => $component
-                                ->getContainer()
-                                ->getComponent('dynamicContentEditor')
-                                ->getChildSchema()
-                                ->fill()),
+                            ->live(),
                         Group::make()
                             ->columnSpanFull()
                             ->key('dynamicContentEditor')
