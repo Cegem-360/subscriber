@@ -22,6 +22,7 @@ class Blog extends Model
         'title',
         'slug',
         'content',
+        'editor_mode',
         'excerpt',
         'featured_image',
         'meta_title',
@@ -68,5 +69,10 @@ class Blog extends Model
         return $this->is_active
             && $this->published_at !== null
             && $this->published_at->lte(now());
+    }
+
+    public function isHtmlMode(): bool
+    {
+        return $this->editor_mode === 'html';
     }
 }

@@ -9,6 +9,8 @@ use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\CodeEditor;
+use Filament\Forms\Components\CodeEditor\Enums\Language;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Textarea;
@@ -64,8 +66,7 @@ class BlogsRelationManager extends RelationManager
                             ])
                             ->default('visual')
                             ->inline()
-                            ->live()
-                            ->dehydrated(false),
+                            ->live(),
                         RichEditor::make('content')
                             ->label('Tartalom')
                             ->required()
@@ -77,12 +78,11 @@ class BlogsRelationManager extends RelationManager
                             ])
                             ->columnSpanFull()
                             ->visible(fn (Get $get): bool => $get('editor_mode') !== 'html'),
-                        Textarea::make('content')
+                        CodeEditor::make('content')
                             ->label('HTML tartalom')
                             ->required()
-                            ->rows(20)
+                            ->language(Language::Html)
                             ->columnSpanFull()
-                            ->extraAttributes(['class' => 'font-mono text-sm'])
                             ->visible(fn (Get $get): bool => $get('editor_mode') === 'html'),
                         Textarea::make('excerpt')
                             ->label('Rövid leírás')
