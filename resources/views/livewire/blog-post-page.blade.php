@@ -60,7 +60,7 @@
     <section class="bg-white pb-16 lg:pb-24">
         <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <article class="prose prose-lg prose-indigo mx-auto max-w-none">
-                {!! $blog->content !!}
+                {!! $blog->getDisplayContent() !!}
             </article>
         </div>
     </section>

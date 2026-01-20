@@ -23,6 +23,7 @@ class Blog extends Model
         'slug',
         'content',
         'editor_mode',
+        'content_html',
         'excerpt',
         'featured_image',
         'meta_title',
@@ -74,5 +75,10 @@ class Blog extends Model
     public function isHtmlMode(): bool
     {
         return $this->editor_mode === 'html';
+    }
+
+    public function getDisplayContent(): ?string
+    {
+        return $this->isHtmlMode() ? $this->content_html : $this->content;
     }
 }
