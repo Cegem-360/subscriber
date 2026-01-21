@@ -19,7 +19,7 @@ return new class() extends Migration
             $table->foreignIdFor(BlogCategory::class)->constrained()->cascadeOnDelete();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->text('content');
+            $table->text('content')->nullable();
             $table->text('excerpt')->nullable();
             $table->string('featured_image')->nullable();
             $table->string('meta_title')->nullable();
