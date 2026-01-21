@@ -19,7 +19,7 @@ class SubscriberModulsList extends Component
     #[Computed]
     public function subscriptions()
     {
-        return Auth::user()->subscriptions()->activeSubscription()->with('plan.planCategory')->get();
+        return Auth::user()->subscriptions()->activeSubscription()->get();
     }
 
     public function render(): Factory|View

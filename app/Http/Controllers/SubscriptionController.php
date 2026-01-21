@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Plan;
+use App\Models\Subscription;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -58,6 +59,9 @@ class SubscriptionController extends Controller
         ]);
 
         // First, check if webhook already created a subscription with this stripe_price
+        /**
+         * @var Subscription $webhookSubscription
+         */
         $webhookSubscription = $user->subscriptions()
             ->where('stripe_price', $plan->stripe_price_id)
             ->whereNotNull('stripe_id')
@@ -66,7 +70,9 @@ class SubscriptionController extends Controller
 
         if ($webhookSubscription) {
             // Webhook already created it - just add plan_id and clean up duplicates
-            $webhookSubscription->update(['plan_id' => $plan->id]);
+            $webhookSubscription->update(
+                ['plan_id' => $plan->id],
+            );
 
             // Delete any orphaned local subscriptions (without stripe_id)
             $user->subscriptions()
@@ -79,7 +85,7 @@ class SubscriptionController extends Controller
                 'plan_id' => $plan->id,
             ]);
 
-            return to_route('filament.admin.pages.dashboard')
+            return to_route('modules')
                 ->with('success', 'Előfizetésed sikeresen létrejött! Hamarosan aktiválódnak a jogosultságaid.');
         }
 

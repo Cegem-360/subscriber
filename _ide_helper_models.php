@@ -40,6 +40,107 @@ namespace App\Models{
 	class ApiToken extends \Eloquent {}
 }
 
+namespace App\Models\Blog{
+/**
+ * @property int $id
+ * @property int $blog_category_id
+ * @property string $title
+ * @property string $slug
+ * @property string $content
+ * @property string|null $excerpt
+ * @property string|null $featured_image
+ * @property string|null $meta_title
+ * @property string|null $meta_description
+ * @property string|null $og_image
+ * @property \Carbon\CarbonImmutable|null $published_at
+ * @property bool $is_active
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property string $editor_mode
+ * @property string|null $content_html
+ * @property-read \App\Models\Blog\BlogCategory $blogCategory
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Blog\Tag> $tags
+ * @property-read int|null $tags_count
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Blog active()
+ * @method static \Database\Factories\Blog\BlogFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Blog newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Blog newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Blog published()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Blog query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Blog whereBlogCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Blog whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Blog whereContentHtml($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Blog whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Blog whereEditorMode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Blog whereExcerpt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Blog whereFeaturedImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Blog whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Blog whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Blog whereMetaDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Blog whereMetaTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Blog whereOgImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Blog wherePublishedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Blog whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Blog whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Blog whereUpdatedAt($value)
+ */
+	class Blog extends \Eloquent {}
+}
+
+namespace App\Models\Blog{
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property string|null $description
+ * @property int $sort_order
+ * @property bool $is_active
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Blog\Blog> $blogs
+ * @property-read int|null $blogs_count
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BlogCategory active()
+ * @method static \Database\Factories\Blog\BlogCategoryFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BlogCategory newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BlogCategory newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BlogCategory query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BlogCategory whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BlogCategory whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BlogCategory whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BlogCategory whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BlogCategory whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BlogCategory whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BlogCategory whereSortOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BlogCategory whereUpdatedAt($value)
+ */
+	class BlogCategory extends \Eloquent {}
+}
+
+namespace App\Models\Blog{
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property bool $is_active
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Blog\Blog> $blogs
+ * @property-read int|null $blogs_count
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag active()
+ * @method static \Database\Factories\Blog\TagFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag whereUpdatedAt($value)
+ */
+	class Tag extends \Eloquent {}
+}
+
 namespace App\Models{
 /**
  * @property int $id
@@ -99,6 +200,8 @@ namespace App\Models{
  * @property int $sort_order
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property numeric|null $price_eur
+ * @property string|null $stripe_price_id_eur
  * @property-read \App\Models\Plan\PlanCategory|null $planCategory
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subscription> $subscriptions
  * @property-read int|null $subscriptions_count
@@ -116,10 +219,12 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan wherePlanCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan wherePriceEur($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereSortOrder($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereStripePriceId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereStripePriceIdEur($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereStripeProductId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereUpdatedAt($value)
  */
@@ -135,14 +240,18 @@ namespace App\Models\Plan{
  * @property string|null $description
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property string $color
+ * @property string|null $icon
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Plan> $plans
  * @property-read int|null $plans_count
  * @method static \Database\Factories\Plan\PlanCategoryFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory whereColor($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory whereIcon($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory whereSlug($value)
@@ -150,6 +259,25 @@ namespace App\Models\Plan{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PlanCategory whereUrl($value)
  */
 	class PlanCategory extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property string $key
+ * @property string $value
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Setting newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Setting newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Setting query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Setting whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Setting whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Setting whereKey($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Setting whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Setting whereValue($value)
+ */
+	final class Setting extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -170,6 +298,8 @@ namespace App\Models{
  * @property-read int|null $items_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invoice> $localInvoices
  * @property-read int|null $local_invoices_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $members
+ * @property-read int|null $members_count
  * @property-read \App\Models\User|null $owner
  * @property-read \App\Models\Plan|null $plan
  * @property-read \App\Models\User|null $user
@@ -178,7 +308,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription canceled()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription ended()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription expiredTrial()
- * @method static \Laravel\Cashier\Database\Factories\SubscriptionFactory factory($count = null, $state = [])
+ * @method static \Database\Factories\SubscriptionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription incomplete()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription newQuery()
@@ -215,6 +345,13 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $email_verified_at
  * @property string $password
  * @property \App\Enums\UserRole $role
+ * @property int|null $subscription_id
+ * @property string $company_name
+ * @property string|null $tax_number
+ * @property string|null $address
+ * @property string|null $city
+ * @property string|null $postal_code
+ * @property string|null $country
  * @property string|null $stripe_id
  * @property string|null $pm_type
  * @property string|null $pm_last_four
@@ -226,6 +363,7 @@ namespace App\Models{
  * @property-read int|null $api_tokens_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invoice> $invoices
  * @property-read int|null $invoices_count
+ * @property-read \App\Models\Subscription|null $memberOfSubscription
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subscription> $subscriptions
@@ -236,7 +374,11 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User onGenericTrial()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereBillingoPartnerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereCompanyName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereCountry($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereEmailVerifiedAt($value)
@@ -245,9 +387,12 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePmLastFour($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePmType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePostalCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereStripeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereSubscriptionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereTaxNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereTrialEndsAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
  */
