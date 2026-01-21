@@ -21,6 +21,7 @@ use App\Livewire\SolutionsKkvPage;
 use App\Livewire\SolutionsNonprofitPage;
 use App\Livewire\StyleGuide;
 use App\Livewire\SubscriberModulsList;
+use App\Livewire\TagPage;
 use App\Livewire\UpdateModulePage;
 use App\Livewire\ViewSubscriptionPage;
 use Illuminate\Contracts\View\Factory;
@@ -41,6 +42,7 @@ Route::get(uri: '/ajanlatkeres', action: QuoteRequestPage::class)->name(name: 'q
 // Blog routes
 Route::get(uri: '/eroforrasok/{blogCategory:slug}', action: BlogCategoryPage::class)->name(name: 'blog.category');
 Route::get(uri: '/eroforrasok/{blogCategory:slug}/{blog:slug}', action: BlogPostPage::class)->name(name: 'blog.show');
+Route::get(uri: '/tag/{tag:slug}', action: TagPage::class)->name(name: 'blog.tag');
 
 // Solutions pages
 Route::get(uri: '/megoldasok/kkv', action: SolutionsKkvPage::class)->name(name: 'solutions.kkv');
