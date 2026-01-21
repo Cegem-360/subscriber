@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use App\Enums\BillingPeriod;
-use App\Livewire\PricingPage;
+use App\Livewire\Page\PricingPage;
 use App\Models\Plan;
 use App\Models\Plan\PlanCategory;
 use App\Services\CurrencyService;

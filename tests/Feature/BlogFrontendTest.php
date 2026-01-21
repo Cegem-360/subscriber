@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use App\Livewire\BlogCategoryPage;
-use App\Livewire\BlogPostPage;
-use App\Livewire\TagPage;
+use App\Livewire\Page\BlogCategoryPage;
+use App\Livewire\Page\BlogPostPage;
+use App\Livewire\Page\TagPage;
 use App\Models\Blog\Blog;
 use App\Models\Blog\BlogCategory;
 use App\Models\Blog\Tag;

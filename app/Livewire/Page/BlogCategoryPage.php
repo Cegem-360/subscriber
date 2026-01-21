@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Livewire;
+namespace App\Livewire\Page;
 
 use App\Models\Blog\Blog;
-use App\Models\Blog\Tag;
+use App\Models\Blog\BlogCategory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Layout;
@@ -13,30 +13,29 @@ use Livewire\Component;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 #[Layout('components.layouts.app')]
-final class TagPage extends Component
+final class BlogCategoryPage extends Component
 {
-    public Tag $tag;
+    public BlogCategory $category;
 
     /** @var Collection<int, Blog> */
     public Collection $blogs;
 
-    public function mount(Tag $tag): void
+    public function mount(BlogCategory $blogCategory): void
     {
-        if (! $tag->isActive()) {
+        if (! $blogCategory->isActive()) {
             throw new NotFoundHttpException();
         }
 
-        $this->tag = $tag;
+        $this->category = $blogCategory;
 
-        $this->blogs = $tag->blogs()
+        $this->blogs = $blogCategory->blogs()
             ->published()
-            ->with('blogCategory')
             ->orderByDesc('published_at')
             ->get();
     }
 
     public function render(): View
     {
-        return view('livewire.tag-page');
+        return view('livewire.blog-category-page');
     }
 }

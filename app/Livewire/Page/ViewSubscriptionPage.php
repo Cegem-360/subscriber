@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Livewire;
+namespace App\Livewire\Page;
 
 use App\Models\Subscription;
 use Illuminate\Contracts\View\View;

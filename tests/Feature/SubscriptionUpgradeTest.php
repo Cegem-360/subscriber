@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Livewire\UpdateModulePage;
+use App\Livewire\Page\UpdateModulePage;
 use App\Models\Plan;
 use App\Models\Plan\PlanCategory;
 use App\Models\Subscription;

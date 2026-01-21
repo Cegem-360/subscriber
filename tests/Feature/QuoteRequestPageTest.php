@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Livewire\QuoteRequestPage;
+use App\Livewire\Page\QuoteRequestPage;
 use Livewire\Livewire;
 
 describe('QuoteRequestPage', function (): void {

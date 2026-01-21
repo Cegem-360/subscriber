@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Livewire;
+namespace App\Livewire\Page;
 
 use App\Enums\BillingPeriod;
 use App\Models\Plan;

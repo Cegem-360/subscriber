@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Livewire;
+namespace App\Livewire\Page\Products;
 
 use Livewire\Component;
 
-class CustomSolutionsPage extends Component
+class CrmPage extends Component
 {
     public function render()
     {
-        return view('livewire.custom-solutions-page')
+        return view('livewire.products.crm-page')
             ->layout('components.layouts.app');
     }
 }

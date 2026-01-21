@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Livewire\Products;
+declare(strict_types=1);
+
+namespace App\Livewire\Page\Products;
 
 use Livewire\Component;
 
