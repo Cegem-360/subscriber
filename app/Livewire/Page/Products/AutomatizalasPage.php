@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Livewire\Page\Products;
 
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
+#[Layout('components.layouts.app')]
 class AutomatizalasPage extends Component
 {
     public function render()
     {
-        return view('livewire.products.automatizalas-page')
-            ->layout('components.layouts.app');
+        return view('livewire.products.automatizalas-page');
     }
 }
