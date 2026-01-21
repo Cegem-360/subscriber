@@ -29,7 +29,7 @@ test('can retrieve user data for editing', function (): void {
     $this->actingAs($user);
 
     livewire(EditProfile::class)
-        ->assertFormSet([
+        ->assertSchemaStateSet([
             'name' => 'John Doe',
             'email' => 'john@example.com',
         ]);
