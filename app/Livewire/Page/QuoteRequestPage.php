@@ -12,9 +12,11 @@ use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Schemas\Schema;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-class QuoteRequestPage extends Component implements HasSchemas
+#[Layout('components.layouts.app')]
+final class QuoteRequestPage extends Component implements HasSchemas
 {
     use InteractsWithSchemas;
 

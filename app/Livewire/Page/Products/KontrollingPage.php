@@ -8,9 +8,9 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[Layout('components.layouts.app')]
-class KontrollingPage extends Component
+final class KontrollingPage extends Component
 {
-    public function render()
+    public function render(): \Illuminate\Contracts\View\View
     {
         return view('livewire.products.kontrolling-page');
     }

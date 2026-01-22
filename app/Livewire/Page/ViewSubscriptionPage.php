@@ -6,9 +6,11 @@ namespace App\Livewire\Page;
 
 use App\Models\Subscription;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-class ViewSubscriptionPage extends Component
+#[Layout('components.layouts.dashboard')]
+final class ViewSubscriptionPage extends Component
 {
     public Subscription $subscription;
 

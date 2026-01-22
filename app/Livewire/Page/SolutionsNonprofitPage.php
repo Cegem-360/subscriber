@@ -8,9 +8,9 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[Layout('components.layouts.app')]
-class SolutionsNonprofitPage extends Component
+final class SolutionsNonprofitPage extends Component
 {
-    public function render()
+    public function render(): \Illuminate\Contracts\View\View
     {
         return view('livewire.solutions-nonprofit-page');
     }

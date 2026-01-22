@@ -9,7 +9,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[Layout('components.layouts.app')]
-class ContactPage extends Component
+final class ContactPage extends Component
 {
     public string $inquiryType = '';
 
@@ -27,6 +27,7 @@ class ContactPage extends Component
 
     public string $companySize = '';
 
+    /** @var array<int, string> */
     public array $interestedModules = [];
 
     public string $message = '';

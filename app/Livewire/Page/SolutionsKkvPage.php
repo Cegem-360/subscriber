@@ -8,9 +8,9 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[Layout('components.layouts.app')]
-class SolutionsKkvPage extends Component
+final class SolutionsKkvPage extends Component
 {
-    public function render()
+    public function render(): \Illuminate\Contracts\View\View
     {
         return view('livewire.solutions-kkv-page');
     }

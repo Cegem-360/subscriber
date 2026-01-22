@@ -8,9 +8,9 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[Layout('components.layouts.app')]
-class BeszerzesPage extends Component
+final class BeszerzesPage extends Component
 {
-    public function render()
+    public function render(): \Illuminate\Contracts\View\View
     {
         return view('livewire.products.beszerzes-page');
     }

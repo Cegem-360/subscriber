@@ -22,9 +22,11 @@ use Filament\Schemas\Schema;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\HtmlString;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-class CreateModulePage extends Component implements HasActions, HasSchemas
+#[Layout('components.layouts.dashboard')]
+final class CreateModulePage extends Component implements HasActions, HasSchemas
 {
     use InteractsWithActions;
     use InteractsWithSchemas;
