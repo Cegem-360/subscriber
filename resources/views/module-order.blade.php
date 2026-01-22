@@ -7,5 +7,5 @@
         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Válassz egy modult és csomagot a rendszerhez</p>
     </div>
 
-    <livewire:create-module-page />
+    <livewire:page.create-module-page />
 </x-layouts.dashboard>
