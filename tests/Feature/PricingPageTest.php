@@ -39,11 +39,10 @@ beforeEach(function (): void {
 });
 
 describe('PricingPage', function (): void {
-    it('renders the pricing page', function (): void {
-        $response = $this->get('/arak');
-
-        $response->assertOk();
-        $response->assertSeeLivewire(PricingPage::class);
+    it('is accessible via route', function (): void {
+        $this->get('/arak')
+            ->assertOk()
+            ->assertSeeLivewire(PricingPage::class);
     });
 
     it('displays modules from database', function (): void {

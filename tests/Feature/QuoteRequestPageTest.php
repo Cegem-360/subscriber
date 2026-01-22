@@ -6,11 +6,10 @@ use App\Livewire\Page\QuoteRequestPage;
 use Livewire\Livewire;
 
 describe('QuoteRequestPage', function (): void {
-    it('renders the quote request page', function (): void {
-        $response = $this->get('/ajanlatkeres');
-
-        $response->assertOk();
-        $response->assertSeeLivewire(QuoteRequestPage::class);
+    it('is accessible via route', function (): void {
+        $this->get('/ajanlatkeres')
+            ->assertOk()
+            ->assertSeeLivewire(QuoteRequestPage::class);
     });
 
     it('displays the form fields', function (): void {

@@ -14,25 +14,18 @@ use Livewire\Livewire;
 uses(RefreshDatabase::class);
 
 describe('BlogCategoryPage', function (): void {
-    it('renders the blog category page', function (): void {
-        $category = BlogCategory::factory()->create([
-            'name' => 'Teszt kategória',
-            'slug' => 'teszt-kategoria',
-            'is_active' => true,
-        ]);
+    it('is accessible via route', function (): void {
+        $category = BlogCategory::factory()->create();
 
-        $response = $this->get('/eroforrasok/teszt-kategoria');
-
-        $response->assertOk();
-        $response->assertSeeLivewire(BlogCategoryPage::class);
+        $this->get("/eroforrasok/{$category->slug}")
+            ->assertOk()
+            ->assertSeeLivewire(BlogCategoryPage::class);
     });
 
     it('displays the category name and description', function (): void {
         $category = BlogCategory::factory()->create([
             'name' => 'Teszt kategória',
-            'slug' => 'teszt-kategoria',
             'description' => 'Ez egy teszt leírás',
-            'is_active' => true,
         ]);
 
         Livewire::test(BlogCategoryPage::class, ['blogCategory' => $category])
@@ -41,17 +34,10 @@ describe('BlogCategoryPage', function (): void {
     });
 
     it('displays published blog posts', function (): void {
-        $category = BlogCategory::factory()->create([
-            'slug' => 'teszt-kategoria',
-            'is_active' => true,
-        ]);
+        $category = BlogCategory::factory()->create();
 
-        Blog::factory()->create([
-            'blog_category_id' => $category->id,
+        Blog::factory()->for($category)->create([
             'title' => 'Teszt bejegyzés címe',
-            'slug' => 'teszt-bejegyzes',
-            'is_active' => true,
-            'published_at' => now()->subDay(),
         ]);
 
         Livewire::test(BlogCategoryPage::class, ['blogCategory' => $category])
@@ -59,17 +45,10 @@ describe('BlogCategoryPage', function (): void {
     });
 
     it('does not display unpublished blog posts', function (): void {
-        $category = BlogCategory::factory()->create([
-            'slug' => 'teszt-kategoria',
-            'is_active' => true,
-        ]);
+        $category = BlogCategory::factory()->create();
 
-        Blog::factory()->create([
-            'blog_category_id' => $category->id,
+        Blog::factory()->for($category)->unpublished()->create([
             'title' => 'Nem publikált bejegyzés',
-            'slug' => 'nem-publikalt',
-            'is_active' => true,
-            'published_at' => null,
         ]);
 
         Livewire::test(BlogCategoryPage::class, ['blogCategory' => $category])
@@ -77,17 +56,10 @@ describe('BlogCategoryPage', function (): void {
     });
 
     it('does not display inactive blog posts', function (): void {
-        $category = BlogCategory::factory()->create([
-            'slug' => 'teszt-kategoria',
-            'is_active' => true,
-        ]);
+        $category = BlogCategory::factory()->create();
 
-        Blog::factory()->create([
-            'blog_category_id' => $category->id,
+        Blog::factory()->for($category)->inactive()->create([
             'title' => 'Inaktív bejegyzés',
-            'slug' => 'inaktiv',
-            'is_active' => false,
-            'published_at' => now()->subDay(),
         ]);
 
         Livewire::test(BlogCategoryPage::class, ['blogCategory' => $category])
@@ -95,17 +67,10 @@ describe('BlogCategoryPage', function (): void {
     });
 
     it('does not display scheduled blog posts', function (): void {
-        $category = BlogCategory::factory()->create([
-            'slug' => 'teszt-kategoria',
-            'is_active' => true,
-        ]);
+        $category = BlogCategory::factory()->create();
 
-        Blog::factory()->create([
-            'blog_category_id' => $category->id,
+        Blog::factory()->for($category)->scheduled()->create([
             'title' => 'Ütemezett bejegyzés',
-            'slug' => 'utemezett',
-            'is_active' => true,
-            'published_at' => now()->addDays(5),
         ]);
 
         Livewire::test(BlogCategoryPage::class, ['blogCategory' => $category])
@@ -113,27 +78,21 @@ describe('BlogCategoryPage', function (): void {
     });
 
     it('returns 404 for inactive category', function (): void {
-        BlogCategory::factory()->create([
+        BlogCategory::factory()->inactive()->create([
             'slug' => 'inaktiv-kategoria',
-            'is_active' => false,
         ]);
 
-        $response = $this->get('/eroforrasok/inaktiv-kategoria');
-
-        $response->assertNotFound();
+        $this->get('/eroforrasok/inaktiv-kategoria')
+            ->assertNotFound();
     });
 
     it('returns 404 for non-existent category', function (): void {
-        $response = $this->get('/eroforrasok/nem-letezik');
-
-        $response->assertNotFound();
+        $this->get('/eroforrasok/nem-letezik')
+            ->assertNotFound();
     });
 
     it('shows empty state when no posts exist', function (): void {
-        $category = BlogCategory::factory()->create([
-            'slug' => 'ures-kategoria',
-            'is_active' => true,
-        ]);
+        $category = BlogCategory::factory()->create();
 
         Livewire::test(BlogCategoryPage::class, ['blogCategory' => $category])
             ->assertSee('Nincs még bejegyzés');
@@ -141,39 +100,21 @@ describe('BlogCategoryPage', function (): void {
 });
 
 describe('BlogPostPage', function (): void {
-    it('renders the blog post page', function (): void {
-        $category = BlogCategory::factory()->create([
-            'slug' => 'teszt-kategoria',
-            'is_active' => true,
-        ]);
+    it('is accessible via route', function (): void {
+        $category = BlogCategory::factory()->create();
+        $blog = Blog::factory()->for($category)->create();
 
-        Blog::factory()->create([
-            'blog_category_id' => $category->id,
-            'title' => 'Teszt bejegyzés',
-            'slug' => 'teszt-bejegyzes',
-            'is_active' => true,
-            'published_at' => now()->subDay(),
-        ]);
-
-        $response = $this->get('/eroforrasok/teszt-kategoria/teszt-bejegyzes');
-
-        $response->assertOk();
-        $response->assertSeeLivewire(BlogPostPage::class);
+        $this->get("/eroforrasok/{$category->slug}/{$blog->slug}")
+            ->assertOk()
+            ->assertSeeLivewire(BlogPostPage::class);
     });
 
     it('displays the blog post title and content', function (): void {
-        $category = BlogCategory::factory()->create([
-            'slug' => 'teszt-kategoria',
-            'is_active' => true,
-        ]);
+        $category = BlogCategory::factory()->create();
 
-        $blog = Blog::factory()->create([
-            'blog_category_id' => $category->id,
+        $blog = Blog::factory()->for($category)->create([
             'title' => 'Bejegyzés címe',
-            'slug' => 'bejegyzes-cime',
             'content' => '<p>Ez a bejegyzés tartalma.</p>',
-            'is_active' => true,
-            'published_at' => now()->subDay(),
         ]);
 
         Livewire::test(BlogPostPage::class, [
@@ -187,16 +128,9 @@ describe('BlogPostPage', function (): void {
     it('displays the category badge', function (): void {
         $category = BlogCategory::factory()->create([
             'name' => 'Kategória név',
-            'slug' => 'kategoria-nev',
-            'is_active' => true,
         ]);
 
-        $blog = Blog::factory()->create([
-            'blog_category_id' => $category->id,
-            'slug' => 'teszt-post',
-            'is_active' => true,
-            'published_at' => now()->subDay(),
-        ]);
+        $blog = Blog::factory()->for($category)->create();
 
         Livewire::test(BlogPostPage::class, [
             'blogCategory' => $category,
@@ -208,93 +142,68 @@ describe('BlogPostPage', function (): void {
     it('returns 404 for unpublished post', function (): void {
         $category = BlogCategory::factory()->create([
             'slug' => 'teszt-kategoria',
-            'is_active' => true,
         ]);
 
-        Blog::factory()->create([
-            'blog_category_id' => $category->id,
+        Blog::factory()->for($category)->unpublished()->create([
             'slug' => 'nem-publikalt',
-            'is_active' => true,
-            'published_at' => null,
         ]);
 
-        $response = $this->get('/eroforrasok/teszt-kategoria/nem-publikalt');
-
-        $response->assertNotFound();
+        $this->get('/eroforrasok/teszt-kategoria/nem-publikalt')
+            ->assertNotFound();
     });
 
     it('returns 404 for inactive post', function (): void {
         $category = BlogCategory::factory()->create([
             'slug' => 'teszt-kategoria',
-            'is_active' => true,
         ]);
 
-        Blog::factory()->create([
-            'blog_category_id' => $category->id,
+        Blog::factory()->for($category)->inactive()->create([
             'slug' => 'inaktiv-post',
-            'is_active' => false,
-            'published_at' => now()->subDay(),
         ]);
 
-        $response = $this->get('/eroforrasok/teszt-kategoria/inaktiv-post');
-
-        $response->assertNotFound();
+        $this->get('/eroforrasok/teszt-kategoria/inaktiv-post')
+            ->assertNotFound();
     });
 
     it('returns 404 for non-existent post', function (): void {
-        $category = BlogCategory::factory()->create([
+        BlogCategory::factory()->create([
             'slug' => 'teszt-kategoria',
-            'is_active' => true,
         ]);
 
-        $response = $this->get('/eroforrasok/teszt-kategoria/nem-letezik');
-
-        $response->assertNotFound();
+        $this->get('/eroforrasok/teszt-kategoria/nem-letezik')
+            ->assertNotFound();
     });
 
     it('returns 404 when post belongs to different category', function (): void {
-        $category1 = BlogCategory::factory()->create([
+        BlogCategory::factory()->create([
             'slug' => 'kategoria-1',
-            'is_active' => true,
         ]);
 
         $category2 = BlogCategory::factory()->create([
             'slug' => 'kategoria-2',
-            'is_active' => true,
         ]);
 
-        Blog::factory()->create([
-            'blog_category_id' => $category2->id,
+        Blog::factory()->for($category2)->create([
             'slug' => 'teszt-post',
-            'is_active' => true,
-            'published_at' => now()->subDay(),
         ]);
 
-        $response = $this->get('/eroforrasok/kategoria-1/teszt-post');
-
-        $response->assertNotFound();
+        $this->get('/eroforrasok/kategoria-1/teszt-post')
+            ->assertNotFound();
     });
 });
 
 describe('TagPage', function (): void {
-    it('renders the tag page', function (): void {
-        $tag = Tag::factory()->create([
-            'name' => 'Teszt címke',
-            'slug' => 'teszt-cimke',
-            'is_active' => true,
-        ]);
+    it('is accessible via route', function (): void {
+        $tag = Tag::factory()->create();
 
-        $response = $this->get('/tag/teszt-cimke');
-
-        $response->assertOk();
-        $response->assertSeeLivewire(TagPage::class);
+        $this->get("/tag/{$tag->slug}")
+            ->assertOk()
+            ->assertSeeLivewire(TagPage::class);
     });
 
     it('displays the tag name', function (): void {
         $tag = Tag::factory()->create([
             'name' => 'Laravel tippek',
-            'slug' => 'laravel-tippek',
-            'is_active' => true,
         ]);
 
         Livewire::test(TagPage::class, ['tag' => $tag])
@@ -302,21 +211,10 @@ describe('TagPage', function (): void {
     });
 
     it('displays published blog posts with the tag', function (): void {
-        $category = BlogCategory::factory()->create([
-            'is_active' => true,
-        ]);
-
-        $tag = Tag::factory()->create([
-            'slug' => 'teszt-tag',
-            'is_active' => true,
-        ]);
+        $tag = Tag::factory()->create();
 
         $blog = Blog::factory()->create([
-            'blog_category_id' => $category->id,
             'title' => 'Teszt bejegyzés címkével',
-            'slug' => 'teszt-bejegyzes-cimkevel',
-            'is_active' => true,
-            'published_at' => now()->subDay(),
         ]);
 
         $blog->tags()->attach($tag);
@@ -326,21 +224,10 @@ describe('TagPage', function (): void {
     });
 
     it('does not display unpublished blog posts', function (): void {
-        $category = BlogCategory::factory()->create([
-            'is_active' => true,
-        ]);
+        $tag = Tag::factory()->create();
 
-        $tag = Tag::factory()->create([
-            'slug' => 'teszt-tag',
-            'is_active' => true,
-        ]);
-
-        $blog = Blog::factory()->create([
-            'blog_category_id' => $category->id,
+        $blog = Blog::factory()->unpublished()->create([
             'title' => 'Nem publikált bejegyzés',
-            'slug' => 'nem-publikalt',
-            'is_active' => true,
-            'published_at' => null,
         ]);
 
         $blog->tags()->attach($tag);
@@ -350,21 +237,10 @@ describe('TagPage', function (): void {
     });
 
     it('does not display inactive blog posts', function (): void {
-        $category = BlogCategory::factory()->create([
-            'is_active' => true,
-        ]);
+        $tag = Tag::factory()->create();
 
-        $tag = Tag::factory()->create([
-            'slug' => 'teszt-tag',
-            'is_active' => true,
-        ]);
-
-        $blog = Blog::factory()->create([
-            'blog_category_id' => $category->id,
+        $blog = Blog::factory()->inactive()->create([
             'title' => 'Inaktív bejegyzés',
-            'slug' => 'inaktiv',
-            'is_active' => false,
-            'published_at' => now()->subDay(),
         ]);
 
         $blog->tags()->attach($tag);
@@ -374,27 +250,21 @@ describe('TagPage', function (): void {
     });
 
     it('returns 404 for inactive tag', function (): void {
-        Tag::factory()->create([
+        Tag::factory()->inactive()->create([
             'slug' => 'inaktiv-tag',
-            'is_active' => false,
         ]);
 
-        $response = $this->get('/tag/inaktiv-tag');
-
-        $response->assertNotFound();
+        $this->get('/tag/inaktiv-tag')
+            ->assertNotFound();
     });
 
     it('returns 404 for non-existent tag', function (): void {
-        $response = $this->get('/tag/nem-letezik');
-
-        $response->assertNotFound();
+        $this->get('/tag/nem-letezik')
+            ->assertNotFound();
     });
 
     it('shows empty state when no posts exist', function (): void {
-        $tag = Tag::factory()->create([
-            'slug' => 'ures-tag',
-            'is_active' => true,
-        ]);
+        $tag = Tag::factory()->create();
 
         Livewire::test(TagPage::class, ['tag' => $tag])
             ->assertSee('Ezzel a címkével még nincsenek bejegyzések.');
@@ -403,21 +273,10 @@ describe('TagPage', function (): void {
     it('displays blog category name for each post', function (): void {
         $category = BlogCategory::factory()->create([
             'name' => 'Fejlesztés',
-            'is_active' => true,
         ]);
+        $tag = Tag::factory()->create();
 
-        $tag = Tag::factory()->create([
-            'slug' => 'teszt-tag',
-            'is_active' => true,
-        ]);
-
-        $blog = Blog::factory()->create([
-            'blog_category_id' => $category->id,
-            'title' => 'Teszt bejegyzés',
-            'slug' => 'teszt-bejegyzes',
-            'is_active' => true,
-            'published_at' => now()->subDay(),
-        ]);
+        $blog = Blog::factory()->for($category)->create();
 
         $blog->tags()->attach($tag);
 

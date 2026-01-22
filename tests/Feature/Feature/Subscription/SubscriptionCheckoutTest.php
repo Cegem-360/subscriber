@@ -71,13 +71,13 @@ it('requires authentication for checkout', function (): void {
     $response->assertRedirect();
 });
 
-it('redirects to success page after successful checkout', function (): void {
+it('redirects to modules page after successful checkout when webhook subscription exists', function (): void {
     $user = User::factory()->create();
     $plan = Plan::factory()->create([
         'stripe_price_id' => 'price_test123',
     ]);
 
-    // Create a subscription that matches the plan's stripe_price_id
+    // Create a subscription that matches the plan's stripe_price_id (simulating webhook already created it)
     Subscription::factory()->active()->create([
         'user_id' => $user->id,
         'stripe_price' => $plan->stripe_price_id,
@@ -85,7 +85,7 @@ it('redirects to success page after successful checkout', function (): void {
 
     $response = $this->actingAs($user)->get(route('subscription.success', $plan));
 
-    $response->assertRedirect(route('filament.admin.pages.dashboard'));
+    $response->assertRedirect(route('modules'));
     $response->assertSessionHas('success');
 });
 

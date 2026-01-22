@@ -19,7 +19,7 @@ return [
         'crm' => [
             'url' => env('CRM_APP_URL', 'https://crm.cegem360.eu'),
             'api_key' => env('CRM_APP_API_KEY'),
-            'active' => false,
+            'active' => true,
         ],
         'storage' => [
             'url' => env('STORAGE_APP_URL', 'https://storage.cegem360.eu'),
