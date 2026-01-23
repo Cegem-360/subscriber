@@ -85,6 +85,16 @@ class SubscriptionController extends Controller
                 'plan_id' => $plan->id,
             ]);
 
+            // Log CRM activation context
+            $appKey = $plan->planCategory?->slug;
+            Log::info('🔗 CRM activation context for webhook subscription', [
+                'subscription_id' => $webhookSubscription->id,
+                'user_email' => $user->email,
+                'plan_category_slug' => $appKey,
+                'will_trigger_crm' => $appKey !== null,
+                'note' => 'CRM activation was triggered by SubscriptionObserver when subscription was created by webhook',
+            ]);
+
             return to_route('modules')
                 ->with('success', 'Előfizetésed sikeresen létrejött! Hamarosan aktiválódnak a jogosultságaid.');
         }
@@ -222,6 +232,16 @@ class SubscriptionController extends Controller
 
         $subscription->plan_id = $plan->id;
         $subscription->save();
+
+        // Log CRM activation context for manually synced subscription
+        $appKey = $plan->planCategory?->slug;
+        Log::info('🔗 CRM activation context for synced subscription', [
+            'subscription_id' => $subscription->id,
+            'user_email' => $user->email,
+            'plan_category_slug' => $appKey,
+            'will_trigger_crm' => $appKey !== null,
+            'note' => 'CRM activation should have been triggered by SubscriptionObserver when subscription was created/updated',
+        ]);
 
         return to_route('filament.admin.pages.dashboard')
             ->with('success', 'Előfizetésed sikeresen létrejött! Hamarosan aktiválódnak a jogosultságaid.');

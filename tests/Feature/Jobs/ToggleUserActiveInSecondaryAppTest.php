@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use App\Models\Plan\PlanCategory;
-use App\Models\Plan;
 use App\Jobs\ToggleUserActiveInSecondaryApp;
+use App\Models\Plan;
+use App\Models\Plan\PlanCategory;
 use App\Models\Subscription;
 use App\Models\User;
 use App\Services\SecondaryAppService;
@@ -73,13 +73,7 @@ it('logs successful activation', function (): void {
         ], 200),
     ]);
 
-    Log::shouldReceive('info')
-        ->once()
-        ->with('ToggleUserActiveInSecondaryApp: Sending activate request', Mockery::type('array'));
-
-    Log::shouldReceive('info')
-        ->once()
-        ->with('User activate successful for test@example.com to https://controling.test');
+    Log::spy();
 
     $job = new ToggleUserActiveInSecondaryApp(
         userEmail: 'test@example.com',
@@ -88,6 +82,18 @@ it('logs successful activation', function (): void {
     );
 
     $job->handle(resolve(SecondaryAppService::class));
+
+    Log::shouldHaveReceived('info')
+        ->withArgs(fn ($message) => str_contains($message, 'Job started'));
+
+    Log::shouldHaveReceived('info')
+        ->withArgs(fn ($message) => str_contains($message, 'Preparing CRM activate request'));
+
+    Log::shouldHaveReceived('info')
+        ->withArgs(fn ($message) => str_contains($message, 'Sending HTTP POST to CRM'));
+
+    Log::shouldHaveReceived('info')
+        ->withArgs(fn ($message) => str_contains($message, 'CRM activate successful'));
 });
 
 it('is dispatched when subscription is created with plan category', function (): void {
