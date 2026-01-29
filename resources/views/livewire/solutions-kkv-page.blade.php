@@ -25,7 +25,7 @@
                 <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                     <a href="{{ route('register') }}"
                         class="inline-flex items-center justify-center gap-2 rounded-full bg-indigo-600 px-8 py-4 text-base font-semibold text-white shadow-lg transition-colors hover:bg-indigo-700 hover:shadow-xl">
-                        Próbálja ki 14 napig ingyen
+                        Kezdés
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M14 5l7 7m0 0l-7 7m7-7H3" />
