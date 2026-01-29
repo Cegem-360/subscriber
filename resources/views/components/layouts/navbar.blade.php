@@ -93,8 +93,6 @@
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">KKV</a>
                         <a href="{{ route('solutions.enterprise') }}"
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Nagyvállalat</a>
-                        <a href="{{ route('solutions.nonprofit') }}"
-                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Non-profit</a>
                     </div>
                 </div>
 
@@ -274,8 +272,6 @@
                 <a href="{{ route('solutions.kkv') }}" class="block py-1.5 pl-3 text-sm text-gray-700">KKV</a>
                 <a href="{{ route('solutions.enterprise') }}"
                     class="block py-1.5 pl-3 text-sm text-gray-700">Nagyvállalat</a>
-                <a href="{{ route('solutions.nonprofit') }}"
-                    class="block py-1.5 pl-3 text-sm text-gray-700">Non-profit</a>
             </div>
             <a href="#" class="block py-2 text-sm font-medium text-gray-700">Erőforrások</a>
             <a href="{{ route('pricing') }}" class="block py-2 text-sm font-medium text-gray-700">Árazás</a>

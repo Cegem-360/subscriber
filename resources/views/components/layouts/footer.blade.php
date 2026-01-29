@@ -13,7 +13,6 @@
                     <li><a href="#" class="text-inherit! hover:text-indigo-600! transition-colors">Sablonok</a></li>
                     <li><a href="#" class="text-inherit! hover:text-indigo-600! transition-colors">KKV</a></li>
                     <li><a href="#" class="text-inherit! hover:text-indigo-600! transition-colors">Nagyvállalat</a></li>
-                    <li><a href="#" class="text-inherit! hover:text-indigo-600! transition-colors">Non-profit</a></li>
                     <li><a href="#" class="text-inherit! hover:text-indigo-600! transition-colors">App piactér</a></li>
                     <li><a href="#" class="text-inherit! hover:text-indigo-600! transition-colors">24/7 támogatás</a></li>
                 </ul>

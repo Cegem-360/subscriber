@@ -4,7 +4,7 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                 <h1 class="mb-6 text-3xl font-semibold text-gray-900 sm:text-4xl lg:text-5xl">
-                    Enterprise ajánlatkérés
+                    Egyedi ajánlatkérés
                 </h1>
                 <p class="mx-auto mt-4 max-w-3xl text-xl text-gray-600">
                     Egyedi igények, dedikált erőforrások, személyre szabott támogatás.
@@ -71,33 +71,6 @@
                     </div>
                 </div>
 
-                {{-- Enterprise Features --}}
-                <div class="mt-12">
-                    <h3 class="mb-6 text-center text-lg font-semibold text-gray-900">
-                        Mit tartalmaz az Enterprise csomag?
-                    </h3>
-                    <div class="grid gap-4 sm:grid-cols-2">
-                        @foreach ([
-                            'Dedikált szerver környezet',
-                            'Egyedi integrációk (ERP, számlázó, webshop)',
-                            'SLA garancia (99,9% uptime)',
-                            'Kiemelt támogatás',
-                            'On-premise telepítés lehetősége',
-                            'Egyedi fejlesztések projekt alapon',
-                            'Személyes account manager',
-                            'Oktatás és onboarding',
-                        ] as $feature)
-                            <div class="flex items-center gap-3">
-                                <svg class="h-5 w-5 shrink-0 text-green-500" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M5 13l4 4L19 7" />
-                                </svg>
-                                <span class="text-gray-700">{{ $feature }}</span>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
             @endif
         </div>
     </section>

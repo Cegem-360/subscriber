@@ -45,12 +45,6 @@
                         <svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                         </svg>
-                        14 napos ingyenes proba
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
                         Nincs bankkartya szukseges
                     </div>
                     <div class="flex items-center gap-2">
@@ -688,9 +682,9 @@
                     </a>
                 </div>
 
-                {{-- Enterprise --}}
+                {{-- Egyedi ajánlat --}}
                 <div class="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
-                    <h3 class="mb-2 text-xl font-semibold text-gray-900">Enterprise</h3>
+                    <h3 class="mb-2 text-xl font-semibold text-gray-900">Egyedi ajánlat</h3>
                     <p class="mb-6 text-sm text-gray-600">Nagyvallalatok szamara</p>
                     <div class="mb-6">
                         <span class="text-4xl font-bold text-gray-900">Egyedi</span>

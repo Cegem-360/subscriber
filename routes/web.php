@@ -18,7 +18,6 @@ use App\Livewire\Page\Products\KontrollingPage;
 use App\Livewire\Page\QuoteRequestPage;
 use App\Livewire\Page\SolutionsEnterprisePage;
 use App\Livewire\Page\SolutionsKkvPage;
-use App\Livewire\Page\SolutionsNonprofitPage;
 use App\Livewire\Page\TagPage;
 use App\Livewire\Page\UpdateModulePage;
 use App\Livewire\Page\ViewSubscriptionPage;
@@ -61,7 +60,6 @@ Route::get(uri: '/tag/{tag:slug}', action: TagPage::class)->name(name: 'blog.tag
 // Solutions pages
 Route::get(uri: '/megoldasok/kkv', action: SolutionsKkvPage::class)->name(name: 'solutions.kkv');
 Route::get(uri: '/megoldasok/nagyvallalat', action: SolutionsEnterprisePage::class)->name(name: 'solutions.enterprise');
-Route::get(uri: '/megoldasok/nonprofit', action: SolutionsNonprofitPage::class)->name(name: 'solutions.nonprofit');
 Route::get(uri: '/egyedi-megoldasok', action: CustomSolutionsPage::class)->name(name: 'solutions.custom');
 Route::get(uri: '/kapcsolat', action: ContactPage::class)->name(name: 'contact');
 

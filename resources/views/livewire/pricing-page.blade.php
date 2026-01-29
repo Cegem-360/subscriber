@@ -150,86 +150,6 @@
         </div>
     </section>
 
-    {{-- Enterprise Section - Light gray background --}}
-    <section class="bg-gray-200 py-16 lg:py-20">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="lg:flex lg:items-center lg:justify-between lg:gap-12">
-                <div class="lg:w-1/2">
-                    <div class="mb-4 inline-flex items-center rounded-full bg-indigo-50 px-3 py-1">
-                        <svg class="mr-2 h-4 w-4 text-indigo-600" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                        </svg>
-                        <span class="text-sm font-medium text-indigo-600">Enterprise</span>
-                    </div>
-                    <h2 class="text-3xl font-semibold text-gray-900">
-                        Enterprise megoldás egyedi igényeknek
-                    </h2>
-                    <p class="mt-4 text-lg text-gray-600">
-                        Egyedi igények, dedikált erőforrások, személyre szabott támogatás. Vegye fel velünk a
-                        kapcsolatot, és készítünk Önnek testre szabott ajánlatot.
-                    </p>
-                </div>
-                <div class="mt-8 lg:mt-0 lg:w-1/2">
-                    <ul class="grid gap-4 sm:grid-cols-2">
-                        <li class="flex items-center gap-3 text-gray-700">
-                            <svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7" />
-                            </svg>
-                            Dedikált szerver környezet
-                        </li>
-                        <li class="flex items-center gap-3 text-gray-700">
-                            <svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7" />
-                            </svg>
-                            Egyedi integrációk fejlesztése
-                        </li>
-                        <li class="flex items-center gap-3 text-gray-700">
-                            <svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7" />
-                            </svg>
-                            SLA garancia (99,9% uptime)
-                        </li>
-                        <li class="flex items-center gap-3 text-gray-700">
-                            <svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7" />
-                            </svg>
-                            Kiemelt támogatás (10/5)
-                        </li>
-
-                        <li class="flex items-center gap-3 text-gray-700">
-                            <svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7" />
-                            </svg>
-                            Személyes account manager
-                        </li>
-                    </ul>
-                    <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-                        <a href="{{ route('quote-request') }}"
-                            class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-indigo-700">
-                            Ajánlatot kérek
-                        </a>
-                        <a href="#"
-                            class="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-6 py-3 text-base font-medium text-gray-700 transition-colors hover:bg-gray-50">
-                            Visszahívást kérek
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     {{-- Comparison Table Section --}}
     <section class="bg-gray-50 py-16 lg:py-20">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -457,14 +377,7 @@
                 </div>
             </div>
 
-            <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                <div class="flex items-center gap-3 rounded-lg border border-gray-200 p-4">
-                    <svg class="h-6 w-6 shrink-0 text-green-500" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span class="text-base text-gray-700">14 napos ingyenes próba</span>
-                </div>
+            <div class="mt-12 grid gap-4 sm:grid-cols-3">
                 <div class="flex items-center gap-3 rounded-lg border border-gray-200 p-4">
                     <svg class="h-6 w-6 shrink-0 text-green-500" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
@@ -526,20 +439,20 @@
                 Készen áll a hatékonyabb működésre?
             </h2>
             <p class="mx-auto mt-4 max-w-xl text-lg text-indigo-100">
-                Próbálja ki bármelyik modult 14 napig ingyenesen. Nincs elkötelezettség, nem szükséges bankkártya.
+                Próbálja ki bármelyik modult még ma. Nincs elkötelezettség, nem szükséges bankkártya.
             </p>
             <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <a href="{{ route('register') }}"
                     class="inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-base font-medium text-indigo-600 transition-colors hover:bg-indigo-50">
-                    Ingyenes próba indítása
+                    Kezdés
                     <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
                 </a>
-                <a href="#"
+                <a href="{{ route('contact') }}"
                     class="inline-flex items-center justify-center rounded-lg border border-indigo-400 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-indigo-700">
-                    Kérdése van? Írjon nekünk!
+                    Demo kérése
                 </a>
             </div>
         </div>

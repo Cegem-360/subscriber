@@ -668,7 +668,7 @@
                                         d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                 </svg>
                             </a>
-                            <a href="#"
+                            <a href="{{ route('contact') }}"
                                 class="inline-flex items-center gap-2 bg-surface-primary text-text-primary px-7 py-3.5 rounded-full text-base font-medium border border-border-default hover:bg-surface-secondary transition-colors">
                                 Bemutató kérése
                             </a>
