@@ -18,6 +18,12 @@ class PlanSeeder extends Seeder
      * @var array<string, array{yearly_huf: int, monthly_huf: int, yearly_eur: int, monthly_eur: int}>
      */
     private array $pricing = [
+        'szerviz' => [
+            'yearly_huf' => 350000,
+            'monthly_huf' => 35000,
+            'yearly_eur' => 875,
+            'monthly_eur' => 88,
+        ],
         'kontrolling' => [
             'yearly_huf' => 350000,
             'monthly_huf' => 35000,
@@ -104,6 +110,16 @@ class PlanSeeder extends Seeder
     private function getFeaturesForCategory(string $slug): array
     {
         return match ($slug) {
+            'szerviz' => [
+                'Digitális munkalapok',
+                'Helyszíni aláírás rögzítés',
+                'Fotó- és dokumentumcsatolás',
+                'GPS helymeghatározás',
+                'Offline működés',
+                'Automatikus szinkronizálás',
+                'Ügyfél-értesítések',
+                'Korlátlan felhasználó',
+            ],
             'kontrolling' => [
                 'Google Analytics 4 integráció',
                 'Google Search Console integráció',

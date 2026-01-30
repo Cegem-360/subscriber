@@ -100,7 +100,7 @@
                                         <span
                                             class="text-3xl font-bold text-gray-900">{{ $this->calculatePrice($module) }}</span>
                                         <span class="ml-2 text-sm text-gray-500">/
-                                            {{ $isYearly ? 'év' : 'hó' }}</span>
+                                            {{ $isYearly ? 'év' : 'hó' }} / ügyfél</span>
                                     </div>
                                     @if (!$isYearly)
                                         <p class="mt-1 text-xs text-gray-500">
@@ -130,7 +130,7 @@
                                 {{-- CTA Button - Indigo with bigger text --}}
                                 <a href="{{ route('register') }}"
                                     class="block w-full rounded-lg bg-indigo-600 px-4 py-3 text-center text-base font-medium text-white transition-colors hover:bg-indigo-700">
-                                    Kipróbálom ingyen
+                                    Kezdés
                                 </a>
                             </div>
                         </div>
@@ -240,6 +240,48 @@
 
                         {{-- Module-specific features --}}
                         <tr class="bg-gray-50/50">
+                            <td class="py-4 px-4 text-base text-gray-700">Digitális munkalapok</td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg></td>
+                        </tr>
+                        <tr class="bg-white">
+                            <td class="py-4 px-4 text-base text-gray-700">Helyszíni aláírás</td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg></td>
+                        </tr>
+                        <tr class="bg-gray-50/50">
+                            <td class="py-4 px-4 text-base text-gray-700">Offline működés</td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg></td>
+                        </tr>
+                        <tr class="bg-white">
                             <td class="py-4 px-4 text-base text-gray-700">Pénzügyi riportok</td>
                             <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -251,8 +293,9 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                         </tr>
-                        <tr class="bg-white">
+                        <tr class="bg-gray-50/50">
                             <td class="py-4 px-4 text-base text-gray-700">Készletkezelés</td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
@@ -268,8 +311,9 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                         </tr>
-                        <tr class="bg-gray-50/50">
+                        <tr class="bg-white">
                             <td class="py-4 px-4 text-base text-gray-700">Gyártási ütemezés</td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
@@ -281,9 +325,25 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                        </tr>
+                        <tr class="bg-gray-50/50">
+                            <td class="py-4 px-4 text-base text-gray-700">Workflow automatizálás</td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                         </tr>
                         <tr class="bg-white">
-                            <td class="py-4 px-4 text-base text-gray-700">Workflow automatizálás</td>
+                            <td class="py-4 px-4 text-base text-gray-700">Ajánlatkészítés</td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
@@ -296,19 +356,6 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                         </tr>
                         <tr class="bg-gray-50/50">
-                            <td class="py-4 px-4 text-base text-gray-700">Ajánlatkészítés</td>
-                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
-                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
-                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
-                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
-                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M5 13l4 4L19 7" />
-                                </svg></td>
-                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
-                        </tr>
-                        <tr class="bg-white">
                             <td class="py-4 px-4 text-base text-gray-700">Ügyfél-adatbázis</td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
@@ -324,8 +371,13 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M5 13l4 4L19 7" />
                                 </svg></td>
+                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg></td>
                         </tr>
-                        <tr class="bg-gray-50/50">
+                        <tr class="bg-white">
                             <td class="py-4 px-4 text-base text-gray-700">Lead kezelés</td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
@@ -337,6 +389,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M5 13l4 4L19 7" />
                                 </svg></td>
+                            <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                         </tr>
 
                         {{-- Price row --}}

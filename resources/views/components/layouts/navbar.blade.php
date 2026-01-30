@@ -24,12 +24,12 @@
                         x-transition:leave="transition ease-in duration-75"
                         x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
                         class="absolute left-0 top-full mt-1 w-72 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-                        <a href="{{ route('products.crm') }}"
+                        <a href="{{ route('products.szerviz') }}"
                             class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
-                            <x-module-icon module="crm" size="sm" />
+                            <x-module-icon module="szerviz" size="sm" />
                             <div>
-                                <div class="font-medium">CRM</div>
-                                <div class="text-xs text-gray-500">Ügyfélkapcsolat-kezelés</div>
+                                <div class="font-medium">Szerviz munkalap</div>
+                                <div class="text-xs text-gray-500">Digitális munkalapok kiszállásokhoz</div>
                             </div>
                         </a>
                         <a href="{{ route('products.kontrolling') }}"
@@ -38,6 +38,14 @@
                             <div>
                                 <div class="font-medium">Kontrolling</div>
                                 <div class="text-xs text-gray-500">Pénzügyi tervezés és elemzés</div>
+                            </div>
+                        </a>
+                        <a href="{{ route('products.crm') }}"
+                            class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
+                            <x-module-icon module="crm" size="sm" />
+                            <div>
+                                <div class="font-medium">CRM</div>
+                                <div class="text-xs text-gray-500">Ügyfélkapcsolat-kezelés</div>
                             </div>
                         </a>
                         <a href="{{ route('products.beszerzes') }}"
@@ -236,15 +244,20 @@
         <div class="px-4 py-4 space-y-3">
             <div class="py-2">
                 <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Termékek</p>
-                <a href="{{ route('products.crm') }}"
+                <a href="{{ route('products.szerviz') }}"
                     class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
-                    <x-module-icon module="crm" size="xs" />
-                    CRM
+                    <x-module-icon module="szerviz" size="xs" />
+                    Szerviz munkalap
                 </a>
                 <a href="{{ route('products.kontrolling') }}"
                     class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
                     <x-module-icon module="kontrolling" size="xs" />
                     Kontrolling
+                </a>
+                <a href="{{ route('products.crm') }}"
+                    class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
+                    <x-module-icon module="crm" size="xs" />
+                    CRM
                 </a>
                 <a href="{{ route('products.beszerzes') }}"
                     class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">

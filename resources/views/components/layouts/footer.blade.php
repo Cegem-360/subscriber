@@ -50,11 +50,13 @@
                 </button>
                 <h3 class="hidden lg:block text-[15px] font-semibold text-gray-900 mb-4">Modulok</h3>
                 <ul class="space-y-2.5 text-sm text-gray-700" x-show="openSection === 'modulok' || window.innerWidth >= 1024" x-collapse.duration.300ms>
-                    <li><a href="#" class="text-inherit! hover:text-indigo-600! transition-colors">Munkamenedzsment</a></li>
-                    <li><a href="#" class="text-inherit! hover:text-indigo-600! transition-colors">CRM</a></li>
-                    <li><a href="#" class="text-inherit! hover:text-indigo-600! transition-colors">Kampányok</a></li>
-                    <li><a href="#" class="text-inherit! hover:text-indigo-600! transition-colors">Fejlesztés</a></li>
-                    <li><a href="#" class="text-inherit! hover:text-indigo-600! transition-colors">Ügyfélszolgálat</a></li>
+                    <li><a href="{{ route('products.szerviz') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Szerviz munkalap</a></li>
+                    <li><a href="{{ route('products.kontrolling') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Kontrolling</a></li>
+                    <li><a href="{{ route('products.crm') }}" class="text-inherit! hover:text-indigo-600! transition-colors">CRM</a></li>
+                    <li><a href="{{ route('products.beszerzes') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Beszerzés-logisztika</a></li>
+                    <li><a href="{{ route('products.ertekesites') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Értékesítés</a></li>
+                    <li><a href="{{ route('products.gyartas') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Gyártásirányítás</a></li>
+                    <li><a href="{{ route('products.automatizalas') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Automatizálás</a></li>
                 </ul>
 
                 <h4 class="text-[15px] font-semibold text-gray-900 mb-4 mt-6">Továbbiak</h4>

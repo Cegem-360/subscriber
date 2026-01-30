@@ -48,24 +48,24 @@
                 {{-- Right: Card (Zoho vertical layout) --}}
                 <div class="bg-surface-primary rounded-2xl p-8 w-full lg:w-85 shrink-0"
                     style="box-shadow: 0 12px 50px -6px rgba(96, 92, 212, 0.35), 0 0 1px rgba(96, 92, 212, 0.2);">
-                    <p class="text-[11px] font-semibold text-text-tertiary uppercase tracking-widest mb-6">Fő modulok
+                    <p class="text-[11px] font-semibold text-text-tertiary uppercase tracking-widest mb-6">Moduljaink
                     </p>
 
                     <div class="space-y-5">
-                        {{-- App Item 1: CRM --}}
-                        <a href="#" class="flex items-center gap-4 group">
-                            <x-module-icon module="crm" size="sm" rounded="full" />
+                        {{-- App Item 1: Szerviz munkalap --}}
+                        <a href="{{ route('products.szerviz') }}" class="flex items-center gap-4 group">
+                            <x-module-icon module="szerviz" size="sm" rounded="full" />
                             <div class="flex-1 min-w-0">
                                 <p
                                     class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
-                                    CRM</p>
-                                <p class="text-[13px] text-text-tertiary mt-1">Kövesse nyomon ügyfeleit az első
-                                    megkeresésől a szerződéskötésig.</p>
+                                    Szerviz munkalap</p>
+                                <p class="text-[13px] text-text-tertiary mt-1">Digitális munkalapok helyszíni
+                                    munkákhoz.</p>
                             </div>
                         </a>
 
                         {{-- App Item 2: Kontrolling --}}
-                        <a href="#" class="flex items-center gap-4 group">
+                        <a href="{{ route('products.kontrolling') }}" class="flex items-center gap-4 group">
                             <x-module-icon module="kontrolling" size="sm" rounded="full" />
                             <div class="flex-1 min-w-0">
                                 <p
@@ -76,8 +76,20 @@
                             </div>
                         </a>
 
-                        {{-- App Item 3: Beszerzés-logisztika --}}
-                        <a href="#" class="flex items-center gap-4 group">
+                        {{-- App Item 3: CRM --}}
+                        <a href="{{ route('products.crm') }}" class="flex items-center gap-4 group">
+                            <x-module-icon module="crm" size="sm" rounded="full" />
+                            <div class="flex-1 min-w-0">
+                                <p
+                                    class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                    CRM</p>
+                                <p class="text-[13px] text-text-tertiary mt-1">Kövesse nyomon ügyfeleit az első
+                                    megkeresésől a szerződéskötésig.</p>
+                            </div>
+                        </a>
+
+                        {{-- App Item 4: Beszerzés-logisztika --}}
+                        <a href="{{ route('products.beszerzes') }}" class="flex items-center gap-4 group">
                             <x-module-icon module="beszerzes" size="sm" rounded="full" />
                             <div class="flex-1 min-w-0">
                                 <p
@@ -88,8 +100,8 @@
                             </div>
                         </a>
 
-                        {{-- App Item 4: Értékesítés --}}
-                        <a href="#" class="flex items-center gap-4 group">
+                        {{-- App Item 5: Értékesítés --}}
+                        <a href="{{ route('products.ertekesites') }}" class="flex items-center gap-4 group">
                             <x-module-icon module="ertekesites" size="sm" rounded="full" />
                             <div class="flex-1 min-w-0">
                                 <p
@@ -100,8 +112,8 @@
                             </div>
                         </a>
 
-                        {{-- App Item 5: Gyártásirányítás --}}
-                        <a href="#" class="flex items-center gap-4 group">
+                        {{-- App Item 6: Gyártásirányítás --}}
+                        <a href="{{ route('products.gyartas') }}" class="flex items-center gap-4 group">
                             <x-module-icon module="gyartas" size="sm" rounded="full" />
                             <div class="flex-1 min-w-0">
                                 <p
@@ -112,8 +124,8 @@
                             </div>
                         </a>
 
-                        {{-- App Item 6: Automatizálás --}}
-                        <a href="#" class="flex items-center gap-4 group">
+                        {{-- App Item 7: Automatizálás --}}
+                        <a href="{{ route('products.automatizalas') }}" class="flex items-center gap-4 group">
                             <x-module-icon module="automatizalas" size="sm" rounded="full" />
                             <div class="flex-1 min-w-0">
                                 <p
@@ -125,27 +137,22 @@
                         </a>
                     </div>
 
-                    {{-- Explore All Link --}}
-                    <a href="#"
-                        class="inline-flex items-center gap-1 text-primary-600 text-sm font-medium mt-6 hover:text-primary-800 transition-colors">
-                        Fedezze fel moduljainkat
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
-                            </path>
-                        </svg>
-                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     {{-- Section 2: Tabbed Product Showcase --}}
-    <section class="bg-surface-secondary py-16" x-data="{ activeTab: 'projects' }">
+    <section class="bg-surface-secondary py-16" x-data="{ activeTab: 'szerviz' }">
         <div class="max-w-7xl mx-auto px-6">
             {{-- Tab Navigation --}}
             <div class="flex justify-center mb-12">
                 <div class="inline-flex items-center bg-surface-primary rounded-full p-1.5 border border-border-light"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                    <button @click="activeTab = 'szerviz'"
+                        :class="activeTab === 'szerviz' ? 'bg-cyan-500 text-white' :
+                            'text-text-secondary hover:text-text-primary'"
+                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Szerviz</button>
                     <button @click="activeTab = 'projects'"
                         :class="activeTab === 'projects' ? 'bg-primary-600 text-white' :
                             'text-text-secondary hover:text-text-primary'"
@@ -374,6 +381,38 @@
                             </svg>
                         </a>
                     </div>
+
+                    {{-- Szerviz Tab --}}
+                    <div x-show="activeTab === 'szerviz'" x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                        class="bg-cyan-500 rounded-3xl p-10 h-full flex flex-col justify-between min-h-120">
+                        <div>
+                            <div class="flex items-center gap-2 mb-8">
+                                <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                                    </svg>
+                                </div>
+                                <span class="text-white/90 text-sm font-medium"><strong
+                                        class="font-bold">cégem360</strong> szerviz</span>
+                            </div>
+                            <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
+                                style="font-family: 'Poppins', sans-serif;">Digitális munkalapok<br>helyszíni munkákhoz
+                            </h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Felejtse el a papíralapú
+                                munkalapokat. Rögzítsen mindent a helyszínen: munkaidőt, anyagokat, fotókat — és készítsen
+                                azonnali jegyzőkönyvet ügyfelének.</p>
+                        </div>
+                        <a href="{{ route('products.szerviz') }}"
+                            class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
+                            Kérjen demót
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </a>
+                    </div>
                 </div>
 
                 {{-- Right: Testimonial Cards --}}
@@ -428,6 +467,15 @@
                         <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span
                                 class="text-primary-600">Azonnali
                                 áttekintés</span><br>egy dashboardon</p>
+                    </div>
+                    <div x-show="activeTab === 'szerviz'" x-transition
+                        class="bg-surface-primary rounded-2xl p-6 border border-border-light"
+                        style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">SZERVIZ PARTNER
+                        </p>
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span
+                                class="text-cyan-500">70% gyorsabb
+                                adminisztráció</span><br>digitális munkalapokkal</p>
                     </div>
 
                     {{-- Testimonial Quote Card --}}
@@ -519,6 +567,22 @@
                             <div>
                                 <p class="text-text-primary font-semibold text-sm">Horváth Péter</p>
                                 <p class="text-text-tertiary text-xs">Ügyvezető, Közepes méretű vállalkozás</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div x-show="activeTab === 'szerviz'" x-transition
+                        class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
+                        style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Mióta digitális munkalapot használunk,
+                            a számlázásunk napokkal gyorsabb lett. Az ügyfelek is elégedettebbek, mert azonnal kapják a
+                            jegyzőkönyvet."</p>
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 bg-cyan-100 rounded-full flex items-center justify-center text-cyan-600 font-semibold text-sm">
+                                BL</div>
+                            <div>
+                                <p class="text-text-primary font-semibold text-sm">Balogh László</p>
+                                <p class="text-text-tertiary text-xs">Ügyvezető, KlimaProfi Kft.</p>
                             </div>
                         </div>
                     </div>
