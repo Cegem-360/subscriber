@@ -45,6 +45,13 @@ class SyncStripePricesCommand extends Command
         foreach ($plans as $plan) {
             $this->line("Processing: <info>{$plan->name}</info>");
 
+            if (! $plan->planCategory) {
+                $this->warn('  ↳ Skipped: Plan has no category assigned');
+                $skipped++;
+
+                continue;
+            }
+
             // Check if already synced
             $hufSynced = $this->isPriceValid($stripe, $plan->stripe_price_id);
             $eurSynced = $this->isPriceValid($stripe, $plan->stripe_price_id_eur);
