@@ -35,7 +35,7 @@ use Laravel\Cashier\Events\WebhookReceived;
 
 Route::get(uri: '/', action: fn (): Factory|View => view(view: 'home'))->name(name: 'home');
 Route::get(uri: '/welcome', action: fn (): Factory|View => view(view: 'welcome'))->name(name: 'welcome');
-
+Route::view(uri: '/altalanos-szerzodesi-feltetelek', view: 'privacy-policy')->name(name: 'privacy-policy');
 // Language switch route
 Route::get('/language/{locale}', function (string $locale) {
     if (! in_array($locale, ['en', 'hu'], true)) {
