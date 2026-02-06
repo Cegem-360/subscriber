@@ -201,6 +201,8 @@
                     <a href="#" class="hover:text-gray-700 transition-colors">Adatvédelmi tájékoztató</a>
                     <span class="text-gray-300">|</span>
                     <a href="#" class="hover:text-gray-700 transition-colors">Cookie beállítások</a>
+                    <span class="text-gray-300">|</span>
+                    <a href="{{ route('privacy-policy') }}" class="hover:text-gray-700 transition-colors">ÁSZF</a>
                 </div>
             </div>
 
