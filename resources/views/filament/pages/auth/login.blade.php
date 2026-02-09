@@ -27,10 +27,12 @@
                 Regisztrálj
             </a>
         </p>
-        <p class="text-sm text-gray-400">
-            <a href="{{ route('filament.admin.auth.password-reset.request') }}" class="hover:text-gray-600" style="color: #9ca3af !important;">
-                Elfelejtetted a jelszavad?
-            </a>
-        </p>
+        @if (filament()->hasPasswordReset())
+            <p class="text-sm text-gray-400">
+                <a href="{{ filament()->getRequestPasswordResetUrl() }}" class="hover:text-gray-600" style="color: #9ca3af !important;">
+                    Elfelejtetted a jelszavad?
+                </a>
+            </p>
+        @endif
     </div>
 </div>
