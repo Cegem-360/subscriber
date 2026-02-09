@@ -24,6 +24,12 @@ class PlanSeeder extends Seeder
             'yearly_eur' => 875,
             'monthly_eur' => 88,
         ],
+        'seo' => [
+            'yearly_huf' => 350000,
+            'monthly_huf' => 35000,
+            'yearly_eur' => 875,
+            'monthly_eur' => 88,
+        ],
         'kontrolling' => [
             'yearly_huf' => 350000,
             'monthly_huf' => 35000,
@@ -118,6 +124,16 @@ class PlanSeeder extends Seeder
                 'Offline működés',
                 'Automatikus szinkronizálás',
                 'Ügyfél-értesítések',
+                'Korlátlan felhasználó',
+            ],
+            'seo' => [
+                'AI kulcsszókutatás',
+                'Versenytárs-elemzés',
+                'Tartalom-optimalizálás',
+                'Rangsor-követés',
+                'Technikai SEO audit',
+                'Backlink elemzés',
+                'Automatikus riportok',
                 'Korlátlan felhasználó',
             ],
             'kontrolling' => [

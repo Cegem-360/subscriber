@@ -24,6 +24,14 @@ class PlanCategorySeeder extends Seeder
                 'icon' => 'clipboard',
             ],
             [
+                'name' => 'SEO Eszköz',
+                'slug' => 'seo',
+                'url' => 'https://seo.cegem360.eu',
+                'description' => 'AI-alapú kulcsszókutatás, versenytárs-elemzés és tartalom-optimalizálás egyetlen platformon.',
+                'color' => '#7C3AED',
+                'icon' => 'search-ai',
+            ],
+            [
                 'name' => 'Kontrolling és döntéstámogatás',
                 'slug' => 'kontrolling',
                 'url' => 'https://controlling.cegem360.eu',

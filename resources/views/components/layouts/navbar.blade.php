@@ -40,6 +40,14 @@
                                 <div class="text-xs text-gray-500">Pénzügyi tervezés és elemzés</div>
                             </div>
                         </a>
+                        <a href="{{ route('products.seo') }}"
+                            class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
+                            <x-module-icon module="seo" size="sm" />
+                            <div>
+                                <div class="font-medium">SEO Eszköz</div>
+                                <div class="text-xs text-gray-500">AI alapú keresőoptimalizálás</div>
+                            </div>
+                        </a>
                         <a href="{{ route('products.crm') }}"
                             class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
                             <x-module-icon module="crm" size="sm" />
@@ -253,6 +261,11 @@
                     class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
                     <x-module-icon module="kontrolling" size="xs" />
                     Kontrolling
+                </a>
+                <a href="{{ route('products.seo') }}"
+                    class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
+                    <x-module-icon module="seo" size="xs" />
+                    SEO Eszköz
                 </a>
                 <a href="{{ route('products.crm') }}"
                     class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">

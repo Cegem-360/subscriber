@@ -36,6 +36,10 @@
             'color' => '#06B6D4',
             'icon' => 'clipboard',
         ],
+        'seo' => [
+            'color' => '#7C3AED',
+            'icon' => 'search-ai',
+        ],
     ];
 
     // Get module config or use passed values
@@ -113,6 +117,15 @@
         <svg class="{{ $iconSize }}" style="color: {{ $color }};" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+    @break
+
+    @case('search-ai')
+        <svg class="{{ $iconSize }}" style="color: {{ $color }};" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M10 7v2m0 2v2m2-4h2m-6 0h2" />
         </svg>
     @break
 

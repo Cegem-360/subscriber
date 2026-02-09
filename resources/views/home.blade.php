@@ -23,7 +23,7 @@
                     {{-- Subheadline --}}
                     <p class="text-xl lg:text-2xl text-text-secondary mb-8 leading-relaxed">
                         Testreszabott vállalatirányítási megoldások ipari cégeknek: CRM, kontrolling, beszerzés,
-                        értékesítés és automatizált munkafolyamatok — amelyek valódi eredményeket hoznak.
+                        értékesítés, AI-alapú SEO elemzés és automatizált munkafolyamatok — amelyek valódi eredményeket hoznak.
                     </p>
 
                     {{-- CTA Button --}}
@@ -76,7 +76,19 @@
                             </div>
                         </a>
 
-                        {{-- App Item 3: CRM --}}
+                        {{-- App Item 3: SEO Eszköz --}}
+                        <a href="{{ route('products.seo') }}" class="flex items-center gap-4 group">
+                            <x-module-icon module="seo" size="sm" rounded="full" />
+                            <div class="flex-1 min-w-0">
+                                <p
+                                    class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                    SEO Eszköz</p>
+                                <p class="text-[13px] text-text-tertiary mt-1">AI alapú kulcsszókutatás és
+                                    versenytárs-elemzés.</p>
+                            </div>
+                        </a>
+
+                        {{-- App Item 4: CRM --}}
                         <a href="{{ route('products.crm') }}" class="flex items-center gap-4 group">
                             <x-module-icon module="crm" size="sm" rounded="full" />
                             <div class="flex-1 min-w-0">
@@ -157,6 +169,10 @@
                         :class="activeTab === 'projects' ? 'bg-primary-600 text-white' :
                             'text-text-secondary hover:text-text-primary'"
                         class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Kontrolling</button>
+                    <button @click="activeTab = 'seo'"
+                        :class="activeTab === 'seo' ? 'bg-violet-600 text-white' :
+                            'text-text-secondary hover:text-text-primary'"
+                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">SEO</button>
                     <button @click="activeTab = 'sales'"
                         :class="activeTab === 'sales' ? 'bg-[#0f7b6c] text-white' :
                             'text-text-secondary hover:text-text-primary'"
@@ -210,6 +226,38 @@
                             </p>
                         </div>
                         <a href="#"
+                            class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
+                            Kérjen demót
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </a>
+                    </div>
+
+                    {{-- SEO Tab --}}
+                    <div x-show="activeTab === 'seo'" x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                        class="bg-violet-600 rounded-3xl p-10 h-full flex flex-col justify-between min-h-120">
+                        <div>
+                            <div class="flex items-center gap-2 mb-8">
+                                <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </div>
+                                <span class="text-white/90 text-sm font-medium"><strong
+                                        class="font-bold">cégem360</strong> SEO</span>
+                            </div>
+                            <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
+                                style="font-family: 'Poppins', sans-serif;">Értse meg, mit keres<br>a piaca — és legyen<br>Ön az első találat
+                            </h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">AI-alapú kulcsszókutatás,
+                                versenytárs-elemzés és tartalom-optimalizálás egyetlen platformon. Növelje organikus
+                                forgalmát mérhető eredményekkel.</p>
+                        </div>
+                        <a href="{{ route('products.seo') }}"
                             class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
                             Kérjen demót
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -477,6 +525,15 @@
                                 class="text-cyan-500">70% gyorsabb
                                 adminisztráció</span><br>digitális munkalapokkal</p>
                     </div>
+                    <div x-show="activeTab === 'seo'" x-transition
+                        class="bg-surface-primary rounded-2xl p-6 border border-border-light"
+                        style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">SEO ÜGYFÉL
+                        </p>
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span
+                                class="text-violet-600">3x organikus
+                                forgalom</span><br>AI-alapú optimalizálással</p>
+                    </div>
 
                     {{-- Testimonial Quote Card --}}
                     <div x-show="activeTab === 'projects'" x-transition
@@ -586,6 +643,22 @@
                             </div>
                         </div>
                     </div>
+                    <div x-show="activeTab === 'seo'" x-transition
+                        class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
+                        style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Három hónap alatt megháromszoroztuk
+                            az organikus forgalmunkat. Az AI-alapú kulcsszójavaslatok pontosan azt mutatták, amire a piacunk
+                            keres."</p>
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 bg-violet-100 rounded-full flex items-center justify-center text-violet-600 font-semibold text-sm">
+                                FM</div>
+                            <div>
+                                <p class="text-text-primary font-semibold text-sm">Fehér Márton</p>
+                                <p class="text-text-tertiary text-xs">Marketing vezető, TechBuild Kft.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -629,6 +702,33 @@
                                 <p class="text-text-secondary text-lg leading-relaxed mb-5">Valós idejű pénzügyi adatok
                                     és riportok — döntéstámogatás pillanatok alatt.</p>
                                 <a href="#"
+                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon
+                                    meg többet</a>
+                            </div>
+                        </div>
+
+                        {{-- SEO Eszköz Card --}}
+                        <div class="relative group">
+                            <div class="absolute -inset-0.5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"
+                                style="background: linear-gradient(90deg, #fb275d, #ffcb00, #00ca72, #6161ff);"></div>
+                            <div class="relative h-full bg-surface-primary rounded-xl p-7 border border-border-light group-hover:border-transparent transition-colors duration-300"
+                                style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                                <div class="flex items-center gap-3 mb-5">
+                                    <div class="w-12 h-12 bg-violet-100 rounded-lg flex items-center justify-center">
+                                        <svg class="w-7 h-7 text-violet-600" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-lg font-bold text-text-primary">cégem360</p>
+                                        <p class="text-base text-text-tertiary -mt-0.5">SEO eszköz</p>
+                                    </div>
+                                </div>
+                                <p class="text-text-secondary text-lg leading-relaxed mb-5">AI-alapú kulcsszókutatás és
+                                    versenytárs-elemzés — organikus forgalomnövelés.</p>
+                                <a href="{{ route('products.seo') }}"
                                     class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon
                                     meg többet</a>
                             </div>
@@ -760,6 +860,9 @@
                         </div>
                         <div class="absolute bottom-24 right-16">
                             <span class="bg-primary-500 text-white text-sm font-medium px-4 py-2 rounded-lg">CRM</span>
+                        </div>
+                        <div class="absolute bottom-12 left-12">
+                            <span class="bg-violet-600 text-white text-sm font-medium px-4 py-2 rounded-lg">SEO</span>
                         </div>
                     </div>
                 </div>
