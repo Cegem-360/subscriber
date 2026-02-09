@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Providers\Filament;
 
 use App\Filament\Pages\Auth\Login;
+use App\Filament\Pages\Auth\PasswordReset\RequestPasswordReset;
+use App\Filament\Pages\Auth\PasswordReset\ResetPassword;
 use App\Filament\Pages\Auth\Register;
 use App\Filament\Pages\EditProfile;
 use App\Filament\Pages\Plans;
@@ -32,6 +34,10 @@ final class AdminPanelServiceProvider extends PanelProvider
             ->path('admin')
             ->login(Login::class)
             ->registration(Register::class)
+            ->passwordReset(
+                requestAction: RequestPasswordReset::class,
+                resetAction: ResetPassword::class,
+            )
             ->emailVerification()
             ->profile(EditProfile::class)
             ->colors([

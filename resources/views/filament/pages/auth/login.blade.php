@@ -28,8 +28,8 @@
             </a>
         </p>
         <p class="text-sm text-gray-400">
-            <a href="#" class="hover:text-gray-600" style="color: #9ca3af !important;">
-                Nem tudsz bejelentkezni? Látogasd meg a súgóközpontot
+            <a href="{{ route('filament.admin.auth.password-reset.request') }}" class="hover:text-gray-600" style="color: #9ca3af !important;">
+                Elfelejtetted a jelszavad?
             </a>
         </p>
     </div>
