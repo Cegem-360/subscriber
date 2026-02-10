@@ -155,7 +155,7 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
                         $record->update($data);
 
                         if (filled($rawPassword)) {
-                            UserTeamSync::syncUser($record->email, ['password' => $rawPassword]);
+                            UserTeamSync::syncPassword($record->email, $rawPassword);
                         }
 
                         return $record;

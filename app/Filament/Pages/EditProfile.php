@@ -128,7 +128,7 @@ final class EditProfile extends BaseEditProfile
         parent::save();
 
         if (filled($rawPassword)) {
-            UserTeamSync::syncUser($this->getUser()->email, ['password' => $rawPassword]);
+            UserTeamSync::syncPassword($this->getUser()->email, $rawPassword);
         }
     }
 }
