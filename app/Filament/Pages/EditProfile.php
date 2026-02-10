@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Filament\Pages;
 
 use App\Enums\Country;
-use App\Jobs\SyncUserToSecondaryApp;
 use Filament\Actions\Action;
 use Filament\Auth\Pages\EditProfile as BaseEditProfile;
 use Filament\Forms\Components\Select;
@@ -14,7 +13,7 @@ use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
-use Illuminate\Support\Facades\Log;
+use Madbox99\UserTeamSync\Facades\UserTeamSync;
 
 final class EditProfile extends BaseEditProfile
 {
@@ -124,24 +123,12 @@ final class EditProfile extends BaseEditProfile
     {
         $data = $this->form->getState();
 
-        // Capture raw password before it gets hashed
         $rawPassword = $data['password'] ?? null;
 
-        // Call parent save (this will hash the password via the model cast)
         parent::save();
 
-        // If password was changed, sync raw password to secondary apps
         if (filled($rawPassword)) {
-            Log::info('EditProfile: Password changed, syncing to secondary apps', [
-                'email' => $this->getUser()->email,
-                'password_length' => strlen((string) $rawPassword),
-                'password_preview' => substr((string) $rawPassword, 0, 3) . '***',
-            ]);
-
-            dispatch(new SyncUserToSecondaryApp(
-                email: $this->getUser()->email,
-                changedData: ['password' => $rawPassword],
-            ));
+            UserTeamSync::syncUser($this->getUser()->email, ['password' => $rawPassword]);
         }
     }
 }

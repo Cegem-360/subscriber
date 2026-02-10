@@ -9,11 +9,13 @@ use App\Models\Plan\PlanCategory;
 use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Http;
 use Livewire\Livewire;
 
 uses(RefreshDatabase::class);
 
 beforeEach(function (): void {
+    Http::fake();
     PlanCategory::factory()->create();
     Plan::factory()->create();
 });

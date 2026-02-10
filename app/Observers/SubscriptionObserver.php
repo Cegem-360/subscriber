@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Observers;
 
-use App\Jobs\ToggleUserActiveInSecondaryApp;
 use App\Models\Subscription;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Madbox99\UserTeamSync\Facades\UserTeamSync;
 
 class SubscriptionObserver
 {
@@ -47,11 +47,11 @@ class SubscriptionObserver
                     'app_key' => $appKey,
                 ]);
 
-                dispatch(new ToggleUserActiveInSecondaryApp(
+                UserTeamSync::toggleUserActive(
                     userEmail: $user->email,
                     isActive: true,
                     appKey: $appKey,
-                ));
+                );
 
                 Log::info('✅ SubscriptionObserver: CRM activation job dispatched successfully', [
                     'user_email' => $user->email,

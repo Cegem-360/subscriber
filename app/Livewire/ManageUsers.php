@@ -6,8 +6,6 @@ namespace App\Livewire;
 
 use App\Enums\SubscriptionStatus;
 use App\Enums\UserRole;
-use App\Jobs\CreateUserInSecondaryApp;
-use App\Jobs\SyncUserToSecondaryApp;
 use App\Models\Subscription;
 use App\Models\User;
 use Filament\Actions\Concerns\InteractsWithActions;
@@ -27,8 +25,8 @@ use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 use Livewire\Component;
+use Madbox99\UserTeamSync\Facades\UserTeamSync;
 
 class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
 {
@@ -150,25 +148,14 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
                     ->using(function (User $record, array $data): User {
                         $rawPassword = $data['password'] ?? null;
 
-                        // Hash the password before saving
                         if (filled($rawPassword)) {
                             $data['password'] = Hash::make($rawPassword);
                         }
 
                         $record->update($data);
 
-                        // Sync to secondary apps with raw password
                         if (filled($rawPassword)) {
-                            Log::info('ManageUsers EditAction: Password changed, syncing', [
-                                'email' => $record->email,
-                                'password_length' => strlen($rawPassword),
-                                'password_preview' => substr($rawPassword, 0, 3) . '***',
-                            ]);
-
-                            dispatch(new SyncUserToSecondaryApp(
-                                email: $record->email,
-                                changedData: ['password' => $rawPassword],
-                            ));
+                            UserTeamSync::syncUser($record->email, ['password' => $rawPassword]);
                         }
 
                         return $record;
@@ -202,12 +189,6 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
         $data = $this->form->getState();
         $rawPassword = $data['password'];
 
-        Log::info('ManageUsers: Creating user', [
-            'email' => $data['email'],
-            'password_length' => strlen((string) $rawPassword),
-            'password_preview' => substr((string) $rawPassword, 0, 3) . '***',
-        ]);
-
         User::query()->create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -218,15 +199,13 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
             'company_name' => $subscription->user?->company_name ?? '-',
         ]);
 
-        // Sync user to secondary apps with raw password
-        $ownerEmail = $subscription->user?->email ?? '';
-        dispatch(new CreateUserInSecondaryApp(
+        UserTeamSync::createUser(
             email: $data['email'],
             name: $data['name'],
             password: $rawPassword,
             role: UserRole::Subscriber->value,
-            ownerEmail: $ownerEmail,
-        ));
+            ownerEmail: $subscription->user?->email ?? '',
+        );
 
         Notification::make()
             ->title(__('User created successfully'))

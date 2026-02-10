@@ -6,16 +6,13 @@ namespace App\Filament\Pages\Auth;
 
 use App\Enums\Country;
 use App\Enums\UserRole;
-use App\Jobs\CreateTeamInSecondaryApp;
-use App\Jobs\CreateUserInSecondaryApp;
 use Filament\Auth\Pages\Register as BaseRegister;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Schema;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Bus;
-use Illuminate\Support\Facades\Log;
+use Madbox99\UserTeamSync\Facades\UserTeamSync;
 
 final class Register extends BaseRegister
 {
@@ -33,24 +30,21 @@ final class Register extends BaseRegister
 
     protected function handleRegistration(array $data): Model
     {
-        Log::info('Register: raw password = ' . $this->rawPassword);
-
         $user = parent::handleRegistration($data);
 
-        Bus::chain([
-            new CreateUserInSecondaryApp(
-                email: $user->email,
-                name: $user->name,
-                password: $this->rawPassword,
-                role: $user->role?->value ?? UserRole::Manager->value,
-                ownerEmail: $user->email,
-            ),
-            new CreateTeamInSecondaryApp(
-                teamName: $user->company_name,
-                userEmail: $user->email,
-                userName: $user->name,
-            ),
-        ])->dispatch();
+        UserTeamSync::createUser(
+            email: $user->email,
+            name: $user->name,
+            password: $this->rawPassword,
+            role: $user->role?->value ?? UserRole::Manager->value,
+            ownerEmail: $user->email,
+        );
+
+        UserTeamSync::createTeam(
+            teamName: $user->company_name,
+            userEmail: $user->email,
+            userName: $user->name,
+        );
 
         return $user;
     }
