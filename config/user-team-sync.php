@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Enums\UserRole;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -31,34 +33,29 @@ return [
     'publisher' => [
         'api_key' => env('USER_TEAM_SYNC_API_KEY'),
 
+        /*
+        |----------------------------------------------------------------------
+        | App Source
+        |----------------------------------------------------------------------
+        | 'config'   - Apps are defined in the 'apps' array below
+        | 'database' - Apps are stored in the database (sync_apps table)
+        */
+        'app_source' => env('USER_TEAM_SYNC_APP_SOURCE', 'database'),
+        'apps_table' => 'sync_apps',
+
         'apps' => [
-            'controlling' => [
-                'url' => env('CONTROLLING_APP_URL', 'https://controlling.cegem360.eu'),
-                'api_key' => env('CONTROLLING_APP_API_KEY'),
-                'active' => true,
-            ],
-            'crm_and_contacts' => [
-                'url' => env('CRM_AND_CONTACTS_APP_URL', 'https://crm-and-contacts.cegem360.eu'),
-                'api_key' => env('CRM_AND_CONTACTS_APP_API_KEY'),
-                'active' => false,
-            ],
-            'crm' => [
-                'url' => env('CRM_APP_URL', 'https://crm.cegem360.eu'),
-                'api_key' => env('CRM_APP_API_KEY'),
-                'active' => true,
-            ],
-            'storage' => [
-                'url' => env('STORAGE_APP_URL', 'https://storage.cegem360.eu'),
-                'api_key' => env('STORAGE_APP_API_KEY'),
-                'active' => false,
-            ],
+            // 'crm' => [
+            //     'url' => env('CRM_APP_URL'),
+            //     'api_key' => env('CRM_APP_API_KEY'),
+            //     'active' => true,
+            // ],
         ],
 
         'queue' => env('USER_TEAM_SYNC_QUEUE', 'default'),
         'connection' => env('USER_TEAM_SYNC_QUEUE_CONNECTION'),
-        'tries' => (int) env('USER_TEAM_SYNC_TRIES', 3),
-        'backoff' => (int) env('USER_TEAM_SYNC_BACKOFF', 60),
-        'timeout' => (int) env('USER_TEAM_SYNC_TIMEOUT', 10),
+        'tries' => env('USER_TEAM_SYNC_TRIES', 3),
+        'backoff' => env('USER_TEAM_SYNC_BACKOFF', 60),
+        'timeout' => env('USER_TEAM_SYNC_TIMEOUT', 10),
 
         'auto_observe' => true,
         'sync_fields' => ['email', 'role'],
@@ -75,7 +72,7 @@ return [
         'route_prefix' => 'api',
         'middleware' => [],
         'role_driver' => 'spatie',
-        'default_role' => 'subscriber',
+        'default_role' => UserRole::Subscriber->value,
         'default_active' => false,
     ],
 
