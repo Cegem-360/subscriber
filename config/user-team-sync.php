@@ -58,7 +58,7 @@ return [
         'timeout' => env('USER_TEAM_SYNC_TIMEOUT', 10),
 
         'auto_observe' => true,
-        'sync_fields' => ['email', 'role'],
+        'sync_fields' => ['email', 'role', 'password'],
         'skip_ssl_for_test_domains' => true,
     ],
 
