@@ -74,7 +74,7 @@ Route::get(uri: '/termekek/beszerzes-logisztika', action: BeszerzesPage::class)-
 Route::get(uri: '/termekek/ertekesites', action: ErtekesitesPage::class)->name(name: 'products.ertekesites');
 Route::get(uri: '/termekek/gyartasiranyitas', action: GyartasPage::class)->name(name: 'products.gyartas');
 Route::get(uri: '/termekek/automatizalas', action: AutomatizalasPage::class)->name(name: 'products.automatizalas');
-Route::get(uri: '/termekek/szerviz-munkalap', action: SzervizPage::class)->name(name: 'products.szerviz');
+Route::get(uri: '/termekek/digitalis-munkalap', action: SzervizPage::class)->name(name: 'products.szerviz');
 Route::get(uri: '/termekek/seo-eszkoz', action: SeoEszkozPage::class)->name(name: 'products.seo');
 Route::get(uri: '/termekek/marketinghub', action: MarketinghubPage::class)->name(name: 'products.marketinghub');
 Route::get(uri: '/termekek/datamind', action: DatamindPage::class)->name(name: 'products.datamind');

@@ -940,32 +940,6 @@
                             </div>
                         </div>
 
-                        {{-- Service Card → Értékesítés --}}
-                        <div class="relative group">
-                            <div class="absolute -inset-0.5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"
-                                style="background: linear-gradient(90deg, #fb275d, #ffcb00, #00ca72, #6161ff);"></div>
-                            <div class="relative h-full bg-surface-primary rounded-xl p-7 border border-border-light group-hover:border-transparent transition-colors duration-300"
-                                style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-                                <div class="flex items-center gap-3 mb-5">
-                                    <div class="w-12 h-12 bg-danger-100 rounded-lg flex items-center justify-center">
-                                        <svg class="w-7 h-7 text-danger-500" fill="currentColor" viewBox="0 0 24 24">
-                                            <path
-                                                d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z" />
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <p class="text-lg font-bold text-text-primary">cégem360</p>
-                                        <p class="text-base text-text-tertiary -mt-0.5">értékesítés</p>
-                                    </div>
-                                </div>
-                                <p class="text-text-secondary text-lg leading-relaxed mb-5">Árajánlatok, megrendelések
-                                    és kampánykövetés — minden egy helyen.</p>
-                                <a href="#"
-                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon
-                                    meg többet</a>
-                            </div>
-                        </div>
-
                         {{-- MarketingHub Card --}}
                         <div class="relative group">
                             <div class="absolute -inset-0.5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"
