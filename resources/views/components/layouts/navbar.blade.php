@@ -96,6 +96,14 @@
                                 <div class="text-xs text-gray-500">Online marketing eszközök</div>
                             </div>
                         </a>
+                        <a href="{{ route('products.datamind') }}"
+                            class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
+                            <x-module-icon module="datamind" size="sm" />
+                            <div>
+                                <div class="font-medium">DataMind</div>
+                                <div class="text-xs text-gray-500">MI alapú adatbányász platform</div>
+                            </div>
+                        </a>
                     </div>
                 </div>
 
@@ -304,6 +312,11 @@
                     class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
                     <x-module-icon module="marketinghub" size="xs" />
                     MarketingHub
+                </a>
+                <a href="{{ route('products.datamind') }}"
+                    class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
+                    <x-module-icon module="datamind" size="xs" />
+                    DataMind
                 </a>
             </div>
             <div class="py-2">

@@ -160,6 +160,18 @@
                                     platformon.</p>
                             </div>
                         </a>
+
+                        {{-- App Item 9: DataMind --}}
+                        <a href="{{ route('products.datamind') }}" class="flex items-center gap-4 group">
+                            <x-module-icon module="datamind" size="sm" rounded="full" />
+                            <div class="flex-1 min-w-0">
+                                <p
+                                    class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                    DataMind</p>
+                                <p class="text-[13px] text-text-tertiary mt-1">MI alapú adatbányász és üzleti
+                                    intelligencia.</p>
+                            </div>
+                        </a>
                     </div>
 
                 </div>
@@ -206,6 +218,10 @@
                         :class="activeTab === 'marketinghub' ? 'bg-pink-500 text-white' :
                             'text-text-secondary hover:text-text-primary'"
                         class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Marketing</button>
+                    <button @click="activeTab = 'datamind'"
+                        :class="activeTab === 'datamind' ? 'bg-violet-500 text-white' :
+                            'text-text-secondary hover:text-text-primary'"
+                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">DataMind</button>
                     <button @click="activeTab = 'leadership'"
                         :class="activeTab === 'leadership' ? 'bg-primary-600 text-white' :
                             'text-text-secondary hover:text-text-primary'"
@@ -514,6 +530,38 @@
                             </svg>
                         </a>
                     </div>
+
+                    {{-- DataMind Tab --}}
+                    <div x-show="activeTab === 'datamind'" x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                        class="bg-violet-500 rounded-3xl p-10 h-full flex flex-col justify-between min-h-120">
+                        <div>
+                            <div class="flex items-center gap-2 mb-8">
+                                <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                <span class="text-white/90 text-sm font-medium"><strong
+                                        class="font-bold">cégem360</strong> DataMind</span>
+                            </div>
+                            <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
+                                style="font-family: 'Poppins', sans-serif;">Mesterséges intelligencia<br>az üzleti döntésekhez</h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Automatikus összefüggés-feltárás,
+                                prediktív elemzés és drag-and-drop modellépítő — kódolás nélkül. Kössön össze több
+                                adatforrást egyetlen dashboardon.</p>
+                        </div>
+                        <a href="{{ route('products.datamind') }}"
+                            class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
+                            Kérjen demót
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </a>
+                    </div>
                 </div>
 
                 {{-- Right: Testimonial Cards --}}
@@ -595,6 +643,14 @@
                             ÜGYFÉL</p>
                         <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-pink-500">45%
                                 jobb marketing ROI</span><br>adatalapú döntésekkel</p>
+                    </div>
+                    <div x-show="activeTab === 'datamind'" x-transition
+                        class="bg-surface-primary rounded-2xl p-6 border border-border-light"
+                        style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">DATAMIND
+                            ÜGYFÉL</p>
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-violet-500">3x
+                                gyorsabb döntéshozatal</span><br>MI predikciókkal</p>
                     </div>
 
                     {{-- Testimonial Quote Card --}}
@@ -737,6 +793,22 @@
                             <div>
                                 <p class="text-text-primary font-semibold text-sm">Molnár Kata</p>
                                 <p class="text-text-tertiary text-xs">Marketing igazgató, WebShop Solutions Kft.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div x-show="activeTab === 'datamind'" x-transition
+                        class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
+                        style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"A DataMind felfedezte, hogy a
+                            Google Ads kampányaink 30%-a nem hoz konverziót. Az MI javaslatai alapján átcsoportosítottuk
+                            a büdzsét — 2 hónap alatt 25%-kal nőtt a ROI-nk."</p>
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 bg-violet-100 rounded-full flex items-center justify-center text-violet-600 font-semibold text-sm">
+                                KP</div>
+                            <div>
+                                <p class="text-text-primary font-semibold text-sm">Kovács Péter</p>
+                                <p class="text-text-tertiary text-xs">Marketing igazgató, ipari gyártó cég</p>
                             </div>
                         </div>
                     </div>
@@ -920,6 +992,33 @@
                                     meg többet</a>
                             </div>
                         </div>
+
+                        {{-- DataMind Card --}}
+                        <div class="relative group">
+                            <div class="absolute -inset-0.5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"
+                                style="background: linear-gradient(90deg, #fb275d, #ffcb00, #00ca72, #6161ff);"></div>
+                            <div class="relative h-full bg-surface-primary rounded-xl p-7 border border-border-light group-hover:border-transparent transition-colors duration-300"
+                                style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                                <div class="flex items-center gap-3 mb-5">
+                                    <div class="w-12 h-12 bg-violet-100 rounded-lg flex items-center justify-center">
+                                        <svg class="w-7 h-7 text-violet-500" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-lg font-bold text-text-primary">cégem360</p>
+                                        <p class="text-base text-text-tertiary -mt-0.5">DataMind</p>
+                                    </div>
+                                </div>
+                                <p class="text-text-secondary text-lg leading-relaxed mb-5">MI alapú adatbányász platform
+                                    — prediktív elemzés és összefüggés-feltárás.</p>
+                                <a href="{{ route('products.datamind') }}"
+                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon
+                                    meg többet</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -975,6 +1074,10 @@
                         <div class="absolute top-12 left-12">
                             <span
                                 class="bg-pink-500 text-white text-sm font-medium px-4 py-2 rounded-lg">MarketingHub</span>
+                        </div>
+                        <div class="absolute top-1/2 right-12">
+                            <span
+                                class="bg-violet-500 text-white text-sm font-medium px-4 py-2 rounded-lg">DataMind</span>
                         </div>
                     </div>
                 </div>

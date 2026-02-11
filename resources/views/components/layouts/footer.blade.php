@@ -59,6 +59,7 @@
                     <li><a href="{{ route('products.gyartas') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Gyártásirányítás</a></li>
                     <li><a href="{{ route('products.automatizalas') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Automatizálás</a></li>
                     <li><a href="{{ route('products.marketinghub') }}" class="text-inherit! hover:text-indigo-600! transition-colors">MarketingHub</a></li>
+                    <li><a href="{{ route('products.datamind') }}" class="text-inherit! hover:text-indigo-600! transition-colors">DataMind</a></li>
                 </ul>
 
                 <h4 class="text-[15px] font-semibold text-gray-900 mb-4 mt-6">Továbbiak</h4>
