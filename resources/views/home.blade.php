@@ -56,7 +56,8 @@
                         <a href="{{ route('products.szerviz') }}" class="flex items-center gap-3.5 group">
                             <x-module-icon module="szerviz" size="md" rounded="full" />
                             <div class="flex-1 min-w-0">
-                                <p class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                <p
+                                    class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     Digitális munkalap</p>
                                 <p class="text-xs text-text-tertiary mt-1">Munkalapok helyszíni munkákhoz.</p>
                             </div>
@@ -64,7 +65,8 @@
                         <a href="{{ route('products.kontrolling') }}" class="flex items-center gap-3.5 group">
                             <x-module-icon module="kontrolling" size="md" rounded="full" />
                             <div class="flex-1 min-w-0">
-                                <p class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                <p
+                                    class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     Kontrolling</p>
                                 <p class="text-xs text-text-tertiary mt-1">Pénzügyi áttekintés és riportok.</p>
                             </div>
@@ -72,7 +74,8 @@
                         <a href="{{ route('products.seo') }}" class="flex items-center gap-3.5 group">
                             <x-module-icon module="seo" size="md" rounded="full" />
                             <div class="flex-1 min-w-0">
-                                <p class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                <p
+                                    class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     SEO Eszköz</p>
                                 <p class="text-xs text-text-tertiary mt-1">AI alapú keresőoptimalizálás.</p>
                             </div>
@@ -80,7 +83,8 @@
                         <a href="{{ route('products.crm') }}" class="flex items-center gap-3.5 group">
                             <x-module-icon module="crm" size="md" rounded="full" />
                             <div class="flex-1 min-w-0">
-                                <p class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                <p
+                                    class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     CRM</p>
                                 <p class="text-xs text-text-tertiary mt-1">Ügyfélkezelés a szerződésig.</p>
                             </div>
@@ -88,7 +92,8 @@
                         <a href="{{ route('products.beszerzes') }}" class="flex items-center gap-3.5 group">
                             <x-module-icon module="beszerzes" size="md" rounded="full" />
                             <div class="flex-1 min-w-0">
-                                <p class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                <p
+                                    class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     Beszerzés</p>
                                 <p class="text-xs text-text-tertiary mt-1">Készlet és szállításkezelés.</p>
                             </div>
@@ -96,7 +101,8 @@
                         <a href="{{ route('products.ertekesites') }}" class="flex items-center gap-3.5 group">
                             <x-module-icon module="ertekesites" size="md" rounded="full" />
                             <div class="flex-1 min-w-0">
-                                <p class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                <p
+                                    class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     Értékesítés</p>
                                 <p class="text-xs text-text-tertiary mt-1">Ajánlatok és megrendelések.</p>
                             </div>
@@ -104,7 +110,8 @@
                         <a href="{{ route('products.gyartas') }}" class="flex items-center gap-3.5 group">
                             <x-module-icon module="gyartas" size="md" rounded="full" />
                             <div class="flex-1 min-w-0">
-                                <p class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                <p
+                                    class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     Gyártásirányítás</p>
                                 <p class="text-xs text-text-tertiary mt-1">Termelés és kapacitástervezés.</p>
                             </div>
@@ -112,7 +119,8 @@
                         <a href="{{ route('products.automatizalas') }}" class="flex items-center gap-3.5 group">
                             <x-module-icon module="automatizalas" size="md" rounded="full" />
                             <div class="flex-1 min-w-0">
-                                <p class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                <p
+                                    class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     Automatizálás</p>
                                 <p class="text-xs text-text-tertiary mt-1">Workflow-k és triggerek.</p>
                             </div>
@@ -120,7 +128,8 @@
                         <a href="{{ route('products.marketinghub') }}" class="flex items-center gap-3.5 group">
                             <x-module-icon module="marketinghub" size="md" rounded="full" />
                             <div class="flex-1 min-w-0">
-                                <p class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                <p
+                                    class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     MarketingHub</p>
                                 <p class="text-xs text-text-tertiary mt-1">Online marketing eszközök.</p>
                             </div>
@@ -128,7 +137,8 @@
                         <a href="{{ route('products.datamind') }}" class="flex items-center gap-3.5 group">
                             <x-module-icon module="datamind" size="md" rounded="full" />
                             <div class="flex-1 min-w-0">
-                                <p class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                <p
+                                    class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     DataMind</p>
                                 <p class="text-xs text-text-tertiary mt-1">MI adatbányász platform.</p>
                             </div>
@@ -472,7 +482,8 @@
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
                                 style="font-family: 'Poppins', sans-serif;">Minden marketing<br>adat egy helyen</h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Google Ads, Meta, Analytics
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Google Ads, Meta,
+                                Analytics
                                 és SEO eredmények egyetlen dashboardon. Lássa azonnal, melyik kampány hoz valódi
                                 ügyfelet — és melyikre ne költsön többet.</p>
                         </div>
@@ -497,8 +508,10 @@
                                         class="font-bold">cégem360</strong> DataMind</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Mesterséges intelligencia<br>az üzleti döntésekhez</h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Automatikus összefüggés-feltárás,
+                                style="font-family: 'Poppins', sans-serif;">Mesterséges intelligencia<br>az üzleti
+                                döntésekhez</h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Automatikus
+                                összefüggés-feltárás,
                                 prediktív elemzés és drag-and-drop modellépítő — kódolás nélkül. Kössön össze több
                                 adatforrást egyetlen dashboardon.</p>
                         </div>
@@ -923,7 +936,8 @@
                                         <p class="text-base text-text-tertiary -mt-0.5">DataMind</p>
                                     </div>
                                 </div>
-                                <p class="text-text-secondary text-lg leading-relaxed mb-5">MI alapú adatbányász platform
+                                <p class="text-text-secondary text-lg leading-relaxed mb-5">MI alapú adatbányász
+                                    platform
                                     — prediktív elemzés és összefüggés-feltárás.</p>
                                 <a href="{{ route('products.datamind') }}"
                                     class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon
@@ -1581,7 +1595,8 @@
                         class="inline-flex items-center gap-2 text-primary-600 font-medium hover:text-primary-800 transition-colors">
                         <span>Tudjon meg többet</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5l7 7-7 7">
                             </path>
                         </svg>
                     </a>
@@ -1606,7 +1621,8 @@
                         class="inline-flex items-center gap-2 text-primary-600 font-medium hover:text-primary-800 transition-colors">
                         <span>Tudjon meg többet</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5l7 7-7 7">
                             </path>
                         </svg>
                     </a>
@@ -1632,7 +1648,8 @@
                         class="inline-flex items-center gap-2 text-primary-600 font-medium hover:text-primary-800 transition-colors">
                         <span>Tudjon meg többet</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5l7 7-7 7">
                             </path>
                         </svg>
                     </a>
@@ -1658,7 +1675,8 @@
                         class="inline-flex items-center gap-2 text-primary-600 font-medium hover:text-primary-800 transition-colors">
                         <span>Tudjon meg többet</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5l7 7-7 7">
                             </path>
                         </svg>
                     </a>
