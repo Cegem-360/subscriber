@@ -199,7 +199,7 @@
                     </ul>
                 </div>
 
-                {{-- Fotódokumentáció --}}
+                {{-- Dokumentumkezelés és iratkövetés --}}
                 <div
                     class="rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-shadow hover:shadow-lg">
                     <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-100">
@@ -210,7 +210,7 @@
                                 d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
                     </div>
-                    <h3 class="mb-3 text-xl font-semibold text-gray-900">Fotódokumentáció</h3>
+                    <h3 class="mb-3 text-xl font-semibold text-gray-900">Dokumentumkezelés és iratkövetés</h3>
                     <ul class="space-y-2 text-gray-600">
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-cyan-500" fill="currentColor" viewBox="0 0 20 20">
@@ -218,7 +218,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Előtte-utána képek rögzítése
+                            Dokumentum életciklus követés
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-cyan-500" fill="currentColor" viewBox="0 0 20 20">
@@ -226,7 +226,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Automatikus időbélyeg és GPS
+                            Automatikus időbélyeg
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-cyan-500" fill="currentColor" viewBox="0 0 20 20">
@@ -234,7 +234,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Képekre rajzolás, jelölés
+                            Könnyű keresés
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-cyan-500" fill="currentColor" viewBox="0 0 20 20">
