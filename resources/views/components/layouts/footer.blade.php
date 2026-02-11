@@ -50,7 +50,7 @@
                 </button>
                 <h3 class="hidden lg:block text-[15px] font-semibold text-gray-900 mb-4">Modulok</h3>
                 <ul class="space-y-2.5 text-sm text-gray-700" x-show="openSection === 'modulok' || window.innerWidth >= 1024" x-collapse.duration.300ms>
-                    <li><a href="{{ route('products.szerviz') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Szerviz munkalap</a></li>
+                    <li><a href="{{ route('products.szerviz') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Digitális munkalap</a></li>
                     <li><a href="{{ route('products.kontrolling') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Kontrolling</a></li>
                     <li><a href="{{ route('products.seo') }}" class="text-inherit! hover:text-indigo-600! transition-colors">SEO Eszköz</a></li>
                     <li><a href="{{ route('products.crm') }}" class="text-inherit! hover:text-indigo-600! transition-colors">CRM</a></li>

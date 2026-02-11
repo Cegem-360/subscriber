@@ -23,7 +23,8 @@
                     {{-- Subheadline --}}
                     <p class="text-xl lg:text-2xl text-text-secondary mb-8 leading-relaxed">
                         Testreszabott vállalatirányítási megoldások ipari cégeknek: CRM, kontrolling, beszerzés,
-                        értékesítés, AI-alapú SEO elemzés és automatizált munkafolyamatok — amelyek valódi eredményeket hoznak.
+                        értékesítés, AI-alapú SEO elemzés és automatizált munkafolyamatok — amelyek valódi eredményeket
+                        hoznak.
                     </p>
 
                     {{-- CTA Button --}}
@@ -52,13 +53,13 @@
                     </p>
 
                     <div class="space-y-5">
-                        {{-- App Item 1: Szerviz munkalap --}}
+                        {{-- App Item 1: Digitális munkalap --}}
                         <a href="{{ route('products.szerviz') }}" class="flex items-center gap-4 group">
                             <x-module-icon module="szerviz" size="sm" rounded="full" />
                             <div class="flex-1 min-w-0">
                                 <p
                                     class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
-                                    Szerviz munkalap</p>
+                                    Digitális munkalap</p>
                                 <p class="text-[13px] text-text-tertiary mt-1">Digitális munkalapok helyszíni
                                     munkákhoz.</p>
                             </div>
@@ -164,7 +165,7 @@
                     <button @click="activeTab = 'szerviz'"
                         :class="activeTab === 'szerviz' ? 'bg-cyan-500 text-white' :
                             'text-text-secondary hover:text-text-primary'"
-                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Szerviz</button>
+                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Munkalap</button>
                     <button @click="activeTab = 'projects'"
                         :class="activeTab === 'projects' ? 'bg-primary-600 text-white' :
                             'text-text-secondary hover:text-text-primary'"
@@ -242,7 +243,8 @@
                         <div>
                             <div class="flex items-center gap-2 mb-8">
                                 <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                     </svg>
@@ -251,7 +253,8 @@
                                         class="font-bold">cégem360</strong> SEO</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Értse meg, mit keres<br>a piaca — és legyen<br>Ön az első találat
+                                style="font-family: 'Poppins', sans-serif;">Értse meg, mit keres<br>a piaca — és
+                                legyen<br>Ön az első találat
                             </h3>
                             <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">AI-alapú kulcsszókutatás,
                                 versenytárs-elemzés és tartalom-optimalizálás egyetlen platformon. Növelje organikus
@@ -437,19 +440,21 @@
                         <div>
                             <div class="flex items-center gap-2 mb-8">
                                 <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                                     </svg>
                                 </div>
                                 <span class="text-white/90 text-sm font-medium"><strong
-                                        class="font-bold">cégem360</strong> szerviz</span>
+                                        class="font-bold">cégem360</strong> digitális munkalap</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
                                 style="font-family: 'Poppins', sans-serif;">Digitális munkalapok<br>helyszíni munkákhoz
                             </h3>
                             <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Felejtse el a papíralapú
-                                munkalapokat. Rögzítsen mindent a helyszínen: munkaidőt, anyagokat, fotókat — és készítsen
+                                munkalapokat. Rögzítsen mindent a helyszínen: munkaidőt, anyagokat, fotókat — és
+                                készítsen
                                 azonnali jegyzőkönyvet ügyfelének.</p>
                         </div>
                         <a href="{{ route('products.szerviz') }}"
@@ -519,10 +524,11 @@
                     <div x-show="activeTab === 'szerviz'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">SZERVIZ PARTNER
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">SZERVIZ
+                            PARTNER
                         </p>
-                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span
-                                class="text-cyan-500">70% gyorsabb
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-cyan-500">70%
+                                gyorsabb
                                 adminisztráció</span><br>digitális munkalapokkal</p>
                     </div>
                     <div x-show="activeTab === 'seo'" x-transition
@@ -530,8 +536,8 @@
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
                         <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">SEO ÜGYFÉL
                         </p>
-                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span
-                                class="text-violet-600">3x organikus
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-violet-600">3x
+                                organikus
                                 forgalom</span><br>AI-alapú optimalizálással</p>
                     </div>
 
@@ -630,7 +636,8 @@
                     <div x-show="activeTab === 'szerviz'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Mióta digitális munkalapot használunk,
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Mióta digitális munkalapot
+                            használunk,
                             a számlázásunk napokkal gyorsabb lett. Az ügyfelek is elégedettebbek, mert azonnal kapják a
                             jegyzőkönyvet."</p>
                         <div class="flex items-center gap-3">
@@ -646,8 +653,10 @@
                     <div x-show="activeTab === 'seo'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Három hónap alatt megháromszoroztuk
-                            az organikus forgalmunkat. Az AI-alapú kulcsszójavaslatok pontosan azt mutatták, amire a piacunk
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Három hónap alatt
+                            megháromszoroztuk
+                            az organikus forgalmunkat. Az AI-alapú kulcsszójavaslatok pontosan azt mutatták, amire a
+                            piacunk
                             keres."</p>
                         <div class="flex items-center gap-3">
                             <div
@@ -1558,7 +1567,8 @@
                         class="inline-flex items-center gap-2 text-primary-600 font-medium hover:text-primary-800 transition-colors">
                         <span>Tudjon meg többet</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5l7 7-7 7">
                             </path>
                         </svg>
                     </a>
@@ -1584,7 +1594,8 @@
                         class="inline-flex items-center gap-2 text-primary-600 font-medium hover:text-primary-800 transition-colors">
                         <span>Tudjon meg többet</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5l7 7-7 7">
                             </path>
                         </svg>
                     </a>

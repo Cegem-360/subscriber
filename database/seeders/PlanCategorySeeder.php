@@ -16,7 +16,7 @@ class PlanCategorySeeder extends Seeder
     {
         PlanCategory::factory()->createMany([
             [
-                'name' => 'Digitális szerviz munkalap',
+                'name' => 'Digitális munkalap',
                 'slug' => 'szerviz',
                 'url' => 'https://szerviz.cegem360.eu',
                 'description' => 'Digitális munkalapok helyszíni munkákhoz. Aláírás, fotók, GPS és azonnali szinkronizálás.',
