@@ -79,6 +79,14 @@ class PlanCategorySeeder extends Seeder
                 'color' => '#6366F1',
                 'icon' => 'users',
             ],
+            [
+                'name' => 'MarketingHub',
+                'slug' => 'marketinghub',
+                'url' => 'https://marketinghub.cegem360.eu',
+                'description' => 'Online marketing csatornák és kampányok teljesítménye egyetlen dashboardon. Google Ads, Meta, Analytics integráció.',
+                'color' => '#EC4899',
+                'icon' => 'chart-bar-square',
+            ],
         ]);
     }
 }

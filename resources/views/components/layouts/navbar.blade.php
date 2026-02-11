@@ -88,6 +88,14 @@
                                 <div class="text-xs text-gray-500">Workflow-k és triggerek</div>
                             </div>
                         </a>
+                        <a href="{{ route('products.marketinghub') }}"
+                            class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
+                            <x-module-icon module="marketinghub" size="sm" />
+                            <div>
+                                <div class="font-medium">MarketingHub</div>
+                                <div class="text-xs text-gray-500">Online marketing eszközök</div>
+                            </div>
+                        </a>
                     </div>
                 </div>
 
@@ -291,6 +299,11 @@
                     class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
                     <x-module-icon module="automatizalas" size="xs" />
                     Automatizálás
+                </a>
+                <a href="{{ route('products.marketinghub') }}"
+                    class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
+                    <x-module-icon module="marketinghub" size="xs" />
+                    MarketingHub
                 </a>
             </div>
             <div class="py-2">

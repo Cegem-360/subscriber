@@ -15,6 +15,7 @@ use App\Livewire\Page\Products\CrmPage;
 use App\Livewire\Page\Products\ErtekesitesPage;
 use App\Livewire\Page\Products\GyartasPage;
 use App\Livewire\Page\Products\KontrollingPage;
+use App\Livewire\Page\Products\MarketinghubPage;
 use App\Livewire\Page\Products\SeoEszkozPage;
 use App\Livewire\Page\Products\SzervizPage;
 use App\Livewire\Page\QuoteRequestPage;
@@ -74,6 +75,7 @@ Route::get(uri: '/termekek/gyartasiranyitas', action: GyartasPage::class)->name(
 Route::get(uri: '/termekek/automatizalas', action: AutomatizalasPage::class)->name(name: 'products.automatizalas');
 Route::get(uri: '/termekek/szerviz-munkalap', action: SzervizPage::class)->name(name: 'products.szerviz');
 Route::get(uri: '/termekek/seo-eszkoz', action: SeoEszkozPage::class)->name(name: 'products.seo');
+Route::get(uri: '/termekek/marketinghub', action: MarketinghubPage::class)->name(name: 'products.marketinghub');
 
 // Email verification routes
 Route::get(uri: '/email/verify', action: fn (): Redirector|RedirectResponse => to_route(route: 'filament.admin.auth.email-verification.prompt'))

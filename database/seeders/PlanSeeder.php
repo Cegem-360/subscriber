@@ -66,6 +66,12 @@ class PlanSeeder extends Seeder
             'yearly_eur' => 625,
             'monthly_eur' => 63,
         ],
+        'marketinghub' => [
+            'yearly_huf' => 310000,
+            'monthly_huf' => 31000,
+            'yearly_eur' => 775,
+            'monthly_eur' => 78,
+        ],
     ];
 
     public function run(): void
@@ -194,6 +200,16 @@ class PlanSeeder extends Seeder
                 'Lead kezelés',
                 'Ügyfélosztályozás',
                 'Tömeges e-mail küldés',
+                'Korlátlan felhasználó',
+            ],
+            'marketinghub' => [
+                'Google Ads integráció',
+                'Meta Ads integráció',
+                'Google Analytics 4 dashboard',
+                'Kampány ROI elemzés',
+                'Automatikus havi riportok',
+                'Egyedi KPI-ok',
+                'Multi-csatorna áttekintés',
                 'Korlátlan felhasználó',
             ],
             default => [

@@ -148,6 +148,18 @@
                                     ismétlődő feladatoktól.</p>
                             </div>
                         </a>
+
+                        {{-- App Item 8: MarketingHub --}}
+                        <a href="{{ route('products.marketinghub') }}" class="flex items-center gap-4 group">
+                            <x-module-icon module="marketinghub" size="sm" rounded="full" />
+                            <div class="flex-1 min-w-0">
+                                <p
+                                    class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                    MarketingHub</p>
+                                <p class="text-[13px] text-text-tertiary mt-1">Online marketing eszközök egy
+                                    platformon.</p>
+                            </div>
+                        </a>
                     </div>
 
                 </div>
@@ -190,6 +202,10 @@
                         :class="activeTab === 'engineering' ? 'bg-success-600 text-white' :
                             'text-text-secondary hover:text-text-primary'"
                         class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Automatizálás</button>
+                    <button @click="activeTab = 'marketinghub'"
+                        :class="activeTab === 'marketinghub' ? 'bg-pink-500 text-white' :
+                            'text-text-secondary hover:text-text-primary'"
+                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Marketing</button>
                     <button @click="activeTab = 'leadership'"
                         :class="activeTab === 'leadership' ? 'bg-primary-600 text-white' :
                             'text-text-secondary hover:text-text-primary'"
@@ -466,6 +482,38 @@
                             </svg>
                         </a>
                     </div>
+
+                    {{-- MarketingHub Tab --}}
+                    <div x-show="activeTab === 'marketinghub'" x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                        class="bg-pink-500 rounded-3xl p-10 h-full flex flex-col justify-between min-h-120">
+                        <div>
+                            <div class="flex items-center gap-2 mb-8">
+                                <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+                                    </svg>
+                                </div>
+                                <span class="text-white/90 text-sm font-medium"><strong
+                                        class="font-bold">cégem360</strong> MarketingHub</span>
+                            </div>
+                            <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
+                                style="font-family: 'Poppins', sans-serif;">Minden marketing<br>adat egy helyen</h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Google Ads, Meta, Analytics
+                                és SEO eredmények egyetlen dashboardon. Lássa azonnal, melyik kampány hoz valódi
+                                ügyfelet — és melyikre ne költsön többet.</p>
+                        </div>
+                        <a href="{{ route('products.marketinghub') }}"
+                            class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
+                            Kérjen demót
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </a>
+                    </div>
                 </div>
 
                 {{-- Right: Testimonial Cards --}}
@@ -539,6 +587,14 @@
                         <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-violet-600">3x
                                 organikus
                                 forgalom</span><br>AI-alapú optimalizálással</p>
+                    </div>
+                    <div x-show="activeTab === 'marketinghub'" x-transition
+                        class="bg-surface-primary rounded-2xl p-6 border border-border-light"
+                        style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">MARKETING
+                            ÜGYFÉL</p>
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-pink-500">45%
+                                jobb marketing ROI</span><br>adatalapú döntésekkel</p>
                     </div>
 
                     {{-- Testimonial Quote Card --}}
@@ -665,6 +721,22 @@
                             <div>
                                 <p class="text-text-primary font-semibold text-sm">Fehér Márton</p>
                                 <p class="text-text-tertiary text-xs">Marketing vezető, TechBuild Kft.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div x-show="activeTab === 'marketinghub'" x-transition
+                        class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
+                        style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Végre egy helyen látom, melyik
+                            kampány hozza a leadeket és melyik csak égeti a büdzsét. A havi riportunk órák helyett
+                            percek alatt kész."</p>
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 font-semibold text-sm">
+                                MK</div>
+                            <div>
+                                <p class="text-text-primary font-semibold text-sm">Molnár Kata</p>
+                                <p class="text-text-tertiary text-xs">Marketing igazgató, WebShop Solutions Kft.</p>
                             </div>
                         </div>
                     </div>
@@ -821,6 +893,33 @@
                                     meg többet</a>
                             </div>
                         </div>
+
+                        {{-- MarketingHub Card --}}
+                        <div class="relative group">
+                            <div class="absolute -inset-0.5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out"
+                                style="background: linear-gradient(90deg, #fb275d, #ffcb00, #00ca72, #6161ff);"></div>
+                            <div class="relative h-full bg-surface-primary rounded-xl p-7 border border-border-light group-hover:border-transparent transition-colors duration-300"
+                                style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                                <div class="flex items-center gap-3 mb-5">
+                                    <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center">
+                                        <svg class="w-7 h-7 text-pink-500" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-lg font-bold text-text-primary">cégem360</p>
+                                        <p class="text-base text-text-tertiary -mt-0.5">MarketingHub</p>
+                                    </div>
+                                </div>
+                                <p class="text-text-secondary text-lg leading-relaxed mb-5">Online marketing csatornák
+                                    és kampányok teljesítménye — egy dashboardon.</p>
+                                <a href="{{ route('products.marketinghub') }}"
+                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon
+                                    meg többet</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -872,6 +971,10 @@
                         </div>
                         <div class="absolute bottom-12 left-12">
                             <span class="bg-violet-600 text-white text-sm font-medium px-4 py-2 rounded-lg">SEO</span>
+                        </div>
+                        <div class="absolute top-12 left-12">
+                            <span
+                                class="bg-pink-500 text-white text-sm font-medium px-4 py-2 rounded-lg">MarketingHub</span>
                         </div>
                     </div>
                 </div>
