@@ -8,10 +8,7 @@
                 </div>
                 <div
                     class="mb-6 inline-flex items-center gap-2 rounded-full bg-violet-100 px-4 py-1.5 text-sm font-medium text-violet-700">
-                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
+                    <x-module-icon module="datamind" size="xs" :show-background="false" color="#6d28d9" />
                     MI Alapú Üzleti Intelligencia
                 </div>
                 <h1 class="mb-6 text-4xl font-semibold leading-tight text-gray-900 sm:text-5xl lg:text-6xl">
@@ -185,12 +182,8 @@
 
                 {{-- Feature 3 --}}
                 <div class="rounded-2xl bg-white p-8 shadow-sm">
-                    <div
-                        class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-violet-100 text-violet-500">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
+                    <div class="mb-4">
+                        <x-module-icon module="datamind" size="md" />
                     </div>
                     <h3 class="mb-2 text-lg font-semibold text-gray-900">MI modellépítő</h3>
                     <ul class="space-y-2 text-sm text-gray-600">

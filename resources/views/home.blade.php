@@ -47,129 +47,90 @@
                 </div>
 
                 {{-- Right: Card (Zoho vertical layout) --}}
-                <div class="bg-surface-primary rounded-2xl p-8 w-full lg:w-85 shrink-0"
+                <div class="bg-surface-primary rounded-2xl p-8 w-full lg:w-[520px] shrink-0"
                     style="box-shadow: 0 12px 50px -6px rgba(96, 92, 212, 0.35), 0 0 1px rgba(96, 92, 212, 0.2);">
                     <p class="text-[11px] font-semibold text-text-tertiary uppercase tracking-widest mb-6">Moduljaink
                     </p>
 
-                    <div class="space-y-5">
-                        {{-- App Item 1: Digitális munkalap --}}
-                        <a href="{{ route('products.szerviz') }}" class="flex items-center gap-4 group">
-                            <x-module-icon module="szerviz" size="sm" rounded="full" />
+                    <div class="grid grid-cols-2 gap-x-6 gap-y-5">
+                        <a href="{{ route('products.szerviz') }}" class="flex items-center gap-3.5 group">
+                            <x-module-icon module="szerviz" size="md" rounded="full" />
                             <div class="flex-1 min-w-0">
-                                <p
-                                    class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                <p class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     Digitális munkalap</p>
-                                <p class="text-[13px] text-text-tertiary mt-1">Digitális munkalapok helyszíni
-                                    munkákhoz.</p>
+                                <p class="text-xs text-text-tertiary mt-1">Munkalapok helyszíni munkákhoz.</p>
                             </div>
                         </a>
-
-                        {{-- App Item 2: Kontrolling --}}
-                        <a href="{{ route('products.kontrolling') }}" class="flex items-center gap-4 group">
-                            <x-module-icon module="kontrolling" size="sm" rounded="full" />
+                        <a href="{{ route('products.kontrolling') }}" class="flex items-center gap-3.5 group">
+                            <x-module-icon module="kontrolling" size="md" rounded="full" />
                             <div class="flex-1 min-w-0">
-                                <p
-                                    class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                <p class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     Kontrolling</p>
-                                <p class="text-[13px] text-text-tertiary mt-1">Valós idejű pénzügyi áttekintés és
-                                    döntéstámogató riportok.</p>
+                                <p class="text-xs text-text-tertiary mt-1">Pénzügyi áttekintés és riportok.</p>
                             </div>
                         </a>
-
-                        {{-- App Item 3: SEO Eszköz --}}
-                        <a href="{{ route('products.seo') }}" class="flex items-center gap-4 group">
-                            <x-module-icon module="seo" size="sm" rounded="full" />
+                        <a href="{{ route('products.seo') }}" class="flex items-center gap-3.5 group">
+                            <x-module-icon module="seo" size="md" rounded="full" />
                             <div class="flex-1 min-w-0">
-                                <p
-                                    class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                <p class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     SEO Eszköz</p>
-                                <p class="text-[13px] text-text-tertiary mt-1">AI alapú kulcsszókutatás és
-                                    versenytárs-elemzés.</p>
+                                <p class="text-xs text-text-tertiary mt-1">AI alapú keresőoptimalizálás.</p>
                             </div>
                         </a>
-
-                        {{-- App Item 4: CRM --}}
-                        <a href="{{ route('products.crm') }}" class="flex items-center gap-4 group">
-                            <x-module-icon module="crm" size="sm" rounded="full" />
+                        <a href="{{ route('products.crm') }}" class="flex items-center gap-3.5 group">
+                            <x-module-icon module="crm" size="md" rounded="full" />
                             <div class="flex-1 min-w-0">
-                                <p
-                                    class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                <p class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     CRM</p>
-                                <p class="text-[13px] text-text-tertiary mt-1">Kövesse nyomon ügyfeleit az első
-                                    megkeresésől a szerződéskötésig.</p>
+                                <p class="text-xs text-text-tertiary mt-1">Ügyfélkezelés a szerződésig.</p>
                             </div>
                         </a>
-
-                        {{-- App Item 4: Beszerzés-logisztika --}}
-                        <a href="{{ route('products.beszerzes') }}" class="flex items-center gap-4 group">
-                            <x-module-icon module="beszerzes" size="sm" rounded="full" />
+                        <a href="{{ route('products.beszerzes') }}" class="flex items-center gap-3.5 group">
+                            <x-module-icon module="beszerzes" size="md" rounded="full" />
                             <div class="flex-1 min-w-0">
-                                <p
-                                    class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
-                                    Beszerzés-logisztika</p>
-                                <p class="text-[13px] text-text-tertiary mt-1">Raktárkészlet és szállítások egy
-                                    átlátható rendszerben.</p>
+                                <p class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                    Beszerzés</p>
+                                <p class="text-xs text-text-tertiary mt-1">Készlet és szállításkezelés.</p>
                             </div>
                         </a>
-
-                        {{-- App Item 5: Értékesítés --}}
-                        <a href="{{ route('products.ertekesites') }}" class="flex items-center gap-4 group">
-                            <x-module-icon module="ertekesites" size="sm" rounded="full" />
+                        <a href="{{ route('products.ertekesites') }}" class="flex items-center gap-3.5 group">
+                            <x-module-icon module="ertekesites" size="md" rounded="full" />
                             <div class="flex-1 min-w-0">
-                                <p
-                                    class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                <p class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     Értékesítés</p>
-                                <p class="text-[13px] text-text-tertiary mt-1">Ajánlatok és megrendelések egy helyen.
-                                </p>
+                                <p class="text-xs text-text-tertiary mt-1">Ajánlatok és megrendelések.</p>
                             </div>
                         </a>
-
-                        {{-- App Item 6: Gyártásirányítás --}}
-                        <a href="{{ route('products.gyartas') }}" class="flex items-center gap-4 group">
-                            <x-module-icon module="gyartas" size="sm" rounded="full" />
+                        <a href="{{ route('products.gyartas') }}" class="flex items-center gap-3.5 group">
+                            <x-module-icon module="gyartas" size="md" rounded="full" />
                             <div class="flex-1 min-w-0">
-                                <p
-                                    class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                <p class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     Gyártásirányítás</p>
-                                <p class="text-[13px] text-text-tertiary mt-1">Termelési folyamatok tervezése és
-                                    kapacitás-optimalizálás.</p>
+                                <p class="text-xs text-text-tertiary mt-1">Termelés és kapacitástervezés.</p>
                             </div>
                         </a>
-
-                        {{-- App Item 7: Automatizálás --}}
-                        <a href="{{ route('products.automatizalas') }}" class="flex items-center gap-4 group">
-                            <x-module-icon module="automatizalas" size="sm" rounded="full" />
+                        <a href="{{ route('products.automatizalas') }}" class="flex items-center gap-3.5 group">
+                            <x-module-icon module="automatizalas" size="md" rounded="full" />
                             <div class="flex-1 min-w-0">
-                                <p
-                                    class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                <p class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     Automatizálás</p>
-                                <p class="text-[13px] text-text-tertiary mt-1">Szabadítsa fel csapata idejét az
-                                    ismétlődő feladatoktól.</p>
+                                <p class="text-xs text-text-tertiary mt-1">Workflow-k és triggerek.</p>
                             </div>
                         </a>
-
-                        {{-- App Item 8: MarketingHub --}}
-                        <a href="{{ route('products.marketinghub') }}" class="flex items-center gap-4 group">
-                            <x-module-icon module="marketinghub" size="sm" rounded="full" />
+                        <a href="{{ route('products.marketinghub') }}" class="flex items-center gap-3.5 group">
+                            <x-module-icon module="marketinghub" size="md" rounded="full" />
                             <div class="flex-1 min-w-0">
-                                <p
-                                    class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                <p class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     MarketingHub</p>
-                                <p class="text-[13px] text-text-tertiary mt-1">Online marketing eszközök egy
-                                    platformon.</p>
+                                <p class="text-xs text-text-tertiary mt-1">Online marketing eszközök.</p>
                             </div>
                         </a>
-
-                        {{-- App Item 9: DataMind --}}
-                        <a href="{{ route('products.datamind') }}" class="flex items-center gap-4 group">
-                            <x-module-icon module="datamind" size="sm" rounded="full" />
+                        <a href="{{ route('products.datamind') }}" class="flex items-center gap-3.5 group">
+                            <x-module-icon module="datamind" size="md" rounded="full" />
                             <div class="flex-1 min-w-0">
-                                <p
-                                    class="text-sm font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                <p class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     DataMind</p>
-                                <p class="text-[13px] text-text-tertiary mt-1">MI alapú adatbányász és üzleti
-                                    intelligencia.</p>
+                                <p class="text-xs text-text-tertiary mt-1">MI adatbányász platform.</p>
                             </div>
                         </a>
                     </div>
@@ -505,13 +466,7 @@
                         class="bg-pink-500 rounded-3xl p-10 h-full flex flex-col justify-between min-h-120">
                         <div>
                             <div class="flex items-center gap-2 mb-8">
-                                <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
-                                    </svg>
-                                </div>
+                                <x-module-icon module="marketinghub" size="xs" :show-background="false" color="#ffffff" />
                                 <span class="text-white/90 text-sm font-medium"><strong
                                         class="font-bold">cégem360</strong> MarketingHub</span>
                             </div>
@@ -537,13 +492,7 @@
                         class="bg-violet-500 rounded-3xl p-10 h-full flex flex-col justify-between min-h-120">
                         <div>
                             <div class="flex items-center gap-2 mb-8">
-                                <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
-                                </div>
+                                <x-module-icon module="datamind" size="xs" :show-background="false" color="#ffffff" />
                                 <span class="text-white/90 text-sm font-medium"><strong
                                         class="font-bold">cégem360</strong> DataMind</span>
                             </div>
@@ -947,13 +896,7 @@
                             <div class="relative h-full bg-surface-primary rounded-xl p-7 border border-border-light group-hover:border-transparent transition-colors duration-300"
                                 style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                                 <div class="flex items-center gap-3 mb-5">
-                                    <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center">
-                                        <svg class="w-7 h-7 text-pink-500" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
-                                        </svg>
-                                    </div>
+                                    <x-module-icon module="marketinghub" size="md" />
                                     <div>
                                         <p class="text-lg font-bold text-text-primary">cégem360</p>
                                         <p class="text-base text-text-tertiary -mt-0.5">MarketingHub</p>
@@ -974,13 +917,7 @@
                             <div class="relative h-full bg-surface-primary rounded-xl p-7 border border-border-light group-hover:border-transparent transition-colors duration-300"
                                 style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                                 <div class="flex items-center gap-3 mb-5">
-                                    <div class="w-12 h-12 bg-violet-100 rounded-lg flex items-center justify-center">
-                                        <svg class="w-7 h-7 text-violet-500" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                        </svg>
-                                    </div>
+                                    <x-module-icon module="datamind" size="md" />
                                     <div>
                                         <p class="text-lg font-bold text-text-primary">cégem360</p>
                                         <p class="text-base text-text-tertiary -mt-0.5">DataMind</p>

@@ -23,87 +23,89 @@
                         x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
                         x-transition:leave="transition ease-in duration-75"
                         x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-                        class="absolute left-0 top-full mt-1 w-72 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-                        <a href="{{ route('products.szerviz') }}"
-                            class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
-                            <x-module-icon module="szerviz" size="sm" />
-                            <div>
-                                <div class="font-medium">Digitális munkalap</div>
-                                <div class="text-xs text-gray-500">Digitális munkalapok kiszállásokhoz</div>
-                            </div>
-                        </a>
-                        <a href="{{ route('products.kontrolling') }}"
-                            class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
-                            <x-module-icon module="kontrolling" size="sm" />
-                            <div>
-                                <div class="font-medium">Kontrolling</div>
-                                <div class="text-xs text-gray-500">Pénzügyi tervezés és elemzés</div>
-                            </div>
-                        </a>
-                        <a href="{{ route('products.seo') }}"
-                            class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
-                            <x-module-icon module="seo" size="sm" />
-                            <div>
-                                <div class="font-medium">SEO Eszköz</div>
-                                <div class="text-xs text-gray-500">AI alapú keresőoptimalizálás</div>
-                            </div>
-                        </a>
-                        <a href="{{ route('products.crm') }}"
-                            class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
-                            <x-module-icon module="crm" size="sm" />
-                            <div>
-                                <div class="font-medium">CRM</div>
-                                <div class="text-xs text-gray-500">Ügyfélkapcsolat-kezelés</div>
-                            </div>
-                        </a>
-                        <a href="{{ route('products.beszerzes') }}"
-                            class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
-                            <x-module-icon module="beszerzes" size="sm" />
-                            <div>
-                                <div class="font-medium">Beszerzés-logisztika</div>
-                                <div class="text-xs text-gray-500">Készlet és szállításkezelés</div>
-                            </div>
-                        </a>
-                        <a href="{{ route('products.ertekesites') }}"
-                            class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
-                            <x-module-icon module="ertekesites" size="sm" />
-                            <div>
-                                <div class="font-medium">Értékesítés</div>
-                                <div class="text-xs text-gray-500">Ajánlatok és megrendelések</div>
-                            </div>
-                        </a>
-                        <a href="{{ route('products.gyartas') }}"
-                            class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
-                            <x-module-icon module="gyartas" size="sm" />
-                            <div>
-                                <div class="font-medium">Gyártásirányítás</div>
-                                <div class="text-xs text-gray-500">Termelés és minőség</div>
-                            </div>
-                        </a>
-                        <a href="{{ route('products.automatizalas') }}"
-                            class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
-                            <x-module-icon module="automatizalas" size="sm" />
-                            <div>
-                                <div class="font-medium">Automatizálás</div>
-                                <div class="text-xs text-gray-500">Workflow-k és triggerek</div>
-                            </div>
-                        </a>
-                        <a href="{{ route('products.marketinghub') }}"
-                            class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
-                            <x-module-icon module="marketinghub" size="sm" />
-                            <div>
-                                <div class="font-medium">MarketingHub</div>
-                                <div class="text-xs text-gray-500">Online marketing eszközök</div>
-                            </div>
-                        </a>
-                        <a href="{{ route('products.datamind') }}"
-                            class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
-                            <x-module-icon module="datamind" size="sm" />
-                            <div>
-                                <div class="font-medium">DataMind</div>
-                                <div class="text-xs text-gray-500">MI alapú adatbányász platform</div>
-                            </div>
-                        </a>
+                        class="absolute left-0 top-full mt-1 w-[580px] bg-white rounded-xl shadow-lg border border-gray-200 z-50">
+                        <div class="grid grid-cols-2 gap-x-1 p-3">
+                            <a href="{{ route('products.kontrolling') }}"
+                                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50">
+                                <x-module-icon module="kontrolling" size="sm" />
+                                <div>
+                                    <div class="font-medium">Kontrolling</div>
+                                    <div class="text-xs text-gray-500">Pénzügyi tervezés és elemzés</div>
+                                </div>
+                            </a>
+                            <a href="{{ route('products.crm') }}"
+                                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50">
+                                <x-module-icon module="crm" size="sm" />
+                                <div>
+                                    <div class="font-medium">CRM</div>
+                                    <div class="text-xs text-gray-500">Ügyfélkapcsolat-kezelés</div>
+                                </div>
+                            </a>
+                            <a href="{{ route('products.ertekesites') }}"
+                                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50">
+                                <x-module-icon module="ertekesites" size="sm" />
+                                <div>
+                                    <div class="font-medium">Értékesítés</div>
+                                    <div class="text-xs text-gray-500">Ajánlatok és megrendelések</div>
+                                </div>
+                            </a>
+                            <a href="{{ route('products.beszerzes') }}"
+                                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50">
+                                <x-module-icon module="beszerzes" size="sm" />
+                                <div>
+                                    <div class="font-medium">Beszerzés-logisztika</div>
+                                    <div class="text-xs text-gray-500">Készlet és szállításkezelés</div>
+                                </div>
+                            </a>
+                            <a href="{{ route('products.gyartas') }}"
+                                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50">
+                                <x-module-icon module="gyartas" size="sm" />
+                                <div>
+                                    <div class="font-medium">Gyártásirányítás</div>
+                                    <div class="text-xs text-gray-500">Termelés és minőség</div>
+                                </div>
+                            </a>
+                            <a href="{{ route('products.automatizalas') }}"
+                                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50">
+                                <x-module-icon module="automatizalas" size="sm" />
+                                <div>
+                                    <div class="font-medium">Automatizálás</div>
+                                    <div class="text-xs text-gray-500">Workflow-k és triggerek</div>
+                                </div>
+                            </a>
+                            <a href="{{ route('products.szerviz') }}"
+                                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50">
+                                <x-module-icon module="szerviz" size="sm" />
+                                <div>
+                                    <div class="font-medium">Digitális munkalap</div>
+                                    <div class="text-xs text-gray-500">Munkalapok kiszállásokhoz</div>
+                                </div>
+                            </a>
+                            <a href="{{ route('products.seo') }}"
+                                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50">
+                                <x-module-icon module="seo" size="sm" />
+                                <div>
+                                    <div class="font-medium">SEO Eszköz</div>
+                                    <div class="text-xs text-gray-500">AI alapú keresőoptimalizálás</div>
+                                </div>
+                            </a>
+                            <a href="{{ route('products.marketinghub') }}"
+                                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50">
+                                <x-module-icon module="marketinghub" size="sm" />
+                                <div>
+                                    <div class="font-medium">MarketingHub</div>
+                                    <div class="text-xs text-gray-500">Online marketing eszközök</div>
+                                </div>
+                            </a>
+                            <a href="{{ route('products.datamind') }}"
+                                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50">
+                                <x-module-icon module="datamind" size="sm" />
+                                <div>
+                                    <div class="font-medium">DataMind</div>
+                                    <div class="text-xs text-gray-500">MI alapú adatbányász platform</div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
