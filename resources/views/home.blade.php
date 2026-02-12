@@ -40,8 +40,8 @@
 
                     {{-- No credit card text --}}
                     <p class="text-sm text-text-tertiary mt-4 flex items-center gap-2">
-                        <span>Bankkártya nélkül indíthat</span>
-                        <span class="text-text-disabled">✦</span>
+                        {{-- <span>Bankkártya nélkül indíthat</span>
+                        <span class="text-text-disabled">✦</span> --}}
                         <span>Személyre szabott demó 30 percben</span>
                     </p>
                 </div>
@@ -476,7 +476,8 @@
                         class="bg-pink-500 rounded-3xl p-10 h-full flex flex-col justify-between min-h-120">
                         <div>
                             <div class="flex items-center gap-2 mb-8">
-                                <x-module-icon module="marketinghub" size="xs" :show-background="false" color="#ffffff" />
+                                <x-module-icon module="marketinghub" size="xs" :show-background="false"
+                                    color="#ffffff" />
                                 <span class="text-white/90 text-sm font-medium"><strong
                                         class="font-bold">cégem360</strong> MarketingHub</span>
                             </div>
@@ -1105,10 +1106,197 @@
         </div>
     </section>
 
-    {{-- Section 5: Case Studies Carousel --}}
+    {{-- Section 5: Blog Posts Carousel --}}
+    @php
+        $blogPosts = \App\Models\Blog\Blog::query()
+            ->published()
+            ->with('blogCategory')
+            ->orderByDesc('published_at')
+            ->limit(9)
+            ->get();
+    @endphp
+
+    @if ($blogPosts->isNotEmpty())
+        <section class="bg-light-400 py-20">
+            <div class="max-w-7xl mx-auto px-6">
+                {{-- Header --}}
+                <div class="flex items-start justify-between mb-12">
+                    <h2 class="text-4xl md:text-5xl lg:text-[3.5rem] text-text-primary leading-tight max-w-2xl"
+                        style="font-family: 'Poppins', sans-serif; font-weight: 400;">
+                        Blog: hasznos tippek és tudás vállalkozóknak
+                    </h2>
+                    <a href="#"
+                        class="hidden md:inline-flex items-center gap-2 bg-text-primary text-white px-7 py-3.5 rounded-full text-base font-medium hover:bg-dark-700 transition-colors shrink-0">
+                        Összes bejegyzés
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </a>
+                </div>
+
+                {{-- Carousel Container --}}
+                <div x-data="{
+                    currentIndex: 0,
+                    totalSlides: {{ $blogPosts->count() }},
+                    visibleSlides: 4,
+                    autoplayInterval: null,
+                    isHovered: false,
+                    isDragging: false,
+                    startX: 0,
+                    currentX: 0,
+                    dragOffset: 0,
+                    get maxIndex() {
+                        return Math.max(0, this.totalSlides - this.visibleSlides);
+                    },
+                    init() {
+                        this.updateVisibleSlides();
+                        window.addEventListener('resize', () => this.updateVisibleSlides());
+                        this.startAutoplay();
+                    },
+                    updateVisibleSlides() {
+                        if (window.innerWidth < 640) this.visibleSlides = 1;
+                        else if (window.innerWidth < 1024) this.visibleSlides = 2;
+                        else if (window.innerWidth < 1280) this.visibleSlides = 3;
+                        else this.visibleSlides = 4;
+                        if (this.currentIndex > this.maxIndex) this.currentIndex = this.maxIndex;
+                    },
+                    next() {
+                        if (this.currentIndex < this.maxIndex) {
+                            this.currentIndex++;
+                        } else {
+                            this.currentIndex = 0;
+                        }
+                    },
+                    prev() {
+                        if (this.currentIndex > 0) {
+                            this.currentIndex--;
+                        } else {
+                            this.currentIndex = this.maxIndex;
+                        }
+                    },
+                    goTo(index) {
+                        this.currentIndex = Math.min(index, this.maxIndex);
+                    },
+                    startAutoplay() {
+                        this.autoplayInterval = setInterval(() => {
+                            if (!this.isHovered) this.next();
+                        }, 4000);
+                    },
+                    stopAutoplay() {
+                        clearInterval(this.autoplayInterval);
+                    },
+                    handleDragStart(e) {
+                        this.isDragging = true;
+                        this.startX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
+                        this.dragOffset = 0;
+                    },
+                    handleDragMove(e) {
+                        if (!this.isDragging) return;
+                        e.preventDefault();
+                        this.currentX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
+                        this.dragOffset = this.currentX - this.startX;
+                    },
+                    handleDragEnd() {
+                        if (!this.isDragging) return;
+                        this.isDragging = false;
+                        const threshold = 80;
+                        if (this.dragOffset > threshold) {
+                            this.prev();
+                        } else if (this.dragOffset < -threshold) {
+                            this.next();
+                        }
+                        this.dragOffset = 0;
+                    }
+                }" @mouseenter="isHovered = true"
+                    @mouseleave="isHovered = false; handleDragEnd()" class="relative">
+                    {{-- Cards Carousel --}}
+                    <div class="overflow-hidden">
+                        <div class="flex gap-6 select-none [&_img]:pointer-events-none"
+                            :class="isDragging ? '' : 'transition-transform duration-500 ease-out'"
+                            :style="'transform: translateX(calc(-' + (currentIndex * (100 / visibleSlides)) + '% + ' +
+                            dragOffset +
+                                'px)); cursor: ' + (isDragging ? 'grabbing' : 'grab')"
+                            @mousedown="handleDragStart($event)" @mousemove="handleDragMove($event)"
+                            @mouseup="handleDragEnd()" @mouseleave="handleDragEnd()"
+                            @touchstart="handleDragStart($event)" @touchmove="handleDragMove($event)"
+                            @touchend="handleDragEnd()">
+                            @foreach ($blogPosts as $post)
+                                <div class="shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] bg-white rounded-2xl p-6"
+                                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                                    <div class="w-full h-40 rounded-xl mb-5 overflow-hidden">
+                                        <img src="{{ $post->featured_image ? Storage::url($post->featured_image) : Vite::asset('resources/images/products-main-img.webp') }}"
+                                            alt="{{ $post->title }}" class="w-full h-full object-cover">
+                                    </div>
+                                    @if ($post->blogCategory)
+                                        <div class="mb-3">
+                                            <span
+                                                class="inline-block px-3 py-1 bg-primary-50 text-primary-700 rounded-full text-xs font-medium">
+                                                {{ $post->blogCategory->name }}
+                                            </span>
+                                        </div>
+                                    @endif
+                                    <h3 class="text-lg font-semibold text-text-primary mb-2 line-clamp-2"
+                                        style="font-family: 'Poppins', sans-serif;">
+                                        {{ $post->title }}
+                                    </h3>
+                                    <p class="text-text-secondary text-sm leading-relaxed line-clamp-3 mb-4">
+                                        {{ $post->excerpt }}
+                                    </p>
+                                    <div class="border-t border-border-light pt-4 flex items-center justify-between">
+                                        <span class="text-xs text-text-tertiary">
+                                            {{ $post->published_at->format('Y. m. d.') }}
+                                        </span>
+                                        <a href="#"
+                                            class="text-primary-600 text-sm font-medium hover:text-primary-700 transition-colors">
+                                            Tovább →
+                                        </a>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    {{-- Navigation Arrows & Dots --}}
+                    <div class="flex items-center justify-between mt-8">
+                        {{-- Arrow Buttons --}}
+                        <div class="flex gap-3">
+                            <button @click="prev()"
+                                class="w-12 h-12 rounded-full border border-border-light bg-white flex items-center justify-center transition-colors hover:bg-surface-secondary">
+                                <svg class="w-5 h-5 text-text-primary" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 19l-7-7 7-7" />
+                                </svg>
+                            </button>
+                            <button @click="next()"
+                                class="w-12 h-12 rounded-full border border-border-light bg-white flex items-center justify-center transition-colors hover:bg-surface-secondary">
+                                <svg class="w-5 h-5 text-text-primary" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        {{-- Dot Indicators --}}
+                        <div class="flex gap-2">
+                            <template x-for="i in (maxIndex + 1)" :key="i">
+                                <button @click="goTo(i - 1)"
+                                    :class="currentIndex === (i - 1) ? 'bg-dark-300 w-6' : 'bg-dark-200 w-2 hover:bg-dark-300'"
+                                    class="h-2 rounded-full transition-all duration-300">
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
+
+    {{-- ORIGINAL Section 5: Case Studies Carousel (commented out for later use)
     <section class="bg-light-400 py-20">
         <div class="max-w-7xl mx-auto px-6">
-            {{-- Header --}}
             <div class="flex items-start justify-between mb-12">
                 <h2 class="text-4xl md:text-5xl lg:text-[3.5rem] text-text-primary leading-tight max-w-2xl"
                     style="font-family: 'Poppins', sans-serif; font-weight: 400;">
@@ -1123,8 +1311,6 @@
                     </svg>
                 </a>
             </div>
-
-            {{-- Carousel Container --}}
             <div x-data="{
                 currentIndex: 0,
                 totalSlides: 9,
@@ -1199,7 +1385,6 @@
                 }
             }" @mouseenter="isHovered = true"
                 @mouseleave="isHovered = false; handleDragEnd()" class="relative">
-                {{-- Cards Carousel --}}
                 <div class="overflow-hidden">
                     <div class="flex gap-6 select-none [&_img]:pointer-events-none"
                         :class="isDragging ? '' : 'transition-transform duration-500 ease-out'"
@@ -1209,269 +1394,26 @@
                         @mouseup="handleDragEnd()" @mouseleave="handleDragEnd()"
                         @touchstart="handleDragStart($event)" @touchmove="handleDragMove($event)"
                         @touchend="handleDragEnd()">
-                        {{-- McDonald's Card --}}
-                        <div class="shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] bg-white rounded-2xl p-6"
-                            style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-                            <div class="flex items-center justify-between mb-4 h-10">
-                                <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/67e2f63a9b1842822745591c_mcdonalds-15-logo-png-transparent.avif"
-                                    alt="McDonald's" class="h-10 w-auto max-w-28 object-contain">
-                                <a href="#"
-                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">Esettanulmány</a>
-                            </div>
-                            <div class="w-full h-40 rounded-xl mb-5 overflow-hidden">
-                                <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/67e2f6b041ce2963c90ef8ef_visual-karsa-y8fS7CSN-Vw-unsplash.avif"
-                                    alt="McDonald's case study" class="w-full h-full object-cover">
-                            </div>
-                            <div class="flex items-center gap-3 mb-4">
-                                <span class="text-5xl font-bold text-text-primary"
-                                    style="font-family: 'Poppins', sans-serif;">615%</span>
-                                <span class="text-text-secondary text-base leading-tight">Return
-                                    on<br>investment</span>
-                            </div>
-                            <div class="border-t border-border-light pt-4">
-                                <span
-                                    class="inline-block px-3 py-1.5 border border-border-light rounded-full text-sm text-text-secondary">Retail
-                                    & CPG</span>
-                            </div>
-                        </div>
-
-                        {{-- HOLT CAT Card --}}
-                        <div class="shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] bg-white rounded-2xl p-6"
-                            style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-                            <div class="flex items-center justify-between mb-4 h-10">
-                                <img src="https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/remote_mondaycom_static/img/customers/logos-v2/HoltCat.png"
-                                    alt="HOLT CAT" class="h-8 w-auto max-w-28 object-contain">
-                                <a href="#"
-                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">Esettanulmány</a>
-                            </div>
-                            <div class="w-full h-40 rounded-xl mb-5 overflow-hidden">
-                                <img src="https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/remote_mondaycom_static/uploads/MaayanDagan/63f73c80-46ae-4158-871d-c4ee43bf3a1e_HOLT5.png"
-                                    alt="HOLT CAT case study" class="w-full h-full object-cover">
-                            </div>
-                            <div class="flex items-center gap-3 mb-4">
-                                <span class="text-5xl font-bold text-text-primary"
-                                    style="font-family: 'Poppins', sans-serif;">105K</span>
-                                <span class="text-text-secondary text-base leading-tight">Hours
-                                    saved<br>annually</span>
-                            </div>
-                            <div class="border-t border-border-light pt-4">
-                                <span
-                                    class="inline-block px-3 py-1.5 border border-border-light rounded-full text-sm text-text-secondary">Manufacturing</span>
-                            </div>
-                        </div>
-
-                        {{-- Canva Card --}}
-                        <div class="shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] bg-white rounded-2xl p-6"
-                            style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-                            <div class="flex items-center justify-between mb-4 h-10">
-                                <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/66fbd753a720abab15120c77_Canva_Logo.svg"
-                                    alt="Canva" class="h-8 w-auto max-w-28 object-contain">
-                                <a href="#"
-                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">Esettanulmány</a>
-                            </div>
-                            <div class="w-full h-40 rounded-xl mb-5 overflow-hidden">
-                                <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/6720cc84a8ee5cd3ba51161d_canva.avif"
-                                    alt="Canva case study" class="w-full h-full object-cover">
-                            </div>
-                            <div class="flex items-center gap-3 mb-4">
-                                <span class="text-5xl font-bold text-text-primary"
-                                    style="font-family: 'Poppins', sans-serif;">300%</span>
-                                <span class="text-text-secondary text-base leading-tight">Saved yearly
-                                    to<br>reinvest</span>
-                            </div>
-                            <div class="border-t border-border-light pt-4">
-                                <span
-                                    class="inline-block px-3 py-1.5 border border-border-light rounded-full text-sm text-text-secondary">Advertising</span>
-                            </div>
-                        </div>
-
-                        {{-- Vistra Card --}}
-                        <div class="shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] bg-white rounded-2xl p-6"
-                            style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-                            <div class="flex items-center justify-between mb-4 h-10">
-                                <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/67e308bf93fb14fdddd63880_Vistra_Logo_Vistra_Blue_RGB_b4198462-0d47-4a43-8524-1b55ebf4082c_1024x.avif"
-                                    alt="Vistra" class="h-6 w-auto max-w-28 object-contain">
-                                <a href="#"
-                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">Esettanulmány</a>
-                            </div>
-                            <div class="w-full h-40 rounded-xl mb-5 overflow-hidden">
-                                <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/67e30e370a822e0ddc743d9b_verne-ho-0LAJfSNa-xQ-unsplash.avif"
-                                    alt="Vistra case study" class="w-full h-full object-cover">
-                            </div>
-                            <div class="flex items-center gap-3 mb-4">
-                                <span class="text-5xl font-bold text-text-primary"
-                                    style="font-family: 'Poppins', sans-serif;">28%</span>
-                                <span class="text-text-secondary text-base leading-tight">Faster time
-                                    to<br>market</span>
-                            </div>
-                            <div class="border-t border-border-light pt-4">
-                                <span
-                                    class="inline-block px-3 py-1.5 border border-border-light rounded-full text-sm text-text-secondary">Technology</span>
-                            </div>
-                        </div>
-
-                        {{-- Universal Music Group Card --}}
-                        <div class="shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] bg-white rounded-2xl p-6"
-                            style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-                            <div class="flex items-center justify-between mb-4 h-10">
-                                <img src="https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/remote_mondaycom_static/img/customers/logos-v2/universal.png"
-                                    alt="Universal Music Group" class="h-10 w-auto max-w-28 object-contain">
-                                <a href="#"
-                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">Esettanulmány</a>
-                            </div>
-                            <div class="w-full h-40 rounded-xl mb-5 overflow-hidden">
-                                <img src="{{ Vite::asset('resources/images/hp_cusromers-srory-5.webp') }}"
-                                    alt="Universal Music Group case study" class="w-full h-full object-cover">
-                            </div>
-                            <div class="flex items-center gap-3 mb-4">
-                                <span class="text-5xl font-bold text-text-primary"
-                                    style="font-family: 'Poppins', sans-serif;">517%</span>
-                                <span class="text-text-secondary text-base leading-tight">Growth in
-                                    annual<br>accounts</span>
-                            </div>
-                            <div class="border-t border-border-light pt-4">
-                                <span
-                                    class="inline-block px-3 py-1.5 border border-border-light rounded-full text-sm text-text-secondary">Entertainment</span>
-                            </div>
-                        </div>
-
-                        {{-- Compass Card --}}
-                        <div class="shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] bg-white rounded-2xl p-6"
-                            style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-                            <div class="flex items-center justify-between mb-4 h-10">
-                                <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/66fe4e1ab5f3de574e762686_compass.svg"
-                                    alt="Compass" class="h-6 w-auto max-w-28 object-contain">
-                                <a href="#"
-                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">Esettanulmány</a>
-                            </div>
-                            <div class="w-full h-40 rounded-xl mb-5 overflow-hidden">
-                                <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/6720cd94d5cf9e8b0e3e4be5_compass.avif"
-                                    alt="Compass case study" class="w-full h-full object-cover">
-                            </div>
-                            <div class="flex items-center gap-3 mb-4">
-                                <span class="text-5xl font-bold text-text-primary"
-                                    style="font-family: 'Poppins', sans-serif;">$173K</span>
-                                <span class="text-text-secondary text-base leading-tight">Saved per<br>month</span>
-                            </div>
-                            <div class="border-t border-border-light pt-4">
-                                <span
-                                    class="inline-block px-3 py-1.5 border border-border-light rounded-full text-sm text-text-secondary">Real
-                                    estate</span>
-                            </div>
-                        </div>
-
-                        {{-- VML Card --}}
-                        <div class="shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] bg-white rounded-2xl p-6"
-                            style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-                            <div class="flex items-center justify-between mb-4 h-10">
-                                <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/66fbc36c01eba16bf8a29247_VML.svg"
-                                    alt="VML" class="h-6 w-auto max-w-28 object-contain">
-                                <a href="#"
-                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">Esettanulmány</a>
-                            </div>
-                            <div class="w-full h-40 rounded-xl mb-5 overflow-hidden">
-                                <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/6720e6a6096540e78d4c7c50_Screenshot%202024-10-29%20at%2015.43.43.avif"
-                                    alt="VML case study" class="w-full h-full object-cover">
-                            </div>
-                            <div class="flex items-center gap-3 mb-4">
-                                <span class="text-5xl font-bold text-text-primary"
-                                    style="font-family: 'Poppins', sans-serif;">$250K</span>
-                                <span class="text-text-secondary text-base leading-tight">Saved yearly
-                                    to<br>reinvest</span>
-                            </div>
-                            <div class="border-t border-border-light pt-4">
-                                <span
-                                    class="inline-block px-3 py-1.5 border border-border-light rounded-full text-sm text-text-secondary">Advertising</span>
-                            </div>
-                        </div>
-
-                        {{-- Call Box Card --}}
-                        <div class="shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] bg-white rounded-2xl p-6"
-                            style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-                            <div class="flex items-center justify-between mb-4 h-10">
-                                <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/6703c06032a4d282266d7374_Call%20Box%20Logo.svg"
-                                    alt="Call Box" class="h-6 w-auto max-w-28 object-contain">
-                                <a href="#"
-                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">Esettanulmány</a>
-                            </div>
-                            <div class="w-full h-40 rounded-xl mb-5 overflow-hidden">
-                                <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/6720fe11d4ea96e33f16d8f4_GettyImages-2165167605.avif"
-                                    alt="Call Box case study" class="w-full h-full object-cover">
-                            </div>
-                            <div class="flex items-center gap-3 mb-4">
-                                <span class="text-5xl font-bold text-text-primary"
-                                    style="font-family: 'Poppins', sans-serif;">66%</span>
-                                <span class="text-text-secondary text-base leading-tight">Decrease in post-<br>release
-                                    bugs</span>
-                            </div>
-                            <div class="border-t border-border-light pt-4">
-                                <span
-                                    class="inline-block px-3 py-1.5 border border-border-light rounded-full text-sm text-text-secondary">Technology</span>
-                            </div>
-                        </div>
-
-                        {{-- Deezer Card --}}
-                        <div class="shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] bg-white rounded-2xl p-6"
-                            style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-                            <div class="flex items-center justify-between mb-4 h-10">
-                                <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/66fd445e4d98faf22b5d93cb_Deezer_logo%2C_2023.svg"
-                                    alt="Deezer" class="h-6 w-auto max-w-28 object-contain">
-                                <a href="#"
-                                    class="text-text-primary text-sm font-medium underline underline-offset-2 hover:text-primary-600 transition-colors">Esettanulmány</a>
-                            </div>
-                            <div class="w-full h-40 rounded-xl mb-5 overflow-hidden">
-                                <img src="https://cdn.prod.website-files.com/65b62e80a3a89609079c247a/6720e84e5e31406127d92514_deezer.avif"
-                                    alt="Deezer case study" class="w-full h-full object-cover">
-                            </div>
-                            <div class="flex items-center gap-3 mb-4">
-                                <span class="text-5xl font-bold text-text-primary"
-                                    style="font-family: 'Poppins', sans-serif;">142%</span>
-                                <span class="text-text-secondary text-base leading-tight">More
-                                    weekly<br>campaigns</span>
-                            </div>
-                            <div class="border-t border-border-light pt-4">
-                                <span
-                                    class="inline-block px-3 py-1.5 border border-border-light rounded-full text-sm text-text-secondary">Technology</span>
-                            </div>
-                        </div>
+                        McDonald's Card ... HOLT CAT Card ... Canva Card ... Vistra Card ...
+                        Universal Music Group Card ... Compass Card ... VML Card ... Call Box Card ... Deezer Card ...
+                        (9 hardcoded cards with company logos, images, stats, and industry tags)
                     </div>
                 </div>
-
-                {{-- Navigation Arrows & Dots --}}
                 <div class="flex items-center justify-between mt-8">
-                    {{-- Arrow Buttons --}}
                     <div class="flex gap-3">
-                        <button @click="prev()"
-                            class="w-12 h-12 rounded-full border border-border-light bg-white flex items-center justify-center transition-colors hover:bg-surface-secondary">
-                            <svg class="w-5 h-5 text-text-primary" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 19l-7-7 7-7" />
-                            </svg>
-                        </button>
-                        <button @click="next()"
-                            class="w-12 h-12 rounded-full border border-border-light bg-white flex items-center justify-center transition-colors hover:bg-surface-secondary">
-                            <svg class="w-5 h-5 text-text-primary" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
+                        <button @click="prev()" class="w-12 h-12 rounded-full border ...">←</button>
+                        <button @click="next()" class="w-12 h-12 rounded-full border ...">→</button>
                     </div>
-
-                    {{-- Dot Indicators --}}
                     <div class="flex gap-2">
                         <template x-for="i in (maxIndex + 1)" :key="i">
-                            <button @click="goTo(i - 1)"
-                                :class="currentIndex === (i - 1) ? 'bg-dark-300 w-6' : 'bg-dark-200 w-2 hover:bg-dark-300'"
-                                class="h-2 rounded-full transition-all duration-300">
-                            </button>
+                            <button @click="goTo(i - 1)" class="h-2 rounded-full ..."></button>
                         </template>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    --}}
 
     {{-- Section 6: Trusted By / Social Proof --}}
     <section class="hidden bg-surface-secondary border-y border-border-light py-16">
@@ -1595,8 +1537,7 @@
                         class="inline-flex items-center gap-2 text-primary-600 font-medium hover:text-primary-800 transition-colors">
                         <span>Tudjon meg többet</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 5l7 7-7 7">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
                             </path>
                         </svg>
                     </a>
@@ -1621,8 +1562,7 @@
                         class="inline-flex items-center gap-2 text-primary-600 font-medium hover:text-primary-800 transition-colors">
                         <span>Tudjon meg többet</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 5l7 7-7 7">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
                             </path>
                         </svg>
                     </a>
@@ -1648,8 +1588,7 @@
                         class="inline-flex items-center gap-2 text-primary-600 font-medium hover:text-primary-800 transition-colors">
                         <span>Tudjon meg többet</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 5l7 7-7 7">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
                             </path>
                         </svg>
                     </a>
@@ -1675,8 +1614,7 @@
                         class="inline-flex items-center gap-2 text-primary-600 font-medium hover:text-primary-800 transition-colors">
                         <span>Tudjon meg többet</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 5l7 7-7 7">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
                             </path>
                         </svg>
                     </a>
@@ -1702,8 +1640,7 @@
                         class="inline-flex items-center gap-2 text-primary-600 font-medium hover:text-primary-800 transition-colors">
                         <span>Tudjon meg többet</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 5l7 7-7 7">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
                             </path>
                         </svg>
                     </a>
