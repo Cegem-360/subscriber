@@ -86,12 +86,13 @@
                             <div
                                 class="flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
                                 {{-- Header with larger icon and title --}}
-                                <div class="mb-5 h-36">
+                                <div class="mb-5 h-28">
                                     <div class="mb-3">
                                         <x-module-icon :module="$module['id']" size="lg" />
                                     </div>
-                                    <h3 class="text-lg font-semibold leading-tight text-gray-900">{{ $module['name'] }}</h3>
-                                    <p class="mt-1 line-clamp-2 text-sm text-gray-500">{{ $module['subtitle'] }}</p>
+                                    <h3 class="text-lg font-semibold leading-tight text-gray-900">{{ $module['name'] }}
+                                    </h3>
+                                    {{-- <p class="mt-1 line-clamp-2 text-sm text-gray-500">{{ $module['subtitle'] }}</p> --}}
                                 </div>
 
                                 {{-- Price --}}
@@ -241,7 +242,11 @@
                         {{-- Module-specific features --}}
                         <tr class="bg-gray-50/50">
                             <td class="py-4 px-4 text-base text-gray-700">Digitális munkalapok</td>
-                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg></td>
+                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
@@ -253,7 +258,11 @@
                         </tr>
                         <tr class="bg-white">
                             <td class="py-4 px-4 text-base text-gray-700">Helyszíni aláírás</td>
-                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg></td>
+                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
@@ -265,7 +274,11 @@
                         </tr>
                         <tr class="bg-gray-50/50">
                             <td class="py-4 px-4 text-base text-gray-700">Offline működés</td>
-                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg></td>
+                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
@@ -278,7 +291,11 @@
                         <tr class="bg-white">
                             <td class="py-4 px-4 text-base text-gray-700">Pénzügyi riportok</td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
-                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg></td>
+                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
@@ -291,8 +308,16 @@
                             <td class="py-4 px-4 text-base text-gray-700">Készletkezelés</td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
-                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg></td>
-                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg></td>
+                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg></td>
+                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
@@ -304,7 +329,11 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
-                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg></td>
+                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
@@ -317,7 +346,11 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
-                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg></td>
+                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
@@ -330,7 +363,11 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
-                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg></td>
+                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
@@ -342,8 +379,16 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
-                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg></td>
-                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg></td>
+                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg></td>
+                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                         </tr>
@@ -355,7 +400,11 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
-                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg></td>
+                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                         </tr>
@@ -370,7 +419,11 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
-                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg></td>
+                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                         </tr>
                         <tr class="bg-white">
@@ -382,7 +435,11 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
-                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg></td>
+                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                         </tr>
                         <tr class="bg-gray-50/50">
@@ -394,7 +451,11 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
-                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg></td>
+                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                         </tr>
 
@@ -409,7 +470,11 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
-                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg></td>
+                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg></td>
                         </tr>
                         <tr class="bg-gray-50/50">
                             <td class="py-4 px-4 text-base text-gray-700">Meta Ads integráció</td>
@@ -421,7 +486,11 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
-                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg></td>
+                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg></td>
                         </tr>
                         <tr class="bg-white">
                             <td class="py-4 px-4 text-base text-gray-700">Kampány ROI elemzés</td>
@@ -433,7 +502,11 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
-                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg></td>
+                            <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg></td>
                         </tr>
 
                         {{-- Price row --}}
