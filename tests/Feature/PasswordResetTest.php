@@ -6,6 +6,7 @@ use App\Filament\Pages\Auth\PasswordReset\RequestPasswordReset;
 use App\Filament\Pages\Auth\PasswordReset\ResetPassword;
 use App\Models\User;
 use Filament\Auth\Notifications\ResetPassword as ResetPasswordNotification;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\URL;
@@ -141,6 +142,30 @@ describe('Password reset form', function (): void {
             ])
             ->call('resetPassword')
             ->assertNotified();
+    });
+
+    it('syncs the new password to receiver apps after reset', function (): void {
+        Http::fake();
+
+        config()->set('user-team-sync.publisher.app_source', 'config');
+        config()->set('user-team-sync.publisher.apps', [
+            'test-app' => ['url' => 'https://test-app.test', 'api_key' => 'test-key', 'active' => true],
+        ]);
+
+        $user = User::factory()->create();
+        $token = Password::createToken($user);
+
+        livewire(ResetPassword::class, ['token' => $token, 'email' => $user->email])
+            ->fillForm([
+                'password' => 'new-password-123',
+                'passwordConfirmation' => 'new-password-123',
+            ])
+            ->call('resetPassword')
+            ->assertNotified();
+
+        Http::assertSent(fn ($request): bool => str_contains($request->url(), '/api/sync-password')
+            && $request['email'] === $user->email,
+        );
     });
 
     it('fails with an invalid token', function (): void {

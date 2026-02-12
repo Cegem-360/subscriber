@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 use App\Enums\Country;
 use App\Filament\Pages\Auth\Register;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 
 use function Pest\Livewire\livewire;
 
@@ -85,5 +89,35 @@ describe('Registration form component', function (): void {
             ->and(Country::Hungary->value)->toBe('HU')
             ->and(Country::Austria->value)->toBe('AT')
             ->and(Country::Germany->value)->toBe('DE');
+    });
+});
+
+describe('Registration and login flow', function (): void {
+    it('can log in with the password used during registration', function (): void {
+        Http::fake();
+
+        $password = 'MySecurePass123!';
+
+        livewire(Register::class)
+            ->fillForm([
+                'name' => 'Test User',
+                'email' => 'registration-test@example.com',
+                'password' => $password,
+                'passwordConfirmation' => $password,
+                'company_name' => 'Test Company',
+                'tax_number' => '12345678',
+                'address' => 'Test Street 1',
+                'city' => 'Budapest',
+                'postal_code' => '1234',
+                'country' => Country::Hungary,
+            ])
+            ->call('register')
+            ->assertRedirect();
+
+        $user = User::query()->where('email', 'registration-test@example.com')->first();
+
+        expect($user)->not->toBeNull();
+        expect(Hash::check($password, $user->password))->toBeTrue('Password hash in DB should match the registration password');
+        expect(Auth::attempt(['email' => $user->email, 'password' => $password]))->toBeTrue('Auth::attempt should succeed with the registration password');
     });
 });

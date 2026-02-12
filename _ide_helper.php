@@ -5,7 +5,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 12.48.1.
+ * Generated for Laravel 12.51.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -4220,7 +4220,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Assert if a batch was dispatched based on a truth-test callback.
          *
-         * @param callable(\Illuminate\Bus\PendingBatch):  bool  $callback
+         * @param array|callable(\Illuminate\Bus\PendingBatch):  bool  $callback
          * @return void
          * @static
          */
@@ -4476,6 +4476,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param array $config
          * @return \Illuminate\Cache\Repository
+         * @throws \InvalidArgumentException
          * @static
          */
         public static function build($config)
@@ -4677,6 +4678,81 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
+         * Retrieve a string item from the cache.
+         *
+         * @param \BackedEnum|\UnitEnum|string $key
+         * @param (\Closure():(string|null))|string|null $default
+         * @return string
+         * @throws \InvalidArgumentException
+         * @static
+         */
+        public static function string($key, $default = null)
+        {
+            /** @var \Illuminate\Cache\Repository $instance */
+            return $instance->string($key, $default);
+        }
+
+        /**
+         * Retrieve an integer item from the cache.
+         *
+         * @param \BackedEnum|\UnitEnum|string $key
+         * @param (\Closure():(int|null))|int|null $default
+         * @return int
+         * @throws \InvalidArgumentException
+         * @static
+         */
+        public static function integer($key, $default = null)
+        {
+            /** @var \Illuminate\Cache\Repository $instance */
+            return $instance->integer($key, $default);
+        }
+
+        /**
+         * Retrieve a float item from the cache.
+         *
+         * @param \BackedEnum|\UnitEnum|string $key
+         * @param (\Closure():(float|null))|float|null $default
+         * @return float
+         * @throws \InvalidArgumentException
+         * @static
+         */
+        public static function float($key, $default = null)
+        {
+            /** @var \Illuminate\Cache\Repository $instance */
+            return $instance->float($key, $default);
+        }
+
+        /**
+         * Retrieve a boolean item from the cache.
+         *
+         * @param \BackedEnum|\UnitEnum|string $key
+         * @param (\Closure():(bool|null))|bool|null $default
+         * @return bool
+         * @throws \InvalidArgumentException
+         * @static
+         */
+        public static function boolean($key, $default = null)
+        {
+            /** @var \Illuminate\Cache\Repository $instance */
+            return $instance->boolean($key, $default);
+        }
+
+        /**
+         * Retrieve an array item from the cache.
+         *
+         * @param \BackedEnum|\UnitEnum|string $key
+         * @param (\Closure():(array<array-key, mixed>|null))|array<array-key, mixed>|null $default
+         * @return array<array-key, mixed>
+         * @throws \InvalidArgumentException
+         * @static
+         */
+        public static function array($key, $default = null)
+        {
+            /** @var \Illuminate\Cache\Repository $instance */
+            return $instance->array($key, $default);
+        }
+
+        /**
          * Store an item in the cache.
          *
          * @param \BackedEnum|\UnitEnum|array|string $key
@@ -4847,7 +4923,7 @@ namespace Illuminate\Support\Facades {
          * Retrieve an item from the cache by key, refreshing it in the background if it is stale.
          *
          * @template TCacheValue
-         * @param string $key
+         * @param \BackedEnum|\UnitEnum|string $key
          * @param array{ 0: \DateTimeInterface|\DateInterval|int, 1: \DateTimeInterface|\DateInterval|int } $ttl
          * @param (callable(): TCacheValue) $callback
          * @param array{ seconds?: int, owner?: string }|null $lock
@@ -4865,7 +4941,7 @@ namespace Illuminate\Support\Facades {
          * Execute a callback while holding an atomic lock on a cache mutex to prevent overlapping calls.
          *
          * @template TReturn
-         * @param string $key
+         * @param \BackedEnum|\UnitEnum|string $key
          * @param callable():  TReturn  $callback
          * @param int $lockFor
          * @param int $waitFor
@@ -5052,7 +5128,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Determine if a cached value exists.
          *
-         * @param string $key
+         * @param \BackedEnum|\UnitEnum|string $key
          * @return bool
          * @static
          */
@@ -5092,7 +5168,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Remove an item from the cache.
          *
-         * @param string $key
+         * @param \BackedEnum|\UnitEnum|string $key
          * @return void
          * @static
          */
@@ -5307,41 +5383,38 @@ namespace Illuminate\Support\Facades {
         /**
          * Create an instance of the process concurrency driver.
          *
-         * @param array $config
          * @return \Illuminate\Concurrency\ProcessDriver
          * @static
          */
-        public static function createProcessDriver($config)
+        public static function createProcessDriver()
         {
             /** @var \Illuminate\Concurrency\ConcurrencyManager $instance */
-            return $instance->createProcessDriver($config);
+            return $instance->createProcessDriver();
         }
 
         /**
          * Create an instance of the fork concurrency driver.
          *
-         * @param array $config
          * @return \Illuminate\Concurrency\ForkDriver
          * @throws \RuntimeException
          * @static
          */
-        public static function createForkDriver($config)
+        public static function createForkDriver()
         {
             /** @var \Illuminate\Concurrency\ConcurrencyManager $instance */
-            return $instance->createForkDriver($config);
+            return $instance->createForkDriver();
         }
 
         /**
          * Create an instance of the sync concurrency driver.
          *
-         * @param array $config
          * @return \Illuminate\Concurrency\SyncDriver
          * @static
          */
-        public static function createSyncDriver($config)
+        public static function createSyncDriver()
         {
             /** @var \Illuminate\Concurrency\ConcurrencyManager $instance */
-            return $instance->createSyncDriver($config);
+            return $instance->createSyncDriver();
         }
 
         /**
@@ -6195,7 +6268,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Execute the given callback when context is about to be dehydrated.
          *
-         * @param callable $callback
+         * @param (callable(static): void) $callback
          * @return \Illuminate\Log\Context\Repository
          * @static
          */
@@ -6208,7 +6281,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Execute the given callback when context has been hydrated.
          *
-         * @param callable $callback
+         * @param (callable(static): void) $callback
          * @return \Illuminate\Log\Context\Repository
          * @static
          */
@@ -12929,6 +13002,20 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
+         * Assert if a job was pushed a number of times.
+         *
+         * @param string $job
+         * @param int $times
+         * @return void
+         * @static
+         */
+        public static function assertPushedTimes($job, $times = 1)
+        {
+            /** @var \Illuminate\Support\Testing\Fakes\QueueFake $instance */
+            $instance->assertPushedTimes($job, $times);
+        }
+
+        /**
          * Assert if a job was pushed based on a truth-test callback.
          *
          * @param string $queue
@@ -13309,6 +13396,18 @@ namespace Illuminate\Support\Facades {
         {
             /** @var \Illuminate\Support\Testing\Fakes\QueueFake $instance */
             return $instance->serializeAndRestore($serializeAndRestore);
+        }
+
+        /**
+         * Release the locks for all unique jobs that were pushed.
+         *
+         * @return void
+         * @static
+         */
+        public static function releaseUniqueJobLocks()
+        {
+            /** @var \Illuminate\Support\Testing\Fakes\QueueFake $instance */
+            $instance->releaseUniqueJobLocks();
         }
 
         /**
@@ -13925,6 +14024,7 @@ namespace Illuminate\Support\Facades {
 
             }
     /**
+     * @method static \BackedEnum|(\BackedEnum|null enum(string $key, string $enumClass, \BackedEnum|null $default = null)
      * @see \Illuminate\Http\Request
      */
     class Request {
@@ -14305,6 +14405,7 @@ namespace Illuminate\Support\Facades {
          * @param string $key
          * @param mixed $default
          * @return mixed
+         * @deprecated use ->input() instead
          * @static
          */
         public static function get($key, $default = null)
@@ -16289,6 +16390,22 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
+         * Retrieve data clamped between min and max values.
+         *
+         * @param string $key
+         * @param int|float $min
+         * @param int|float $max
+         * @param int|float $default
+         * @return float|int
+         * @static
+         */
+        public static function clamp($key, $min, $max, $default = 0)
+        {
+            /** @var \Illuminate\Http\Request $instance */
+            return $instance->clamp($key, $min, $max, $default);
+        }
+
+        /**
          * Retrieve data from the instance as a Carbon instance.
          *
          * @param string $key
@@ -16308,10 +16425,11 @@ namespace Illuminate\Support\Facades {
          * Retrieve data from the instance as an enum.
          *
          * @template TEnum of \BackedEnum
+         * @template TDefault of TEnum|null
          * @param string $key
          * @param class-string<TEnum> $enumClass
-         * @param TEnum|null $default
-         * @return TEnum|null
+         * @param TDefault $default
+         * @return TEnum|TDefault
          * @static
          */
         public static function enum($key, $enumClass, $default = null)
@@ -18263,7 +18381,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Set the default string length for migrations.
          *
-         * @param int $length
+         * @param non-negative-int $length
          * @return void
          * @static
          */
@@ -18763,8 +18881,9 @@ namespace Illuminate\Support\Facades {
         /**
          * Disable foreign key constraints during the execution of a callback.
          *
-         * @param \Closure $callback
-         * @return mixed
+         * @template TReturn
+         * @param (\Closure(): TReturn) $callback
+         * @return TReturn
          * @static
          */
         public static function withoutForeignKeyConstraints($callback)
@@ -18821,7 +18940,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $reference
          * @param string|bool|null $withDefaultSchema
-         * @return array
+         * @return array{string|null, string}
          * @static
          */
         public static function parseSchemaAndTable($reference, $withDefaultSchema = null)
@@ -19353,7 +19472,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Flash a key / value pair to the session.
          *
-         * @param string $key
+         * @param \BackedEnum|\UnitEnum|string $key
          * @param mixed $value
          * @return void
          * @static
@@ -19367,7 +19486,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Flash a key / value pair to the session for immediate use.
          *
-         * @param string $key
+         * @param \BackedEnum|\UnitEnum|string $key
          * @param mixed $value
          * @return void
          * @static
@@ -19937,6 +20056,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param array $config
          * @return \Illuminate\Filesystem\LocalFilesystemAdapter
+         * @throws \InvalidArgumentException
          * @static
          */
         public static function createScopedDriver($config)
@@ -24157,6 +24277,118 @@ namespace FilamentEssentials\Facades {
             }
     }
 
+namespace Madbox99\UserTeamSync\Facades {
+    /**
+     * @see PublisherService
+     */
+    class UserTeamSync {
+        /**
+         * @return \Madbox99\UserTeamSync\Publisher\array<string, array{url: string, api_key: ?string, active: bool}>
+         * @static
+         */
+        public static function getApps()
+        {
+            /** @var \Madbox99\UserTeamSync\Publisher\PublisherService $instance */
+            return $instance->getApps();
+        }
+
+        /**
+         * @return \Madbox99\UserTeamSync\Publisher\array<string, array{url: string, api_key: ?string, active: bool}>
+         * @static
+         */
+        public static function getActiveApps()
+        {
+            /** @var \Madbox99\UserTeamSync\Publisher\PublisherService $instance */
+            return $instance->getActiveApps();
+        }
+
+        /**
+         * @static
+         */
+        public static function getApiKey($appName)
+        {
+            /** @var \Madbox99\UserTeamSync\Publisher\PublisherService $instance */
+            return $instance->getApiKey($appName);
+        }
+
+        /**
+         * @static
+         */
+        public static function getDefaultApiKey()
+        {
+            /** @var \Madbox99\UserTeamSync\Publisher\PublisherService $instance */
+            return $instance->getDefaultApiKey();
+        }
+
+        /**
+         * @return \Madbox99\UserTeamSync\Publisher\array{url: string, api_key: ?string, active: bool}|null
+         * @static
+         */
+        public static function getApp($appName)
+        {
+            /** @var \Madbox99\UserTeamSync\Publisher\PublisherService $instance */
+            return $instance->getApp($appName);
+        }
+
+        /**
+         * @static
+         */
+        public static function createUser($email, $name, $password, $role, $ownerEmail)
+        {
+            /** @var \Madbox99\UserTeamSync\Publisher\PublisherService $instance */
+            return $instance->createUser($email, $name, $password, $role, $ownerEmail);
+        }
+
+        /**
+         * @param array<string, mixed> $changedData
+         * @static
+         */
+        public static function syncUser($email, $changedData)
+        {
+            /** @var \Madbox99\UserTeamSync\Publisher\PublisherService $instance */
+            return $instance->syncUser($email, $changedData);
+        }
+
+        /**
+         * @static
+         */
+        public static function syncPassword($email, $password)
+        {
+            /** @var \Madbox99\UserTeamSync\Publisher\PublisherService $instance */
+            return $instance->syncPassword($email, $password);
+        }
+
+        /**
+         * @static
+         */
+        public static function createTeam($teamName, $userEmail, $slug = null, $userName = null)
+        {
+            /** @var \Madbox99\UserTeamSync\Publisher\PublisherService $instance */
+            return $instance->createTeam($teamName, $userEmail, $slug, $userName);
+        }
+
+        /**
+         * @static
+         */
+        public static function toggleUserActive($userEmail, $isActive, $appKey)
+        {
+            /** @var \Madbox99\UserTeamSync\Publisher\PublisherService $instance */
+            return $instance->toggleUserActive($userEmail, $isActive, $appKey);
+        }
+
+        /**
+         * @param array{url: string, api_key: ?string, active: bool} $app
+         * @static
+         */
+        public static function makeHttpClient($app)
+        {
+            /** @var \Madbox99\UserTeamSync\Publisher\PublisherService $instance */
+            return $instance->makeHttpClient($app);
+        }
+
+            }
+    }
+
 namespace Illuminate\Support {
     /**
      * @template TKey of array-key
@@ -25984,6 +26216,30 @@ namespace Livewire\Features\SupportTesting {
         }
 
         /**
+         * @see \Filament\Schemas\Testing\TestsSchemas::assertSchemaComponentVisible()
+         * @param string $key
+         * @param string|null $schema
+         * @return static
+         * @static
+         */
+        public static function assertSchemaComponentVisible($key, $schema = null)
+        {
+            return \Livewire\Features\SupportTesting\Testable::assertSchemaComponentVisible($key, $schema);
+        }
+
+        /**
+         * @see \Filament\Schemas\Testing\TestsSchemas::assertSchemaComponentHidden()
+         * @param string $key
+         * @param string|null $schema
+         * @return static
+         * @static
+         */
+        public static function assertSchemaComponentHidden($key, $schema = null)
+        {
+            return \Livewire\Features\SupportTesting\Testable::assertSchemaComponentHidden($key, $schema);
+        }
+
+        /**
          * @see \Filament\Schemas\Testing\TestsSchemas::assertSchemaExists()
          * @param string $name
          * @return static
@@ -26789,6 +27045,17 @@ namespace Livewire\Features\SupportTesting {
         public static function assertCanNotRenderTableColumn($name)
         {
             return \Livewire\Features\SupportTesting\Testable::assertCanNotRenderTableColumn($name);
+        }
+
+        /**
+         * @see \Filament\Tables\Testing\TestsColumns::assertTableRecordKeyExists()
+         * @param string|null $recordKey
+         * @return static
+         * @static
+         */
+        public static function assertTableRecordKeyExists($recordKey)
+        {
+            return \Livewire\Features\SupportTesting\Testable::assertTableRecordKeyExists($recordKey);
         }
 
         /**
@@ -27740,7 +28007,7 @@ namespace  {
          * Get the first record matching the attributes. If the record is not found, create it.
          *
          * @param array $attributes
-         * @param array $values
+         * @param (\Closure(): array)|array $values
          * @return TModel
          * @static
          */
@@ -27754,7 +28021,7 @@ namespace  {
          * Attempt to create the record. If a unique constraint violation occurs, attempt to find the matching record.
          *
          * @param array $attributes
-         * @param array $values
+         * @param (\Closure(): array)|array $values
          * @return TModel
          * @static
          */
@@ -29108,6 +29375,7 @@ namespace  {
          * @param \Illuminate\Database\Eloquent\Relations\MorphTo<*, *>|string $relation
          * @param \Illuminate\Database\Eloquent\Model|iterable<int, \Illuminate\Database\Eloquent\Model>|string|null $model
          * @return \Illuminate\Database\Eloquent\Builder<static>
+         * @throws \InvalidArgumentException
          * @static
          */
         public static function whereMorphedTo($relation, $model, $boolean = 'and')
@@ -29122,6 +29390,7 @@ namespace  {
          * @param \Illuminate\Database\Eloquent\Relations\MorphTo<*, *>|string $relation
          * @param \Illuminate\Database\Eloquent\Model|iterable<int, \Illuminate\Database\Eloquent\Model>|string $model
          * @return \Illuminate\Database\Eloquent\Builder<static>
+         * @throws \InvalidArgumentException
          * @static
          */
         public static function whereNotMorphedTo($relation, $model, $boolean = 'and')
@@ -31812,6 +32081,20 @@ namespace  {
         }
 
         /**
+         * Set a query execution timeout in seconds.
+         *
+         * @param int|null $seconds
+         * @return \Illuminate\Database\Eloquent\Builder<static>
+         * @throws InvalidArgumentException
+         * @static
+         */
+        public static function timeout($seconds)
+        {
+            /** @var \Illuminate\Database\Query\Builder $instance */
+            return $instance->timeout($seconds);
+        }
+
+        /**
          * Register a closure to be invoked before the query is executed.
          *
          * @return \Illuminate\Database\Eloquent\Builder<static>
@@ -32752,6 +33035,7 @@ namespace  {
     class Debugbar extends \Barryvdh\Debugbar\Facades\Debugbar {}
     class Livewire extends \Livewire\Livewire {}
     class FilamentEssentials extends \FilamentEssentials\Facades\FilamentEssentials {}
+    class UserTeamSync extends \Madbox99\UserTeamSync\Facades\UserTeamSync {}
 }
 
 
