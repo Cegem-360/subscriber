@@ -1304,7 +1304,10 @@
                                     @endif
                                     <h3 class="text-lg font-semibold text-text-primary mb-2 line-clamp-2"
                                         style="font-family: 'Poppins', sans-serif;">
-                                        {{ $post->title }}
+                                        <a href="{{ route('blog.show', [$post->blogCategory?->slug, $post->slug]) }}"
+                                            class="text-inherit! hover:text-primary-600 transition-colors">
+                                            {{ $post->title }}
+                                        </a>
                                     </h3>
                                     <p class="text-text-secondary text-sm leading-relaxed line-clamp-3">
                                         {{ $post->excerpt }}
