@@ -105,6 +105,14 @@
                                     <div class="text-xs text-gray-500">MI alapú adatbányász platform</div>
                                 </div>
                             </a>
+                            <a href="{{ route('products.aichat') }}"
+                                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50">
+                                <x-module-icon module="ai-chat" size="sm" />
+                                <div>
+                                    <div class="font-medium">AI Chat</div>
+                                    <div class="text-xs text-gray-500">Intelligens chatbot weboldalakra</div>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -319,6 +327,11 @@
                     class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
                     <x-module-icon module="datamind" size="xs" />
                     DataMind
+                </a>
+                <a href="{{ route('products.aichat') }}"
+                    class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
+                    <x-module-icon module="ai-chat" size="xs" />
+                    AI Chat
                 </a>
             </div>
             <div class="py-2">

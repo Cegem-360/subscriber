@@ -9,6 +9,7 @@ use App\Livewire\Page\BlogPostPage;
 use App\Livewire\Page\ContactPage;
 use App\Livewire\Page\CustomSolutionsPage;
 use App\Livewire\Page\PricingPage;
+use App\Livewire\Page\Products\AichatPage;
 use App\Livewire\Page\Products\AutomatizalasPage;
 use App\Livewire\Page\Products\BeszerzesPage;
 use App\Livewire\Page\Products\CrmPage;
@@ -79,6 +80,7 @@ Route::get(uri: '/termekek/digitalis-munkalap', action: SzervizPage::class)->nam
 Route::get(uri: '/termekek/seo-eszkoz', action: SeoEszkozPage::class)->name(name: 'products.seo');
 Route::get(uri: '/termekek/marketinghub', action: MarketinghubPage::class)->name(name: 'products.marketinghub');
 Route::get(uri: '/termekek/datamind', action: DatamindPage::class)->name(name: 'products.datamind');
+Route::get(uri: '/termekek/ai-chat', action: AichatPage::class)->name(name: 'products.aichat');
 
 // Use case pages
 Route::get(uri: '/felhasznalasi-teruletek/marketing', action: MarketingPage::class)->name(name: 'usecases.marketing');

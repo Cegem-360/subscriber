@@ -143,6 +143,15 @@
                                 <p class="text-xs text-text-tertiary mt-1">MI adatbányász platform.</p>
                             </div>
                         </a>
+                        <a href="{{ route('products.aichat') }}" class="flex items-center gap-3.5 group">
+                            <x-module-icon module="ai-chat" size="md" rounded="full" />
+                            <div class="flex-1 min-w-0">
+                                <p
+                                    class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
+                                    AI Chat</p>
+                                <p class="text-xs text-text-tertiary mt-1">Intelligens chatbot weboldalakra.</p>
+                            </div>
+                        </a>
                     </div>
 
                 </div>
@@ -193,6 +202,10 @@
                         :class="activeTab === 'datamind' ? 'bg-violet-500 text-white' :
                             'text-text-secondary hover:text-text-primary'"
                         class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">DataMind</button>
+                    <button @click="activeTab = 'aichat'"
+                        :class="activeTab === 'aichat' ? 'bg-blue-500 text-white' :
+                            'text-text-secondary hover:text-text-primary'"
+                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">AI Chat</button>
                     <button @click="activeTab = 'leadership'"
                         :class="activeTab === 'leadership' ? 'bg-primary-600 text-white' :
                             'text-text-secondary hover:text-text-primary'"
@@ -525,6 +538,32 @@
                             </svg>
                         </a>
                     </div>
+
+                    {{-- AI Chat Tab --}}
+                    <div x-show="activeTab === 'aichat'" x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                        class="bg-blue-500 rounded-3xl p-10 h-full flex flex-col justify-between min-h-120">
+                        <div>
+                            <div class="flex items-center gap-2 mb-8">
+                                <x-module-icon module="ai-chat" size="xs" :show-background="false" color="#ffffff" />
+                                <span class="text-white/90 text-sm font-medium"><strong
+                                        class="font-bold">cégem360</strong> AI Chat</span>
+                            </div>
+                            <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
+                                style="font-family: 'Poppins', sans-serif;">Intelligens chatbot<br>a weboldaladra</h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">0-24 automatizált
+                                ügyfélszolgálat, ami ismeri a termékeidet. A chatbot a weboldal tartalmából tanul
+                                — saját API kulccsal, teljes kontrollal.</p>
+                        </div>
+                        <a href="{{ route('products.aichat') }}"
+                            class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
+                            Kérjen demót
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </a>
+                    </div>
                 </div>
 
                 {{-- Right: Testimonial Cards --}}
@@ -614,6 +653,14 @@
                             ÜGYFÉL</p>
                         <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-violet-500">3x
                                 gyorsabb döntéshozatal</span><br>MI predikciókkal</p>
+                    </div>
+                    <div x-show="activeTab === 'aichat'" x-transition
+                        class="bg-surface-primary rounded-2xl p-6 border border-border-light"
+                        style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">AI CHAT
+                            ÜGYFÉL</p>
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-blue-500">85%
+                                automatikus válasz</span><br>0-24 elérhetőséggel</p>
                     </div>
 
                     {{-- Testimonial Quote Card --}}
@@ -772,6 +819,22 @@
                             <div>
                                 <p class="text-text-primary font-semibold text-sm">Kovács Péter</p>
                                 <p class="text-text-tertiary text-xs">Marketing igazgató, ipari gyártó cég</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div x-show="activeTab === 'aichat'" x-transition
+                        class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
+                        style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"5 perc alatt telepítettük, és
+                            aznap estétől már válaszolt a vendégeink kérdéseire. A többnyelvű támogatás a külföldi
+                            vendégeknél is kiválóan működik."</p>
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-semibold text-sm">
+                                SB</div>
+                            <div>
+                                <p class="text-text-primary font-semibold text-sm">Szabó Balázs</p>
+                                <p class="text-text-tertiary text-xs">Tulajdonos, Balatoni panzió</p>
                             </div>
                         </div>
                     </div>
@@ -945,6 +1008,7 @@
                                     meg többet</a>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -1004,6 +1068,10 @@
                         <div class="absolute top-1/2 right-12">
                             <span
                                 class="bg-violet-500 text-white text-sm font-medium px-4 py-2 rounded-lg">DataMind</span>
+                        </div>
+                        <div class="absolute bottom-36 right-40">
+                            <span
+                                class="bg-blue-500 text-white text-sm font-medium px-4 py-2 rounded-lg">AI Chat</span>
                         </div>
                     </div>
                 </div>
@@ -1222,33 +1290,31 @@
                             @touchstart="handleDragStart($event)" @touchmove="handleDragMove($event)"
                             @touchend="handleDragEnd()">
                             @foreach ($blogPosts as $post)
-                                <div class="shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] bg-white rounded-2xl p-6"
+                                <div class="shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] bg-white rounded-2xl p-6 flex flex-col"
                                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                                     <div class="w-full h-40 rounded-xl mb-5 overflow-hidden">
                                         <img src="{{ $post->featured_image ? Storage::url($post->featured_image) : Vite::asset('resources/images/products-main-img.webp') }}"
                                             alt="{{ $post->title }}" class="w-full h-full object-cover">
                                     </div>
                                     @if ($post->blogCategory)
-                                        <div class="mb-3">
-                                            <span
-                                                class="inline-block px-3 py-1 bg-primary-50 text-primary-700 rounded-full text-xs font-medium">
-                                                {{ $post->blogCategory->name }}
-                                            </span>
-                                        </div>
+                                        <span
+                                            class="self-start mb-3 px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-medium">
+                                            {{ $post->blogCategory->name }}
+                                        </span>
                                     @endif
                                     <h3 class="text-lg font-semibold text-text-primary mb-2 line-clamp-2"
                                         style="font-family: 'Poppins', sans-serif;">
                                         {{ $post->title }}
                                     </h3>
-                                    <p class="text-text-secondary text-sm leading-relaxed line-clamp-3 mb-4">
+                                    <p class="text-text-secondary text-sm leading-relaxed line-clamp-3">
                                         {{ $post->excerpt }}
                                     </p>
-                                    <div class="border-t border-border-light pt-4 flex items-center justify-between">
-                                        <span class="text-xs text-text-tertiary">
+                                    <div class="mt-auto border-t border-border-light pt-4 flex items-center justify-between">
+                                        <span class="text-sm text-text-tertiary">
                                             {{ $post->published_at->format('Y. m. d.') }}
                                         </span>
-                                        <a href="#"
-                                            class="text-primary-600 text-sm font-medium hover:text-primary-700 transition-colors">
+                                        <a href="{{ route('blog.show', [$post->blogCategory?->slug, $post->slug]) }}"
+                                            class="text-primary-600 text-base font-medium hover:text-primary-700 transition-colors">
                                             Tovább →
                                         </a>
                                     </div>

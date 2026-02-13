@@ -20,4 +20,5 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+.DS_Store
 setup-user-sync-api-dev.sh
