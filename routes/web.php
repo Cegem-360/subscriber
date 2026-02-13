@@ -4,10 +4,27 @@ declare(strict_types=1);
 
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\SubscriptionController;
+use App\Livewire\Page\AkademiaPage;
 use App\Livewire\Page\BlogCategoryPage;
+use App\Livewire\Page\BlogIndexPage;
 use App\Livewire\Page\BlogPostPage;
+use App\Livewire\Page\Company\AffiliatePage;
+use App\Livewire\Page\Company\PartnerprogramPage;
+use App\Livewire\Page\Company\RolunkPage;
+use App\Livewire\Page\Company\SajtoPage;
+use App\Livewire\Page\Company\UgyfelsztoriPage;
 use App\Livewire\Page\ContactPage;
 use App\Livewire\Page\CustomSolutionsPage;
+use App\Livewire\Page\Features\AiPage;
+use App\Livewire\Page\Features\AutomatizacioPage;
+use App\Livewire\Page\Features\DokumentumokPage;
+use App\Livewire\Page\Features\IntegracioPage;
+use App\Livewire\Page\Features\IranyitopultokPage;
+use App\Livewire\Page\HibabejelentesPage;
+use App\Livewire\Page\Legal\AdatvedelmiTajekoztatoPage;
+use App\Livewire\Page\Legal\CookieBeallitasokPage;
+use App\Livewire\Page\Legal\JogiNyilatkozatPage;
+use App\Livewire\Page\Legal\SzolgaltatasiFeltetelekPage;
 use App\Livewire\Page\PricingPage;
 use App\Livewire\Page\Products\AichatPage;
 use App\Livewire\Page\Products\AutomatizalasPage;
@@ -23,9 +40,19 @@ use App\Livewire\Page\Products\SzervizPage;
 use App\Livewire\Page\QuoteRequestPage;
 use App\Livewire\Page\SolutionsEnterprisePage;
 use App\Livewire\Page\SolutionsKkvPage;
+use App\Livewire\Page\SugoPage;
 use App\Livewire\Page\TagPage;
+use App\Livewire\Page\TamogatasPage;
+use App\Livewire\Page\UjdonsagokPage;
 use App\Livewire\Page\UpdateModulePage;
+use App\Livewire\Page\UseCases\EpitoiparPage;
+use App\Livewire\Page\UseCases\ErtekesitesUseCasePage;
+use App\Livewire\Page\UseCases\FejlesztokPage;
+use App\Livewire\Page\UseCases\HrPage;
+use App\Livewire\Page\UseCases\IparPage;
+use App\Livewire\Page\UseCases\ItPage;
 use App\Livewire\Page\UseCases\MarketingPage;
+use App\Livewire\Page\UseCases\ProjektmenedzsmentPage;
 use App\Livewire\Page\ViewSubscriptionPage;
 use App\Livewire\StyleGuide;
 use App\Livewire\SubscriberModulsList;
@@ -84,6 +111,43 @@ Route::get(uri: '/termekek/ai-chat', action: AichatPage::class)->name(name: 'pro
 
 // Use case pages
 Route::get(uri: '/felhasznalasi-teruletek/marketing', action: MarketingPage::class)->name(name: 'usecases.marketing');
+Route::get(uri: '/felhasznalasi-teruletek/projektmenedzsment', action: ProjektmenedzsmentPage::class)->name(name: 'usecases.projektmenedzsment');
+Route::get(uri: '/felhasznalasi-teruletek/ertekesites', action: ErtekesitesUseCasePage::class)->name(name: 'usecases.ertekesites');
+Route::get(uri: '/felhasznalasi-teruletek/fejlesztok', action: FejlesztokPage::class)->name(name: 'usecases.fejlesztok');
+Route::get(uri: '/felhasznalasi-teruletek/hr', action: HrPage::class)->name(name: 'usecases.hr');
+Route::get(uri: '/felhasznalasi-teruletek/it', action: ItPage::class)->name(name: 'usecases.it');
+Route::get(uri: '/felhasznalasi-teruletek/ipar', action: IparPage::class)->name(name: 'usecases.ipar');
+Route::get(uri: '/felhasznalasi-teruletek/epitoipar', action: EpitoiparPage::class)->name(name: 'usecases.epitoipar');
+
+// Feature pages
+Route::get(uri: '/funkciok/dokumentumok', action: DokumentumokPage::class)->name(name: 'features.dokumentumok');
+Route::get(uri: '/funkciok/integraciok', action: IntegracioPage::class)->name(name: 'features.integraciok');
+Route::get(uri: '/funkciok/automatizaciok', action: AutomatizacioPage::class)->name(name: 'features.automatizaciok');
+Route::get(uri: '/funkciok/ai', action: AiPage::class)->name(name: 'features.ai');
+Route::get(uri: '/funkciok/iranyitopultok', action: IranyitopultokPage::class)->name(name: 'features.iranyitopultok');
+
+// Company pages
+Route::get(uri: '/rolunk', action: RolunkPage::class)->name(name: 'company.rolunk');
+Route::get(uri: '/sajto', action: SajtoPage::class)->name(name: 'company.sajto');
+Route::get(uri: '/ugyfelsztorik', action: UgyfelsztoriPage::class)->name(name: 'company.ugyfelsztorik');
+Route::get(uri: '/partnerprogram', action: PartnerprogramPage::class)->name(name: 'company.partnerprogram');
+Route::get(uri: '/affiliate', action: AffiliatePage::class)->name(name: 'company.affiliate');
+
+// Resource pages
+Route::get(uri: '/sugo', action: SugoPage::class)->name(name: 'sugo');
+Route::get(uri: '/blog', action: BlogIndexPage::class)->name(name: 'blog.index');
+Route::get(uri: '/ujdonsagok', action: UjdonsagokPage::class)->name(name: 'ujdonsagok');
+Route::get(uri: '/akademia', action: AkademiaPage::class)->name(name: 'akademia');
+
+// Support pages
+Route::get(uri: '/tamogatas', action: TamogatasPage::class)->name(name: 'tamogatas');
+Route::get(uri: '/hibabejelentes', action: HibabejelentesPage::class)->name(name: 'hibabejelentes');
+
+// Legal pages
+Route::get(uri: '/jogi-nyilatkozat', action: JogiNyilatkozatPage::class)->name(name: 'legal.jogi-nyilatkozat');
+Route::get(uri: '/szolgaltatasi-feltetelek', action: SzolgaltatasiFeltetelekPage::class)->name(name: 'legal.szolgaltatasi-feltetelek');
+Route::get(uri: '/adatvedelmi-tajekoztato', action: AdatvedelmiTajekoztatoPage::class)->name(name: 'legal.adatvedelmi-tajekoztato');
+Route::get(uri: '/cookie-beallitasok', action: CookieBeallitasokPage::class)->name(name: 'legal.cookie-beallitasok');
 
 // Email verification routes
 Route::get(uri: '/email/verify', action: fn (): Redirector|RedirectResponse => to_route(route: 'filament.admin.auth.email-verification.prompt'))
