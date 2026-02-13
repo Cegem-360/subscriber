@@ -80,7 +80,7 @@
                 </button>
                 <h3 class="hidden lg:block text-[15px] font-semibold text-gray-900 mb-4">Felhasználás</h3>
                 <ul class="space-y-2.5 text-sm text-gray-700" x-show="openSection === 'usecases' || window.innerWidth >= 1024" x-collapse.duration.300ms>
-                    <li><a href="#" class="text-inherit! hover:text-indigo-600! transition-colors">Marketing</a></li>
+                    <li><a href="{{ route('usecases.marketing') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Marketing</a></li>
                     <li><a href="#" class="text-inherit! hover:text-indigo-600! transition-colors">Projektmenedzsment</a></li>
                     <li><a href="#" class="text-inherit! hover:text-indigo-600! transition-colors">Értékesítés</a></li>
                     <li><a href="#" class="text-inherit! hover:text-indigo-600! transition-colors">Fejlesztők</a></li>

@@ -24,6 +24,7 @@ use App\Livewire\Page\SolutionsEnterprisePage;
 use App\Livewire\Page\SolutionsKkvPage;
 use App\Livewire\Page\TagPage;
 use App\Livewire\Page\UpdateModulePage;
+use App\Livewire\Page\UseCases\MarketingPage;
 use App\Livewire\Page\ViewSubscriptionPage;
 use App\Livewire\StyleGuide;
 use App\Livewire\SubscriberModulsList;
@@ -78,6 +79,9 @@ Route::get(uri: '/termekek/digitalis-munkalap', action: SzervizPage::class)->nam
 Route::get(uri: '/termekek/seo-eszkoz', action: SeoEszkozPage::class)->name(name: 'products.seo');
 Route::get(uri: '/termekek/marketinghub', action: MarketinghubPage::class)->name(name: 'products.marketinghub');
 Route::get(uri: '/termekek/datamind', action: DatamindPage::class)->name(name: 'products.datamind');
+
+// Use case pages
+Route::get(uri: '/felhasznalasi-teruletek/marketing', action: MarketingPage::class)->name(name: 'usecases.marketing');
 
 // Email verification routes
 Route::get(uri: '/email/verify', action: fn (): Redirector|RedirectResponse => to_route(route: 'filament.admin.auth.email-verification.prompt'))
