@@ -1193,7 +1193,7 @@
                         style="font-family: 'Poppins', sans-serif; font-weight: 400;">
                         Blog: hasznos tippek és tudás vállalkozóknak
                     </h2>
-                    <a href="#"
+                    <a href="{{ route('blog.category', ['blogCategory' => 'blog']) }}"
                         class="hidden md:inline-flex items-center gap-2 bg-text-primary text-white px-7 py-3.5 rounded-full text-base font-medium hover:bg-dark-700 transition-colors shrink-0">
                         Összes bejegyzés
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
