@@ -33,6 +33,8 @@
                     <li><a href="{{ route('features.automatizaciok') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Automatizációk</a></li>
                     <li><a href="{{ route('features.ai') }}" class="text-inherit! hover:text-indigo-600! transition-colors">AI</a></li>
                     <li><a href="{{ route('features.iranyitopultok') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Irányítópultok</a></li>
+                    <li><a href="{{ route('features.tamogatas') }}" class="text-inherit! hover:text-indigo-600! transition-colors">24/7 Támogatás</a></li>
+                    <li><a href="{{ route('hibabejelentes') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Hibabejelentés</a></li>
                 </ul>
             </div>
 
@@ -75,11 +77,11 @@
                     <li><a href="{{ route('usecases.marketing') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Marketing</a></li>
                     <li><a href="{{ route('usecases.projektmenedzsment') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Projektmenedzsment</a></li>
                     <li><a href="{{ route('usecases.ertekesites') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Értékesítés</a></li>
-                    <li><a href="{{ route('usecases.fejlesztok') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Fejlesztők</a></li>
-                    <li><a href="{{ route('usecases.hr') }}" class="text-inherit! hover:text-indigo-600! transition-colors">HR</a></li>
-                    <li><a href="{{ route('usecases.it') }}" class="text-inherit! hover:text-indigo-600! transition-colors">IT</a></li>
-                    <li><a href="{{ route('usecases.ipar') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Ipar szegmens</a></li>
-                    <li><a href="{{ route('usecases.epitoipar') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Építőipar</a></li>
+                    <li><a href="{{ route('usecases.penzugy-kontrolling') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Pénzügy és Kontrolling</a></li>
+                    <li><a href="{{ route('usecases.beszerzes-supply-chain') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Beszerzés és Supply Chain</a></li>
+                    <li><a href="{{ route('usecases.termeles-uzemvezetes') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Termelés és Üzemvezetés</a></li>
+                    <li><a href="{{ route('usecases.ugyfelszolgalat-after-sales') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Ügyfélszolgálat és After-Sales</a></li>
+                    <li><a href="{{ route('usecases.cegvezetes-strategia') }}" class="text-inherit! hover:text-indigo-600! transition-colors">Cégvezetés és Stratégia</a></li>
                 </ul>
             </div>
 

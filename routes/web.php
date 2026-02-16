@@ -20,6 +20,7 @@ use App\Livewire\Page\Features\AutomatizacioPage;
 use App\Livewire\Page\Features\DokumentumokPage;
 use App\Livewire\Page\Features\IntegracioPage;
 use App\Livewire\Page\Features\IranyitopultokPage;
+use App\Livewire\Page\Features\TamogatasPage as FeaturesTamogatasPage;
 use App\Livewire\Page\HibabejelentesPage;
 use App\Livewire\Page\Legal\AdatvedelmiTajekoztatoPage;
 use App\Livewire\Page\Legal\CookieBeallitasokPage;
@@ -45,6 +46,8 @@ use App\Livewire\Page\TagPage;
 use App\Livewire\Page\TamogatasPage;
 use App\Livewire\Page\UjdonsagokPage;
 use App\Livewire\Page\UpdateModulePage;
+use App\Livewire\Page\UseCases\BeszerzesSupplyChainPage;
+use App\Livewire\Page\UseCases\CegvezetesStrategiaPage;
 use App\Livewire\Page\UseCases\EpitoiparPage;
 use App\Livewire\Page\UseCases\ErtekesitesUseCasePage;
 use App\Livewire\Page\UseCases\FejlesztokPage;
@@ -52,7 +55,10 @@ use App\Livewire\Page\UseCases\HrPage;
 use App\Livewire\Page\UseCases\IparPage;
 use App\Livewire\Page\UseCases\ItPage;
 use App\Livewire\Page\UseCases\MarketingPage;
+use App\Livewire\Page\UseCases\PenzugyKontrollingPage;
 use App\Livewire\Page\UseCases\ProjektmenedzsmentPage;
+use App\Livewire\Page\UseCases\TermelesUzemvezetesPage;
+use App\Livewire\Page\UseCases\UgyfelszolgalatAfterSalesPage;
 use App\Livewire\Page\ViewSubscriptionPage;
 use App\Livewire\StyleGuide;
 use App\Livewire\SubscriberModulsList;
@@ -118,6 +124,11 @@ Route::get(uri: '/felhasznalasi-teruletek/hr', action: HrPage::class)->name(name
 Route::get(uri: '/felhasznalasi-teruletek/it', action: ItPage::class)->name(name: 'usecases.it');
 Route::get(uri: '/felhasznalasi-teruletek/ipar', action: IparPage::class)->name(name: 'usecases.ipar');
 Route::get(uri: '/felhasznalasi-teruletek/epitoipar', action: EpitoiparPage::class)->name(name: 'usecases.epitoipar');
+Route::get(uri: '/felhasznalasi-teruletek/penzugy-kontrolling', action: PenzugyKontrollingPage::class)->name(name: 'usecases.penzugy-kontrolling');
+Route::get(uri: '/felhasznalasi-teruletek/beszerzes-supply-chain', action: BeszerzesSupplyChainPage::class)->name(name: 'usecases.beszerzes-supply-chain');
+Route::get(uri: '/felhasznalasi-teruletek/termeles-uzemvezetes', action: TermelesUzemvezetesPage::class)->name(name: 'usecases.termeles-uzemvezetes');
+Route::get(uri: '/felhasznalasi-teruletek/ugyfelszolgalat-after-sales', action: UgyfelszolgalatAfterSalesPage::class)->name(name: 'usecases.ugyfelszolgalat-after-sales');
+Route::get(uri: '/felhasznalasi-teruletek/cegvezetes-strategia', action: CegvezetesStrategiaPage::class)->name(name: 'usecases.cegvezetes-strategia');
 
 // Feature pages
 Route::get(uri: '/funkciok/dokumentumok', action: DokumentumokPage::class)->name(name: 'features.dokumentumok');
@@ -125,6 +136,7 @@ Route::get(uri: '/funkciok/integraciok', action: IntegracioPage::class)->name(na
 Route::get(uri: '/funkciok/automatizaciok', action: AutomatizacioPage::class)->name(name: 'features.automatizaciok');
 Route::get(uri: '/funkciok/ai', action: AiPage::class)->name(name: 'features.ai');
 Route::get(uri: '/funkciok/iranyitopultok', action: IranyitopultokPage::class)->name(name: 'features.iranyitopultok');
+Route::get(uri: '/funkciok/tamogatas', action: FeaturesTamogatasPage::class)->name(name: 'features.tamogatas');
 
 // Company pages
 Route::get(uri: '/rolunk', action: RolunkPage::class)->name(name: 'company.rolunk');
