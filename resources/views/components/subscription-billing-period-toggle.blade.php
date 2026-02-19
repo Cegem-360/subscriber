@@ -21,7 +21,7 @@
                         'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300' =>
                             $selected !== $type->value,
                     ])>
-                        -20%
+                        -17%
                     </span>
                 @endif
             </button>
