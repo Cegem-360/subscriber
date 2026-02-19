@@ -17,23 +17,42 @@ beforeEach(function (): void {
     ]);
 });
 
-it('shows sync action to admin users', function (): void {
+it('shows stripe sync actions to admin users', function (): void {
     $this->actingAs($this->adminUser);
 
     Livewire::test(Plans::class)
-        ->assertActionExists('sync_stripe');
+        ->assertActionExists('sync_stripe')
+        ->assertActionExists('sync_stripe_force')
+        ->assertActionExists('sync_stripe_dry_run');
 });
 
-it('does not show sync action to regular users', function (): void {
+it('shows subscription items sync action to admin users', function (): void {
+    $this->actingAs($this->adminUser);
+
+    Livewire::test(Plans::class)
+        ->assertActionExists('sync_subscription_items');
+});
+
+it('hides navigation for regular users', function (): void {
     $this->actingAs($this->regularUser);
 
-    Livewire::test(Plans::class)
-        ->assertActionDoesNotExist('sync_stripe');
+    expect(Plans::shouldRegisterNavigation())->toBeFalse();
 });
 
-it('displays plans page correctly', function (): void {
+it('displays both command descriptions', function (): void {
     $this->actingAs($this->adminUser);
 
     Livewire::test(Plans::class)
-        ->assertSuccessful();
+        ->assertSuccessful()
+        ->assertSee('stripe:sync-prices')
+        ->assertSee('subscriptions:sync-items');
+});
+
+it('can clear console output', function (): void {
+    $this->actingAs($this->adminUser);
+
+    Livewire::test(Plans::class)
+        ->set('consoleOutput', 'test output')
+        ->call('clearOutput')
+        ->assertSet('consoleOutput', '');
 });
