@@ -19,7 +19,13 @@ class SubscriberModulsList extends Component
     #[Computed]
     public function subscriptions()
     {
-        return Auth::user()->subscriptions()->activeSubscription()->get();
+        return Auth::user()->subscriptions()
+            ->activeSubscription()
+            ->join('plans', 'subscriptions.plan_id', '=', 'plans.id')
+            ->join('plan_categories', 'plans.plan_category_id', '=', 'plan_categories.id')
+            ->orderBy('plan_categories.name')
+            ->select('subscriptions.*')
+            ->get();
     }
 
     public function render(): Factory|View

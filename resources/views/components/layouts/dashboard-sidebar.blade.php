@@ -50,7 +50,14 @@
             <ul class="space-y-1">
                 @auth
                     @php
-                        $userSubscriptions = auth()->user()->subscriptions()->activeSubscription()->with('plan.planCategory')->get();
+                        $userSubscriptions = auth()->user()->subscriptions()
+                            ->activeSubscription()
+                            ->with('plan.planCategory')
+                            ->join('plans', 'subscriptions.plan_id', '=', 'plans.id')
+                            ->join('plan_categories', 'plans.plan_category_id', '=', 'plan_categories.id')
+                            ->orderBy('plan_categories.name')
+                            ->select('subscriptions.*')
+                            ->get();
                     @endphp
                     @forelse ($userSubscriptions as $subscription)
                         @if ($subscription->plan?->planCategory?->url)
