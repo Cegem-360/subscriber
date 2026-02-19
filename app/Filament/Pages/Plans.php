@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Filament\Pages;
 
 use BackedEnum;
-use Filament\Actions\Action;
-use Filament\Actions\ActionGroup;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Facades\Artisan;
@@ -35,51 +33,7 @@ class Plans extends Page
         return Auth::user()?->isAdmin() ?? false;
     }
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            ActionGroup::make([
-                Action::make('sync_stripe')
-                    ->label('Szinkronizálás')
-                    ->icon(Heroicon::ArrowPath)
-                    ->action(fn () => $this->runCommand('stripe:sync-prices'))
-                    ->requiresConfirmation()
-                    ->modalHeading('Stripe szinkronizálás')
-                    ->modalDescription('Szinkronizálja a helyi terveket a Stripe-pal.')
-                    ->modalSubmitActionLabel('Indítás'),
-
-                Action::make('sync_stripe_force')
-                    ->label('Szinkronizálás (force)')
-                    ->icon(Heroicon::ArrowPath)
-                    ->color('warning')
-                    ->action(fn () => $this->runCommand('stripe:sync-prices', ['--force' => true]))
-                    ->requiresConfirmation()
-                    ->modalHeading('Stripe szinkronizálás (force)')
-                    ->modalDescription('Újra létrehozza az összes Stripe terméket és árat.')
-                    ->modalSubmitActionLabel('Indítás'),
-
-                Action::make('sync_stripe_dry_run')
-                    ->label('Teszt futtatás (dry-run)')
-                    ->icon(Heroicon::Eye)
-                    ->action(fn () => $this->runCommand('stripe:sync-prices', ['--dry-run' => true])),
-            ])
-                ->label('stripe:sync-prices')
-                ->icon(Heroicon::ArrowPath)
-                ->color('primary'),
-
-            Action::make('sync_subscription_items')
-                ->label('subscriptions:sync-items')
-                ->icon(Heroicon::ArrowPath)
-                ->color('info')
-                ->action(fn () => $this->runCommand('subscriptions:sync-items'))
-                ->requiresConfirmation()
-                ->modalHeading('Subscription items szinkronizálás')
-                ->modalDescription('Szinkronizálja az előfizetési tételeket a Stripe-ból a helyi adatbázisba.')
-                ->modalSubmitActionLabel('Indítás'),
-        ];
-    }
-
-    public function runCommand(string $command, array $options = []): void
+    protected function runCommand(string $command, array $options = []): void
     {
         $this->isRunning = true;
         $this->consoleOutput = '';
@@ -102,6 +56,26 @@ class Plans extends Page
                 : "Process exited with code {$exitCode} (error)");
 
         $this->isRunning = false;
+    }
+
+    public function syncPrices(): void
+    {
+        $this->runCommand('stripe:sync-prices');
+    }
+
+    public function syncPricesForce(): void
+    {
+        $this->runCommand('stripe:sync-prices', ['--force' => true]);
+    }
+
+    public function syncPricesDryRun(): void
+    {
+        $this->runCommand('stripe:sync-prices', ['--dry-run' => true]);
+    }
+
+    public function syncSubscriptionItems(): void
+    {
+        $this->runCommand('subscriptions:sync-items');
     }
 
     public function clearOutput(): void
