@@ -204,7 +204,7 @@ class SubscriptionController extends Controller
                 if (! $subscription) {
                     Log::error('❌ Subscription still not found after Stripe sync');
 
-                    return to_route('filament.admin.pages.dashboard')
+                    return to_route('modules')
                         ->with('error', 'Hiba történt az előfizetés létrehozása során. Kérlek, vedd fel velünk a kapcsolatot.');
                 }
 
@@ -218,7 +218,7 @@ class SubscriptionController extends Controller
                     'trace' => $e->getTraceAsString(),
                 ]);
 
-                return to_route('filament.admin.pages.dashboard')
+                return to_route('modules')
                     ->with('error', 'Hiba történt az előfizetés szinkronizálása során: ' . $e->getMessage());
             }
         }
@@ -243,13 +243,7 @@ class SubscriptionController extends Controller
             'note' => 'CRM activation should have been triggered by SubscriptionObserver when subscription was created/updated',
         ]);
 
-        return to_route('filament.admin.pages.dashboard')
+        return to_route('modules')
             ->with('success', 'Előfizetésed sikeresen létrejött! Hamarosan aktiválódnak a jogosultságaid.');
-    }
-
-    public function cancel(): RedirectResponse
-    {
-        return to_route('filament.admin.pages.dashboard')
-            ->with('info', 'Előfizetés lemondva.');
     }
 }

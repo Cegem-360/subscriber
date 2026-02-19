@@ -41,6 +41,7 @@ use App\Livewire\Page\Products\SzervizPage;
 use App\Livewire\Page\QuoteRequestPage;
 use App\Livewire\Page\SolutionsEnterprisePage;
 use App\Livewire\Page\SolutionsKkvPage;
+use App\Livewire\Page\SubscriptionCancelledPage;
 use App\Livewire\Page\SugoPage;
 use App\Livewire\Page\TagPage;
 use App\Livewire\Page\TamogatasPage;
@@ -188,7 +189,7 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     // Subscription routes - specific routes before wildcard routes
     Route::post(uri: '/subscription/checkout/{plan}', action: [SubscriptionController::class, 'checkout'])->name(name: 'subscription.checkout');
     Route::get(uri: '/subscription/success/{plan}', action: [SubscriptionController::class, 'success'])->name(name: 'subscription.success');
-    Route::get(uri: '/subscription/cancel', action: [SubscriptionController::class, 'cancel'])->name(name: 'subscription.cancel');
+    Route::get(uri: '/subscription/cancel', action: SubscriptionCancelledPage::class)->name(name: 'subscription.cancel');
 
     // Wildcard subscription routes - must come after specific routes
     Route::get(uri: '/subscription/{subscription}', action: ViewSubscriptionPage::class)->name(name: 'subscription.view');

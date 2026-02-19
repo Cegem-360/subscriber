@@ -89,13 +89,13 @@ it('redirects to modules page after successful checkout when webhook subscriptio
     $response->assertSessionHas('success');
 });
 
-it('redirects to dashboard when cancelling checkout', function (): void {
+it('shows cancelled page when cancelling checkout', function (): void {
     $this->withoutMiddleware();
 
     $user = User::factory()->create();
 
     $response = $this->actingAs($user)->get(route('subscription.cancel'));
 
-    $response->assertRedirect(route('filament.admin.pages.dashboard'));
-    $response->assertSessionHas('info', 'Előfizetés lemondva.');
+    $response->assertSuccessful();
+    $response->assertSee('Sikertelen rendelés');
 });
