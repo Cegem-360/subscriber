@@ -21,17 +21,21 @@
 
                 {{-- CTA Buttons --}}
                 <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                    <a href="{{ route('contact') }}"
+                    <a href="{{ route('register') }}"
                         class="inline-flex items-center justify-center gap-2 rounded-full bg-violet-500 px-8 py-4 text-base font-semibold text-white shadow-lg transition-colors hover:bg-violet-600 hover:shadow-xl">
-                        Demó kérése
+                        Kezdés indítása
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M14 5l7 7m0 0l-7 7m7-7H3" />
                         </svg>
                     </a>
-                    <a href="#funkciok"
+                    <a href="{{ route('contact') }}"
                         class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-violet-200 bg-white px-8 py-4 text-base font-semibold text-violet-700 transition-colors hover:bg-violet-50">
-                        Funkciók megtekintése
+                        Demó kérése
+                    </a>
+                    <a href="{{ route('login') }}"
+                        class="inline-flex items-center justify-center gap-2 text-base font-medium text-violet-600 transition-colors hover:text-violet-800">
+                        Bejelentkezés a programba →
                     </a>
                 </div>
             </div>
@@ -702,20 +706,24 @@
                 Készen áll az adatvezérelt döntéshozatalra?
             </h2>
             <p class="mx-auto mt-4 max-w-xl text-lg text-violet-100">
-                Teljes funkcionalitás, magyar támogatás. Próbálja ki a DataMind-ot még ma.
+                Teljes funkcionalitás, magyar nyelvű támogatás. Kérjen személyre szabott bemutatót.
             </p>
             <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <a href="{{ route('register') }}"
-                    class="inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-base font-medium text-violet-500 transition-colors hover:bg-violet-50">
-                    Kezdés
-                    <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-base font-semibold text-violet-500 shadow-lg transition-colors hover:bg-violet-50 hover:shadow-xl">
+                    Kezdés indítása
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
                 </a>
                 <a href="{{ route('contact') }}"
-                    class="inline-flex items-center justify-center rounded-lg border border-violet-300 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-violet-600">
+                    class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-violet-300 px-8 py-4 text-base font-semibold text-white transition-colors hover:bg-violet-600">
                     Demó kérése
+                </a>
+                <a href="{{ route('login') }}"
+                    class="inline-flex items-center justify-center gap-2 text-base font-medium text-violet-200 transition-colors hover:text-white">
+                    Bejelentkezés a programba →
                 </a>
             </div>
         </div>

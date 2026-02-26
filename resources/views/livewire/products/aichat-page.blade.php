@@ -21,44 +21,24 @@
 
                 {{-- CTA Buttons --}}
                 <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                    <a href="{{ route('contact') }}"
+                    <a href="{{ route('register') }}"
                         class="inline-flex items-center justify-center gap-2 rounded-full bg-blue-500 px-8 py-4 text-base font-semibold text-white shadow-lg transition-colors hover:bg-blue-600 hover:shadow-xl">
-                        Demó kérése
+                        Kezdés indítása
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M14 5l7 7m0 0l-7 7m7-7H3" />
                         </svg>
                     </a>
-                    <a href="#funkciok"
+                    <a href="{{ route('contact') }}"
                         class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-blue-200 bg-white px-8 py-4 text-base font-semibold text-blue-700 transition-colors hover:bg-blue-50">
-                        Funkciók megtekintése
+                        Demó kérése
+                    </a>
+                    <a href="{{ route('login') }}"
+                        class="inline-flex items-center justify-center gap-2 text-base font-medium text-blue-600 transition-colors hover:text-blue-800">
+                        Bejelentkezés a programba →
                     </a>
                 </div>
 
-                {{-- Trust badges --}}
-                <div class="mt-10 flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500">
-                    <span class="flex items-center gap-2">
-                        <svg class="h-5 w-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        GDPR kompatibilis
-                    </span>
-                    <span class="flex items-center gap-2">
-                        <svg class="h-5 w-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        30 napos ingyenes próba
-                    </span>
-                    <span class="flex items-center gap-2">
-                        <svg class="h-5 w-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        Dedikált támogatás
-                    </span>
-                </div>
             </div>
         </div>
     </section>
@@ -627,7 +607,8 @@
         </div>
     </section>
 
-    {{-- Testimonials Section --}}
+    {{-- Testimonials Section (hidden) --}}
+    @if(false)
     <section class="bg-white py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto mb-12 max-w-3xl text-center">
@@ -684,6 +665,7 @@
             </div>
         </div>
     </section>
+    @endif
 
     {{-- FAQ Section --}}
     <section class="bg-gray-50 py-16 lg:py-24" x-data="{ openFaq: null }">
@@ -815,20 +797,24 @@
                 Kezdje el még ma — kockázat nélkül
             </h2>
             <p class="mx-auto mt-4 max-w-xl text-lg text-blue-100">
-                30 napos ingyenes próba minden csomagnál. Nincs bankkártya, nincs elköteleződés.
+                Teljes funkcionalitás, magyar nyelvű támogatás. Kérjen személyre szabott bemutatót.
             </p>
             <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <a href="{{ route('register') }}"
-                    class="inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-base font-medium text-blue-500 transition-colors hover:bg-blue-50">
-                    30 nap ingyenes próba
-                    <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-base font-semibold text-blue-500 shadow-lg transition-colors hover:bg-blue-50 hover:shadow-xl">
+                    Kezdés indítása
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
                 </a>
                 <a href="{{ route('contact') }}"
-                    class="inline-flex items-center justify-center rounded-lg border border-blue-300 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-blue-600">
+                    class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-blue-300 px-8 py-4 text-base font-semibold text-white transition-colors hover:bg-blue-600">
                     Demó kérése
+                </a>
+                <a href="{{ route('login') }}"
+                    class="inline-flex items-center justify-center gap-2 text-base font-medium text-blue-200 transition-colors hover:text-white">
+                    Bejelentkezés a programba →
                 </a>
             </div>
         </div>

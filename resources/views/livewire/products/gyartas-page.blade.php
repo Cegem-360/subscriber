@@ -32,9 +32,13 @@
                                 d="M14 5l7 7m0 0l-7 7m7-7H3" />
                         </svg>
                     </a>
-                    <a href="{{ route('quote-request') }}"
+                    <a href="{{ route('contact') }}"
                         class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-indigo-200 bg-white px-8 py-4 text-base font-semibold text-indigo-700 transition-colors hover:bg-indigo-50">
                         Demó kérése
+                    </a>
+                    <a href="{{ route('login') }}"
+                        class="inline-flex items-center justify-center gap-2 text-base font-medium text-indigo-600 transition-colors hover:text-indigo-800">
+                        Bejelentkezés a programba →
                     </a>
                 </div>
 
@@ -599,7 +603,8 @@
         </div>
     </section>
 
-    {{-- Testimonials Section --}}
+    {{-- Testimonials Section (hidden) --}}
+    @if(false)
     <section class="bg-gray-50 py-16 lg:py-20">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto mb-12 max-w-3xl text-center">
@@ -657,6 +662,7 @@
             </div>
         </div>
     </section>
+    @endif
 
     {{-- Related Modules Section --}}
     <section class="bg-gray-50 py-16 lg:py-24">
@@ -700,20 +706,24 @@
                 Kezdje el még ma — kockázat nélkül
             </h2>
             <p class="mx-auto mt-4 max-w-xl text-lg text-indigo-100">
-                Teljes funkcionalitás, magyar támogatás. Nincs bankkártya, nincs elköteleződés.
+                Teljes funkcionalitás, magyar nyelvű támogatás. Kérjen személyre szabott bemutatót.
             </p>
             <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <a href="{{ route('register') }}"
                     class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-base font-semibold text-indigo-600 shadow-lg transition-colors hover:bg-indigo-50 hover:shadow-xl">
-                    Kezdés
+                    Kezdés indítása
                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
                 </a>
-                <a href="{{ route('quote-request') }}"
-                    class="inline-flex items-center justify-center rounded-full border-2 border-indigo-400 px-8 py-4 text-base font-semibold text-white transition-colors hover:bg-indigo-700">
+                <a href="{{ route('contact') }}"
+                    class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-indigo-400 px-8 py-4 text-base font-semibold text-white transition-colors hover:bg-indigo-700">
                     Demó kérése
+                </a>
+                <a href="{{ route('login') }}"
+                    class="inline-flex items-center justify-center gap-2 text-base font-medium text-indigo-200 transition-colors hover:text-white">
+                    Bejelentkezés a programba →
                 </a>
             </div>
         </div>
