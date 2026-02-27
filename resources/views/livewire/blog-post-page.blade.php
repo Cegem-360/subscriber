@@ -73,7 +73,7 @@
                 <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
-                Vissza a {{ $category->name }} kategóriához
+                {{ __('Back to :category category', ['category' => $category->name]) }}
             </a>
         </div>
     </section>

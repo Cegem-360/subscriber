@@ -6,27 +6,27 @@ test('hibabejelentes page renders successfully', function () {
     $response = $this->get(route('hibabejelentes'));
 
     $response->assertStatus(200);
-    $response->assertSee('Technikai problema jelzese');
-    $response->assertSee('a Cegem360 csapatnak');
+    $response->assertSee('Technikai probléma jelzése');
+    $response->assertSee('a Cégem360 csapatnak');
 });
 
 test('hibabejelentes page displays hero info bar', function () {
     $response = $this->get(route('hibabejelentes'));
 
-    $response->assertSee('Hibabejelentes');
-    $response->assertSee('valaszido');
-    $response->assertSee('kezeles');
-    $response->assertSee('E-mail ertesites');
+    $response->assertSee('Hibabejelentés');
+    $response->assertSee('válaszidő');
+    $response->assertSee('kezelés');
+    $response->assertSee('E-mail értesítés');
 });
 
 test('hibabejelentes page displays bug report form', function () {
     $response = $this->get(route('hibabejelentes'));
 
-    $response->assertSee('Hibabejelento urlap');
-    $response->assertSee('Bejelento adatai');
-    $response->assertSee('Hiba reszletei');
-    $response->assertSee('Prioritas');
-    $response->assertSee('Kepernykep / csatolmany');
+    $response->assertSee('Hibabejelentő űrlap');
+    $response->assertSee('Bejelentő adatai');
+    $response->assertSee('Hiba részletei');
+    $response->assertSee('Prioritás');
+    $response->assertSee('Képernyőkép / csatolmány');
 });
 
 test('hibabejelentes page displays form fields', function () {
@@ -46,8 +46,8 @@ test('hibabejelentes page displays module options', function () {
     $response = $this->get(route('hibabejelentes'));
 
     $response->assertSee('CRM');
-    $response->assertSee('Ertekesites');
-    $response->assertSee('Gyartasiranyitas');
+    $response->assertSee('Értékesítés');
+    $response->assertSee('Gyártásirányítás');
     $response->assertSee('Kontrolling');
     $response->assertSee('DataMind (MI)');
 });
@@ -57,55 +57,55 @@ test('hibabejelentes page displays priority options', function () {
 
     $response->assertSee('Kritikus');
     $response->assertSee('Magas');
-    $response->assertSee('Normal');
+    $response->assertSee('Normál');
     $response->assertSee('Alacsony');
 });
 
 test('hibabejelentes page displays sidebar with SLA', function () {
     $response = $this->get(route('hibabejelentes'));
 
-    $response->assertSee('Valaszidok prioritas szerint');
-    $response->assertSee('&lt; 1 ora', escape: false);
-    $response->assertSee('&lt; 4 ora', escape: false);
-    $response->assertSee('&lt; 8 ora', escape: false);
-    $response->assertSee('&lt; 24 ora', escape: false);
+    $response->assertSee('Válaszidők prioritás szerint');
+    $response->assertSee('&lt; 1 óra', escape: false);
+    $response->assertSee('&lt; 4 óra', escape: false);
+    $response->assertSee('&lt; 8 óra', escape: false);
+    $response->assertSee('&lt; 24 óra', escape: false);
 });
 
 test('hibabejelentes page displays sidebar tips', function () {
     $response = $this->get(route('hibabejelentes'));
 
-    $response->assertSee('Tippek a gyorsabb megoldashoz');
-    $response->assertSee('Csatoljon kepernykepet');
-    $response->assertSee('Masolja be a hibauzenet pontos szoveget');
+    $response->assertSee('Tippek a gyorsabb megoldáshoz');
+    $response->assertSee('Csatoljon képernyőképet');
+    $response->assertSee('Másolja be a hibaüzenet pontos szövegét');
 });
 
 test('hibabejelentes page displays alternative channels', function () {
     $response = $this->get(route('hibabejelentes'));
 
-    $response->assertSee('Egyeb elerhetosegek');
+    $response->assertSee('Egyéb elérhetőségek');
     $response->assertSee('AI Chat');
     $response->assertSee('support@cegem360.eu');
-    $response->assertSee('24/7 Tamogatas oldal');
+    $response->assertSee('24/7 Támogatás oldal');
 });
 
 test('hibabejelentes page displays system status', function () {
     $response = $this->get(route('hibabejelentes'));
 
-    $response->assertSee('jelenleg elerheto');
+    $response->assertSee('jelenleg elérhető');
 });
 
 test('hibabejelentes page displays after-form steps section', function () {
     $response = $this->get(route('hibabejelentes'));
 
-    $response->assertSee('3 lepesben a megoldasig');
-    $response->assertSee('Visszaigazolas azonnal');
-    $response->assertSee('Vizsgalat es diagnozis');
-    $response->assertSee('Megoldas es lezaras');
+    $response->assertSee('3 lépésben a megoldásig');
+    $response->assertSee('1. Visszaigazolás azonnal');
+    $response->assertSee('2. Vizsgálat és diagnózis');
+    $response->assertSee('3. Megoldás és lezárás');
 });
 
 test('hibabejelentes page displays footer CTA section', function () {
     $response = $this->get(route('hibabejelentes'));
 
-    $response->assertSee('Nem hiba, hanem kerdes?');
-    $response->assertSee('Tamogatas oldal');
+    $response->assertSee('Nem hiba, hanem kérdés?');
+    $response->assertSee('Támogatás oldal');
 });

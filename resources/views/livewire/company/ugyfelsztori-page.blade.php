@@ -87,17 +87,17 @@
             <div class="reveal mx-auto max-w-3xl text-center">
                 <div class="badge-gradient mb-8 inline-flex items-center gap-2 rounded-full border border-border-light/80 bg-surface-primary px-4 py-1.5"
                     style="box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
-                    <span class="text-sm font-medium text-text-primary">Cég &middot; Ügyfélsztorik</span>
+                    <span class="text-sm font-medium text-text-primary">{{ __('Company') }} &middot; {{ __('Customer Stories') }}</span>
                 </div>
 
                 <h1 class="mb-6 text-4xl leading-tight tracking-tight text-text-primary md:text-5xl lg:text-[3.5rem]"
                     style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    Valós eredmények,<br>
-                    valós ipari cégektől
+                    {{ __('Real results,') }}<br>
+                    {{ __('from real industrial companies') }}
                 </h1>
 
                 <p class="mx-auto mb-10 max-w-2xl text-lg text-text-secondary lg:text-xl">
-                    Nem mi mondjuk, hogy működik — az ügyfeleink mondják. Ezek a sztorik arról szólnak, hogyan változtatta meg a Cégem360 a napi munkát: kevesebb papír, gyorsabb döntés, több idő arra, ami számít.
+                    {{ __("We don't say it works — our customers do. These stories are about how Cégem360 changed the daily work: less paper, faster decisions, more time for what matters.") }}
                 </p>
 
                 {{-- Filter bar --}}
@@ -105,32 +105,32 @@
                     <button class="rounded-full border px-4 py-2 text-sm font-semibold transition-all"
                         :class="activeFilter === 'all' ? 'border-orange-300 bg-orange-50 text-orange-700' : 'border-border-light bg-surface-primary text-text-secondary hover:border-border-default hover:text-text-primary'"
                         @click="activeFilter = 'all'">
-                        Összes
+                        {{ __('All') }}
                     </button>
                     <button class="rounded-full border px-4 py-2 text-sm font-semibold transition-all"
                         :class="activeFilter === 'gyartas' ? 'border-orange-300 bg-orange-50 text-orange-700' : 'border-border-light bg-surface-primary text-text-secondary hover:border-border-default hover:text-text-primary'"
                         @click="activeFilter = 'gyartas'">
-                        Gyártás
+                        {{ __('Manufacturing') }}
                     </button>
                     <button class="rounded-full border px-4 py-2 text-sm font-semibold transition-all"
                         :class="activeFilter === 'szerviz' ? 'border-orange-300 bg-orange-50 text-orange-700' : 'border-border-light bg-surface-primary text-text-secondary hover:border-border-default hover:text-text-primary'"
                         @click="activeFilter = 'szerviz'">
-                        Szerviz &amp; Karbantartás
+                        {{ __('Service & Maintenance') }}
                     </button>
                     <button class="rounded-full border px-4 py-2 text-sm font-semibold transition-all"
                         :class="activeFilter === 'kereskedelem' ? 'border-orange-300 bg-orange-50 text-orange-700' : 'border-border-light bg-surface-primary text-text-secondary hover:border-border-default hover:text-text-primary'"
                         @click="activeFilter = 'kereskedelem'">
-                        Kereskedelem
+                        {{ __('Commerce') }}
                     </button>
                     <button class="rounded-full border px-4 py-2 text-sm font-semibold transition-all"
                         :class="activeFilter === 'epitoipar' ? 'border-orange-300 bg-orange-50 text-orange-700' : 'border-border-light bg-surface-primary text-text-secondary hover:border-border-default hover:text-text-primary'"
                         @click="activeFilter = 'epitoipar'">
-                        Építőipar
+                        {{ __('Construction') }}
                     </button>
                     <button class="rounded-full border px-4 py-2 text-sm font-semibold transition-all"
                         :class="activeFilter === 'szolgaltatas' ? 'border-orange-300 bg-orange-50 text-orange-700' : 'border-border-light bg-surface-primary text-text-secondary hover:border-border-default hover:text-text-primary'"
                         @click="activeFilter = 'szolgaltatas'">
-                        Szolgáltatás
+                        {{ __('Services') }}
                     </button>
                 </div>
             </div>
@@ -150,48 +150,48 @@
                         <span class="text-5xl opacity-50">&#127981;</span>
                     </div>
                     <div class="-mt-8 relative px-6">
-                        <span class="inline-flex items-center gap-1 rounded-md bg-blue-50 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-blue-600">Gyártás &middot; Fémfeldolgozás</span>
+                        <span class="inline-flex items-center gap-1 rounded-md bg-blue-50 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-blue-600">{{ __('Manufacturing') }} &middot; {{ __('Metal Processing') }}</span>
                     </div>
 
                     {{-- Body --}}
                     <div class="flex flex-1 flex-col p-6 pt-3">
                         <span class="mb-2 block text-xs font-bold uppercase tracking-wider text-text-tertiary">PrecízTech Kft.</span>
-                        <h3 class="mb-3 text-base font-bold leading-snug text-text-primary">Hogyan csökkentette a PrecízTech a selejt-arányt 40%-kal a Cégem360 gyártásirányítással</h3>
-                        <p class="mb-5 flex-1 text-sm leading-relaxed text-text-secondary">A PrecízTech Kft. CNC forgácsoló üzeme 3 műszakban dolgozik, 12 géppel. A gyártásirányítás korábban Excel-táblákban és műszakvezetői naplókban történt — a selejt-arány 8% körül mozgott, az OEE láthatatlan volt.</p>
+                        <h3 class="mb-3 text-base font-bold leading-snug text-text-primary">{{ __('How PrecízTech reduced scrap rate by 40% with Cégem360 production management') }}</h3>
+                        <p class="mb-5 flex-1 text-sm leading-relaxed text-text-secondary">{{ __('PrecízTech Kft. CNC machining plant operates in 3 shifts with 12 machines. Production management was previously done in Excel spreadsheets and shift leader notebooks — the scrap rate was around 8%, OEE was invisible.') }}</p>
 
                         {{-- Modules --}}
                         <div class="mb-4 flex flex-wrap gap-1.5">
-                            <span class="rounded-md bg-surface-secondary px-2 py-0.5 text-[11px] font-semibold text-text-tertiary">Gyártásirányítás</span>
-                            <span class="rounded-md bg-surface-secondary px-2 py-0.5 text-[11px] font-semibold text-text-tertiary">Digitális munkalap</span>
-                            <span class="rounded-md bg-surface-secondary px-2 py-0.5 text-[11px] font-semibold text-text-tertiary">DataMind MI</span>
-                            <span class="rounded-md bg-surface-secondary px-2 py-0.5 text-[11px] font-semibold text-text-tertiary">Irányítópultok</span>
+                            <span class="rounded-md bg-surface-secondary px-2 py-0.5 text-[11px] font-semibold text-text-tertiary">{{ __('Production Management') }}</span>
+                            <span class="rounded-md bg-surface-secondary px-2 py-0.5 text-[11px] font-semibold text-text-tertiary">{{ __('Digital Worksheet') }}</span>
+                            <span class="rounded-md bg-surface-secondary px-2 py-0.5 text-[11px] font-semibold text-text-tertiary">DataMind {{ __('AI') }}</span>
+                            <span class="rounded-md bg-surface-secondary px-2 py-0.5 text-[11px] font-semibold text-text-tertiary">{{ __('Dashboards') }}</span>
                         </div>
 
                         {{-- Results --}}
                         <div class="mb-4 grid grid-cols-3 gap-2 rounded-xl border border-border-light bg-surface-secondary p-3">
                             <div class="text-center">
                                 <span class="block text-sm font-bold text-blue-600" style="font-family: 'JetBrains Mono', monospace;">-40%</span>
-                                <span class="block text-[10px] font-semibold uppercase text-text-tertiary">Selejt-arány</span>
+                                <span class="block text-[10px] font-semibold uppercase text-text-tertiary">{{ __('Scrap Rate') }}</span>
                             </div>
                             <div class="text-center">
                                 <span class="block text-sm font-bold text-blue-600" style="font-family: 'JetBrains Mono', monospace;">87%</span>
-                                <span class="block text-[10px] font-semibold uppercase text-text-tertiary">OEE átlag</span>
+                                <span class="block text-[10px] font-semibold uppercase text-text-tertiary">{{ __('OEE Average') }}</span>
                             </div>
                             <div class="text-center">
                                 <span class="block text-sm font-bold text-blue-600" style="font-family: 'JetBrains Mono', monospace;">-3 hét</span>
-                                <span class="block text-[10px] font-semibold uppercase text-text-tertiary">Bevezetési idő</span>
+                                <span class="block text-[10px] font-semibold uppercase text-text-tertiary">{{ __('Implementation Time') }}</span>
                             </div>
                         </div>
 
                         {{-- Quote --}}
                         <div class="mb-5 rounded-xl border-l-3 border-blue-200 bg-blue-50/50 p-4">
-                            <p class="text-sm italic leading-relaxed text-text-secondary">&ldquo;Korábban a műszakvezető fejben tartotta, melyik gép mikor áll le. Most a DataMind előre szól, és a csapat a telefonján látja az OEE-t valós időben.&rdquo;</p>
-                            <p class="mt-2 text-xs font-semibold text-text-tertiary">&mdash; Üzemvezető, PrecízTech Kft.</p>
+                            <p class="text-sm italic leading-relaxed text-text-secondary">&ldquo;{{ __('Previously the shift leader kept in his head which machine would stop when. Now DataMind alerts in advance, and the team sees the OEE on their phones in real time.') }}&rdquo;</p>
+                            <p class="mt-2 text-xs font-semibold text-text-tertiary">&mdash; {{ __('Plant Manager, PrecízTech Kft.') }}</p>
                         </div>
 
                         {{-- Link --}}
                         <a href="#" class="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-700">
-                            Teljes esettanulmány <svg class="arrow-slide h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                            {{ __('Full case study') }} <svg class="arrow-slide h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                         </a>
                     </div>
                 </article>
@@ -204,48 +204,48 @@
                         <span class="text-5xl opacity-50">&#128295;</span>
                     </div>
                     <div class="-mt-8 relative px-6">
-                        <span class="inline-flex items-center gap-1 rounded-md bg-emerald-50 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-emerald-600">Szerviz &middot; Ipari karbantartás</span>
+                        <span class="inline-flex items-center gap-1 rounded-md bg-emerald-50 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-emerald-600">{{ __('Service') }} &middot; {{ __('Industrial Maintenance') }}</span>
                     </div>
 
                     {{-- Body --}}
                     <div class="flex flex-1 flex-col p-6 pt-3">
                         <span class="mb-2 block text-xs font-bold uppercase tracking-wider text-text-tertiary">SzervizPont Zrt.</span>
-                        <h3 class="mb-3 text-base font-bold leading-snug text-text-primary">A SzervizPont 15 technikusát koordinálja a Cégem360 — papír nélkül, valós időben</h3>
-                        <p class="mb-5 flex-1 text-sm leading-relaxed text-text-secondary">A SzervizPont Zrt. ipari gépek helyszíni karbantartásával foglalkozik, 15 szerviz-technikussal. Korábban papíralapú munkalapokat használtak, a diszpécser telefonon egyeztetett.</p>
+                        <h3 class="mb-3 text-base font-bold leading-snug text-text-primary">{{ __("SzervizPont coordinates its 15 technicians with Cégem360 — paperless, in real time") }}</h3>
+                        <p class="mb-5 flex-1 text-sm leading-relaxed text-text-secondary">{{ __('SzervizPont Zrt. provides on-site maintenance of industrial machines with 15 service technicians. Previously they used paper-based worksheets, the dispatcher coordinated by phone.') }}</p>
 
                         {{-- Modules --}}
                         <div class="mb-4 flex flex-wrap gap-1.5">
-                            <span class="rounded-md bg-surface-secondary px-2 py-0.5 text-[11px] font-semibold text-text-tertiary">Szerviz &amp; Karbantartás</span>
-                            <span class="rounded-md bg-surface-secondary px-2 py-0.5 text-[11px] font-semibold text-text-tertiary">Digitális munkalap</span>
+                            <span class="rounded-md bg-surface-secondary px-2 py-0.5 text-[11px] font-semibold text-text-tertiary">{{ __('Service & Maintenance') }}</span>
+                            <span class="rounded-md bg-surface-secondary px-2 py-0.5 text-[11px] font-semibold text-text-tertiary">{{ __('Digital Worksheet') }}</span>
                             <span class="rounded-md bg-surface-secondary px-2 py-0.5 text-[11px] font-semibold text-text-tertiary">CRM</span>
-                            <span class="rounded-md bg-surface-secondary px-2 py-0.5 text-[11px] font-semibold text-text-tertiary">Automatizálás</span>
+                            <span class="rounded-md bg-surface-secondary px-2 py-0.5 text-[11px] font-semibold text-text-tertiary">{{ __('Automation') }}</span>
                         </div>
 
                         {{-- Results --}}
                         <div class="mb-4 grid grid-cols-3 gap-2 rounded-xl border border-border-light bg-surface-secondary p-3">
                             <div class="text-center">
                                 <span class="block text-sm font-bold text-emerald-600" style="font-family: 'JetBrains Mono', monospace;">96%</span>
-                                <span class="block text-[10px] font-semibold uppercase text-text-tertiary">SLA-teljesítés</span>
+                                <span class="block text-[10px] font-semibold uppercase text-text-tertiary">{{ __('SLA Fulfillment') }}</span>
                             </div>
                             <div class="text-center">
                                 <span class="block text-sm font-bold text-emerald-600" style="font-family: 'JetBrains Mono', monospace;">-65%</span>
-                                <span class="block text-[10px] font-semibold uppercase text-text-tertiary">Admin idő</span>
+                                <span class="block text-[10px] font-semibold uppercase text-text-tertiary">{{ __('Admin Time') }}</span>
                             </div>
                             <div class="text-center">
                                 <span class="block text-sm font-bold text-emerald-600" style="font-family: 'JetBrains Mono', monospace;">+22%</span>
-                                <span class="block text-[10px] font-semibold uppercase text-text-tertiary">Napi kiszállás</span>
+                                <span class="block text-[10px] font-semibold uppercase text-text-tertiary">{{ __('Daily Dispatches') }}</span>
                             </div>
                         </div>
 
                         {{-- Quote --}}
                         <div class="mb-5 rounded-xl border-l-3 border-emerald-200 bg-emerald-50/50 p-4">
-                            <p class="text-sm italic leading-relaxed text-text-secondary">&ldquo;A technikusok a helyszínen, a telefonjukon töltik ki a munkalapot — fotóval, aláírással. Az ügyfél még aznap megkapja a szervizjelentést, automatikusan.&rdquo;</p>
-                            <p class="mt-2 text-xs font-semibold text-text-tertiary">&mdash; Szervizmenedzser, SzervizPont Zrt.</p>
+                            <p class="text-sm italic leading-relaxed text-text-secondary">&ldquo;{{ __('The technicians fill out the worksheet on-site, on their phones — with photos and signatures. The customer receives the service report the same day, automatically.') }}&rdquo;</p>
+                            <p class="mt-2 text-xs font-semibold text-text-tertiary">&mdash; {{ __('Service Manager, SzervizPont Zrt.') }}</p>
                         </div>
 
                         {{-- Link --}}
                         <a href="#" class="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-600 hover:text-emerald-700">
-                            Teljes esettanulmány <svg class="arrow-slide h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                            {{ __('Full case study') }} <svg class="arrow-slide h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                         </a>
                     </div>
                 </article>
@@ -258,48 +258,48 @@
                         <span class="text-5xl opacity-50">&#128230;</span>
                     </div>
                     <div class="-mt-8 relative px-6">
-                        <span class="inline-flex items-center gap-1 rounded-md bg-amber-50 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-amber-600">Kereskedelem &middot; Ipari alkatrész</span>
+                        <span class="inline-flex items-center gap-1 rounded-md bg-amber-50 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-amber-600">{{ __('Commerce') }} &middot; {{ __('Industrial Parts') }}</span>
                     </div>
 
                     {{-- Body --}}
                     <div class="flex flex-1 flex-col p-6 pt-3">
                         <span class="mb-2 block text-xs font-bold uppercase tracking-wider text-text-tertiary">IndusztriParts Kft.</span>
-                        <h3 class="mb-3 text-base font-bold leading-snug text-text-primary">Hogyan növelte az IndusztriParts 35%-kal az ajánlat–megrendelés konverziót a Cégem360 CRM-mel</h3>
-                        <p class="mb-5 flex-1 text-sm leading-relaxed text-text-secondary">Az IndusztriParts Kft. ipari alkatrészek nagykereskedelmével foglalkozik, 380+ aktív ügyfélszámlával. Az értékesítők korábban e-mailben és fejben követték a pipeline-t.</p>
+                        <h3 class="mb-3 text-base font-bold leading-snug text-text-primary">{{ __('How IndusztriParts increased quote-to-order conversion by 35% with Cégem360 CRM') }}</h3>
+                        <p class="mb-5 flex-1 text-sm leading-relaxed text-text-secondary">{{ __('IndusztriParts Kft. deals in wholesale of industrial parts with 380+ active customer accounts. Sales reps previously tracked the pipeline via email and memory.') }}</p>
 
                         {{-- Modules --}}
                         <div class="mb-4 flex flex-wrap gap-1.5">
-                            <span class="rounded-md bg-surface-secondary px-2 py-0.5 text-[11px] font-semibold text-text-tertiary">CRM &amp; Ügyfélkezelés</span>
-                            <span class="rounded-md bg-surface-secondary px-2 py-0.5 text-[11px] font-semibold text-text-tertiary">Értékesítés</span>
-                            <span class="rounded-md bg-surface-secondary px-2 py-0.5 text-[11px] font-semibold text-text-tertiary">DataMind MI</span>
-                            <span class="rounded-md bg-surface-secondary px-2 py-0.5 text-[11px] font-semibold text-text-tertiary">Kontrolling</span>
+                            <span class="rounded-md bg-surface-secondary px-2 py-0.5 text-[11px] font-semibold text-text-tertiary">CRM & {{ __('Customer Management') }}</span>
+                            <span class="rounded-md bg-surface-secondary px-2 py-0.5 text-[11px] font-semibold text-text-tertiary">{{ __('Sales') }}</span>
+                            <span class="rounded-md bg-surface-secondary px-2 py-0.5 text-[11px] font-semibold text-text-tertiary">DataMind {{ __('AI') }}</span>
+                            <span class="rounded-md bg-surface-secondary px-2 py-0.5 text-[11px] font-semibold text-text-tertiary">{{ __('Controlling') }}</span>
                         </div>
 
                         {{-- Results --}}
                         <div class="mb-4 grid grid-cols-3 gap-2 rounded-xl border border-border-light bg-surface-secondary p-3">
                             <div class="text-center">
                                 <span class="block text-sm font-bold text-amber-600" style="font-family: 'JetBrains Mono', monospace;">+35%</span>
-                                <span class="block text-[10px] font-semibold uppercase text-text-tertiary">Konverzió</span>
+                                <span class="block text-[10px] font-semibold uppercase text-text-tertiary">{{ __('Conversion') }}</span>
                             </div>
                             <div class="text-center">
                                 <span class="block text-sm font-bold text-amber-600" style="font-family: 'JetBrains Mono', monospace;">-2 nap</span>
-                                <span class="block text-[10px] font-semibold uppercase text-text-tertiary">Ajánlat kiadás</span>
+                                <span class="block text-[10px] font-semibold uppercase text-text-tertiary">{{ __('Quote Delivery') }}</span>
                             </div>
                             <div class="text-center">
                                 <span class="block text-sm font-bold text-amber-600" style="font-family: 'JetBrains Mono', monospace;">-60%</span>
-                                <span class="block text-[10px] font-semibold uppercase text-text-tertiary">Churn-kockázat</span>
+                                <span class="block text-[10px] font-semibold uppercase text-text-tertiary">{{ __('Churn Risk') }}</span>
                             </div>
                         </div>
 
                         {{-- Quote --}}
                         <div class="mb-5 rounded-xl border-l-3 border-amber-200 bg-amber-50/50 p-4">
-                            <p class="text-sm italic leading-relaxed text-text-secondary">&ldquo;A DataMind hétfőnként megmondja, melyik ügyfélnél van churn-kockázat, és az értékesítő még aznap felhívja. Korábban csak akkor tudtuk meg, hogy elvesztettük, amikor már késő volt.&rdquo;</p>
-                            <p class="mt-2 text-xs font-semibold text-text-tertiary">&mdash; Értékesítési vezető, IndusztriParts Kft.</p>
+                            <p class="text-sm italic leading-relaxed text-text-secondary">&ldquo;{{ __('DataMind tells us every Monday which customer has churn risk, and the sales rep calls them the same day. Previously we only found out we lost them when it was already too late.') }}&rdquo;</p>
+                            <p class="mt-2 text-xs font-semibold text-text-tertiary">&mdash; {{ __('Sales Director, IndusztriParts Kft.') }}</p>
                         </div>
 
                         {{-- Link --}}
                         <a href="#" class="inline-flex items-center gap-1.5 text-sm font-semibold text-amber-600 hover:text-amber-700">
-                            Teljes esettanulmány <svg class="arrow-slide h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                            {{ __('Full case study') }} <svg class="arrow-slide h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                         </a>
                     </div>
                 </article>
@@ -312,19 +312,19 @@
     <section class="bg-surface-primary py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-6">
             <div class="reveal mb-8">
-                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">Hamarosan</p>
+                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">{{ __('Coming Soon') }}</p>
                 <h2 class="text-3xl text-text-primary md:text-4xl" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    Folyamatosan bővülő ügyfélsztorik
+                    {{ __('Continuously expanding customer stories') }}
                 </h2>
             </div>
 
             <div class="reveal">
                 <div class="rounded-2xl border border-dashed border-border-light bg-surface-secondary p-12 text-center" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <span class="mb-4 block text-4xl opacity-40">&#128218;</span>
-                    <h3 class="mb-2 text-lg font-bold text-text-primary">További esettanulmányok hamarosan</h3>
-                    <p class="mx-auto mb-6 max-w-lg text-sm text-text-secondary">Minden negyedévben új ügyfélsztorikat publikálunk — különböző iparágakból, különböző kihívásokkal és megoldásokkal. Iratkozzon fel a hírlevélre, hogy elsőként értesüljön.</p>
+                    <h3 class="mb-2 text-lg font-bold text-text-primary">{{ __('More case studies coming soon') }}</h3>
+                    <p class="mx-auto mb-6 max-w-lg text-sm text-text-secondary">{{ __('Every quarter we publish new customer stories — from different industries, with different challenges and solutions. Subscribe to our newsletter to be the first to know.') }}</p>
                     <a href="{{ route('contact') }}" class="inline-flex items-center gap-2 rounded-full border border-border-light bg-surface-primary px-6 py-3 text-sm font-semibold text-text-primary transition-all hover:border-orange-200 hover:shadow-md">
-                        Értesítsen az új sztorikról
+                        {{ __('Notify me about new stories') }}
                     </a>
                 </div>
             </div>
@@ -335,12 +335,12 @@
     <section class="bg-surface-secondary py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-6">
             <div class="reveal mb-12">
-                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">Esettanulmány felépítés</p>
+                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">{{ __('Case Study Structure') }}</p>
                 <h2 class="mb-4 text-3xl text-text-primary md:text-4xl" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    Minden sztorinkat így építjük fel
+                    {{ __('How we build every story') }}
                 </h2>
                 <p class="max-w-xl text-lg text-text-secondary">
-                    Nem marketingszöveget írunk — hanem mérhető eredményeket, valós kontextusban, idézhető adatokkal.
+                    {{ __("We don't write marketing copy — we present measurable results, in real context, with citable data.") }}
                 </p>
             </div>
 
@@ -348,26 +348,26 @@
                 <div class="stagger-item card-glow rounded-2xl border border-border-light bg-surface-primary p-7 text-center" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <span class="mb-3 block text-xs font-bold text-orange-600" style="font-family: 'JetBrains Mono', monospace;">01</span>
                     <div class="icon-hover mb-3 text-2xl">&#127970;</div>
-                    <h4 class="mb-1 text-sm font-bold text-text-primary">Cég és iparág</h4>
-                    <p class="text-xs text-text-tertiary">Ki az ügyfél, milyen szegmensben dolgozik, mekkora a cég, mit csinál</p>
+                    <h4 class="mb-1 text-sm font-bold text-text-primary">{{ __('Company and Industry') }}</h4>
+                    <p class="text-xs text-text-tertiary">{{ __('Who is the customer, what segment they work in, how big the company is, what they do') }}</p>
                 </div>
                 <div class="stagger-item card-glow rounded-2xl border border-border-light bg-surface-primary p-7 text-center" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <span class="mb-3 block text-xs font-bold text-orange-600" style="font-family: 'JetBrains Mono', monospace;">02</span>
                     <div class="icon-hover mb-3 text-2xl">&#9888;&#65039;</div>
-                    <h4 class="mb-1 text-sm font-bold text-text-primary">Kihívás</h4>
-                    <p class="text-xs text-text-tertiary">Milyen problémával küzdött a cég a Cégem360 előtt — konkrétan, számokkal</p>
+                    <h4 class="mb-1 text-sm font-bold text-text-primary">{{ __('Challenge') }}</h4>
+                    <p class="text-xs text-text-tertiary">{{ __('What problem the company faced before Cégem360 — specifically, with numbers') }}</p>
                 </div>
                 <div class="stagger-item card-glow rounded-2xl border border-border-light bg-surface-primary p-7 text-center" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <span class="mb-3 block text-xs font-bold text-orange-600" style="font-family: 'JetBrains Mono', monospace;">03</span>
                     <div class="icon-hover mb-3 text-2xl">&#128161;</div>
-                    <h4 class="mb-1 text-sm font-bold text-text-primary">Megoldás</h4>
-                    <p class="text-xs text-text-tertiary">Milyen modulokat vezettünk be, hogyan konfiguráltuk, mennyi ideig tartott</p>
+                    <h4 class="mb-1 text-sm font-bold text-text-primary">{{ __('Solution') }}</h4>
+                    <p class="text-xs text-text-tertiary">{{ __('Which modules were implemented, how they were configured, how long it took') }}</p>
                 </div>
                 <div class="stagger-item card-glow rounded-2xl border border-border-light bg-surface-primary p-7 text-center" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <span class="mb-3 block text-xs font-bold text-orange-600" style="font-family: 'JetBrains Mono', monospace;">04</span>
                     <div class="icon-hover mb-3 text-2xl">&#128200;</div>
-                    <h4 class="mb-1 text-sm font-bold text-text-primary">Eredmények</h4>
-                    <p class="text-xs text-text-tertiary">Mérhető változás: %-os javulás, időmegtakarítás, költségcsökkenés, ROI</p>
+                    <h4 class="mb-1 text-sm font-bold text-text-primary">{{ __('Results') }}</h4>
+                    <p class="text-xs text-text-tertiary">{{ __('Measurable change: % improvement, time savings, cost reduction, ROI') }}</p>
                 </div>
             </div>
         </div>
@@ -377,9 +377,9 @@
     <section class="bg-surface-primary py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-6">
             <div class="reveal mb-12 text-center">
-                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">Összesített eredmények</p>
+                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">{{ __('Aggregated Results') }}</p>
                 <h2 class="text-3xl text-text-primary md:text-4xl" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    Amit az ügyfeleink együtt elértek
+                    {{ __('What our customers achieved together') }}
                 </h2>
             </div>
 
@@ -387,22 +387,22 @@
                 <div class="stagger-item stat-hover rounded-2xl border border-border-light bg-surface-primary p-8 text-center" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <span class="stat-value block text-4xl font-bold text-orange-600 lg:text-5xl" style="font-family: 'JetBrains Mono', monospace;"
                         data-count="52" data-prefix="-" data-suffix="%">0</span>
-                    <span class="mt-2 block text-sm text-text-secondary">Átlagos admin-idő csökkenés</span>
+                    <span class="mt-2 block text-sm text-text-secondary">{{ __('Average admin time reduction') }}</span>
                 </div>
                 <div class="stagger-item stat-hover rounded-2xl border border-border-light bg-surface-primary p-8 text-center" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <span class="stat-value block text-4xl font-bold text-emerald-600 lg:text-5xl" style="font-family: 'JetBrains Mono', monospace;"
                         data-count="34" data-prefix="+" data-suffix="%">0</span>
-                    <span class="mt-2 block text-sm text-text-secondary">Átlagos hatékonyság-növekedés</span>
+                    <span class="mt-2 block text-sm text-text-secondary">{{ __('Average efficiency increase') }}</span>
                 </div>
                 <div class="stagger-item stat-hover rounded-2xl border border-border-light bg-surface-primary p-8 text-center" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <span class="stat-value block text-4xl font-bold text-blue-600 lg:text-5xl" style="font-family: 'JetBrains Mono', monospace;"
                         data-count="3 hét">0</span>
-                    <span class="mt-2 block text-sm text-text-secondary">Átlagos bevezetési idő</span>
+                    <span class="mt-2 block text-sm text-text-secondary">{{ __('Average implementation time') }}</span>
                 </div>
                 <div class="stagger-item stat-hover rounded-2xl border border-border-light bg-surface-primary p-8 text-center" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <span class="stat-value block text-4xl font-bold text-violet-600 lg:text-5xl" style="font-family: 'JetBrains Mono', monospace;"
                         data-count="96" data-suffix="%">0</span>
-                    <span class="mt-2 block text-sm text-text-secondary">Ügyfél-elégedettség</span>
+                    <span class="mt-2 block text-sm text-text-secondary">{{ __('Customer satisfaction') }}</span>
                 </div>
             </div>
         </div>
@@ -413,34 +413,34 @@
         <div class="mx-auto max-w-7xl px-6">
             <div class="reveal">
                 <div class="rounded-2xl border border-orange-100 bg-orange-50/30 p-10 text-center lg:p-16" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-                    <h3 class="mb-4 text-2xl font-bold text-text-primary lg:text-3xl" style="font-family: 'Poppins', sans-serif; font-weight: 600;">Az Ön cége is lehet a következő sztori</h3>
-                    <p class="mx-auto mb-8 max-w-xl text-base text-text-secondary">Foglaljon egy 30 perces konzultációt — megmutatjuk, hogyan segíthet a Cégem360 az Ön iparágában, az Ön kihívásaira. Nem demó-prezentáció — hanem párbeszéd.</p>
+                    <h3 class="mb-4 text-2xl font-bold text-text-primary lg:text-3xl" style="font-family: 'Poppins', sans-serif; font-weight: 600;">{{ __('Your company can be the next story') }}</h3>
+                    <p class="mx-auto mb-8 max-w-xl text-base text-text-secondary">{{ __("Book a 30-minute consultation — we'll show you how Cégem360 can help in your industry, for your challenges. Not a demo presentation — but a dialogue.") }}</p>
 
                     <div class="flex flex-wrap items-center justify-center gap-4">
                         <a href="{{ route('contact') }}"
                             class="group inline-flex items-center gap-2 rounded-full bg-orange-600 px-6 py-3 text-base font-medium text-white transition-all hover:bg-orange-700 hover:shadow-lg"
                             style="box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
-                            <span>Konzultáció foglalása</span>
+                            <span>{{ __('Book a consultation') }}</span>
                             <svg class="arrow-slide h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                         </a>
                         <a href="{{ route('register') }}"
                             class="inline-flex items-center gap-2 rounded-full border border-border-light bg-surface-primary px-6 py-3 text-base font-medium text-text-primary transition-all hover:border-orange-200 hover:shadow-md">
-                            Regisztráció és kipróbálás
+                            {{ __('Register and try it out') }}
                         </a>
                     </div>
 
                     <div class="mt-6 flex flex-wrap items-center justify-center gap-6">
                         <span class="flex items-center gap-1.5 text-sm text-text-tertiary">
                             <svg class="h-4 w-4 text-success-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                            30 perc videóhívás
+                            {{ __('30-minute video call') }}
                         </span>
                         <span class="flex items-center gap-1.5 text-sm text-text-tertiary">
                             <svg class="h-4 w-4 text-success-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                            Az Ön iparágára vetítve
+                            {{ __('Tailored to your industry') }}
                         </span>
                         <span class="flex items-center gap-1.5 text-sm text-text-tertiary">
                             <svg class="h-4 w-4 text-success-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                            Nincs elköteleződés
+                            {{ __('No commitment') }}
                         </span>
                     </div>
                 </div>

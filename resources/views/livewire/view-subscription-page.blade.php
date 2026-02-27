@@ -148,15 +148,15 @@
                 <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-3 uppercase tracking-wide">{{ __('Technical Details') }}</h2>
                 <dl class="grid grid-cols-1 gap-2 text-sm font-mono">
                     <div class="flex gap-2">
-                        <dt class="text-gray-500 dark:text-gray-400">Stripe ID:</dt>
+                        <dt class="text-gray-500 dark:text-gray-400">{{ __('Stripe ID') }}:</dt>
                         <dd class="text-gray-700 dark:text-gray-300">{{ $subscription->stripe_id }}</dd>
                     </div>
                     <div class="flex gap-2">
-                        <dt class="text-gray-500 dark:text-gray-400">Stripe Price:</dt>
+                        <dt class="text-gray-500 dark:text-gray-400">{{ __('Stripe Price') }}:</dt>
                         <dd class="text-gray-700 dark:text-gray-300">{{ $subscription->stripe_price ?? '-' }}</dd>
                     </div>
                     <div class="flex gap-2">
-                        <dt class="text-gray-500 dark:text-gray-400">Stripe Status:</dt>
+                        <dt class="text-gray-500 dark:text-gray-400">{{ __('Stripe Status') }}:</dt>
                         <dd class="text-gray-700 dark:text-gray-300">{{ $subscription->stripe_status?->value ?? '-' }}</dd>
                     </div>
                 </dl>

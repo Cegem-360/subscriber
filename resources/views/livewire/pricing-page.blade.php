@@ -4,11 +4,11 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                 <h1 class="mb-6 text-3xl font-semibold text-gray-900 sm:text-4xl lg:text-5xl">
-                    Válassza ki a vállalatának megfelelő modulokat
+                    {{ __('Choose the right modules for your company') }}
                 </h1>
                 <p class="mx-auto mt-4 max-w-4xl text-xl text-gray-600">
-                    Minden modul önállóan is működik, együtt pedig teljeskörű vállalatirányítási rendszert alkotnak.
-                    Fizessen csak azért, amit valóban használ.
+                    {{ __('Each module works independently, and together they form a comprehensive enterprise management system.') }}
+                    {{ __('Pay only for what you actually use.') }}
                 </p>
             </div>
         </div>
@@ -37,7 +37,7 @@
                 <div class="flex items-center gap-3">
                     <span
                         class="flex items-center gap-2 text-sm font-medium {{ $isYearly ? 'text-gray-900' : 'text-gray-500' }}">
-                        Éves
+                        {{ __('Yearly') }}
                         <span
                             class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">
                             -17%
@@ -49,7 +49,7 @@
                         <span
                             class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out {{ !$isYearly ? 'translate-x-5' : 'translate-x-0' }}"></span>
                     </button>
-                    <span class="text-sm font-medium {{ !$isYearly ? 'text-gray-900' : 'text-gray-500' }}">Havi</span>
+                    <span class="text-sm font-medium {{ !$isYearly ? 'text-gray-900' : 'text-gray-500' }}">{{ __('Monthly') }}</span>
                 </div>
             </div>
 
@@ -101,11 +101,11 @@
                                         <span
                                             class="text-3xl font-bold text-gray-900">{{ $this->calculatePrice($module) }}</span>
                                         <span class="ml-2 text-sm text-gray-500">/
-                                            {{ $isYearly ? 'év' : 'hó' }} / ügyfél</span>
+                                            {{ $isYearly ? __('year') : __('month') }} / {{ __('client') }}</span>
                                     </div>
                                     @if (!$isYearly)
                                         <p class="mt-1 text-xs text-gray-500">
-                                            Éves előfizetéssel:
+                                            {{ __('With yearly subscription:') }}
                                             {{ $this->calculateYearlyPrice($module) }}
                                         </p>
                                     @endif
@@ -131,7 +131,7 @@
                                 {{-- CTA Button - Indigo with bigger text --}}
                                 <a href="{{ route('register') }}"
                                     class="block w-full rounded-lg bg-indigo-600 px-4 py-3 text-center text-base font-medium text-white transition-colors hover:bg-indigo-700">
-                                    Kezdés
+                                    {{ __('Get started') }}
                                 </a>
                             </div>
                         </div>
@@ -156,10 +156,10 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-semibold text-gray-900">
-                    Modulok összehasonlítása
+                    {{ __('Compare Modules') }}
                 </h2>
                 <p class="mt-3 text-lg text-gray-600">
-                    Minden modul tartalmazza az alap funkciókat, plusz az egyedi képességeket
+                    {{ __('Every module includes the base features, plus unique capabilities') }}
                 </p>
             </div>
 
@@ -167,7 +167,7 @@
                 <table class="w-full min-w-200 border-collapse">
                     <thead>
                         <tr class="border-b border-gray-200">
-                            <th class="py-5 px-4 text-left text-base font-semibold text-gray-900 w-1/4">Funkció</th>
+                            <th class="py-5 px-4 text-left text-base font-semibold text-gray-900 w-1/4">{{ __('Feature') }}</th>
                             @foreach ($this->modules as $module)
                                 <th class="py-5 px-3 text-center align-top">
                                     <x-module-icon :module="$module['id']" size="md" />
@@ -179,7 +179,7 @@
                     <tbody class="divide-y divide-gray-100">
                         {{-- Common features --}}
                         <tr class="bg-white">
-                            <td class="py-4 px-4 text-base text-gray-700">Korlátlan felhasználó</td>
+                            <td class="py-4 px-4 text-base text-gray-700">{{ __('Unlimited users') }}</td>
                             @foreach ($this->modules as $module)
                                 <td class="py-4 px-3 text-center">
                                     <svg class="mx-auto h-6 w-6 text-green-500" fill="none" stroke="currentColor"
@@ -191,7 +191,7 @@
                             @endforeach
                         </tr>
                         <tr class="bg-gray-50/50">
-                            <td class="py-4 px-4 text-base text-gray-700">Magyar nyelvű felület</td>
+                            <td class="py-4 px-4 text-base text-gray-700">{{ __('Hungarian language interface') }}</td>
                             @foreach ($this->modules as $module)
                                 <td class="py-4 px-3 text-center">
                                     <svg class="mx-auto h-6 w-6 text-green-500" fill="none" stroke="currentColor"
@@ -203,7 +203,7 @@
                             @endforeach
                         </tr>
                         <tr class="bg-white">
-                            <td class="py-4 px-4 text-base text-gray-700">E-mail értesítések</td>
+                            <td class="py-4 px-4 text-base text-gray-700">{{ __('Email notifications') }}</td>
                             @foreach ($this->modules as $module)
                                 <td class="py-4 px-3 text-center">
                                     <svg class="mx-auto h-6 w-6 text-green-500" fill="none" stroke="currentColor"
@@ -215,7 +215,7 @@
                             @endforeach
                         </tr>
                         <tr class="bg-gray-50/50">
-                            <td class="py-4 px-4 text-base text-gray-700">API hozzáférés</td>
+                            <td class="py-4 px-4 text-base text-gray-700">{{ __('API access') }}</td>
                             @foreach ($this->modules as $module)
                                 <td class="py-4 px-3 text-center">
                                     <svg class="mx-auto h-6 w-6 text-green-500" fill="none" stroke="currentColor"
@@ -227,7 +227,7 @@
                             @endforeach
                         </tr>
                         <tr class="bg-white">
-                            <td class="py-4 px-4 text-base text-gray-700">Mobil alkalmazás</td>
+                            <td class="py-4 px-4 text-base text-gray-700">{{ __('Mobile application') }}</td>
                             @foreach ($this->modules as $module)
                                 <td class="py-4 px-3 text-center">
                                     <svg class="mx-auto h-6 w-6 text-green-500" fill="none" stroke="currentColor"
@@ -241,7 +241,7 @@
 
                         {{-- Module-specific features --}}
                         <tr class="bg-gray-50/50">
-                            <td class="py-4 px-4 text-base text-gray-700">Digitális munkalapok</td>
+                            <td class="py-4 px-4 text-base text-gray-700">{{ __('Digital worksheets') }}</td>
                             <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -257,7 +257,7 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                         </tr>
                         <tr class="bg-white">
-                            <td class="py-4 px-4 text-base text-gray-700">Helyszíni aláírás</td>
+                            <td class="py-4 px-4 text-base text-gray-700">{{ __('On-site signature') }}</td>
                             <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -273,7 +273,7 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                         </tr>
                         <tr class="bg-gray-50/50">
-                            <td class="py-4 px-4 text-base text-gray-700">Offline működés</td>
+                            <td class="py-4 px-4 text-base text-gray-700">{{ __('Offline mode') }}</td>
                             <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -289,7 +289,7 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                         </tr>
                         <tr class="bg-white">
-                            <td class="py-4 px-4 text-base text-gray-700">Pénzügyi riportok</td>
+                            <td class="py-4 px-4 text-base text-gray-700">{{ __('Financial reports') }}</td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -305,7 +305,7 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                         </tr>
                         <tr class="bg-gray-50/50">
-                            <td class="py-4 px-4 text-base text-gray-700">Készletkezelés</td>
+                            <td class="py-4 px-4 text-base text-gray-700">{{ __('Inventory management') }}</td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><svg class="mx-auto h-6 w-6 text-green-500"
@@ -325,7 +325,7 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                         </tr>
                         <tr class="bg-white">
-                            <td class="py-4 px-4 text-base text-gray-700">Gyártási ütemezés</td>
+                            <td class="py-4 px-4 text-base text-gray-700">{{ __('Production scheduling') }}</td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
@@ -341,7 +341,7 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                         </tr>
                         <tr class="bg-gray-50/50">
-                            <td class="py-4 px-4 text-base text-gray-700">Workflow automatizálás</td>
+                            <td class="py-4 px-4 text-base text-gray-700">{{ __('Workflow automation') }}</td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
@@ -357,7 +357,7 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                         </tr>
                         <tr class="bg-white">
-                            <td class="py-4 px-4 text-base text-gray-700">Ajánlatkészítés</td>
+                            <td class="py-4 px-4 text-base text-gray-700">{{ __('Quote generation') }}</td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
@@ -373,7 +373,7 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                         </tr>
                         <tr class="bg-gray-50/50">
-                            <td class="py-4 px-4 text-base text-gray-700">Ügyfél-adatbázis</td>
+                            <td class="py-4 px-4 text-base text-gray-700">{{ __('Customer database') }}</td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
@@ -393,7 +393,7 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                         </tr>
                         <tr class="bg-white">
-                            <td class="py-4 px-4 text-base text-gray-700">Lead kezelés</td>
+                            <td class="py-4 px-4 text-base text-gray-700">{{ __('Lead management') }}</td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
@@ -411,7 +411,7 @@
 
                         {{-- SEO-specific features --}}
                         <tr class="bg-gray-50/50">
-                            <td class="py-4 px-4 text-base text-gray-700">AI kulcsszókutatás</td>
+                            <td class="py-4 px-4 text-base text-gray-700">{{ __('AI keyword research') }}</td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
@@ -427,7 +427,7 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                         </tr>
                         <tr class="bg-white">
-                            <td class="py-4 px-4 text-base text-gray-700">Versenytárs-elemzés</td>
+                            <td class="py-4 px-4 text-base text-gray-700">{{ __('Competitor analysis') }}</td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
@@ -443,7 +443,7 @@
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                         </tr>
                         <tr class="bg-gray-50/50">
-                            <td class="py-4 px-4 text-base text-gray-700">Tartalom-optimalizálás</td>
+                            <td class="py-4 px-4 text-base text-gray-700">{{ __('Content optimization') }}</td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
@@ -461,7 +461,7 @@
 
                         {{-- MarketingHub-specific features --}}
                         <tr class="bg-white">
-                            <td class="py-4 px-4 text-base text-gray-700">Google Ads integráció</td>
+                            <td class="py-4 px-4 text-base text-gray-700">{{ __('Google Ads integration') }}</td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
@@ -477,7 +477,7 @@
                                 </svg></td>
                         </tr>
                         <tr class="bg-gray-50/50">
-                            <td class="py-4 px-4 text-base text-gray-700">Meta Ads integráció</td>
+                            <td class="py-4 px-4 text-base text-gray-700">{{ __('Meta Ads integration') }}</td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
@@ -493,7 +493,7 @@
                                 </svg></td>
                         </tr>
                         <tr class="bg-white">
-                            <td class="py-4 px-4 text-base text-gray-700">Kampány ROI elemzés</td>
+                            <td class="py-4 px-4 text-base text-gray-700">{{ __('Campaign ROI analysis') }}</td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
                             <td class="py-4 px-3 text-center"><span class="text-gray-300 text-lg">—</span></td>
@@ -511,7 +511,7 @@
 
                         {{-- Price row --}}
                         <tr class="border-t-2 border-gray-200 bg-white">
-                            <td class="py-5 px-4 text-base font-semibold text-gray-900">Éves ár</td>
+                            <td class="py-5 px-4 text-base font-semibold text-gray-900">{{ __('Yearly price') }}</td>
                             @foreach ($this->modules as $module)
                                 <td class="py-5 px-3 text-center">
                                     <span
@@ -531,19 +531,19 @@
             <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
                 <div class="text-center">
                     <div class="text-4xl font-bold text-indigo-600">100+</div>
-                    <div class="mt-2 text-base text-gray-600">elégedett ügyfél</div>
+                    <div class="mt-2 text-base text-gray-600">{{ __('satisfied clients') }}</div>
                 </div>
                 <div class="text-center">
                     <div class="text-4xl font-bold text-indigo-600">99,5%</div>
-                    <div class="mt-2 text-base text-gray-600">rendelkezésre állás</div>
+                    <div class="mt-2 text-base text-gray-600">{{ __('uptime') }}</div>
                 </div>
                 <div class="text-center">
-                    <div class="text-4xl font-bold text-indigo-600">5 perc</div>
-                    <div class="mt-2 text-base text-gray-600">alatt beüzemelhető</div>
+                    <div class="text-4xl font-bold text-indigo-600">{{ __('5 minutes') }}</div>
+                    <div class="mt-2 text-base text-gray-600">{{ __('to set up') }}</div>
                 </div>
                 <div class="text-center">
-                    <div class="text-4xl font-bold text-indigo-600">Magyar</div>
-                    <div class="mt-2 text-base text-gray-600">támogatás</div>
+                    <div class="text-4xl font-bold text-indigo-600">{{ __('Hungarian') }}</div>
+                    <div class="mt-2 text-base text-gray-600">{{ __('support') }}</div>
                 </div>
             </div>
 
@@ -553,21 +553,21 @@
                         viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>
-                    <span class="text-base text-gray-700">Bármikor lemondható</span>
+                    <span class="text-base text-gray-700">{{ __('Cancel anytime') }}</span>
                 </div>
                 <div class="flex items-center gap-3 rounded-lg border border-gray-200 p-4">
                     <svg class="h-6 w-6 shrink-0 text-green-500" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>
-                    <span class="text-base text-gray-700">Magyar nyelvű támogatás</span>
+                    <span class="text-base text-gray-700">{{ __('Hungarian language support') }}</span>
                 </div>
                 <div class="flex items-center gap-3 rounded-lg border border-gray-200 p-4">
                     <svg class="h-6 w-6 shrink-0 text-green-500" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>
-                    <span class="text-base text-gray-700">GDPR megfelelőség</span>
+                    <span class="text-base text-gray-700">{{ __('GDPR compliance') }}</span>
                 </div>
             </div>
         </div>
@@ -577,7 +577,7 @@
     <section class="bg-gray-50 py-16 lg:py-20">
         <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
             <h2 class="text-center text-3xl font-semibold text-gray-900">
-                Gyakran ismételt kérdések
+                {{ __('Frequently Asked Questions') }}
             </h2>
 
             <div class="mt-10 space-y-4" x-data="{ openFaq: null }">
@@ -606,15 +606,15 @@
     <section class="bg-indigo-600 py-16 lg:py-20">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl font-semibold text-white">
-                Készen áll a hatékonyabb működésre?
+                {{ __('Ready for more efficient operations?') }}
             </h2>
             <p class="mx-auto mt-4 max-w-xl text-lg text-indigo-100">
-                Próbálja ki bármelyik modult még ma. Nincs elkötelezettség, nem szükséges bankkártya.
+                {{ __('Try any module today. No commitment, no credit card required.') }}
             </p>
             <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <a href="{{ route('register') }}"
                     class="inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-base font-medium text-indigo-600 transition-colors hover:bg-indigo-50">
-                    Kezdés
+                    {{ __('Get started') }}
                     <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -622,7 +622,7 @@
                 </a>
                 <a href="{{ route('contact') }}"
                     class="inline-flex items-center justify-center rounded-lg border border-indigo-400 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-indigo-700">
-                    Demo kérése
+                    {{ __('Request a demo') }}
                 </a>
             </div>
         </div>

@@ -6,7 +6,7 @@
                     IT
                 </h1>
                 <p class="text-lg text-gray-500">
-                    Feltöltés alatt
+                    {{ __('Under construction') }}
                 </p>
             </div>
         </div>

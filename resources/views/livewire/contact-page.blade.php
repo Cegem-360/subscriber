@@ -7,16 +7,16 @@
                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                    Kapcsolat
+                    {{ __('Contact') }}
                 </div>
 
                 <h1 class="mb-6 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
-                    Beszéljünk!
+                    {{ __("Let's talk!") }}
                 </h1>
 
                 <p class="mx-auto mb-8 max-w-3xl text-lg text-gray-300 sm:text-xl">
-                    Van kérdése? Szeretne demót? Írjon nekünk vagy hívjon minket.
-                    Csapatunk 24 órán belül válaszol minden megkeresésre.
+                    {{ __('Have a question? Want a demo? Write to us or call us.') }}
+                    {{ __('Our team responds to every inquiry within 24 hours.') }}
                 </p>
             </div>
         </div>
@@ -33,8 +33,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 text-lg font-semibold text-gray-900">Telefonon</h3>
-                    <p class="mb-4 text-sm text-gray-600">H-P: 9:00 - 17:00</p>
+                    <h3 class="mb-2 text-lg font-semibold text-gray-900">{{ __('By phone') }}</h3>
+                    <p class="mb-4 text-sm text-gray-600">{{ __('Mon-Fri: 9:00 AM - 5:00 PM') }}</p>
                     <a href="tel:+36203319550" class="text-lg font-semibold text-indigo-600 hover:underline">+36 20 331 9550</a>
                 </div>
 
@@ -45,8 +45,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 text-lg font-semibold text-gray-900">E-mailben</h3>
-                    <p class="mb-4 text-sm text-gray-600">24 órán belül válaszolunk</p>
+                    <h3 class="mb-2 text-lg font-semibold text-gray-900">{{ __('By email') }}</h3>
+                    <p class="mb-4 text-sm text-gray-600">{{ __('We respond within 24 hours') }}</p>
                     <a href="mailto:info@cegem360.hu" class="text-lg font-semibold text-indigo-600 hover:underline">info@cegem360.hu</a>
                 </div>
 
@@ -58,8 +58,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 text-lg font-semibold text-gray-900">Személyesen</h3>
-                    <p class="mb-4 text-sm text-gray-600">Előzetes egyeztetéssel</p>
+                    <h3 class="mb-2 text-lg font-semibold text-gray-900">{{ __('In person') }}</h3>
+                    <p class="mb-4 text-sm text-gray-600">{{ __('By prior appointment') }}</p>
                     <p class="text-gray-700">1146 Budapest,<br>Istvánmezei út 1-3. IV. emelet</p>
                 </div>
             </div>
@@ -79,23 +79,23 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                 </svg>
                             </div>
-                            <h3 class="mb-2 text-2xl font-bold text-gray-900">Köszönjük megkeresését!</h3>
-                            <p class="text-gray-600">Munkatársunk hamarosan felveszi Önnel a kapcsolatot.</p>
+                            <h3 class="mb-2 text-2xl font-bold text-gray-900">{{ __('Thank you for your inquiry!') }}</h3>
+                            <p class="text-gray-600">{{ __('Our colleague will contact you shortly.') }}</p>
                         </div>
                     @else
-                        <h2 class="mb-6 text-2xl font-bold text-gray-900">Írjon nekünk</h2>
+                        <h2 class="mb-6 text-2xl font-bold text-gray-900">{{ __('Write to us') }}</h2>
 
                         <form wire:submit="submit" class="space-y-6">
                             {{-- Inquiry Type --}}
                             <div>
-                                <label for="inquiryType" class="mb-2 block text-sm font-medium text-gray-700">Megkeresés típusa *</label>
+                                <label for="inquiryType" class="mb-2 block text-sm font-medium text-gray-700">{{ __('Inquiry type') }} *</label>
                                 <select wire:model="inquiryType" id="inquiryType" class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500">
-                                    <option value="">Válasszon...</option>
-                                    <option value="demo">Demó kérés</option>
-                                    <option value="quote">Árajánlat kérés</option>
-                                    <option value="support">Technikai támogatás</option>
-                                    <option value="partnership">Partnerség</option>
-                                    <option value="other">Egyéb</option>
+                                    <option value="">{{ __('Select...') }}</option>
+                                    <option value="demo">{{ __('Demo request') }}</option>
+                                    <option value="quote">{{ __('Quote request') }}</option>
+                                    <option value="support">{{ __('Technical support') }}</option>
+                                    <option value="partnership">{{ __('Partnership') }}</option>
+                                    <option value="other">{{ __('Other') }}</option>
                                 </select>
                                 @error('inquiryType') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                             </div>
@@ -103,13 +103,13 @@
                             {{-- Name Fields --}}
                             <div class="grid gap-4 sm:grid-cols-2">
                                 <div>
-                                    <label for="lastName" class="mb-2 block text-sm font-medium text-gray-700">Vezetéknév *</label>
-                                    <input wire:model="lastName" type="text" id="lastName" class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500" placeholder="Kovács">
+                                    <label for="lastName" class="mb-2 block text-sm font-medium text-gray-700">{{ __('Last name') }} *</label>
+                                    <input wire:model="lastName" type="text" id="lastName" class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500" placeholder="{{ __('Smith') }}">
                                     @error('lastName') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                                 </div>
                                 <div>
-                                    <label for="firstName" class="mb-2 block text-sm font-medium text-gray-700">Keresztnév *</label>
-                                    <input wire:model="firstName" type="text" id="firstName" class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500" placeholder="János">
+                                    <label for="firstName" class="mb-2 block text-sm font-medium text-gray-700">{{ __('First name') }} *</label>
+                                    <input wire:model="firstName" type="text" id="firstName" class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500" placeholder="{{ __('John') }}">
                                     @error('firstName') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                                 </div>
                             </div>
@@ -117,12 +117,12 @@
                             {{-- Contact Fields --}}
                             <div class="grid gap-4 sm:grid-cols-2">
                                 <div>
-                                    <label for="email" class="mb-2 block text-sm font-medium text-gray-700">E-mail cím *</label>
+                                    <label for="email" class="mb-2 block text-sm font-medium text-gray-700">{{ __('Email address') }} *</label>
                                     <input wire:model="email" type="email" id="email" class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500" placeholder="kovacs.janos@example.com">
                                     @error('email') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                                 </div>
                                 <div>
-                                    <label for="phone" class="mb-2 block text-sm font-medium text-gray-700">Telefonszám</label>
+                                    <label for="phone" class="mb-2 block text-sm font-medium text-gray-700">{{ __('Phone number') }}</label>
                                     <input wire:model="phone" type="tel" id="phone" class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500" placeholder="+36 30 123 4567">
                                     @error('phone') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                                 </div>
@@ -131,34 +131,34 @@
                             {{-- Company Fields --}}
                             <div class="grid gap-4 sm:grid-cols-2">
                                 <div>
-                                    <label for="company" class="mb-2 block text-sm font-medium text-gray-700">Cégnév</label>
-                                    <input wire:model="company" type="text" id="company" class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500" placeholder="Példa Kft.">
+                                    <label for="company" class="mb-2 block text-sm font-medium text-gray-700">{{ __('Company name') }}</label>
+                                    <input wire:model="company" type="text" id="company" class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500" placeholder="{{ __('Example Ltd.') }}">
                                     @error('company') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                                 </div>
                                 <div>
-                                    <label for="position" class="mb-2 block text-sm font-medium text-gray-700">Beosztás</label>
-                                    <input wire:model="position" type="text" id="position" class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500" placeholder="Ügyvezető">
+                                    <label for="position" class="mb-2 block text-sm font-medium text-gray-700">{{ __('Position') }}</label>
+                                    <input wire:model="position" type="text" id="position" class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500" placeholder="{{ __('CEO') }}">
                                     @error('position') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                                 </div>
                             </div>
 
                             {{-- Company Size --}}
                             <div>
-                                <label for="companySize" class="mb-2 block text-sm font-medium text-gray-700">Cégméret</label>
+                                <label for="companySize" class="mb-2 block text-sm font-medium text-gray-700">{{ __('Company size') }}</label>
                                 <select wire:model="companySize" id="companySize" class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500">
-                                    <option value="">Válasszon...</option>
-                                    <option value="1-10">1-10 fő</option>
-                                    <option value="11-50">11-50 fő</option>
-                                    <option value="51-200">51-200 fő</option>
-                                    <option value="201-500">201-500 fő</option>
-                                    <option value="500+">500+ fő</option>
+                                    <option value="">{{ __('Select...') }}</option>
+                                    <option value="1-10">{{ __('1-10 employees') }}</option>
+                                    <option value="11-50">{{ __('11-50 employees') }}</option>
+                                    <option value="51-200">{{ __('51-200 employees') }}</option>
+                                    <option value="201-500">{{ __('201-500 employees') }}</option>
+                                    <option value="500+">{{ __('500+ employees') }}</option>
                                 </select>
                                 @error('companySize') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                             </div>
 
                             {{-- Interested Modules --}}
                             <div>
-                                <label class="mb-2 block text-sm font-medium text-gray-700">Mely modulok érdeklik?</label>
+                                <label class="mb-2 block text-sm font-medium text-gray-700">{{ __('Which modules interest you?') }}</label>
                                 <div class="grid gap-2 sm:grid-cols-2">
                                     <label class="flex items-center gap-2">
                                         <input wire:model="interestedModules" type="checkbox" value="crm" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
@@ -166,23 +166,23 @@
                                     </label>
                                     <label class="flex items-center gap-2">
                                         <input wire:model="interestedModules" type="checkbox" value="kontrolling" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <span class="text-sm text-gray-700">Kontrolling</span>
+                                        <span class="text-sm text-gray-700">{{ __('Controlling') }}</span>
                                     </label>
                                     <label class="flex items-center gap-2">
                                         <input wire:model="interestedModules" type="checkbox" value="beszerzes" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <span class="text-sm text-gray-700">Beszerzés & Logisztika</span>
+                                        <span class="text-sm text-gray-700">{{ __('Procurement & Logistics') }}</span>
                                     </label>
                                     <label class="flex items-center gap-2">
                                         <input wire:model="interestedModules" type="checkbox" value="ertekesites" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <span class="text-sm text-gray-700">Értékesítés</span>
+                                        <span class="text-sm text-gray-700">{{ __('Sales') }}</span>
                                     </label>
                                     <label class="flex items-center gap-2">
                                         <input wire:model="interestedModules" type="checkbox" value="gyartas" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <span class="text-sm text-gray-700">Gyártásirányítás</span>
+                                        <span class="text-sm text-gray-700">{{ __('Manufacturing management') }}</span>
                                     </label>
                                     <label class="flex items-center gap-2">
                                         <input wire:model="interestedModules" type="checkbox" value="automatizalas" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <span class="text-sm text-gray-700">Automatizálás</span>
+                                        <span class="text-sm text-gray-700">{{ __('Automation') }}</span>
                                     </label>
                                 </div>
                                 @error('interestedModules') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
@@ -190,8 +190,8 @@
 
                             {{-- Message --}}
                             <div>
-                                <label for="message" class="mb-2 block text-sm font-medium text-gray-700">Üzenet *</label>
-                                <textarea wire:model="message" id="message" rows="4" class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500" placeholder="Írja le kérdését vagy igényét..."></textarea>
+                                <label for="message" class="mb-2 block text-sm font-medium text-gray-700">{{ __('Message') }} *</label>
+                                <textarea wire:model="message" id="message" rows="4" class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500" placeholder="{{ __('Describe your question or requirement...') }}"></textarea>
                                 @error('message') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                             </div>
 
@@ -199,20 +199,20 @@
                             <div class="space-y-3">
                                 <label class="flex items-start gap-2">
                                     <input wire:model="privacyAccepted" type="checkbox" class="mt-1 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                    <span class="text-sm text-gray-700">Elolvastam és elfogadom az <a href="#" class="text-indigo-600 hover:underline">adatvédelmi tájékoztatót</a>. *</span>
+                                    <span class="text-sm text-gray-700">{!! __('I have read and accept the <a href="#" class="text-indigo-600 hover:underline">privacy policy</a>.') !!} *</span>
                                 </label>
                                 @error('privacyAccepted') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
 
                                 <label class="flex items-start gap-2">
                                     <input wire:model="newsletterSubscribe" type="checkbox" class="mt-1 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                    <span class="text-sm text-gray-700">Feliratkozom a Cégem360 hírlevelére</span>
+                                    <span class="text-sm text-gray-700">{{ __('Subscribe to the Cégem360 newsletter') }}</span>
                                 </label>
                             </div>
 
                             {{-- Submit Button --}}
                             <button type="submit" class="w-full rounded-lg bg-indigo-600 px-6 py-4 font-semibold text-white transition hover:bg-indigo-700" wire:loading.attr="disabled" wire:loading.class="opacity-50">
-                                <span wire:loading.remove>Üzenet küldése</span>
-                                <span wire:loading>Küldés...</span>
+                                <span wire:loading.remove>{{ __('Send message') }}</span>
+                                <span wire:loading>{{ __('Sending...') }}</span>
                             </button>
                         </form>
                     @endif
@@ -222,10 +222,10 @@
                 <div class="space-y-8">
                     {{-- Demo Booking --}}
                     <div class="rounded-2xl bg-indigo-600 p-8">
-                        <h3 class="mb-4 text-xl font-bold text-white">Foglaljon online demót</h3>
-                        <p class="mb-6 text-indigo-100">30 perces személyre szabott bemutató, ahol megválaszoljuk kérdéseit és bemutatjuk a rendszert.</p>
+                        <h3 class="mb-4 text-xl font-bold text-white">{{ __('Book an online demo') }}</h3>
+                        <p class="mb-6 text-indigo-100">{{ __('A 30-minute personalized presentation where we answer your questions and demonstrate the system.') }}</p>
                         <a href="{{ route('quote-request') }}" class="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 font-semibold text-indigo-600 transition hover:bg-indigo-50">
-                            Demó foglalása
+                            {{ __('Book a demo') }}
                             <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                             </svg>
@@ -234,7 +234,7 @@
 
                     {{-- Sales Team --}}
                     <div class="rounded-2xl bg-white p-8 shadow-sm">
-                        <h3 class="mb-6 text-xl font-bold text-gray-900">Értékesítés</h3>
+                        <h3 class="mb-6 text-xl font-bold text-gray-900">{{ __('Sales') }}</h3>
                         <div class="flex items-start gap-4">
                             <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-indigo-100 font-semibold text-indigo-700">
                                 <svg class="h-6 w-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -263,9 +263,9 @@
 
                     {{-- Partner Program --}}
                     <div class="rounded-2xl bg-gray-100 p-8">
-                        <h3 class="mb-4 text-xl font-bold text-gray-900">Partnerprogram</h3>
-                        <p class="mb-4 text-gray-600">IT cégek, tanácsadók és rendszerintegrátorok számára kínálunk partnerségi lehetőséget.</p>
-                        <a href="{{ route('quote-request') }}" class="font-semibold text-indigo-600 hover:underline">Tudjon meg többet &rarr;</a>
+                        <h3 class="mb-4 text-xl font-bold text-gray-900">{{ __('Partner program') }}</h3>
+                        <p class="mb-4 text-gray-600">{{ __('We offer partnership opportunities for IT companies, consultants, and system integrators.') }}</p>
+                        <a href="{{ route('quote-request') }}" class="font-semibold text-indigo-600 hover:underline">{{ __('Learn more') }} &rarr;</a>
                     </div>
                 </div>
             </div>
@@ -277,56 +277,56 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-3xl text-center">
                 <h2 class="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
-                    Gyakran ismételt kérdések
+                    {{ __('Frequently asked questions') }}
                 </h2>
             </div>
 
             <div class="mx-auto mt-12 max-w-3xl space-y-4">
                 <div x-data="{ open: false }" class="rounded-xl bg-gray-50 shadow-sm">
                     <button @click="open = !open" class="flex w-full items-center justify-between p-6 text-left">
-                        <span class="font-semibold text-gray-900">Milyen gyorsan válaszolnak?</span>
+                        <span class="font-semibold text-gray-900">{{ __('How quickly do you respond?') }}</span>
                         <svg class="h-5 w-5 text-gray-500 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
                     <div x-show="open" x-collapse class="px-6 pb-6">
-                        <p class="text-gray-600">E-mailes megkeresésekre 24 órán belül válaszolunk munkanapokon. Sürgős esetben hívjon minket telefonon.</p>
+                        <p class="text-gray-600">{{ __('We respond to email inquiries within 24 hours on business days. For urgent matters, call us by phone.') }}</p>
                     </div>
                 </div>
 
                 <div x-data="{ open: false }" class="rounded-xl bg-gray-50 shadow-sm">
                     <button @click="open = !open" class="flex w-full items-center justify-between p-6 text-left">
-                        <span class="font-semibold text-gray-900">Mennyibe kerül a demó?</span>
+                        <span class="font-semibold text-gray-900">{{ __('How much does the demo cost?') }}</span>
                         <svg class="h-5 w-5 text-gray-500 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
                     <div x-show="open" x-collapse class="px-6 pb-6">
-                        <p class="text-gray-600">A demó teljesen ingyenes és kötelezettségmentes. 30 percben bemutatjuk a rendszert és válaszolunk kérdéseire.</p>
+                        <p class="text-gray-600">{{ __('The demo is completely free and without obligation. In 30 minutes, we demonstrate the system and answer your questions.') }}</p>
                     </div>
                 </div>
 
                 <div x-data="{ open: false }" class="rounded-xl bg-gray-50 shadow-sm">
                     <button @click="open = !open" class="flex w-full items-center justify-between p-6 text-left">
-                        <span class="font-semibold text-gray-900">Van technikai támogatás?</span>
+                        <span class="font-semibold text-gray-900">{{ __('Is there technical support?') }}</span>
                         <svg class="h-5 w-5 text-gray-500 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
                     <div x-show="open" x-collapse class="px-6 pb-6">
-                        <p class="text-gray-600">Igen, minden előfizető számára biztosítunk e-mailes és telefonos támogatást. Prémium csomagokhoz dedikált kapcsolattartó jár.</p>
+                        <p class="text-gray-600">{{ __('Yes, we provide email and phone support for all subscribers. Premium packages include a dedicated contact person.') }}</p>
                     </div>
                 </div>
 
                 <div x-data="{ open: false }" class="rounded-xl bg-gray-50 shadow-sm">
                     <button @click="open = !open" class="flex w-full items-center justify-between p-6 text-left">
-                        <span class="font-semibold text-gray-900">Hol találom a tudásbázist?</span>
+                        <span class="font-semibold text-gray-900">{{ __('Where can I find the knowledge base?') }}</span>
                         <svg class="h-5 w-5 text-gray-500 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
                     <div x-show="open" x-collapse class="px-6 pb-6">
-                        <p class="text-gray-600">A bejelentkezés után a Súgó menüpontban találja a részletes dokumentációt, videó útmutatókat és GYIK-et.</p>
+                        <p class="text-gray-600">{{ __('After logging in, you can find detailed documentation, video tutorials, and FAQ in the Help menu.') }}</p>
                     </div>
                 </div>
             </div>
@@ -344,8 +344,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 text-lg font-semibold text-gray-900">Sajtó és média</h3>
-                    <p class="mb-4 text-sm text-gray-600">Sajtómegkeresések, interjúk és médiaanyagok</p>
+                    <h3 class="mb-2 text-lg font-semibold text-gray-900">{{ __('Press and media') }}</h3>
+                    <p class="mb-4 text-sm text-gray-600">{{ __('Press inquiries, interviews, and media materials') }}</p>
                     <a href="mailto:sajto@cegem360.hu" class="font-semibold text-indigo-600 hover:underline">sajto@cegem360.hu</a>
                 </div>
 
@@ -356,8 +356,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 text-lg font-semibold text-gray-900">Karrier</h3>
-                    <p class="mb-4 text-sm text-gray-600">Csatlakozzon dinamikusan növekvő csapatunkhoz</p>
+                    <h3 class="mb-2 text-lg font-semibold text-gray-900">{{ __('Careers') }}</h3>
+                    <p class="mb-4 text-sm text-gray-600">{{ __('Join our dynamically growing team') }}</p>
                     <a href="mailto:karrier@cegem360.hu" class="font-semibold text-indigo-600 hover:underline">karrier@cegem360.hu</a>
                 </div>
 
@@ -368,8 +368,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 text-lg font-semibold text-gray-900">Technikai támogatás</h3>
-                    <p class="mb-4 text-sm text-gray-600">Meglévő ügyfelek számára</p>
+                    <h3 class="mb-2 text-lg font-semibold text-gray-900">{{ __('Technical support') }}</h3>
+                    <p class="mb-4 text-sm text-gray-600">{{ __('For existing customers') }}</p>
                     <a href="mailto:support@cegem360.hu" class="font-semibold text-indigo-600 hover:underline">support@cegem360.hu</a>
                 </div>
             </div>
@@ -380,7 +380,7 @@
     <section class="bg-white py-16">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="text-center">
-                <h3 class="mb-6 text-lg font-semibold text-gray-900">Kövessen minket</h3>
+                <h3 class="mb-6 text-lg font-semibold text-gray-900">{{ __('Follow us') }}</h3>
                 <div class="flex justify-center gap-6">
                     <a href="#" class="flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-gray-600 transition hover:bg-indigo-100 hover:text-indigo-600">
                         <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">

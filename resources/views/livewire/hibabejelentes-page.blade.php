@@ -95,31 +95,31 @@
                 <div class="badge-gradient mb-8 inline-flex items-center gap-2 rounded-full border border-border-light/80 bg-surface-primary px-4 py-1.5"
                     style="box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
                     <span class="pulse-dot h-1.5 w-1.5 rounded-full bg-linear-to-r from-danger-500 via-danger-400 to-danger-300"></span>
-                    <span class="text-sm font-medium text-text-primary">Hibabejelentes</span>
+                    <span class="text-sm font-medium text-text-primary">{{ __('Bug Report') }}</span>
                 </div>
 
                 <h1 class="mb-6 text-4xl leading-tight tracking-tight text-text-primary md:text-5xl lg:text-[3.5rem]"
                     style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    Technikai problema jelzese<br>
-                    a Cegem360 csapatnak
+                    {{ __('Report a technical issue') }}<br>
+                    {{ __('to the Cégem360 team') }}
                 </h1>
 
                 <p class="mx-auto mb-10 max-w-2xl text-lg text-text-secondary lg:text-xl">
-                    Toltse ki az alabbi urlapot a hiba reszleteivel — minel pontosabb a leiras, annal gyorsabban tudunk segiteni. A csapatunk hetfo–pentek 8:00–16:00 kozott kezeli a bejelenteseket.
+                    {{ __('Fill out the form below with the details of the issue — the more precise the description, the faster we can help. Our team handles reports Monday–Friday 8:00–16:00.') }}
                 </p>
 
                 <div class="flex flex-wrap items-center justify-center gap-6">
                     <div class="flex items-center gap-2">
                         <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-success-50 text-sm">&#9201;</span>
-                        <span class="text-sm text-text-secondary"><strong class="text-text-primary">1–8 ora</strong> valaszido</span>
+                        <span class="text-sm text-text-secondary"><strong class="text-text-primary">{{ __('1–8 hours') }}</strong> {{ __('response time') }}</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-50 text-sm">&#128197;</span>
-                        <span class="text-sm text-text-secondary"><strong class="text-text-primary">H–P 8–16h</strong> kezeles</span>
+                        <span class="text-sm text-text-secondary"><strong class="text-text-primary">{{ __('Mon–Fri 8–16h') }}</strong> {{ __('handling') }}</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-warning-50 text-sm">&#128231;</span>
-                        <span class="text-sm text-text-secondary"><strong class="text-text-primary">E-mail ertesites</strong> a statuszrol</span>
+                        <span class="text-sm text-text-secondary"><strong class="text-text-primary">{{ __('Email notification') }}</strong> {{ __('about the status') }}</span>
                     </div>
                 </div>
             </div>
@@ -133,111 +133,111 @@
 
                 {{-- Form --}}
                 <div class="reveal rounded-2xl border border-border-light bg-surface-primary p-8 lg:p-10" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-                    <h2 class="mb-1 text-xl font-bold text-text-primary" style="font-family: 'Poppins', sans-serif;">Hibabejelento urlap</h2>
-                    <p class="mb-8 text-sm text-text-tertiary">A *-gal jelolt mezok kitoltese kotelezo.</p>
+                    <h2 class="mb-1 text-xl font-bold text-text-primary" style="font-family: 'Poppins', sans-serif;">{{ __('Bug report form') }}</h2>
+                    <p class="mb-8 text-sm text-text-tertiary">{{ __('Fields marked with * are required.') }}</p>
 
                     <form id="bugForm">
 
                         {{-- Bejelento adatai --}}
-                        <p class="mb-5 text-xs font-bold uppercase tracking-widest text-danger-600">Bejelento adatai</p>
+                        <p class="mb-5 text-xs font-bold uppercase tracking-widest text-danger-600">{{ __('Reporter details') }}</p>
 
                         <div class="mb-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
                             <div>
-                                <label for="name" class="mb-2 block text-sm font-semibold text-text-primary">Nev <span class="text-danger-500">*</span></label>
-                                <input type="text" id="name" name="name" class="input" placeholder="Teljes nev" required>
+                                <label for="name" class="mb-2 block text-sm font-semibold text-text-primary">{{ __('Name') }} <span class="text-danger-500">*</span></label>
+                                <input type="text" id="name" name="name" class="input" placeholder="{{ __('Full name') }}" required>
                             </div>
                             <div>
-                                <label for="email" class="mb-2 block text-sm font-semibold text-text-primary">E-mail cim <span class="text-danger-500">*</span></label>
-                                <input type="email" id="email" name="email" class="input" placeholder="nev@ceg.hu" required>
+                                <label for="email" class="mb-2 block text-sm font-semibold text-text-primary">{{ __('Email address') }} <span class="text-danger-500">*</span></label>
+                                <input type="email" id="email" name="email" class="input" placeholder="{{ __('name@company.com') }}" required>
                             </div>
                         </div>
 
                         <div class="mb-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
                             <div>
-                                <label for="company" class="mb-2 block text-sm font-semibold text-text-primary">Cegnev <span class="text-danger-500">*</span></label>
-                                <input type="text" id="company" name="company" class="input" placeholder="Ceg neve" required>
+                                <label for="company" class="mb-2 block text-sm font-semibold text-text-primary">{{ __('Company name') }} <span class="text-danger-500">*</span></label>
+                                <input type="text" id="company" name="company" class="input" placeholder="{{ __('Company name') }}" required>
                             </div>
                             <div>
-                                <label for="phone" class="mb-2 block text-sm font-semibold text-text-primary">Telefonszam</label>
+                                <label for="phone" class="mb-2 block text-sm font-semibold text-text-primary">{{ __('Phone number') }}</label>
                                 <input type="tel" id="phone" name="phone" class="input" placeholder="+36 ...">
-                                <span class="mt-1 block text-xs text-text-tertiary">Opcionalis — ha surgos visszahivast ker</span>
+                                <span class="mt-1 block text-xs text-text-tertiary">{{ __('Optional — if you request an urgent callback') }}</span>
                             </div>
                         </div>
 
                         <div class="my-8 h-px bg-border-light"></div>
 
                         {{-- Hiba reszletei --}}
-                        <p class="mb-5 text-xs font-bold uppercase tracking-widest text-danger-600">Hiba reszletei</p>
+                        <p class="mb-5 text-xs font-bold uppercase tracking-widest text-danger-600">{{ __('Issue details') }}</p>
 
                         <div class="mb-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
                             <div>
-                                <label for="module" class="mb-2 block text-sm font-semibold text-text-primary">Erintett modul <span class="text-danger-500">*</span></label>
+                                <label for="module" class="mb-2 block text-sm font-semibold text-text-primary">{{ __('Affected module') }} <span class="text-danger-500">*</span></label>
                                 <select id="module" name="module" class="input" required>
-                                    <option value="" disabled selected>Valasszon modult&hellip;</option>
-                                    <option value="crm">CRM &amp; Ugyfelkezeles</option>
-                                    <option value="ertekesites">Ertekesites</option>
-                                    <option value="gyartasiranyitas">Gyartasiranyitas</option>
-                                    <option value="beszerzes">Beszerzes-logisztika</option>
-                                    <option value="munkalap">Digitalis munkalap</option>
-                                    <option value="kontrolling">Kontrolling</option>
-                                    <option value="automatizalas">Automatizalas</option>
-                                    <option value="datamind">DataMind (MI)</option>
+                                    <option value="" disabled selected>{{ __('Select a module…') }}</option>
+                                    <option value="crm">{{ __('CRM & Customer Management') }}</option>
+                                    <option value="ertekesites">{{ __('Sales') }}</option>
+                                    <option value="gyartasiranyitas">{{ __('Manufacturing management') }}</option>
+                                    <option value="beszerzes">{{ __('Procurement & Logistics') }}</option>
+                                    <option value="munkalap">{{ __('Digital work order') }}</option>
+                                    <option value="kontrolling">{{ __('Controlling') }}</option>
+                                    <option value="automatizalas">{{ __('Automation') }}</option>
+                                    <option value="datamind">DataMind ({{ __('AI') }})</option>
                                     <option value="marketinghub">MarketingHub</option>
-                                    <option value="seo">SEO modul</option>
+                                    <option value="seo">{{ __('SEO module') }}</option>
                                     <option value="aichat">AI Chat</option>
-                                    <option value="dokumentumok">Dokumentumok</option>
-                                    <option value="iranyitopult">Iranyitopultok</option>
-                                    <option value="ugyfelportal">Ugyfelportal</option>
-                                    <option value="bejelentkezes">Bejelentkezes / Fiok</option>
-                                    <option value="egyeb">Egyeb / nem tudom</option>
+                                    <option value="dokumentumok">{{ __('Documents') }}</option>
+                                    <option value="iranyitopult">{{ __('Dashboards') }}</option>
+                                    <option value="ugyfelportal">{{ __('Customer portal') }}</option>
+                                    <option value="bejelentkezes">{{ __('Login / Account') }}</option>
+                                    <option value="egyeb">{{ __('Other / I don\'t know') }}</option>
                                 </select>
                             </div>
                             <div>
-                                <label for="issue-type" class="mb-2 block text-sm font-semibold text-text-primary">Hiba tipusa <span class="text-danger-500">*</span></label>
+                                <label for="issue-type" class="mb-2 block text-sm font-semibold text-text-primary">{{ __('Issue type') }} <span class="text-danger-500">*</span></label>
                                 <select id="issue-type" name="issue_type" class="input" required>
-                                    <option value="" disabled selected>Valasszon tipust&hellip;</option>
-                                    <option value="nem-mukodik">Funkcio nem mukodik</option>
-                                    <option value="hibauzenet">Hibauzenet jelenik meg</option>
-                                    <option value="lassu">Lassu mukodes / teljesitmeny</option>
-                                    <option value="nem-jelenik-meg">Adat nem jelenik meg</option>
-                                    <option value="rossz-adat">Hibas adat / szamitas</option>
-                                    <option value="jogosultsag">Jogosultsagi problema</option>
-                                    <option value="integracio">Integracios hiba</option>
-                                    <option value="dokumentum">Dokumentum-generalas hiba</option>
-                                    <option value="egyeb-hiba">Egyeb</option>
+                                    <option value="" disabled selected>{{ __('Select a type…') }}</option>
+                                    <option value="nem-mukodik">{{ __('Feature not working') }}</option>
+                                    <option value="hibauzenet">{{ __('Error message appears') }}</option>
+                                    <option value="lassu">{{ __('Slow performance') }}</option>
+                                    <option value="nem-jelenik-meg">{{ __('Data not displaying') }}</option>
+                                    <option value="rossz-adat">{{ __('Incorrect data / calculation') }}</option>
+                                    <option value="jogosultsag">{{ __('Permission issue') }}</option>
+                                    <option value="integracio">{{ __('Integration error') }}</option>
+                                    <option value="dokumentum">{{ __('Document generation error') }}</option>
+                                    <option value="egyeb-hiba">{{ __('Other') }}</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="mb-5">
-                            <label for="subject" class="mb-2 block text-sm font-semibold text-text-primary">Rovid osszefoglalo <span class="text-danger-500">*</span></label>
-                            <input type="text" id="subject" name="subject" class="input" placeholder="Pl.: CRM-ben az ajanlat PDF export hibauzenet ad" required>
-                            <span class="mt-1 block text-xs text-text-tertiary">Egy mondat, ami osszefoglalja a problemat</span>
+                            <label for="subject" class="mb-2 block text-sm font-semibold text-text-primary">{{ __('Brief summary') }} <span class="text-danger-500">*</span></label>
+                            <input type="text" id="subject" name="subject" class="input" placeholder="{{ __('E.g.: CRM quote PDF export shows error message') }}" required>
+                            <span class="mt-1 block text-xs text-text-tertiary">{{ __('One sentence that summarizes the problem') }}</span>
                         </div>
 
                         <div class="mb-5">
-                            <label for="description" class="mb-2 block text-sm font-semibold text-text-primary">Reszletes leiras <span class="text-danger-500">*</span></label>
-                            <textarea id="description" name="description" class="input" rows="6" placeholder="Kerjuk, irja le reszletesen:&#10;&#10;1. Mit csinalt, amikor a hiba felmerult?&#10;2. Milyen hibauzenet kapott (ha volt)?&#10;3. A hiba ismetlodik-e, vagy egyszeri?&#10;4. Miota tapasztalja?" required style="resize: vertical; min-height: 140px;"></textarea>
-                            <span class="mt-1 block text-xs text-text-tertiary">Minel reszletesebb, annal gyorsabban tudunk segiteni</span>
+                            <label for="description" class="mb-2 block text-sm font-semibold text-text-primary">{{ __('Detailed description') }} <span class="text-danger-500">*</span></label>
+                            <textarea id="description" name="description" class="input" rows="6" placeholder="{{ __("Please describe in detail:\n\n1. What were you doing when the error occurred?\n2. What error message did you receive (if any)?\n3. Does the error repeat or is it one-time?\n4. How long have you been experiencing this?") }}" required style="resize: vertical; min-height: 140px;"></textarea>
+                            <span class="mt-1 block text-xs text-text-tertiary">{{ __('The more detailed, the faster we can help') }}</span>
                         </div>
 
                         <div class="mb-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
                             <div>
-                                <label for="url" class="mb-2 block text-sm font-semibold text-text-primary">Erintett oldal URL-je</label>
+                                <label for="url" class="mb-2 block text-sm font-semibold text-text-primary">{{ __('Affected page URL') }}</label>
                                 <input type="url" id="url" name="url" class="input" placeholder="https://cegem360.eu/admin/...">
-                                <span class="mt-1 block text-xs text-text-tertiary">Masolja be a bongeszo cimsorabol</span>
+                                <span class="mt-1 block text-xs text-text-tertiary">{{ __('Copy it from your browser\'s address bar') }}</span>
                             </div>
                             <div>
-                                <label for="browser" class="mb-2 block text-sm font-semibold text-text-primary">Bongeszo es eszkoz</label>
+                                <label for="browser" class="mb-2 block text-sm font-semibold text-text-primary">{{ __('Browser and device') }}</label>
                                 <select id="browser" name="browser" class="input">
-                                    <option value="" disabled selected>Valasszon&hellip;</option>
-                                    <option value="chrome-desktop">Chrome — Asztali</option>
-                                    <option value="chrome-mobile">Chrome — Mobil</option>
-                                    <option value="firefox-desktop">Firefox — Asztali</option>
-                                    <option value="safari-desktop">Safari — Asztali</option>
-                                    <option value="safari-mobile">Safari — Mobil (iPhone/iPad)</option>
-                                    <option value="edge-desktop">Edge — Asztali</option>
-                                    <option value="egyeb-bongeszo">Egyeb</option>
+                                    <option value="" disabled selected>{{ __('Select…') }}</option>
+                                    <option value="chrome-desktop">{{ __('Chrome — Desktop') }}</option>
+                                    <option value="chrome-mobile">{{ __('Chrome — Mobile') }}</option>
+                                    <option value="firefox-desktop">{{ __('Firefox — Desktop') }}</option>
+                                    <option value="safari-desktop">{{ __('Safari — Desktop') }}</option>
+                                    <option value="safari-mobile">{{ __('Safari — Mobile (iPhone/iPad)') }}</option>
+                                    <option value="edge-desktop">{{ __('Edge — Desktop') }}</option>
+                                    <option value="egyeb-bongeszo">{{ __('Other') }}</option>
                                 </select>
                             </div>
                         </div>
@@ -245,7 +245,7 @@
                         <div class="my-8 h-px bg-border-light"></div>
 
                         {{-- Prioritas --}}
-                        <p class="mb-5 text-xs font-bold uppercase tracking-widest text-danger-600">Prioritas <span class="text-danger-500">*</span></p>
+                        <p class="mb-5 text-xs font-bold uppercase tracking-widest text-danger-600">{{ __('Priority') }} <span class="text-danger-500">*</span></p>
 
                         <div class="mb-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
                             <label class="cursor-pointer rounded-xl border p-4 text-center transition-all"
@@ -253,48 +253,48 @@
                                 @click="priority = 'critical'">
                                 <input type="radio" name="priority" value="critical" class="hidden" x-model="priority">
                                 <span class="mb-1 block text-lg">&#128308;</span>
-                                <span class="block text-xs font-bold text-text-primary">Kritikus</span>
-                                <span class="block text-[10px] text-text-tertiary">Rendszer nem elerheto</span>
+                                <span class="block text-xs font-bold text-text-primary">{{ __('Critical') }}</span>
+                                <span class="block text-[10px] text-text-tertiary">{{ __('System unavailable') }}</span>
                             </label>
                             <label class="cursor-pointer rounded-xl border p-4 text-center transition-all"
                                 :class="priority === 'high' ? 'border-orange-400 bg-orange-50' : 'border-border-light bg-surface-secondary hover:border-border-default'"
                                 @click="priority = 'high'">
                                 <input type="radio" name="priority" value="high" class="hidden" x-model="priority">
                                 <span class="mb-1 block text-lg">&#128992;</span>
-                                <span class="block text-xs font-bold text-text-primary">Magas</span>
-                                <span class="block text-[10px] text-text-tertiary">Funkcio nem mukodik</span>
+                                <span class="block text-xs font-bold text-text-primary">{{ __('High') }}</span>
+                                <span class="block text-[10px] text-text-tertiary">{{ __('Feature not working') }}</span>
                             </label>
                             <label class="cursor-pointer rounded-xl border p-4 text-center transition-all"
                                 :class="priority === 'normal' ? 'border-warning-400 bg-warning-50' : 'border-border-light bg-surface-secondary hover:border-border-default'"
                                 @click="priority = 'normal'">
                                 <input type="radio" name="priority" value="normal" class="hidden" x-model="priority">
                                 <span class="mb-1 block text-lg">&#128993;</span>
-                                <span class="block text-xs font-bold text-text-primary">Normal</span>
-                                <span class="block text-[10px] text-text-tertiary">Zavaro, de van workaround</span>
+                                <span class="block text-xs font-bold text-text-primary">{{ __('Normal') }}</span>
+                                <span class="block text-[10px] text-text-tertiary">{{ __('Annoying, but has a workaround') }}</span>
                             </label>
                             <label class="cursor-pointer rounded-xl border p-4 text-center transition-all"
                                 :class="priority === 'low' ? 'border-blue-400 bg-blue-50' : 'border-border-light bg-surface-secondary hover:border-border-default'"
                                 @click="priority = 'low'">
                                 <input type="radio" name="priority" value="low" class="hidden" x-model="priority">
                                 <span class="mb-1 block text-lg">&#128309;</span>
-                                <span class="block text-xs font-bold text-text-primary">Alacsony</span>
-                                <span class="block text-[10px] text-text-tertiary">Kozmetikai / javaslat</span>
+                                <span class="block text-xs font-bold text-text-primary">{{ __('Low') }}</span>
+                                <span class="block text-[10px] text-text-tertiary">{{ __('Cosmetic / suggestion') }}</span>
                             </label>
                         </div>
 
                         <div class="my-8 h-px bg-border-light"></div>
 
                         {{-- Kepernykep / csatolmany --}}
-                        <p class="mb-5 text-xs font-bold uppercase tracking-widest text-danger-600">Kepernykep / csatolmany</p>
+                        <p class="mb-5 text-xs font-bold uppercase tracking-widest text-danger-600">{{ __('Screenshot / attachment') }}</p>
 
                         <div class="mb-5">
                             <label for="attachment" class="relative flex cursor-pointer flex-col items-center rounded-xl border-2 border-dashed border-border-light bg-surface-secondary p-8 text-center transition-all hover:border-border-default hover:bg-surface-tertiary">
                                 <input type="file" id="attachment" name="attachment" accept="image/*,.pdf,.zip,.doc,.docx" multiple class="absolute inset-0 cursor-pointer opacity-0">
                                 <span class="mb-2 block text-2xl">&#128206;</span>
-                                <span class="block text-sm text-text-secondary">Huzza ide a fajlokat, vagy kattintson a tallozashoz</span>
-                                <span class="mt-1 block text-xs text-text-tertiary">Formatumok: PNG, JPG, PDF, ZIP, DOC &middot; Max. 10 MB / fajl &middot; Max. 5 fajl</span>
+                                <span class="block text-sm text-text-secondary">{{ __('Drag files here, or click to browse') }}</span>
+                                <span class="mt-1 block text-xs text-text-tertiary">{{ __('Formats: PNG, JPG, PDF, ZIP, DOC · Max. 10 MB / file · Max. 5 files') }}</span>
                             </label>
-                            <span class="mt-1 block text-xs text-text-tertiary">Kepernykep(ek) csatolasa jelentosen gyorsitja a hibaelharitast</span>
+                            <span class="mt-1 block text-xs text-text-tertiary">{{ __('Attaching screenshot(s) significantly speeds up troubleshooting') }}</span>
                         </div>
 
                         <div class="my-8 h-px bg-border-light"></div>
@@ -303,14 +303,14 @@
                         <div class="mb-4">
                             <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-border-light bg-surface-secondary p-4 transition-all hover:border-border-default">
                                 <input type="checkbox" name="consent" required class="mt-0.5 h-4 w-4 shrink-0 rounded border-border-default text-danger-500 focus:ring-danger-300">
-                                <span class="text-sm text-text-secondary">Hozzajarulok, hogy a Cegem 360 Kft. a megadott adataimat a hibabejelentes kezelesehez felhasznaja az <a href="{{ route('legal.adatvedelmi-tajekoztato') }}" target="_blank" class="font-semibold text-danger-600 hover:text-danger-700">Adatvedelmi tajekoztato</a> szerint. <span class="text-danger-500">*</span></span>
+                                <span class="text-sm text-text-secondary">{!! __('I consent to Cégem 360 Kft. using my provided data for handling this bug report, in accordance with the <a href=":url" target="_blank" class="font-semibold text-danger-600 hover:text-danger-700">Privacy Policy</a>.', ['url' => route('legal.adatvedelmi-tajekoztato')]) !!} <span class="text-danger-500">*</span></span>
                             </label>
                         </div>
 
                         <div class="mb-6">
                             <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-border-light bg-surface-secondary p-4 transition-all hover:border-border-default">
                                 <input type="checkbox" name="notify" checked class="mt-0.5 h-4 w-4 shrink-0 rounded border-border-default text-danger-500 focus:ring-danger-300">
-                                <span class="text-sm text-text-secondary">Kerem az e-mail ertesitest a hibabejelentes statuszvaltozoasairol.</span>
+                                <span class="text-sm text-text-secondary">{{ __('Please send me email notifications about bug report status changes.') }}</span>
                             </label>
                         </div>
 
@@ -318,7 +318,7 @@
                         <button type="submit" id="bugSubmitBtn"
                             class="group flex w-full items-center justify-center gap-2 rounded-xl bg-danger-600 px-6 py-4 text-base font-bold text-white transition-all hover:bg-danger-700 hover:shadow-lg"
                             style="box-shadow: 0 4px 24px rgba(251, 39, 93, 0.2);">
-                            Hibabejelentes elkuldese
+                            {{ __('Submit bug report') }}
                             <svg class="arrow-slide h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                         </button>
                     </form>
@@ -331,39 +331,39 @@
                     <div class="rounded-2xl border border-success-200 bg-success-50/50 p-5" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                         <div class="flex items-center gap-3">
                             <span class="pulse-dot h-2.5 w-2.5 shrink-0 rounded-full bg-success-500"></span>
-                            <span class="text-sm text-text-secondary">A Cegem360 rendszer <strong class="text-success-700">jelenleg elerheto</strong> es normalisan mukodik.</span>
+                            <span class="text-sm text-text-secondary">{!! __('The Cégem360 system is <strong class="text-success-700">currently available</strong> and operating normally.') !!}</span>
                         </div>
                     </div>
 
                     {{-- SLA --}}
                     <div class="rounded-2xl border border-border-light bg-surface-primary p-6" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                         <h3 class="mb-4 flex items-center gap-2 text-base font-bold text-text-primary">
-                            <span class="text-sm">&#9201;</span> Valaszidok prioritas szerint
+                            <span class="text-sm">&#9201;</span> {{ __('Response times by priority') }}
                         </h3>
                         <div class="space-y-2">
                             <div class="flex items-center justify-between rounded-lg bg-surface-secondary px-4 py-2.5">
                                 <span class="flex items-center gap-2 text-sm text-text-secondary">
-                                    <span class="h-1.5 w-1.5 rounded-full bg-danger-500"></span> Kritikus
+                                    <span class="h-1.5 w-1.5 rounded-full bg-danger-500"></span> {{ __('Critical') }}
                                 </span>
-                                <span class="text-sm font-bold text-text-primary" style="font-family: 'JetBrains Mono', monospace;">&lt; 1 ora</span>
+                                <span class="text-sm font-bold text-text-primary" style="font-family: 'JetBrains Mono', monospace;">&lt; {{ __('1 hour') }}</span>
                             </div>
                             <div class="flex items-center justify-between rounded-lg bg-surface-secondary px-4 py-2.5">
                                 <span class="flex items-center gap-2 text-sm text-text-secondary">
-                                    <span class="h-1.5 w-1.5 rounded-full bg-orange-500"></span> Magas
+                                    <span class="h-1.5 w-1.5 rounded-full bg-orange-500"></span> {{ __('High') }}
                                 </span>
-                                <span class="text-sm font-bold text-text-primary" style="font-family: 'JetBrains Mono', monospace;">&lt; 4 ora</span>
+                                <span class="text-sm font-bold text-text-primary" style="font-family: 'JetBrains Mono', monospace;">&lt; {{ __('4 hours') }}</span>
                             </div>
                             <div class="flex items-center justify-between rounded-lg bg-surface-secondary px-4 py-2.5">
                                 <span class="flex items-center gap-2 text-sm text-text-secondary">
-                                    <span class="h-1.5 w-1.5 rounded-full bg-warning-500"></span> Normal
+                                    <span class="h-1.5 w-1.5 rounded-full bg-warning-500"></span> {{ __('Normal') }}
                                 </span>
-                                <span class="text-sm font-bold text-text-primary" style="font-family: 'JetBrains Mono', monospace;">&lt; 8 ora</span>
+                                <span class="text-sm font-bold text-text-primary" style="font-family: 'JetBrains Mono', monospace;">&lt; {{ __('8 hours') }}</span>
                             </div>
                             <div class="flex items-center justify-between rounded-lg bg-surface-secondary px-4 py-2.5">
                                 <span class="flex items-center gap-2 text-sm text-text-secondary">
-                                    <span class="h-1.5 w-1.5 rounded-full bg-blue-500"></span> Alacsony
+                                    <span class="h-1.5 w-1.5 rounded-full bg-blue-500"></span> {{ __('Low') }}
                                 </span>
-                                <span class="text-sm font-bold text-text-primary" style="font-family: 'JetBrains Mono', monospace;">&lt; 24 ora</span>
+                                <span class="text-sm font-bold text-text-primary" style="font-family: 'JetBrains Mono', monospace;">&lt; {{ __('24 hours') }}</span>
                             </div>
                         </div>
                     </div>
@@ -371,28 +371,28 @@
                     {{-- Tips --}}
                     <div class="rounded-2xl border border-border-light bg-surface-primary p-6" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                         <h3 class="mb-4 flex items-center gap-2 text-base font-bold text-text-primary">
-                            <span class="text-sm">&#128161;</span> Tippek a gyorsabb megoldashoz
+                            <span class="text-sm">&#128161;</span> {{ __('Tips for a faster resolution') }}
                         </h3>
                         <div class="space-y-3">
                             <p class="flex items-start gap-2.5 text-sm text-text-secondary">
                                 <span class="mt-0.5 flex-shrink-0 text-xs">&#128161;</span>
-                                Csatoljon kepernykepet — a vizualis informacio sokat segit.
+                                {{ __('Attach a screenshot — visual information helps a lot.') }}
                             </p>
                             <p class="flex items-start gap-2.5 text-sm text-text-secondary">
                                 <span class="mt-0.5 flex-shrink-0 text-xs">&#128161;</span>
-                                Masolja be a hibauzenet pontos szoveget a leirasba.
+                                {{ __('Copy the exact text of the error message into the description.') }}
                             </p>
                             <p class="flex items-start gap-2.5 text-sm text-text-secondary">
                                 <span class="mt-0.5 flex-shrink-0 text-xs">&#128161;</span>
-                                Jelezze, hogy a hiba ismetlodik-e vagy egyszeri.
+                                {{ __('Indicate whether the error repeats or is one-time.') }}
                             </p>
                             <p class="flex items-start gap-2.5 text-sm text-text-secondary">
                                 <span class="mt-0.5 flex-shrink-0 text-xs">&#128161;</span>
-                                Adja meg a bongeszot es az eszkozt (asztali/mobil).
+                                {{ __('Specify the browser and device (desktop/mobile).') }}
                             </p>
                             <p class="flex items-start gap-2.5 text-sm text-text-secondary">
                                 <span class="mt-0.5 flex-shrink-0 text-xs">&#128161;</span>
-                                Ha a hiba egy adott felhasznalohoz kotodik, jelezze a felhasznalonevet.
+                                {{ __('If the error is related to a specific user, indicate the username.') }}
                             </p>
                         </div>
                     </div>
@@ -400,28 +400,28 @@
                     {{-- Other channels --}}
                     <div class="rounded-2xl border border-border-light bg-surface-primary p-6" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                         <h3 class="mb-4 flex items-center gap-2 text-base font-bold text-text-primary">
-                            <span class="text-sm">&#128222;</span> Egyeb elerhetosegek
+                            <span class="text-sm">&#128222;</span> {{ __('Other contact options') }}
                         </h3>
                         <div class="space-y-2.5">
                             <div class="flex items-center gap-3 rounded-lg border border-border-light bg-surface-secondary p-3 transition-all hover:border-border-default">
                                 <span class="text-base">&#129302;</span>
                                 <div>
                                     <span class="block text-sm font-bold text-text-primary">AI Chat</span>
-                                    <span class="block text-[11px] text-text-tertiary">24/7 &middot; Azonnali valasz a rendszerben</span>
+                                    <span class="block text-[11px] text-text-tertiary">24/7 &middot; {{ __('Instant response in the system') }}</span>
                                 </div>
                             </div>
                             <a href="mailto:support@cegem360.eu" class="flex items-center gap-3 rounded-lg border border-border-light bg-surface-secondary p-3 transition-all hover:border-border-default">
                                 <span class="text-base">&#128231;</span>
                                 <div>
                                     <span class="block text-sm font-bold text-text-primary">support@cegem360.eu</span>
-                                    <span class="block text-[11px] text-text-tertiary">H–P 8–16h &middot; Valasz &lt; 4 ora</span>
+                                    <span class="block text-[11px] text-text-tertiary">{{ __('Mon–Fri 8–16h') }} &middot; {{ __('Response < 4 hours') }}</span>
                                 </div>
                             </a>
                             <a href="{{ route('tamogatas') }}" class="flex items-center gap-3 rounded-lg border border-border-light bg-surface-secondary p-3 transition-all hover:border-border-default">
                                 <span class="text-base">&#128218;</span>
                                 <div>
-                                    <span class="block text-sm font-bold text-text-primary">24/7 Tamogatas oldal</span>
-                                    <span class="block text-[11px] text-text-tertiary">Osszes elerhetoseg es AI Chat</span>
+                                    <span class="block text-sm font-bold text-text-primary">{{ __('24/7 Support page') }}</span>
+                                    <span class="block text-[11px] text-text-tertiary">{{ __('All contact options and AI Chat') }}</span>
                                 </div>
                             </a>
                         </div>
@@ -437,27 +437,27 @@
     <section class="bg-surface-primary py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-6">
             <div class="reveal mb-12 text-center">
-                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-danger-600">Mi tortenik a bejelentes utan?</p>
+                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-danger-600">{{ __('What happens after the report?') }}</p>
                 <h2 class="text-3xl text-text-primary md:text-4xl" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    3 lepesben a megoldasig
+                    {{ __('3 steps to the solution') }}
                 </h2>
             </div>
 
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-3" data-stagger>
                 <div class="stagger-item card-glow rounded-2xl border border-border-light bg-surface-primary p-8 text-center" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <div class="icon-hover mb-4 text-3xl">&#128232;</div>
-                    <h3 class="mb-2 text-lg font-bold text-text-primary">1. Visszaigazolas azonnal</h3>
-                    <p class="text-sm leading-relaxed text-text-secondary">A bejelentes elkuldese utan automatikus e-mailt kap a jegy-szammal es a varhato valaszidovel. A jegyet barmikor kovetheti.</p>
+                    <h3 class="mb-2 text-lg font-bold text-text-primary">{{ __('1. Instant confirmation') }}</h3>
+                    <p class="text-sm leading-relaxed text-text-secondary">{{ __('After submitting the report, you\'ll receive an automatic email with the ticket number and expected response time. You can track the ticket anytime.') }}</p>
                 </div>
                 <div class="stagger-item card-glow rounded-2xl border border-border-light bg-surface-primary p-8 text-center" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <div class="icon-hover mb-4 text-3xl">&#128269;</div>
-                    <h3 class="mb-2 text-lg font-bold text-text-primary">2. Vizsgalat es diagnozis</h3>
-                    <p class="text-sm leading-relaxed text-text-secondary">A csapatunk megvizsgalja a problemat, szukseg eseten kerdez vissza, es elkezdi a javitast. A statusz e-mailben kovetheto.</p>
+                    <h3 class="mb-2 text-lg font-bold text-text-primary">{{ __('2. Investigation and diagnosis') }}</h3>
+                    <p class="text-sm leading-relaxed text-text-secondary">{{ __('Our team investigates the issue, asks follow-up questions if needed, and begins the fix. Status can be tracked via email.') }}</p>
                 </div>
                 <div class="stagger-item card-glow rounded-2xl border border-border-light bg-surface-primary p-8 text-center" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <div class="icon-hover mb-4 text-3xl">&#10004;</div>
-                    <h3 class="mb-2 text-lg font-bold text-text-primary">3. Megoldas es lezaras</h3>
-                    <p class="text-sm leading-relaxed text-text-secondary">A megoldasrol ertesitjuk — a javitas leirasaval egyutt. Elegedettsegi kerdest kuldunk, es a jegyet lezarjuk.</p>
+                    <h3 class="mb-2 text-lg font-bold text-text-primary">{{ __('3. Resolution and closure') }}</h3>
+                    <p class="text-sm leading-relaxed text-text-secondary">{{ __('We\'ll notify you about the solution — along with the fix description. We send a satisfaction survey and close the ticket.') }}</p>
                 </div>
             </div>
         </div>
@@ -469,8 +469,8 @@
             <div class="reveal">
                 <div class="grid grid-cols-1 items-center gap-8 rounded-2xl border border-border-light bg-surface-primary p-8 lg:grid-cols-[1fr_auto] lg:p-12" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <div>
-                        <h3 class="mb-3 text-xl font-bold text-text-primary lg:text-2xl" style="font-family: 'Poppins', sans-serif;">Nem hiba, hanem kerdes? Valasszon csatornat!</h3>
-                        <p class="mb-5 text-base text-text-secondary">Ha nem technikai hibat szeretne jelezni, hanem kerdese van a rendszerrol, hasznaja az AI Chat-et (24/7) vagy irjon a support csapatunknak.</p>
+                        <h3 class="mb-3 text-xl font-bold text-text-primary lg:text-2xl" style="font-family: 'Poppins', sans-serif;">{{ __('Not a bug, but a question? Choose a channel!') }}</h3>
+                        <p class="mb-5 text-base text-text-secondary">{{ __('If you don\'t want to report a technical issue but have a question about the system, use AI Chat (24/7) or write to our support team.') }}</p>
                         <div class="flex flex-wrap gap-5">
                             <span class="flex items-center gap-1.5 text-sm text-text-tertiary">
                                 <svg class="h-4 w-4 text-success-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
@@ -478,16 +478,16 @@
                             </span>
                             <span class="flex items-center gap-1.5 text-sm text-text-tertiary">
                                 <svg class="h-4 w-4 text-success-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                                E-mail support
+                                {{ __('Email support') }}
                             </span>
                             <span class="flex items-center gap-1.5 text-sm text-text-tertiary">
                                 <svg class="h-4 w-4 text-success-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                                Konzultacio
+                                {{ __('Consultation') }}
                             </span>
                         </div>
                     </div>
                     <a href="{{ route('tamogatas') }}" class="group inline-flex items-center gap-2 rounded-full bg-danger-600 px-6 py-3 text-base font-medium text-white transition-all hover:bg-danger-700 hover:shadow-lg" style="box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
-                        <span>Tamogatas oldal</span>
+                        <span>{{ __('Support page') }}</span>
                         <svg class="arrow-slide h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                     </a>
                 </div>
@@ -503,13 +503,13 @@
                 form.addEventListener('submit', function(e) {
                     e.preventDefault();
                     const btn = document.getElementById('bugSubmitBtn');
-                    btn.innerHTML = '&#10004; Bejelentes elkuldve — hamarosan e-mailt kap!';
+                    btn.innerHTML = '&#10004; {{ __('Report submitted — you\'ll receive an email shortly!') }}';
                     btn.classList.remove('bg-danger-600', 'hover:bg-danger-700');
                     btn.classList.add('bg-success-600', 'hover:bg-success-700');
                     btn.style.boxShadow = '0 4px 24px rgba(0, 202, 114, 0.2)';
                     btn.style.pointerEvents = 'none';
                     setTimeout(function() {
-                        btn.innerHTML = 'Hibabejelentes elkuldese <svg class="arrow-slide h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>';
+                        btn.innerHTML = '{{ __('Submit bug report') }} <svg class="arrow-slide h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>';
                         btn.classList.remove('bg-success-600', 'hover:bg-success-700');
                         btn.classList.add('bg-danger-600', 'hover:bg-danger-700');
                         btn.style.boxShadow = '0 4px 24px rgba(251, 39, 93, 0.2)';

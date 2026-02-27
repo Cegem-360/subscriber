@@ -27,6 +27,7 @@ pest()->extend(TestCase::class)
         Sleep::fake();
 
         $this->freezeTime();
+        app()->setLocale('hu');
     })
     ->in('Feature', 'Unit');
 /*

@@ -175,31 +175,31 @@
                     <div class="badge-gradient mb-8 inline-flex items-center gap-2 rounded-full border border-border-light/80 bg-surface-primary px-4 py-1.5"
                         style="box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
                         <span class="pulse-dot h-1.5 w-1.5 rounded-full bg-linear-to-r from-orange-500 via-amber-500 to-rose-500"></span>
-                        <span class="text-sm font-medium text-text-primary">Ipari termelésirányítási megoldások</span>
+                        <span class="text-sm font-medium text-text-primary">{{ __('Industrial production management solutions') }}</span>
                     </div>
 
                     <h1 class="mb-6 text-4xl leading-tight tracking-tight text-text-primary md:text-5xl lg:text-[3.5rem]"
                         style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                        Irányítsa a termelést<br>
-                        — ne a termelés irányítsa Önt
+                        {{ __('Control production') }}<br>
+                        {{ __('— don\'t let production control you') }}
                     </h1>
 
                     <p class="mb-10 max-w-xl text-lg text-text-secondary lg:text-xl">
-                        Az ipari gyártásban a tervezett és a tényleges teljesítmény közötti rés milliókat visz el. A Cégem360 valós idejű üzemirányítást, OEE-mérést, karbantartás-tervezést és MI alapú optimalizálást ad a termelési vezetők kezébe.
+                        {{ __('In industrial manufacturing, the gap between planned and actual performance costs millions. Cégem360 puts real-time plant management, OEE measurement, maintenance planning and AI-based optimization into the hands of production managers.') }}
                     </p>
 
                     <div class="flex flex-wrap items-center gap-4">
                         <a href="{{ route('contact') }}"
                             class="group inline-flex items-center gap-2 rounded-full bg-orange-600 px-6 py-3 text-base font-medium text-white transition-all hover:bg-orange-700 hover:shadow-lg"
                             style="box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
-                            <span>Online konzultáció</span>
+                            <span>{{ __('Online consultation') }}</span>
                             <svg class="arrow-slide h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                             </svg>
                         </a>
                         <a href="#megoldasok"
                             class="inline-flex items-center gap-2 rounded-full border border-border-light bg-surface-primary px-6 py-3 text-base font-medium text-text-primary transition-all hover:border-orange-200 hover:bg-surface-secondary hover:shadow-md">
-                            Megoldások áttekintése
+                            {{ __('Solutions overview') }}
                         </a>
                     </div>
                 </div>
@@ -210,33 +210,33 @@
                         style="box-shadow: 0 4px 20px -4px rgba(0,0,0,0.06);">
                         <div class="mb-4 flex items-center justify-between border-b border-border-light pb-4">
                             <div>
-                                <span class="block text-sm font-bold text-text-primary">Üzemi vezérlőpult</span>
-                                <span class="block text-[10px] text-text-tertiary">Valós idejű termelési adatok</span>
+                                <span class="block text-sm font-bold text-text-primary">{{ __('Plant control panel') }}</span>
+                                <span class="block text-[10px] text-text-tertiary">{{ __('Real-time production data') }}</span>
                             </div>
                             <span class="inline-flex items-center gap-1.5 rounded-md border border-orange-100 bg-orange-50 px-2.5 py-1 text-[10px] font-semibold text-orange-600">
                                 <span class="machine-dot-pulse h-1.5 w-1.5 rounded-full bg-orange-500"></span>
-                                A műszak · Élő
+                                {{ __('A shift · Live') }}
                             </span>
                         </div>
 
                         {{-- OEE Gauges --}}
                         <div class="mb-4 grid grid-cols-3 gap-2.5">
                             <div class="rounded-lg border border-border-light bg-surface-secondary p-2.5 text-center">
-                                <span class="mb-1 block text-[10px] font-semibold uppercase tracking-wider text-text-tertiary">OEE összesen</span>
+                                <span class="mb-1 block text-[10px] font-semibold uppercase tracking-wider text-text-tertiary">{{ __('OEE total') }}</span>
                                 <span class="block text-xl font-bold text-orange-600" style="font-family: 'JetBrains Mono', monospace;">78%</span>
                                 <div class="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-surface-primary">
                                     <div class="oee-bar h-1.5 rounded-full bg-orange-400" style="width: 78%; animation-delay: 0.1s;"></div>
                                 </div>
                             </div>
                             <div class="rounded-lg border border-border-light bg-surface-secondary p-2.5 text-center">
-                                <span class="mb-1 block text-[10px] font-semibold uppercase tracking-wider text-text-tertiary">Rendelk. állás</span>
+                                <span class="mb-1 block text-[10px] font-semibold uppercase tracking-wider text-text-tertiary">{{ __('Availability') }}</span>
                                 <span class="block text-xl font-bold text-success-600" style="font-family: 'JetBrains Mono', monospace;">92%</span>
                                 <div class="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-surface-primary">
                                     <div class="oee-bar h-1.5 rounded-full bg-success-400" style="width: 92%; animation-delay: 0.2s;"></div>
                                 </div>
                             </div>
                             <div class="rounded-lg border border-border-light bg-surface-secondary p-2.5 text-center">
-                                <span class="mb-1 block text-[10px] font-semibold uppercase tracking-wider text-text-tertiary">Teljesítmény</span>
+                                <span class="mb-1 block text-[10px] font-semibold uppercase tracking-wider text-text-tertiary">{{ __('Performance') }}</span>
                                 <span class="block text-xl font-bold text-amber-600" style="font-family: 'JetBrains Mono', monospace;">84%</span>
                                 <div class="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-surface-primary">
                                     <div class="oee-bar h-1.5 rounded-full bg-amber-400" style="width: 84%; animation-delay: 0.3s;"></div>
@@ -249,36 +249,36 @@
                             <div class="flex items-center justify-between rounded-lg bg-surface-secondary px-3 py-2">
                                 <div class="flex items-center gap-2">
                                     <span class="h-2 w-2 rounded-full bg-success-500" style="box-shadow: 0 0 6px rgba(16,185,129,0.5);"></span>
-                                    <span class="text-xs font-medium text-text-secondary">CNC marógép #1</span>
+                                    <span class="text-xs font-medium text-text-secondary">{{ __('CNC milling machine #1') }}</span>
                                 </div>
-                                <span class="rounded bg-success-50 px-2 py-0.5 text-[10px] font-semibold text-success-700">Gyárt</span>
+                                <span class="rounded bg-success-50 px-2 py-0.5 text-[10px] font-semibold text-success-700">{{ __('Producing') }}</span>
                                 <span class="text-xs font-bold text-text-primary" style="font-family: 'JetBrains Mono', monospace;">94%</span>
-                                <span class="text-[11px] text-text-tertiary" style="font-family: 'JetBrains Mono', monospace;">142/160 db</span>
+                                <span class="text-[11px] text-text-tertiary" style="font-family: 'JetBrains Mono', monospace;">142/160 {{ __('pcs') }}</span>
                             </div>
                             <div class="flex items-center justify-between rounded-lg bg-surface-secondary px-3 py-2">
                                 <div class="flex items-center gap-2">
                                     <span class="h-2 w-2 rounded-full bg-success-500" style="box-shadow: 0 0 6px rgba(16,185,129,0.5);"></span>
-                                    <span class="text-xs font-medium text-text-secondary">Hegesztő robot</span>
+                                    <span class="text-xs font-medium text-text-secondary">{{ __('Welding robot') }}</span>
                                 </div>
-                                <span class="rounded bg-success-50 px-2 py-0.5 text-[10px] font-semibold text-success-700">Gyárt</span>
+                                <span class="rounded bg-success-50 px-2 py-0.5 text-[10px] font-semibold text-success-700">{{ __('Producing') }}</span>
                                 <span class="text-xs font-bold text-text-primary" style="font-family: 'JetBrains Mono', monospace;">87%</span>
-                                <span class="text-[11px] text-text-tertiary" style="font-family: 'JetBrains Mono', monospace;">56/68 db</span>
+                                <span class="text-[11px] text-text-tertiary" style="font-family: 'JetBrains Mono', monospace;">56/68 {{ __('pcs') }}</span>
                             </div>
                             <div class="flex items-center justify-between rounded-lg bg-surface-secondary px-3 py-2">
                                 <div class="flex items-center gap-2">
                                     <span class="h-2 w-2 rounded-full bg-amber-500" style="box-shadow: 0 0 6px rgba(245,158,11,0.4);"></span>
-                                    <span class="text-xs font-medium text-text-secondary">Lézervágó</span>
+                                    <span class="text-xs font-medium text-text-secondary">{{ __('Laser cutter') }}</span>
                                 </div>
-                                <span class="rounded bg-amber-50 px-2 py-0.5 text-[10px] font-semibold text-amber-700">Átállás</span>
+                                <span class="rounded bg-amber-50 px-2 py-0.5 text-[10px] font-semibold text-amber-700">{{ __('Changeover') }}</span>
                                 <span class="text-xs font-bold text-text-primary" style="font-family: 'JetBrains Mono', monospace;">71%</span>
                                 <span class="text-[11px] text-text-tertiary" style="font-family: 'JetBrains Mono', monospace;">—</span>
                             </div>
                             <div class="flex items-center justify-between rounded-lg bg-surface-secondary px-3 py-2">
                                 <div class="flex items-center gap-2">
                                     <span class="h-2 w-2 rounded-full bg-danger-500" style="box-shadow: 0 0 6px rgba(244,63,94,0.4);"></span>
-                                    <span class="text-xs font-medium text-text-secondary">Présgép #2</span>
+                                    <span class="text-xs font-medium text-text-secondary">{{ __('Press machine #2') }}</span>
                                 </div>
-                                <span class="rounded bg-danger-50 px-2 py-0.5 text-[10px] font-semibold text-danger-700">Karbantartás</span>
+                                <span class="rounded bg-danger-50 px-2 py-0.5 text-[10px] font-semibold text-danger-700">{{ __('Maintenance') }}</span>
                                 <span class="text-xs font-bold text-text-primary" style="font-family: 'JetBrains Mono', monospace;">0%</span>
                                 <span class="text-[11px] font-semibold text-danger-600" style="font-family: 'JetBrains Mono', monospace;">14:30 ETA</span>
                             </div>
@@ -287,7 +287,7 @@
                         {{-- Production Progress Bar --}}
                         <div class="mb-4 rounded-lg border border-border-light bg-surface-secondary px-3 py-2.5">
                             <div class="mb-1.5 flex items-center justify-between">
-                                <span class="text-xs font-semibold text-text-secondary">Napi termelési cél teljesítés</span>
+                                <span class="text-xs font-semibold text-text-secondary">{{ __('Daily production target completion') }}</span>
                                 <span class="text-xs font-bold text-orange-600" style="font-family: 'JetBrains Mono', monospace;">73%</span>
                             </div>
                             <div class="h-2 w-full overflow-hidden rounded-full bg-surface-primary">
@@ -298,13 +298,13 @@
                         {{-- Status bar --}}
                         <div class="flex gap-5 border-t border-border-light pt-3">
                             <span class="flex items-center gap-1.5 text-[11px] text-text-tertiary">
-                                <span class="h-2 w-2 rounded-full bg-success-500"></span> 3 gép üzemben
+                                <span class="h-2 w-2 rounded-full bg-success-500"></span> {{ __('3 machines running') }}
                             </span>
                             <span class="flex items-center gap-1.5 text-[11px] text-text-tertiary">
-                                <span class="h-2 w-2 rounded-full bg-amber-500"></span> 1 átállás alatt
+                                <span class="h-2 w-2 rounded-full bg-amber-500"></span> {{ __('1 in changeover') }}
                             </span>
                             <span class="flex items-center gap-1.5 text-[11px] text-text-tertiary">
-                                <span class="h-2 w-2 rounded-full bg-danger-500"></span> 1 karbantartás
+                                <span class="h-2 w-2 rounded-full bg-danger-500"></span> {{ __('1 in maintenance') }}
                             </span>
                         </div>
                     </div>
@@ -317,12 +317,12 @@
     <section class="bg-surface-primary py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-6">
             <div class="reveal mb-12">
-                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">A kihívás</p>
+                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">{{ __('The challenge') }}</p>
                 <h2 class="mb-4 text-3xl text-text-primary md:text-4xl" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    Ezek fékezik le az ipari termelést
+                    {{ __('These slow down industrial production') }}
                 </h2>
                 <p class="max-w-xl text-lg text-text-secondary">
-                    Ismerős helyzetek gyártó, szerelő és feldolgozóipari cégek üzemvezetőinek.
+                    {{ __('Familiar situations for plant managers at manufacturing, assembly and processing companies.') }}
                 </p>
             </div>
 
@@ -334,8 +334,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 text-lg font-bold text-text-primary">Nem tervezett leállások</h3>
-                    <p class="text-sm leading-relaxed text-text-secondary">A gépek figyelmeztetés nélkül állnak le. Nincs prediktív karbantartás, nincs élő gépállapot-figyelés — a leállás mindig meglepetés.</p>
+                    <h3 class="mb-2 text-lg font-bold text-text-primary">{{ __('Unplanned downtime') }}</h3>
+                    <p class="text-sm leading-relaxed text-text-secondary">{{ __('Machines stop without warning. No predictive maintenance, no live machine health monitoring — downtime is always a surprise.') }}</p>
                 </div>
 
                 <div class="stagger-item card-glow rounded-2xl border border-border-light bg-surface-primary p-7"
@@ -345,8 +345,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 text-lg font-bold text-text-primary">Papír alapú gyártáskísérés</h3>
-                    <p class="text-sm leading-relaxed text-text-secondary">A gyártási adatok papíros munkalapokon, kézzel írt jegyzetekben vannak. Napokba telik összegyűjteni, mi történt a műszakban.</p>
+                    <h3 class="mb-2 text-lg font-bold text-text-primary">{{ __('Paper-based production tracking') }}</h3>
+                    <p class="text-sm leading-relaxed text-text-secondary">{{ __('Production data lives on paper worksheets, handwritten notes. It takes days to compile what happened during a shift.') }}</p>
                 </div>
 
                 <div class="stagger-item card-glow rounded-2xl border border-border-light bg-surface-primary p-7"
@@ -356,8 +356,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 text-lg font-bold text-text-primary">Ismeretlen OEE és hatékonyság</h3>
-                    <p class="text-sm leading-relaxed text-text-secondary">Nem tudja, mekkora a tényleges gépkihasználtság, mennyi az átállási idő, és hol keletkezik a legtöbb selejt. Mérés nélkül nincs javítás.</p>
+                    <h3 class="mb-2 text-lg font-bold text-text-primary">{{ __('Unknown OEE and efficiency') }}</h3>
+                    <p class="text-sm leading-relaxed text-text-secondary">{{ __('You don\'t know actual machine utilization, changeover time, or where the most scrap is generated. Without measurement, there is no improvement.') }}</p>
                 </div>
 
                 <div class="stagger-item card-glow rounded-2xl border border-border-light bg-surface-primary p-7"
@@ -367,8 +367,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 text-lg font-bold text-text-primary">Gyártás–értékesítés szinkronhiba</h3>
-                    <p class="text-sm leading-relaxed text-text-secondary">Az értékesítés ígér, a gyártás nem tudja tartani. Nincs valós idejű kapacitásinformáció — a határidők csúsznak, az ügyfelek csalódnak.</p>
+                    <h3 class="mb-2 text-lg font-bold text-text-primary">{{ __('Production–sales sync failure') }}</h3>
+                    <p class="text-sm leading-relaxed text-text-secondary">{{ __('Sales promises, production can\'t keep up. No real-time capacity information — deadlines slip, customers are disappointed.') }}</p>
                 </div>
             </div>
         </div>
@@ -378,12 +378,12 @@
     <section class="bg-surface-secondary py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-6">
             <div class="reveal mb-12">
-                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">Ki használja?</p>
+                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">{{ __('Who uses it?') }}</p>
                 <h2 class="mb-4 text-3xl text-text-primary md:text-4xl" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    Az üzemtől az igazgatóságig — valós idejű termelési adat
+                    {{ __('From the shop floor to the boardroom — real-time production data') }}
                 </h2>
                 <p class="max-w-xl text-lg text-text-secondary">
-                    A Cégem360 minden szinten releváns termelési információt ad.
+                    {{ __('Cégem360 provides relevant production information at every level.') }}
                 </p>
             </div>
 
@@ -392,36 +392,36 @@
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <div class="absolute inset-x-0 top-0 h-0.5 bg-linear-to-r from-transparent via-orange-400 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
                     <span class="mb-3 block text-3xl">🏭</span>
-                    <span class="mb-2 block text-[10px] font-semibold uppercase tracking-wider text-orange-600">Üzemvezető</span>
-                    <h3 class="mb-2 text-base font-bold text-text-primary">Üzem- és műszakvezetők</h3>
-                    <p class="text-sm leading-relaxed text-text-secondary">Élő gépállapot, műszak-teljesítmény, OEE dashboard és azonnali probléma-riasztás — a termelés irányítópultja.</p>
+                    <span class="mb-2 block text-[10px] font-semibold uppercase tracking-wider text-orange-600">{{ __('Plant Manager') }}</span>
+                    <h3 class="mb-2 text-base font-bold text-text-primary">{{ __('Plant and shift managers') }}</h3>
+                    <p class="text-sm leading-relaxed text-text-secondary">{{ __('Live machine status, shift performance, OEE dashboard and instant problem alerts — the production control panel.') }}</p>
                 </div>
 
                 <div class="stagger-item card-glow group relative overflow-hidden rounded-2xl border border-border-light bg-surface-primary p-7"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <div class="absolute inset-x-0 top-0 h-0.5 bg-linear-to-r from-transparent via-orange-400 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
                     <span class="mb-3 block text-3xl">⚙️</span>
-                    <span class="mb-2 block text-[10px] font-semibold uppercase tracking-wider text-orange-600">Termelési igazgató</span>
-                    <h3 class="mb-2 text-base font-bold text-text-primary">Termelési igazgatók</h3>
-                    <p class="text-sm leading-relaxed text-text-secondary">Kapacitástervezés, termelési terv vs. tény, selejt-elemzés és karbantartási ütemterv — stratégiai szinten.</p>
+                    <span class="mb-2 block text-[10px] font-semibold uppercase tracking-wider text-orange-600">{{ __('Production Director') }}</span>
+                    <h3 class="mb-2 text-base font-bold text-text-primary">{{ __('Production directors') }}</h3>
+                    <p class="text-sm leading-relaxed text-text-secondary">{{ __('Capacity planning, production plan vs. actual, scrap analysis and maintenance schedule — at a strategic level.') }}</p>
                 </div>
 
                 <div class="stagger-item card-glow group relative overflow-hidden rounded-2xl border border-border-light bg-surface-primary p-7"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <div class="absolute inset-x-0 top-0 h-0.5 bg-linear-to-r from-transparent via-orange-400 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
                     <span class="mb-3 block text-3xl">🔧</span>
-                    <span class="mb-2 block text-[10px] font-semibold uppercase tracking-wider text-orange-600">Karbantartás</span>
-                    <h3 class="mb-2 text-base font-bold text-text-primary">Karbantartási vezetők</h3>
-                    <p class="text-sm leading-relaxed text-text-secondary">Prediktív karbantartás ütemterv, gépállapot-előzmények, alkatrész-készlet és karbantartási munkalapok — digitálisan.</p>
+                    <span class="mb-2 block text-[10px] font-semibold uppercase tracking-wider text-orange-600">{{ __('Maintenance') }}</span>
+                    <h3 class="mb-2 text-base font-bold text-text-primary">{{ __('Maintenance managers') }}</h3>
+                    <p class="text-sm leading-relaxed text-text-secondary">{{ __('Predictive maintenance schedule, machine health history, spare parts inventory and maintenance worksheets — digitally.') }}</p>
                 </div>
 
                 <div class="stagger-item card-glow group relative overflow-hidden rounded-2xl border border-border-light bg-surface-primary p-7"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <div class="absolute inset-x-0 top-0 h-0.5 bg-linear-to-r from-transparent via-orange-400 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
                     <span class="mb-3 block text-3xl">📋</span>
-                    <span class="mb-2 block text-[10px] font-semibold uppercase tracking-wider text-orange-600">Minőségirányítás</span>
-                    <h3 class="mb-2 text-base font-bold text-text-primary">Minőségirányítási vezető</h3>
-                    <p class="text-sm leading-relaxed text-text-secondary">Minőségellenőrzési protokollok, selejt-nyomonkövetés, nem-megfelelőség kezelés és gyártástétel-nyomonkövethetőség.</p>
+                    <span class="mb-2 block text-[10px] font-semibold uppercase tracking-wider text-orange-600">{{ __('Quality Management') }}</span>
+                    <h3 class="mb-2 text-base font-bold text-text-primary">{{ __('Quality management manager') }}</h3>
+                    <p class="text-sm leading-relaxed text-text-secondary">{{ __('Quality control protocols, scrap tracking, non-conformance management and production batch traceability.') }}</p>
                 </div>
             </div>
         </div>
@@ -431,12 +431,12 @@
     <section class="bg-surface-primary py-16 lg:py-24" id="megoldasok">
         <div class="mx-auto max-w-7xl px-6">
             <div class="reveal mb-12">
-                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">Termelési eszköztár</p>
+                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">{{ __('Production toolkit') }}</p>
                 <h2 class="mb-4 text-3xl text-text-primary md:text-4xl" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    4 kulcsmodul az üzemirányításhoz
+                    {{ __('4 key modules for plant management') }}
                 </h2>
                 <p class="max-w-xl text-lg text-text-secondary">
-                    Ezek a modulok együttesen adják a Cégem360 termelési intelligencia rétegét.
+                    {{ __('These modules together form the Cégem360 production intelligence layer.') }}
                 </p>
             </div>
 
@@ -449,24 +449,24 @@
                             <x-module-icon module="gyartas" class="h-5 w-5 text-orange-600" />
                         </div>
                         <div>
-                            <span class="block text-sm font-bold text-text-primary">Gyártásirányítás</span>
-                            <span class="text-xs text-text-tertiary">Termelés és minőség</span>
+                            <span class="block text-sm font-bold text-text-primary">{{ __('Production Management') }}</span>
+                            <span class="text-xs text-text-tertiary">{{ __('Production and quality') }}</span>
                         </div>
                     </div>
-                    <h3 class="mb-3 text-lg font-bold text-text-primary">A termelési folyamat teljes irányítása</h3>
+                    <h3 class="mb-3 text-lg font-bold text-text-primary">{{ __('Complete control of the production process') }}</h3>
                     <p class="mb-5 text-sm leading-relaxed text-text-secondary">
-                        Gantt-alapú gyártástervezés, kapacitás-ütemezés, BOM-kezelés, OEE mérés, minőségellenőrzés és selejt-követés. A gyártás központi agya — valós időben.
+                        {{ __('Gantt-based production planning, capacity scheduling, BOM management, OEE measurement, quality control and scrap tracking. The central brain of manufacturing — in real time.') }}
                     </p>
                     <div class="mb-5 grid grid-cols-2 gap-2">
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-orange-400"></span>Gantt gyártástervezés</span>
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-orange-400"></span>OEE mérés és elemzés</span>
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-orange-400"></span>Kapacitás-ütemezés</span>
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-orange-400"></span>BOM és darabjegyzék</span>
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-orange-400"></span>Minőségellenőrzés</span>
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-orange-400"></span>Selejt-nyomonkövetés</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-orange-400"></span>{{ __('Gantt production planning') }}</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-orange-400"></span>{{ __('OEE measurement and analysis') }}</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-orange-400"></span>{{ __('Capacity scheduling') }}</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-orange-400"></span>{{ __('BOM and parts list') }}</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-orange-400"></span>{{ __('Quality control') }}</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-orange-400"></span>{{ __('Scrap tracking') }}</span>
                     </div>
                     <a href="{{ route('products.gyartas') }}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-orange-600 transition-colors hover:text-orange-700">
-                        Részletek megtekintése <svg class="arrow-slide h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                        {{ __('View details') }} <svg class="arrow-slide h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                     </a>
                 </div>
 
@@ -478,24 +478,24 @@
                             <x-module-icon module="szerviz" class="h-5 w-5 text-amber-600" />
                         </div>
                         <div>
-                            <span class="block text-sm font-bold text-text-primary">Digitális munkalap</span>
-                            <span class="text-xs text-text-tertiary">Üzemi adatrögzítés</span>
+                            <span class="block text-sm font-bold text-text-primary">{{ __('Digital Worksheet') }}</span>
+                            <span class="text-xs text-text-tertiary">{{ __('Plant data recording') }}</span>
                         </div>
                     </div>
-                    <h3 class="mb-3 text-lg font-bold text-text-primary">Gyártási és karbantartási munkalapok — digitálisan</h3>
+                    <h3 class="mb-3 text-lg font-bold text-text-primary">{{ __('Production and maintenance worksheets — digitally') }}</h3>
                     <p class="mb-5 text-sm leading-relaxed text-text-secondary">
-                        A gépkezelő az üzemben rögzíti a műszak adatait: legyártott mennyiség, selejt, leállás-ok, anyagfelhasználás, fotódokumentáció — azonnal a rendszerben.
+                        {{ __('The machine operator records shift data in the plant: produced quantity, scrap, downtime reasons, material usage, photo documentation — instantly in the system.') }}
                     </p>
                     <div class="mb-5 grid grid-cols-2 gap-2">
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-amber-400"></span>Műszak-jelentés</span>
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-amber-400"></span>Selejt-rögzítés ok-kóddal</span>
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-amber-400"></span>Karbantartási munkalap</span>
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-amber-400"></span>Fotódokumentáció</span>
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-amber-400"></span>Anyagfelhasználás rögzítés</span>
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-amber-400"></span>Offline mód</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-amber-400"></span>{{ __('Shift report') }}</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-amber-400"></span>{{ __('Scrap recording with reason code') }}</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-amber-400"></span>{{ __('Maintenance worksheet') }}</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-amber-400"></span>{{ __('Photo documentation') }}</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-amber-400"></span>{{ __('Material usage recording') }}</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-amber-400"></span>{{ __('Offline mode') }}</span>
                     </div>
                     <a href="{{ route('products.szerviz') }}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-amber-600 transition-colors hover:text-amber-700">
-                        Részletek megtekintése <svg class="arrow-slide h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                        {{ __('View details') }} <svg class="arrow-slide h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                     </a>
                 </div>
 
@@ -507,24 +507,24 @@
                             <x-module-icon module="automatizalas" class="h-5 w-5 text-violet-600" />
                         </div>
                         <div>
-                            <span class="block text-sm font-bold text-text-primary">Automatizálás</span>
-                            <span class="text-xs text-text-tertiary">Termelési workflow-k</span>
+                            <span class="block text-sm font-bold text-text-primary">{{ __('Automation') }}</span>
+                            <span class="text-xs text-text-tertiary">{{ __('Production workflows') }}</span>
                         </div>
                     </div>
-                    <h3 class="mb-3 text-lg font-bold text-text-primary">Riasztások, eszkaláció és automatikus feladatkiosztás</h3>
+                    <h3 class="mb-3 text-lg font-bold text-text-primary">{{ __('Alerts, escalation and automatic task assignment') }}</h3>
                     <p class="mb-5 text-sm leading-relaxed text-text-secondary">
-                        Gépállás — riasztás a karbantartásnak. Selejt-limit túllépés — minőségirányítási értesítés. Kapacitáshiány — eszkaláció. Kód nélkül, drag-and-drop workflow-val.
+                        {{ __('Machine downtime — alert to maintenance. Scrap limit exceeded — quality management notification. Capacity shortage — escalation. No code, drag-and-drop workflow.') }}
                     </p>
                     <div class="mb-5 grid grid-cols-2 gap-2">
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-violet-400"></span>Gépállás-riasztás</span>
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-violet-400"></span>Selejt-limit trigger</span>
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-violet-400"></span>Karbantartás-ütemezés</span>
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-violet-400"></span>Műszakváltás-értesítés</span>
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-violet-400"></span>Eszkaláció-lánc</span>
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-violet-400"></span>Kapacitás-figyelmeztetés</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-violet-400"></span>{{ __('Machine downtime alert') }}</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-violet-400"></span>{{ __('Scrap limit trigger') }}</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-violet-400"></span>{{ __('Maintenance scheduling') }}</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-violet-400"></span>{{ __('Shift change notification') }}</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-violet-400"></span>{{ __('Escalation chain') }}</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-violet-400"></span>{{ __('Capacity warning') }}</span>
                     </div>
                     <a href="{{ route('products.automatizalas') }}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-violet-600 transition-colors hover:text-violet-700">
-                        Részletek megtekintése <svg class="arrow-slide h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                        {{ __('View details') }} <svg class="arrow-slide h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                     </a>
                 </div>
 
@@ -537,23 +537,23 @@
                         </div>
                         <div>
                             <span class="block text-sm font-bold text-text-primary">DataMind</span>
-                            <span class="text-xs text-text-tertiary">MI alapú termelés-optimalizálás</span>
+                            <span class="text-xs text-text-tertiary">{{ __('AI-based production optimization') }}</span>
                         </div>
                     </div>
-                    <h3 class="mb-3 text-lg font-bold text-text-primary">Prediktív karbantartás és termelési mintafelismerés</h3>
+                    <h3 class="mb-3 text-lg font-bold text-text-primary">{{ __('Predictive maintenance and production pattern recognition') }}</h3>
                     <p class="mb-5 text-sm leading-relaxed text-text-secondary">
-                        Az MI azonosítja a karbantartási szükségletet, mielőtt leállás történne. Selejt-mintázat felismerés, OEE trend predikció és kapacitás-optimalizálási javaslatok.
+                        {{ __('AI identifies maintenance needs before downtime occurs. Scrap pattern recognition, OEE trend prediction and capacity optimization recommendations.') }}
                     </p>
                     <div class="mb-5 grid grid-cols-2 gap-2">
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-blue-400"></span>Prediktív karbantartás</span>
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-blue-400"></span>Selejt-mintafelismerés</span>
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-blue-400"></span>OEE trend előrejelzés</span>
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-blue-400"></span>Kapacitás-optimalizálás</span>
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-blue-400"></span>Leállás-ok elemzés</span>
-                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-blue-400"></span>Automatikus összefoglalók</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-blue-400"></span>{{ __('Predictive maintenance') }}</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-blue-400"></span>{{ __('Scrap pattern recognition') }}</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-blue-400"></span>{{ __('OEE trend forecasting') }}</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-blue-400"></span>{{ __('Capacity optimization') }}</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-blue-400"></span>{{ __('Downtime cause analysis') }}</span>
+                        <span class="flex items-center gap-2 text-sm text-text-secondary"><span class="feature-dot h-1 w-1 rounded-full bg-blue-400"></span>{{ __('Automatic summaries') }}</span>
                     </div>
                     <a href="{{ route('products.datamind') }}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 transition-colors hover:text-blue-700">
-                        Részletek megtekintése <svg class="arrow-slide h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                        {{ __('View details') }} <svg class="arrow-slide h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                     </a>
                 </div>
             </div>
@@ -564,66 +564,66 @@
     <section class="bg-surface-secondary py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-6">
             <div class="reveal mb-12">
-                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">Termelési ciklus</p>
+                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">{{ __('Production cycle') }}</p>
                 <h2 class="mb-4 text-3xl text-text-primary md:text-4xl" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    A megrendeléstől a kiszállításig — egy zárt rendszerben
+                    {{ __('From order to delivery — in one closed system') }}
                 </h2>
                 <p class="max-w-xl text-lg text-text-secondary">
-                    Minden fázis mért, dokumentált és valós idejű — nem utólagos adatgyűjtés.
+                    {{ __('Every phase is measured, documented and real-time — not retrospective data collection.') }}
                 </p>
             </div>
 
             <div class="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-6" data-stagger>
                 <div class="stagger-item text-center">
                     <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border-2 border-orange-200 bg-surface-primary text-xl font-bold text-orange-600">01</div>
-                    <h4 class="mb-1 text-sm font-bold text-text-primary">Megrendelés</h4>
-                    <p class="mb-2 text-xs text-text-tertiary">Vevői rendelés beérkezése, gyártási utasítás generálás</p>
+                    <h4 class="mb-1 text-sm font-bold text-text-primary">{{ __('Order') }}</h4>
+                    <p class="mb-2 text-xs text-text-tertiary">{{ __('Customer order receipt, production instruction generation') }}</p>
                     <div class="flex flex-wrap justify-center gap-1">
-                        <span class="rounded bg-orange-50 px-1.5 py-0.5 text-[9px] font-semibold text-orange-600">Értékesítés</span>
+                        <span class="rounded bg-orange-50 px-1.5 py-0.5 text-[9px] font-semibold text-orange-600">{{ __('Sales') }}</span>
                         <span class="rounded bg-orange-50 px-1.5 py-0.5 text-[9px] font-semibold text-orange-600">CRM</span>
                     </div>
                 </div>
                 <div class="stagger-item text-center">
                     <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border-2 border-amber-200 bg-surface-primary text-xl font-bold text-amber-600">02</div>
-                    <h4 class="mb-1 text-sm font-bold text-text-primary">Tervezés</h4>
-                    <p class="mb-2 text-xs text-text-tertiary">Gantt-ütemezés, kapacitás-ellenőrzés, anyagszükséglet</p>
+                    <h4 class="mb-1 text-sm font-bold text-text-primary">{{ __('Planning') }}</h4>
+                    <p class="mb-2 text-xs text-text-tertiary">{{ __('Gantt scheduling, capacity check, material requirements') }}</p>
                     <div class="flex flex-wrap justify-center gap-1">
-                        <span class="rounded bg-amber-50 px-1.5 py-0.5 text-[9px] font-semibold text-amber-600">Gyártásirányítás</span>
-                        <span class="rounded bg-amber-50 px-1.5 py-0.5 text-[9px] font-semibold text-amber-600">Beszerzés</span>
+                        <span class="rounded bg-amber-50 px-1.5 py-0.5 text-[9px] font-semibold text-amber-600">{{ __('Production Management') }}</span>
+                        <span class="rounded bg-amber-50 px-1.5 py-0.5 text-[9px] font-semibold text-amber-600">{{ __('Procurement') }}</span>
                     </div>
                 </div>
                 <div class="stagger-item text-center">
                     <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border-2 border-teal-200 bg-surface-primary text-xl font-bold text-teal-600">03</div>
-                    <h4 class="mb-1 text-sm font-bold text-text-primary">Gyártás</h4>
-                    <p class="mb-2 text-xs text-text-tertiary">Valós idejű gépállapot, OEE, műszak-adatok rögzítése</p>
+                    <h4 class="mb-1 text-sm font-bold text-text-primary">{{ __('Manufacturing') }}</h4>
+                    <p class="mb-2 text-xs text-text-tertiary">{{ __('Real-time machine status, OEE, shift data recording') }}</p>
                     <div class="flex flex-wrap justify-center gap-1">
-                        <span class="rounded bg-teal-50 px-1.5 py-0.5 text-[9px] font-semibold text-teal-600">Gyártásirányítás</span>
-                        <span class="rounded bg-teal-50 px-1.5 py-0.5 text-[9px] font-semibold text-teal-600">Munkalap</span>
+                        <span class="rounded bg-teal-50 px-1.5 py-0.5 text-[9px] font-semibold text-teal-600">{{ __('Production Management') }}</span>
+                        <span class="rounded bg-teal-50 px-1.5 py-0.5 text-[9px] font-semibold text-teal-600">{{ __('Worksheet') }}</span>
                     </div>
                 </div>
                 <div class="stagger-item text-center">
                     <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border-2 border-success-200 bg-surface-primary text-xl font-bold text-success-600">04</div>
-                    <h4 class="mb-1 text-sm font-bold text-text-primary">Minőség</h4>
-                    <p class="mb-2 text-xs text-text-tertiary">Gyártásközi és végellenőrzés, selejt-kezelés, tétel-nyomonkövetés</p>
+                    <h4 class="mb-1 text-sm font-bold text-text-primary">{{ __('Quality') }}</h4>
+                    <p class="mb-2 text-xs text-text-tertiary">{{ __('In-process and final inspection, scrap management, batch traceability') }}</p>
                     <div class="flex flex-wrap justify-center gap-1">
-                        <span class="rounded bg-success-50 px-1.5 py-0.5 text-[9px] font-semibold text-success-600">Gyártásirányítás</span>
+                        <span class="rounded bg-success-50 px-1.5 py-0.5 text-[9px] font-semibold text-success-600">{{ __('Production Management') }}</span>
                     </div>
                 </div>
                 <div class="stagger-item text-center">
                     <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border-2 border-blue-200 bg-surface-primary text-xl font-bold text-blue-600">05</div>
-                    <h4 class="mb-1 text-sm font-bold text-text-primary">Kiszállítás</h4>
-                    <p class="mb-2 text-xs text-text-tertiary">Készáru bevételezés, szállítólevél, logisztikai koordináció</p>
+                    <h4 class="mb-1 text-sm font-bold text-text-primary">{{ __('Delivery') }}</h4>
+                    <p class="mb-2 text-xs text-text-tertiary">{{ __('Finished goods receipt, delivery note, logistics coordination') }}</p>
                     <div class="flex flex-wrap justify-center gap-1">
-                        <span class="rounded bg-blue-50 px-1.5 py-0.5 text-[9px] font-semibold text-blue-600">Beszerzés</span>
-                        <span class="rounded bg-blue-50 px-1.5 py-0.5 text-[9px] font-semibold text-blue-600">Értékesítés</span>
+                        <span class="rounded bg-blue-50 px-1.5 py-0.5 text-[9px] font-semibold text-blue-600">{{ __('Procurement') }}</span>
+                        <span class="rounded bg-blue-50 px-1.5 py-0.5 text-[9px] font-semibold text-blue-600">{{ __('Sales') }}</span>
                     </div>
                 </div>
                 <div class="stagger-item text-center">
                     <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border-2 border-violet-200 bg-surface-primary text-xl font-bold text-violet-600">06</div>
-                    <h4 class="mb-1 text-sm font-bold text-text-primary">Elemzés</h4>
-                    <p class="mb-2 text-xs text-text-tertiary">Gyártási önköltség, OEE riport, MI javaslatok a következő ciklusra</p>
+                    <h4 class="mb-1 text-sm font-bold text-text-primary">{{ __('Analysis') }}</h4>
+                    <p class="mb-2 text-xs text-text-tertiary">{{ __('Production cost, OEE report, AI recommendations for the next cycle') }}</p>
                     <div class="flex flex-wrap justify-center gap-1">
-                        <span class="rounded bg-violet-50 px-1.5 py-0.5 text-[9px] font-semibold text-violet-600">Kontrolling</span>
+                        <span class="rounded bg-violet-50 px-1.5 py-0.5 text-[9px] font-semibold text-violet-600">{{ __('Controlling') }}</span>
                         <span class="rounded bg-violet-50 px-1.5 py-0.5 text-[9px] font-semibold text-violet-600">DataMind</span>
                     </div>
                 </div>
@@ -636,13 +636,13 @@
         <div class="mx-auto max-w-7xl px-6">
             <div class="reveal mb-12 grid grid-cols-1 gap-8 lg:grid-cols-2">
                 <div>
-                    <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">Teljes ökoszisztéma</p>
+                    <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">{{ __('Full ecosystem') }}</p>
                     <h2 class="text-3xl text-text-primary md:text-4xl" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                        Mind a 11 modul a termelés szolgálatában
+                        {{ __('All 11 modules serving production') }}
                     </h2>
                 </div>
                 <p class="text-lg leading-relaxed text-text-secondary lg:mt-8">
-                    A termelés nem légüres térben működik — az értékesítés generálja a megrendeléseket, a beszerzés biztosítja az anyagot, a kontrolling méri a jövedelmezőséget, a szerviz karbantart. Amikor mindez egy rendszerben van, az üzemvezető a tényleges termelésre koncentrálhat — nem az információgyűjtésre.
+                    {{ __('Production doesn\'t operate in a vacuum — sales generates orders, procurement ensures materials, controlling measures profitability, service maintains. When all this is in one system, the plant manager can focus on actual production — not on gathering information.') }}
                 </p>
             </div>
 
@@ -652,24 +652,24 @@
                     <div class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-cyan-50">
                         <x-module-icon module="beszerzes" class="h-5 w-5 text-cyan-600" />
                     </div>
-                    <h4 class="mb-1 text-xs font-bold text-text-primary">Beszerzés-logisztika</h4>
-                    <p class="text-[10px] leading-snug text-text-tertiary">Anyagszükséglet automatikusan a gyártási tervből</p>
+                    <h4 class="mb-1 text-xs font-bold text-text-primary">{{ __('Procurement & Logistics') }}</h4>
+                    <p class="text-[10px] leading-snug text-text-tertiary">{{ __('Material requirements automatically from the production plan') }}</p>
                 </div>
                 <div class="stagger-item pill-float rounded-xl border border-border-light bg-surface-primary p-4 text-center"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <div class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-success-50">
                         <x-module-icon module="ertekesites" class="h-5 w-5 text-success-600" />
                     </div>
-                    <h4 class="mb-1 text-xs font-bold text-text-primary">CRM & Értékesítés</h4>
-                    <p class="text-[10px] leading-snug text-text-tertiary">Megrendelés automatikusan gyártási utasítást generál</p>
+                    <h4 class="mb-1 text-xs font-bold text-text-primary">{{ __('CRM & Sales') }}</h4>
+                    <p class="text-[10px] leading-snug text-text-tertiary">{{ __('Orders automatically generate production instructions') }}</p>
                 </div>
                 <div class="stagger-item pill-float rounded-xl border border-border-light bg-surface-primary p-4 text-center"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <div class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50">
                         <x-module-icon module="kontrolling" class="h-5 w-5 text-indigo-600" />
                     </div>
-                    <h4 class="mb-1 text-xs font-bold text-text-primary">Kontrolling</h4>
-                    <p class="text-[10px] leading-snug text-text-tertiary">Gyártási önköltség valós időben: anyag, munkaóra, gépköltség</p>
+                    <h4 class="mb-1 text-xs font-bold text-text-primary">{{ __('Controlling') }}</h4>
+                    <p class="text-[10px] leading-snug text-text-tertiary">{{ __('Production cost in real time: material, labor hours, machine cost') }}</p>
                 </div>
                 <div class="stagger-item pill-float rounded-xl border border-border-light bg-surface-primary p-4 text-center"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
@@ -677,15 +677,15 @@
                         <x-module-icon module="marketinghub" class="h-5 w-5 text-blue-600" />
                     </div>
                     <h4 class="mb-1 text-xs font-bold text-text-primary">MarketingHub</h4>
-                    <p class="text-[10px] leading-snug text-text-tertiary">Kereslet-előrejelzés marketing adatokból</p>
+                    <p class="text-[10px] leading-snug text-text-tertiary">{{ __('Demand forecasting from marketing data') }}</p>
                 </div>
                 <div class="stagger-item pill-float rounded-xl border border-border-light bg-surface-primary p-4 text-center"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <div class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-rose-50">
                         <x-module-icon module="seo" class="h-5 w-5 text-rose-600" />
                     </div>
-                    <h4 class="mb-1 text-xs font-bold text-text-primary">SEO Eszköz</h4>
-                    <p class="text-[10px] leading-snug text-text-tertiary">Referencia-projektek online láthatósága új megrendeléseket hoz</p>
+                    <h4 class="mb-1 text-xs font-bold text-text-primary">{{ __('SEO Tool') }}</h4>
+                    <p class="text-[10px] leading-snug text-text-tertiary">{{ __('Online visibility of reference projects brings new orders') }}</p>
                 </div>
                 <div class="stagger-item pill-float rounded-xl border border-border-light bg-surface-primary p-4 text-center"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
@@ -693,15 +693,15 @@
                         <x-module-icon module="ai-chat" class="h-5 w-5 text-teal-600" />
                     </div>
                     <h4 class="mb-1 text-xs font-bold text-text-primary">AI Chat</h4>
-                    <p class="text-[10px] leading-snug text-text-tertiary">Belső státusz-lekérdezés: hol tart a gyártás — azonnal</p>
+                    <p class="text-[10px] leading-snug text-text-tertiary">{{ __('Internal status query: where is production — instantly') }}</p>
                 </div>
                 <div class="stagger-item pill-float rounded-xl border border-border-light bg-surface-primary p-4 text-center"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <div class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-violet-50">
                         <x-module-icon module="automatizalas" class="h-5 w-5 text-violet-600" />
                     </div>
-                    <h4 class="mb-1 text-xs font-bold text-text-primary">Automatizálás</h4>
-                    <p class="text-[10px] leading-snug text-text-tertiary">Gépállás-riasztás, karbantartási ütemezés automatikusan</p>
+                    <h4 class="mb-1 text-xs font-bold text-text-primary">{{ __('Automation') }}</h4>
+                    <p class="text-[10px] leading-snug text-text-tertiary">{{ __('Machine downtime alerts, maintenance scheduling automatically') }}</p>
                 </div>
             </div>
         </div>
@@ -711,9 +711,9 @@
     <section class="bg-surface-secondary py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-6">
             <div class="reveal mb-12 text-center">
-                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">Eredmények</p>
+                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">{{ __('Results') }}</p>
                 <h2 class="text-3xl text-text-primary md:text-4xl" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    Mérhető javulás a termelési teljesítményben
+                    {{ __('Measurable improvement in production performance') }}
                 </h2>
             </div>
 
@@ -722,25 +722,25 @@
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <span class="stat-value block text-4xl font-bold text-orange-600 lg:text-5xl" style="font-family: 'JetBrains Mono', monospace;"
                         data-count="25" data-prefix="+" data-suffix="%">0%</span>
-                    <span class="mt-2 block text-sm text-text-secondary">OEE javulás</span>
+                    <span class="mt-2 block text-sm text-text-secondary">{{ __('OEE improvement') }}</span>
                 </div>
                 <div class="stagger-item stat-hover rounded-2xl border border-border-light bg-surface-primary p-8 text-center"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <span class="stat-value block text-4xl font-bold text-success-600 lg:text-5xl" style="font-family: 'JetBrains Mono', monospace;"
                         data-count="40" data-prefix="-" data-suffix="%">0%</span>
-                    <span class="mt-2 block text-sm text-text-secondary">Nem tervezett leállás</span>
+                    <span class="mt-2 block text-sm text-text-secondary">{{ __('Unplanned downtime') }}</span>
                 </div>
                 <div class="stagger-item stat-hover rounded-2xl border border-border-light bg-surface-primary p-8 text-center"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <span class="stat-value block text-4xl font-bold text-amber-600 lg:text-5xl" style="font-family: 'JetBrains Mono', monospace;"
                         data-count="30" data-prefix="-" data-suffix="%">0%</span>
-                    <span class="mt-2 block text-sm text-text-secondary">Selejt-arány csökkenés</span>
+                    <span class="mt-2 block text-sm text-text-secondary">{{ __('Scrap rate reduction') }}</span>
                 </div>
                 <div class="stagger-item stat-hover rounded-2xl border border-border-light bg-surface-primary p-8 text-center"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <span class="stat-value block text-4xl font-bold text-blue-600 lg:text-5xl" style="font-family: 'JetBrains Mono', monospace;"
                         data-count="65" data-prefix="-" data-suffix="%">0%</span>
-                    <span class="mt-2 block text-sm text-text-secondary">Adminisztrációs idő</span>
+                    <span class="mt-2 block text-sm text-text-secondary">{{ __('Administration time') }}</span>
                 </div>
             </div>
         </div>
@@ -750,9 +750,9 @@
     <section class="bg-surface-primary py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-6">
             <div class="reveal mb-12">
-                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">Felhasználási esetek</p>
+                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">{{ __('Use cases') }}</p>
                 <h2 class="mb-4 text-3xl text-text-primary md:text-4xl" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    Így használják ipari üzemvezetők
+                    {{ __('How industrial plant managers use it') }}
                 </h2>
             </div>
 
@@ -760,67 +760,67 @@
                 <div class="stagger-item card-glow rounded-2xl border border-border-light bg-surface-primary p-7"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <span class="mb-4 block text-xs font-semibold text-text-tertiary" style="font-family: 'JetBrains Mono', monospace;">01</span>
-                    <h3 class="mb-2 text-base font-bold text-text-primary">OEE mérés és gépkihasználtság-elemzés</h3>
-                    <p class="mb-4 text-sm leading-relaxed text-text-secondary">Minden gépre valós idejű OEE: rendelkezésre állás, teljesítmény, minőség. A műszakvezető azonnal látja, melyik gép jár a célérték alatt — és miért.</p>
+                    <h3 class="mb-2 text-base font-bold text-text-primary">{{ __('OEE measurement and machine utilization analysis') }}</h3>
+                    <p class="mb-4 text-sm leading-relaxed text-text-secondary">{{ __('Real-time OEE for every machine: availability, performance, quality. The shift manager instantly sees which machine is below target — and why.') }}</p>
                     <div class="flex flex-wrap gap-1.5">
-                        <span class="rounded bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-600">Gyártásirányítás</span>
-                        <span class="rounded bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-600">Munkalap</span>
+                        <span class="rounded bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-600">{{ __('Production Management') }}</span>
+                        <span class="rounded bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-600">{{ __('Worksheet') }}</span>
                     </div>
                 </div>
 
                 <div class="stagger-item card-glow rounded-2xl border border-border-light bg-surface-primary p-7"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <span class="mb-4 block text-xs font-semibold text-text-tertiary" style="font-family: 'JetBrains Mono', monospace;">02</span>
-                    <h3 class="mb-2 text-base font-bold text-text-primary">Prediktív karbantartás MI-vel</h3>
-                    <p class="mb-4 text-sm leading-relaxed text-text-secondary">A DataMind a korábbi meghibásodási mintákból és a gépüzemi adatokból előrejelzi, mikor lesz szükség karbantartásra — hetekkel a leállás előtt.</p>
+                    <h3 class="mb-2 text-base font-bold text-text-primary">{{ __('Predictive maintenance with AI') }}</h3>
+                    <p class="mb-4 text-sm leading-relaxed text-text-secondary">{{ __('DataMind predicts from past failure patterns and machine operating data when maintenance will be needed — weeks before the downtime.') }}</p>
                     <div class="flex flex-wrap gap-1.5">
                         <span class="rounded bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-600">DataMind</span>
-                        <span class="rounded bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-600">Automatizálás</span>
+                        <span class="rounded bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-600">{{ __('Automation') }}</span>
                     </div>
                 </div>
 
                 <div class="stagger-item card-glow rounded-2xl border border-border-light bg-surface-primary p-7"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <span class="mb-4 block text-xs font-semibold text-text-tertiary" style="font-family: 'JetBrains Mono', monospace;">03</span>
-                    <h3 class="mb-2 text-base font-bold text-text-primary">Gantt-alapú kapacitástervezés</h3>
-                    <p class="mb-4 text-sm leading-relaxed text-text-secondary">Vizuális gyártásütemezés: melyik gépen, mikor, milyen termék fut. A rendszer automatikusan jelez, ha kapacitás-ütközés van — és javasol átütemezést.</p>
+                    <h3 class="mb-2 text-base font-bold text-text-primary">{{ __('Gantt-based capacity planning') }}</h3>
+                    <p class="mb-4 text-sm leading-relaxed text-text-secondary">{{ __('Visual production scheduling: which machine, when, which product runs. The system automatically alerts on capacity conflicts — and suggests rescheduling.') }}</p>
                     <div class="flex flex-wrap gap-1.5">
-                        <span class="rounded bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-600">Gyártásirányítás</span>
-                        <span class="rounded bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-600">Értékesítés</span>
+                        <span class="rounded bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-600">{{ __('Production Management') }}</span>
+                        <span class="rounded bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-600">{{ __('Sales') }}</span>
                     </div>
                 </div>
 
                 <div class="stagger-item card-glow rounded-2xl border border-border-light bg-surface-primary p-7"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <span class="mb-4 block text-xs font-semibold text-text-tertiary" style="font-family: 'JetBrains Mono', monospace;">04</span>
-                    <h3 class="mb-2 text-base font-bold text-text-primary">Digitális műszak-jelentés</h3>
-                    <p class="mb-4 text-sm leading-relaxed text-text-secondary">A gépkezelő a műszak végén rögzíti: legyártott mennyiség, selejt (ok-kóddal), leállások, anyagfelhasználás — 5 perc alatt, a telefonján, papír nélkül.</p>
+                    <h3 class="mb-2 text-base font-bold text-text-primary">{{ __('Digital shift report') }}</h3>
+                    <p class="mb-4 text-sm leading-relaxed text-text-secondary">{{ __('The machine operator records at the end of the shift: produced quantity, scrap (with reason code), downtime, material usage — in 5 minutes, on their phone, without paper.') }}</p>
                     <div class="flex flex-wrap gap-1.5">
-                        <span class="rounded bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-600">Munkalap</span>
-                        <span class="rounded bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-600">Gyártásirányítás</span>
+                        <span class="rounded bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-600">{{ __('Worksheet') }}</span>
+                        <span class="rounded bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-600">{{ __('Production Management') }}</span>
                     </div>
                 </div>
 
                 <div class="stagger-item card-glow rounded-2xl border border-border-light bg-surface-primary p-7"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <span class="mb-4 block text-xs font-semibold text-text-tertiary" style="font-family: 'JetBrains Mono', monospace;">05</span>
-                    <h3 class="mb-2 text-base font-bold text-text-primary">Selejt-elemzés és minőségellenőrzés</h3>
-                    <p class="mb-4 text-sm leading-relaxed text-text-secondary">Melyik gépen, melyik műszakban, melyik anyagból keletkezik a legtöbb selejt? A DataMind mintázatot talál — a minőségirányítási vezető célzott intézkedést hozhat.</p>
+                    <h3 class="mb-2 text-base font-bold text-text-primary">{{ __('Scrap analysis and quality control') }}</h3>
+                    <p class="mb-4 text-sm leading-relaxed text-text-secondary">{{ __('Which machine, which shift, which material produces the most scrap? DataMind finds patterns — the quality management manager can take targeted action.') }}</p>
                     <div class="flex flex-wrap gap-1.5">
                         <span class="rounded bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-600">DataMind</span>
-                        <span class="rounded bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-600">Gyártásirányítás</span>
+                        <span class="rounded bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-600">{{ __('Production Management') }}</span>
                     </div>
                 </div>
 
                 <div class="stagger-item card-glow rounded-2xl border border-border-light bg-surface-primary p-7"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <span class="mb-4 block text-xs font-semibold text-text-tertiary" style="font-family: 'JetBrains Mono', monospace;">06</span>
-                    <h3 class="mb-2 text-base font-bold text-text-primary">Gyártás–értékesítés szinkronizáció</h3>
-                    <p class="mb-4 text-sm leading-relaxed text-text-secondary">Az értékesítő a CRM-ben valós időben látja a szabad kapacitást és a gyártási határidőt — reális szállítási időt kommunikálhat az ügyfélnek, nem megérzés alapján.</p>
+                    <h3 class="mb-2 text-base font-bold text-text-primary">{{ __('Production–sales synchronization') }}</h3>
+                    <p class="mb-4 text-sm leading-relaxed text-text-secondary">{{ __('The sales rep sees available capacity and production deadlines in real time in the CRM — they can communicate realistic delivery times to customers, not based on guesswork.') }}</p>
                     <div class="flex flex-wrap gap-1.5">
-                        <span class="rounded bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-600">Gyártásirányítás</span>
+                        <span class="rounded bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-600">{{ __('Production Management') }}</span>
                         <span class="rounded bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-600">CRM</span>
-                        <span class="rounded bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-600">Értékesítés</span>
+                        <span class="rounded bg-orange-50 px-2 py-0.5 text-[10px] font-semibold text-orange-600">{{ __('Sales') }}</span>
                     </div>
                 </div>
             </div>
@@ -831,12 +831,12 @@
     <section class="bg-surface-secondary py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-6">
             <div class="reveal mb-12">
-                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">Összehasonlítás</p>
+                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">{{ __('Comparison') }}</p>
                 <h2 class="mb-4 text-3xl text-text-primary md:text-4xl" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    Papíros műszakjelentés helyett — digitális üzemirányítás
+                    {{ __('Instead of paper shift reports — digital plant management') }}
                 </h2>
                 <p class="max-w-xl text-lg text-text-secondary">
-                    Így változik meg a termelés irányítása a Cégem360 bevezetésével.
+                    {{ __('This is how production management changes with Cégem360.') }}
                 </p>
             </div>
 
@@ -844,46 +844,46 @@
                 <table class="w-full min-w-[640px] border-collapse overflow-hidden rounded-2xl border border-border-light">
                     <thead>
                         <tr class="bg-surface-primary">
-                            <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-text-primary">Képesség</th>
-                            <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-text-primary">Hagyományos módszer</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-text-primary">{{ __('Capability') }}</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-text-primary">{{ __('Traditional method') }}</th>
                             <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-text-primary">Cégem360</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-border-light">
                         <tr>
-                            <td class="px-6 py-4 text-sm font-semibold text-text-primary">Gépállapot áttekintés</td>
-                            <td class="px-6 py-4 text-sm text-text-tertiary">Személyesen, az üzemben</td>
-                            <td class="px-6 py-4 text-sm font-medium text-success-600">✓ Valós idejű dashboard</td>
+                            <td class="px-6 py-4 text-sm font-semibold text-text-primary">{{ __('Machine status overview') }}</td>
+                            <td class="px-6 py-4 text-sm text-text-tertiary">{{ __('In person, in the plant') }}</td>
+                            <td class="px-6 py-4 text-sm font-medium text-success-600">{{ __('✓ Real-time dashboard') }}</td>
                         </tr>
                         <tr>
-                            <td class="px-6 py-4 text-sm font-semibold text-text-primary">OEE mérés</td>
-                            <td class="px-6 py-4 text-sm text-text-tertiary">Nem mérik / utólag</td>
-                            <td class="px-6 py-4 text-sm font-medium text-success-600">✓ Folyamatos, gépenként</td>
+                            <td class="px-6 py-4 text-sm font-semibold text-text-primary">{{ __('OEE measurement') }}</td>
+                            <td class="px-6 py-4 text-sm text-text-tertiary">{{ __('Not measured / retrospective') }}</td>
+                            <td class="px-6 py-4 text-sm font-medium text-success-600">{{ __('✓ Continuous, per machine') }}</td>
                         </tr>
                         <tr>
-                            <td class="px-6 py-4 text-sm font-semibold text-text-primary">Gyártástervezés</td>
-                            <td class="px-6 py-4 text-sm text-text-tertiary">Whiteboard / Excel</td>
-                            <td class="px-6 py-4 text-sm font-medium text-success-600">✓ Gantt, kapacitás-szinkronnal</td>
+                            <td class="px-6 py-4 text-sm font-semibold text-text-primary">{{ __('Production planning') }}</td>
+                            <td class="px-6 py-4 text-sm text-text-tertiary">{{ __('Whiteboard / Excel') }}</td>
+                            <td class="px-6 py-4 text-sm font-medium text-success-600">{{ __('✓ Gantt, with capacity sync') }}</td>
                         </tr>
                         <tr>
-                            <td class="px-6 py-4 text-sm font-semibold text-text-primary">Karbantartás</td>
-                            <td class="px-6 py-4 text-sm text-text-tertiary">Meghibásodás után</td>
-                            <td class="px-6 py-4 text-sm font-medium text-success-600">✓ Prediktív MI tervezés</td>
+                            <td class="px-6 py-4 text-sm font-semibold text-text-primary">{{ __('Maintenance') }}</td>
+                            <td class="px-6 py-4 text-sm text-text-tertiary">{{ __('After breakdown') }}</td>
+                            <td class="px-6 py-4 text-sm font-medium text-success-600">{{ __('✓ Predictive AI planning') }}</td>
                         </tr>
                         <tr>
-                            <td class="px-6 py-4 text-sm font-semibold text-text-primary">Selejt-elemzés</td>
-                            <td class="px-6 py-4 text-sm text-text-tertiary">Heti jelentésben, ha van</td>
-                            <td class="px-6 py-4 text-sm font-medium text-success-600">✓ Valós idejű, ok-kóddal</td>
+                            <td class="px-6 py-4 text-sm font-semibold text-text-primary">{{ __('Scrap analysis') }}</td>
+                            <td class="px-6 py-4 text-sm text-text-tertiary">{{ __('In weekly report, if any') }}</td>
+                            <td class="px-6 py-4 text-sm font-medium text-success-600">{{ __('✓ Real-time, with reason code') }}</td>
                         </tr>
                         <tr>
-                            <td class="px-6 py-4 text-sm font-semibold text-text-primary">Műszak-jelentés</td>
-                            <td class="px-6 py-4 text-sm text-text-tertiary">Papíros, másnap reggel</td>
-                            <td class="px-6 py-4 text-sm font-medium text-success-600">✓ Digitális, azonnali</td>
+                            <td class="px-6 py-4 text-sm font-semibold text-text-primary">{{ __('Shift report') }}</td>
+                            <td class="px-6 py-4 text-sm text-text-tertiary">{{ __('Paper, next morning') }}</td>
+                            <td class="px-6 py-4 text-sm font-medium text-success-600">{{ __('✓ Digital, instant') }}</td>
                         </tr>
                         <tr>
-                            <td class="px-6 py-4 text-sm font-semibold text-text-primary">Kapacitás-információ az értékesítésnek</td>
-                            <td class="px-6 py-4 text-sm text-text-tertiary">Telefonon kérdezi</td>
-                            <td class="px-6 py-4 text-sm font-medium text-success-600">✓ Valós időben a CRM-ben</td>
+                            <td class="px-6 py-4 text-sm font-semibold text-text-primary">{{ __('Capacity information for sales') }}</td>
+                            <td class="px-6 py-4 text-sm text-text-tertiary">{{ __('Asks by phone') }}</td>
+                            <td class="px-6 py-4 text-sm font-medium text-success-600">{{ __('✓ Real-time in the CRM') }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -898,27 +898,27 @@
                 <div class="grid grid-cols-1 items-center gap-8 rounded-2xl border border-border-light bg-surface-secondary p-8 lg:grid-cols-[1fr_auto] lg:p-12"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <div>
-                        <h3 class="mb-3 text-xl font-bold text-text-primary lg:text-2xl" style="font-family: 'Poppins', sans-serif;">Személyre szabott online konzultáció</h3>
-                        <p class="mb-5 text-base text-text-secondary">30 perces videóhívás, amelyben felmérjük, hogyan digitalizálhatja termelési és üzemirányítási folyamatait a Cégem360-nal — az Ön iparágára, géppark-méretére és termelési típusára szabva.</p>
+                        <h3 class="mb-3 text-xl font-bold text-text-primary lg:text-2xl" style="font-family: 'Poppins', sans-serif;">{{ __('Personalized online consultation') }}</h3>
+                        <p class="mb-5 text-base text-text-secondary">{{ __('A 30-minute video call where we assess how you can digitize your production and plant management processes with Cégem360 — tailored to your industry, machine park size and production type.') }}</p>
                         <div class="flex flex-wrap gap-5">
                             <span class="flex items-center gap-1.5 text-sm text-text-tertiary">
                                 <svg class="h-4 w-4 text-success-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                                30 perc videóhívás
+                                {{ __('30-minute video call') }}
                             </span>
                             <span class="flex items-center gap-1.5 text-sm text-text-tertiary">
                                 <svg class="h-4 w-4 text-success-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                                Termelési audit
+                                {{ __('Production audit') }}
                             </span>
                             <span class="flex items-center gap-1.5 text-sm text-text-tertiary">
                                 <svg class="h-4 w-4 text-success-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                                Nincs elköteleződés
+                                {{ __('No commitment') }}
                             </span>
                         </div>
                     </div>
                     <a href="{{ route('contact') }}"
                         class="group inline-flex items-center gap-2 rounded-full bg-orange-600 px-6 py-3 text-base font-medium text-white transition-all hover:bg-orange-700 hover:shadow-lg"
                         style="box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
-                        <span>Konzultációt kérek</span>
+                        <span>{{ __('Request consultation') }}</span>
                         <svg class="arrow-slide h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                         </svg>
@@ -932,33 +932,33 @@
     <section class="bg-linear-to-b from-surface-secondary to-surface-primary py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-6">
             <div class="reveal mb-12 text-center">
-                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">Kezdje el</p>
+                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600">{{ __('Get started') }}</p>
                 <h2 class="mb-4 text-3xl text-text-primary md:text-4xl" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    Készen áll a digitális üzemirányításra?
+                    {{ __('Ready for digital plant management?') }}
                 </h2>
                 <p class="mx-auto max-w-xl text-lg text-text-secondary">
-                    Válassza ki a következő lépést az Ön számára.
+                    {{ __('Choose the next step for you.') }}
                 </p>
             </div>
 
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2" data-stagger>
                 <div class="stagger-item card-glow rounded-2xl border border-border-light bg-surface-primary p-8 text-center"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-                    <h3 class="mb-3 text-xl font-bold text-text-primary">Online konzultáció</h3>
-                    <p class="mb-6 text-sm text-text-secondary">Kérdezzen szakértőinktől 30 percben — videóhíváson, az Ön termelési kihívásaira szabva, kötelezettség nélkül.</p>
+                    <h3 class="mb-3 text-xl font-bold text-text-primary">{{ __('Online consultation') }}</h3>
+                    <p class="mb-6 text-sm text-text-secondary">{{ __('Ask our experts in 30 minutes — via video call, tailored to your production challenges, with no obligation.') }}</p>
                     <a href="{{ route('contact') }}"
                         class="inline-flex items-center gap-2 rounded-full border border-border-light bg-surface-secondary px-6 py-3 text-sm font-medium text-text-primary transition-all hover:border-orange-200 hover:shadow-md">
-                        Időpont foglalása <svg class="arrow-slide h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                        {{ __('Book appointment') }} <svg class="arrow-slide h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                     </a>
                 </div>
                 <div class="stagger-item card-glow rounded-2xl border border-orange-100 bg-orange-50 p-8 text-center"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-                    <h3 class="mb-3 text-xl font-bold text-text-primary">Regisztráció és kipróbálás</h3>
-                    <p class="mb-6 text-sm text-text-secondary">Fedezze fel a gyártásirányítást, az OEE dashboardot és a digitális munkalapokat — azonnal.</p>
+                    <h3 class="mb-3 text-xl font-bold text-text-primary">{{ __('Registration and trial') }}</h3>
+                    <p class="mb-6 text-sm text-text-secondary">{{ __('Explore production management, the OEE dashboard and digital worksheets — instantly.') }}</p>
                     <a href="{{ route('register') }}"
                         class="group inline-flex items-center gap-2 rounded-full bg-orange-600 px-6 py-3 text-sm font-medium text-white transition-all hover:bg-orange-700 hover:shadow-lg"
                         style="box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
-                        Regisztráció <svg class="arrow-slide h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                        {{ __('Registration') }} <svg class="arrow-slide h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                     </a>
                 </div>
             </div>

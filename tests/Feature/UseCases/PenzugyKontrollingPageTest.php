@@ -91,5 +91,5 @@ test('penzugy-kontrolling use-case page displays finance dashboard visual', func
     $response->assertSee('Pénzügyi Dashboard');
     $response->assertSee('248.6M');
     $response->assertSee('EBITDA');
-    $response->assertSee('Projekt jövedelmezőség');
+    $response->assertSee('Projekt-jövedelmezőség');
 });

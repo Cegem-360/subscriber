@@ -51,120 +51,36 @@
 
     {{-- Scoped Animation Styles --}}
     <style>
-        /* Scroll reveal base states */
-        .reveal {
-            opacity: 0;
-            transform: translateY(28px);
-            transition: opacity 0.7s cubic-bezier(0, 0, 0.2, 1), transform 0.7s cubic-bezier(0, 0, 0.2, 1);
-        }
+        .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0, 0, 0.2, 1), transform 0.7s cubic-bezier(0, 0, 0.2, 1); }
         .reveal.revealed { opacity: 1; transform: translateY(0); }
-        .reveal-left {
-            opacity: 0;
-            transform: translateX(-32px);
-            transition: opacity 0.7s cubic-bezier(0, 0, 0.2, 1), transform 0.7s cubic-bezier(0, 0, 0.2, 1);
-        }
+        .reveal-left { opacity: 0; transform: translateX(-32px); transition: opacity 0.7s cubic-bezier(0, 0, 0.2, 1), transform 0.7s cubic-bezier(0, 0, 0.2, 1); }
         .reveal-left.revealed { opacity: 1; transform: translateX(0); }
-        .reveal-right {
-            opacity: 0;
-            transform: translateX(32px);
-            transition: opacity 0.7s cubic-bezier(0, 0, 0.2, 1), transform 0.7s cubic-bezier(0, 0, 0.2, 1);
-        }
+        .reveal-right { opacity: 0; transform: translateX(32px); transition: opacity 0.7s cubic-bezier(0, 0, 0.2, 1), transform 0.7s cubic-bezier(0, 0, 0.2, 1); }
         .reveal-right.revealed { opacity: 1; transform: translateX(0); }
-        .reveal-scale {
-            opacity: 0;
-            transform: scale(0.92);
-            transition: opacity 0.6s cubic-bezier(0, 0, 0.2, 1), transform 0.6s cubic-bezier(0, 0, 0.2, 1);
-        }
+        .reveal-scale { opacity: 0; transform: scale(0.92); transition: opacity 0.6s cubic-bezier(0, 0, 0.2, 1), transform 0.6s cubic-bezier(0, 0, 0.2, 1); }
         .reveal-scale.revealed { opacity: 1; transform: scale(1); }
-
-        /* Stagger children */
-        .stagger-item {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s cubic-bezier(0, 0, 0.2, 1), transform 0.5s cubic-bezier(0, 0, 0.2, 1);
-        }
+        .stagger-item { opacity: 0; transform: translateY(20px); transition: opacity 0.5s cubic-bezier(0, 0, 0.2, 1), transform 0.5s cubic-bezier(0, 0, 0.2, 1); }
         .stagger-item.revealed { opacity: 1; transform: translateY(0); }
-
-        /* Badge gradient animation */
-        @keyframes gradient-shift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        .badge-gradient {
-            background-size: 200% 200%;
-            animation: gradient-shift 3s ease infinite;
-        }
-
-        /* Pulse ring for badge dot */
-        @keyframes pulse-ring {
-            0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4); }
-            70% { box-shadow: 0 0 0 6px rgba(79, 70, 229, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
-        }
+        @keyframes gradient-shift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        .badge-gradient { background-size: 200% 200%; animation: gradient-shift 3s ease infinite; }
+        @keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(79, 70, 229, 0); } 100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); } }
         .pulse-dot { animation: pulse-ring 2s ease infinite; }
-
-        /* Card hover glow */
-        .card-glow {
-            transition: all 0.4s cubic-bezier(0, 0, 0.2, 1);
-        }
-        .card-glow:hover {
-            box-shadow: 0 8px 30px -8px rgba(79, 70, 229, 0.15), 0 2px 8px rgba(0,0,0,0.04) !important;
-        }
-
-        /* Icon hover bounce */
+        .card-glow { transition: all 0.4s cubic-bezier(0, 0, 0.2, 1); }
+        .card-glow:hover { box-shadow: 0 8px 30px -8px rgba(79, 70, 229, 0.15), 0 2px 8px rgba(0,0,0,0.04) !important; }
         .icon-hover { transition: transform 0.35s cubic-bezier(0, 0, 0.2, 1.4); }
-        .group:hover .icon-hover,
-        .card-glow:hover .icon-hover { transform: translateY(-3px) scale(1.08); }
-
-        /* Arrow slide on hover */
+        .group:hover .icon-hover, .card-glow:hover .icon-hover { transform: translateY(-3px) scale(1.08); }
         .arrow-slide { transition: transform 0.3s cubic-bezier(0, 0, 0.2, 1); }
-        .group:hover .arrow-slide,
-        a:hover .arrow-slide { transform: translateX(4px); }
-
-        /* Stat value scale */
-        .stat-hover .stat-value {
-            transition: transform 0.4s cubic-bezier(0, 0, 0.2, 1.4);
-        }
-        .stat-hover:hover .stat-value {
-            transform: scale(1.08);
-        }
-
-        /* Feature dot pulse on card hover */
-        .feature-dot {
-            transition: transform 0.3s cubic-bezier(0, 0, 0.2, 1);
-        }
-        .card-glow:hover .feature-dot {
-            transform: scale(1.5);
-        }
-
-        /* Data flow connector line */
-        .flow-line {
-            background: linear-gradient(90deg, transparent, var(--color-indigo-200), var(--color-primary-200), var(--color-blue-200), transparent);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 1.2s cubic-bezier(0, 0, 0.2, 1) 0.3s;
-        }
+        .group:hover .arrow-slide, a:hover .arrow-slide { transform: translateX(4px); }
+        .stat-hover .stat-value { transition: transform 0.4s cubic-bezier(0, 0, 0.2, 1.4); }
+        .stat-hover:hover .stat-value { transform: scale(1.08); }
+        .feature-dot { transition: transform 0.3s cubic-bezier(0, 0, 0.2, 1); }
+        .card-glow:hover .feature-dot { transform: scale(1.5); }
+        .flow-line { background: linear-gradient(90deg, transparent, var(--color-indigo-200), var(--color-primary-200), var(--color-blue-200), transparent); transform: scaleX(0); transform-origin: left; transition: transform 1.2s cubic-bezier(0, 0, 0.2, 1) 0.3s; }
         .flow-line.revealed { transform: scaleX(1); }
-
-        /* Dashboard bar animation */
-        @keyframes dashboard-grow {
-            from { transform: scaleY(0); transform-origin: bottom; }
-            to { transform: scaleY(1); transform-origin: bottom; }
-        }
-        .dashboard-bar {
-            animation: dashboard-grow 0.8s cubic-bezier(0, 0, 0.2, 1) both;
-        }
-
-        /* Pill float */
-        .pill-float {
-            transition: transform 0.35s cubic-bezier(0, 0, 0.2, 1), box-shadow 0.35s cubic-bezier(0, 0, 0.2, 1);
-        }
-        .pill-float:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px -4px rgba(79, 70, 229, 0.12);
-        }
-
-        /* Smooth scroll for anchor links */
+        @keyframes dashboard-grow { from { transform: scaleY(0); transform-origin: bottom; } to { transform: scaleY(1); transform-origin: bottom; } }
+        .dashboard-bar { animation: dashboard-grow 0.8s cubic-bezier(0, 0, 0.2, 1) both; }
+        .pill-float { transition: transform 0.35s cubic-bezier(0, 0, 0.2, 1), box-shadow 0.35s cubic-bezier(0, 0, 0.2, 1); }
+        .pill-float:hover { transform: translateY(-3px); box-shadow: 0 6px 20px -4px rgba(79, 70, 229, 0.12); }
         html { scroll-behavior: smooth; }
     </style>
 
@@ -177,31 +93,31 @@
                     <div class="badge-gradient mb-8 inline-flex items-center gap-2 rounded-full border border-border-light/80 bg-surface-primary px-4 py-1.5"
                         style="box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
                         <span class="pulse-dot h-1.5 w-1.5 rounded-full bg-linear-to-r from-indigo-500 via-blue-500 to-cyan-500"></span>
-                        <span class="text-sm font-medium text-text-primary">Pénzügyi irányítás és kontrolling</span>
+                        <span class="text-sm font-medium text-text-primary">{{ __('Financial management and controlling') }}</span>
                     </div>
 
                     <h1 class="mb-6 text-4xl leading-tight tracking-tight text-text-primary md:text-5xl lg:text-[3.5rem]"
                         style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                        Lássa át vállalata pénzügyeit<br>
-                        — valós időben, nem hónap végén
+                        {{ __('See your company finances clearly') }}<br>
+                        {{ __('— in real time, not at month-end') }}
                     </h1>
 
                     <p class="mb-10 max-w-xl text-lg text-text-secondary lg:text-xl">
-                        Kontrolling, cash flow előrejelzés, projekt-jövedelmezőség, automatikus riportok — minden egy rendszerben. A Cégem360 moduláris platformja a pénzügyi átláthatóságot biztosítja, a napi tranzakcióktól a stratégiai döntésekig.
+                        {{ __('Controlling, cash flow forecasting, project profitability, automatic reports — all in one system. The modular platform of Cégem360 ensures financial transparency, from daily transactions to strategic decisions.') }}
                     </p>
 
                     <div class="flex flex-wrap items-center gap-4">
                         <a href="{{ route('contact') }}"
                             class="group inline-flex items-center gap-2 rounded-full bg-indigo-600 px-6 py-3 text-base font-medium text-white transition-all hover:bg-indigo-700 hover:shadow-lg"
                             style="box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
-                            <span>Online konzultáció</span>
+                            <span>{{ __('Online consultation') }}</span>
                             <svg class="arrow-slide h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                             </svg>
                         </a>
                         <a href="#megoldasok"
                             class="inline-flex items-center gap-2 rounded-full border border-border-light bg-surface-primary px-6 py-3 text-base font-medium text-text-primary transition-all hover:border-indigo-200 hover:bg-surface-secondary hover:shadow-md">
-                            Megoldások áttekintése
+                            {{ __('Solutions overview') }}
                         </a>
                     </div>
                 </div>
@@ -211,14 +127,14 @@
                     <div class="rounded-2xl border border-border-light bg-surface-primary p-6"
                         style="box-shadow: 0 4px 20px -4px rgba(0,0,0,0.06);">
                         <div class="mb-4 flex items-center justify-between border-b border-border-light pb-4">
-                            <span class="text-sm font-bold text-text-primary">Pénzügyi Dashboard — 2026 Q1</span>
-                            <span class="text-xs text-text-tertiary">Valós idejű adatok</span>
+                            <span class="text-sm font-bold text-text-primary">{{ __('Financial Dashboard — 2026 Q1') }}</span>
+                            <span class="text-xs text-text-tertiary">{{ __('Real-time data') }}</span>
                         </div>
 
                         {{-- KPI Cards --}}
                         <div class="mb-5 grid grid-cols-3 gap-3">
                             <div class="rounded-xl border border-border-light bg-indigo-50 p-3 text-center">
-                                <span class="block text-[11px] font-medium text-text-tertiary">Nettó árbevétel</span>
+                                <span class="block text-[11px] font-medium text-text-tertiary">{{ __('Net revenue') }}</span>
                                 <span class="block text-lg font-bold text-indigo-700" style="font-family: 'JetBrains Mono', monospace;">248.6M</span>
                                 <span class="text-[10px] font-medium text-success-600">+12.4%</span>
                             </div>
@@ -228,7 +144,7 @@
                                 <span class="text-[10px] font-medium text-success-600">+8.7%</span>
                             </div>
                             <div class="rounded-xl border border-border-light bg-cyan-50 p-3 text-center">
-                                <span class="block text-[11px] font-medium text-text-tertiary">Cash flow</span>
+                                <span class="block text-[11px] font-medium text-text-tertiary">{{ __('Cash flow') }}</span>
                                 <span class="block text-lg font-bold text-cyan-700" style="font-family: 'JetBrains Mono', monospace;">18.9M</span>
                                 <span class="text-[10px] font-medium text-warning-600">-2.1%</span>
                             </div>
@@ -236,49 +152,49 @@
 
                         {{-- Chart Bars --}}
                         <div class="mb-4">
-                            <span class="mb-2 block text-[11px] font-semibold text-text-tertiary">Havi árbevétel vs. költség (M Ft)</span>
+                            <span class="mb-2 block text-[11px] font-semibold text-text-tertiary">{{ __('Monthly revenue vs. cost (M Ft)') }}</span>
                             <div class="flex items-end gap-2" style="height: 80px;">
                                 <div class="flex flex-1 flex-col items-center gap-1">
                                     <div class="dashboard-bar w-full rounded-t bg-indigo-400" style="height: 60px; animation-delay: 0.1s;"></div>
                                     <div class="dashboard-bar w-full rounded-t bg-indigo-200" style="height: 40px; animation-delay: 0.15s;"></div>
-                                    <span class="text-[9px] text-text-tertiary">Jan</span>
+                                    <span class="text-[9px] text-text-tertiary">{{ __('Jan') }}</span>
                                 </div>
                                 <div class="flex flex-1 flex-col items-center gap-1">
                                     <div class="dashboard-bar w-full rounded-t bg-indigo-400" style="height: 68px; animation-delay: 0.2s;"></div>
                                     <div class="dashboard-bar w-full rounded-t bg-indigo-200" style="height: 44px; animation-delay: 0.25s;"></div>
-                                    <span class="text-[9px] text-text-tertiary">Feb</span>
+                                    <span class="text-[9px] text-text-tertiary">{{ __('Feb') }}</span>
                                 </div>
                                 <div class="flex flex-1 flex-col items-center gap-1">
                                     <div class="dashboard-bar w-full rounded-t bg-indigo-400" style="height: 75px; animation-delay: 0.3s;"></div>
                                     <div class="dashboard-bar w-full rounded-t bg-indigo-200" style="height: 48px; animation-delay: 0.35s;"></div>
-                                    <span class="text-[9px] text-text-tertiary">Már</span>
+                                    <span class="text-[9px] text-text-tertiary">{{ __('Mar') }}</span>
                                 </div>
                                 <div class="flex flex-1 flex-col items-center gap-1">
                                     <div class="dashboard-bar w-full rounded-t bg-blue-400" style="height: 70px; animation-delay: 0.4s;"></div>
                                     <div class="dashboard-bar w-full rounded-t bg-blue-200" style="height: 50px; animation-delay: 0.45s;"></div>
-                                    <span class="text-[9px] text-text-tertiary">Ápr</span>
+                                    <span class="text-[9px] text-text-tertiary">{{ __('Apr') }}</span>
                                 </div>
                                 <div class="flex flex-1 flex-col items-center gap-1">
                                     <div class="dashboard-bar w-full rounded-t bg-blue-400" style="height: 80px; animation-delay: 0.5s;"></div>
                                     <div class="dashboard-bar w-full rounded-t bg-blue-200" style="height: 46px; animation-delay: 0.55s;"></div>
-                                    <span class="text-[9px] text-text-tertiary">Máj</span>
+                                    <span class="text-[9px] text-text-tertiary">{{ __('May') }}</span>
                                 </div>
                             </div>
                         </div>
 
                         {{-- Project P&L rows --}}
                         <div class="space-y-1.5">
-                            <span class="mb-1 block text-[11px] font-semibold text-text-tertiary">Projekt jövedelmezőség</span>
+                            <span class="mb-1 block text-[11px] font-semibold text-text-tertiary">{{ __('Project profitability') }}</span>
                             <div class="flex items-center justify-between rounded-lg bg-surface-secondary px-3 py-2">
-                                <span class="text-xs font-medium text-text-secondary">Gyártósor telepítés</span>
+                                <span class="text-xs font-medium text-text-secondary">{{ __('Production line installation') }}</span>
                                 <span class="text-xs font-bold text-success-600">+18.2%</span>
                             </div>
                             <div class="flex items-center justify-between rounded-lg bg-surface-secondary px-3 py-2">
-                                <span class="text-xs font-medium text-text-secondary">Szerviz szerződés</span>
+                                <span class="text-xs font-medium text-text-secondary">{{ __('Service contract') }}</span>
                                 <span class="text-xs font-bold text-success-600">+24.6%</span>
                             </div>
                             <div class="flex items-center justify-between rounded-lg bg-surface-secondary px-3 py-2">
-                                <span class="text-xs font-medium text-text-secondary">Egyedi fejlesztés</span>
+                                <span class="text-xs font-medium text-text-secondary">{{ __('Custom development') }}</span>
                                 <span class="text-xs font-bold text-warning-600">+5.1%</span>
                             </div>
                         </div>
@@ -286,13 +202,13 @@
                         {{-- Status bar --}}
                         <div class="mt-4 flex gap-5 border-t border-border-light pt-3">
                             <span class="flex items-center gap-1.5 text-[11px] text-text-tertiary">
-                                <span class="h-2 w-2 rounded-full bg-indigo-500"></span> Árbevétel
+                                <span class="h-2 w-2 rounded-full bg-indigo-500"></span> {{ __('Revenue') }}
                             </span>
                             <span class="flex items-center gap-1.5 text-[11px] text-text-tertiary">
-                                <span class="h-2 w-2 rounded-full bg-indigo-200"></span> Költség
+                                <span class="h-2 w-2 rounded-full bg-indigo-200"></span> {{ __('Cost') }}
                             </span>
                             <span class="flex items-center gap-1.5 text-[11px] text-text-tertiary">
-                                <span class="h-2 w-2 rounded-full bg-success-500"></span> Profit
+                                <span class="h-2 w-2 rounded-full bg-success-500"></span> {{ __('Profit') }}
                             </span>
                         </div>
                     </div>
@@ -305,12 +221,12 @@
     <section class="bg-surface-primary py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-6">
             <div class="reveal mb-12">
-                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-indigo-600">A kihívás</p>
+                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-indigo-600">{{ __('The challenge') }}</p>
                 <h2 class="mb-4 text-3xl text-text-primary md:text-4xl" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    Ezek nehezítik a pénzügyi átláthatóságot
+                    {{ __('These hinder financial transparency') }}
                 </h2>
                 <p class="max-w-xl text-lg text-text-secondary">
-                    Ismerős helyzetek pénzügyi vezetők és kontrollerek számára.
+                    {{ __('Familiar situations for financial managers and controllers.') }}
                 </p>
             </div>
 
@@ -322,8 +238,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 text-lg font-bold text-text-primary">Hónap végi meglepetések</h3>
-                    <p class="text-sm leading-relaxed text-text-secondary">A pénzügyi eredményeket csak a hónap végén látja — addigra már nem lehet korrigálni a problémákat.</p>
+                    <h3 class="mb-2 text-lg font-bold text-text-primary">{{ __('Month-end surprises') }}</h3>
+                    <p class="text-sm leading-relaxed text-text-secondary">{{ __('You only see financial results at month-end — by then it is too late to correct problems.') }}</p>
                 </div>
 
                 <div class="stagger-item card-glow rounded-2xl border border-border-light bg-surface-primary p-7"
@@ -333,8 +249,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 text-lg font-bold text-text-primary">Szétszórt pénzügyi adatok</h3>
-                    <p class="text-sm leading-relaxed text-text-secondary">Számlázás, kontrolling, projektkövetés és Excel-táblák — az adatok nem egy helyen vannak, az összkép hiányzik.</p>
+                    <h3 class="mb-2 text-lg font-bold text-text-primary">{{ __('Scattered financial data') }}</h3>
+                    <p class="text-sm leading-relaxed text-text-secondary">{{ __('Invoicing, controlling, project tracking and Excel spreadsheets — data is not in one place, the big picture is missing.') }}</p>
                 </div>
 
                 <div class="stagger-item card-glow rounded-2xl border border-border-light bg-surface-primary p-7"
@@ -344,8 +260,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 text-lg font-bold text-text-primary">Napokig tartó riportkészítés</h3>
-                    <p class="text-sm leading-relaxed text-text-secondary">A vezetői riportok összeállítása manuális munka — napokba telik, mire a döntéshozók megkapják az aktuális képet.</p>
+                    <h3 class="mb-2 text-lg font-bold text-text-primary">{{ __('Report preparation takes days') }}</h3>
+                    <p class="text-sm leading-relaxed text-text-secondary">{{ __('Compiling executive reports is manual work — it takes days before decision-makers get the current picture.') }}</p>
                 </div>
 
                 <div class="stagger-item card-glow rounded-2xl border border-border-light bg-surface-primary p-7"
@@ -355,8 +271,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 text-lg font-bold text-text-primary">Nincs előrejelzés</h3>
-                    <p class="text-sm leading-relaxed text-text-secondary">A döntések múltbeli adatokon alapulnak, nincs prediktív elemzés — a cash flow szűkülés vagy a költségtúllépés későn derül ki.</p>
+                    <h3 class="mb-2 text-lg font-bold text-text-primary">{{ __('No forecasting') }}</h3>
+                    <p class="text-sm leading-relaxed text-text-secondary">{{ __('Decisions are based on historical data, there is no predictive analysis — cash flow shortages or cost overruns are discovered too late.') }}</p>
                 </div>
             </div>
         </div>
@@ -366,12 +282,12 @@
     <section class="bg-surface-secondary py-16 lg:py-24" id="celcsoportok">
         <div class="mx-auto max-w-7xl px-6">
             <div class="reveal mb-12">
-                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-indigo-600">Ki használja?</p>
+                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-indigo-600">{{ __('Who uses it?') }}</p>
                 <h2 class="mb-4 text-3xl text-text-primary md:text-4xl" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    Minden pénzügyi szereplő egy rendszerben
+                    {{ __('Every financial stakeholder in one system') }}
                 </h2>
                 <p class="max-w-xl text-lg text-text-secondary">
-                    A Cégem360 a pénzügyi döntéshozók és kontrollerek közös munkafelülete — a napi tranzakcióktól a stratégiai tervezésig.
+                    {{ __('Cégem360 is the shared workspace for financial decision-makers and controllers — from daily transactions to strategic planning.') }}
                 </p>
             </div>
 
@@ -384,9 +300,9 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                         </svg>
                     </div>
-                    <p class="mb-2 text-xs font-semibold uppercase tracking-wider text-indigo-600">Pénzügyi vezető</p>
-                    <h3 class="mb-3 text-lg font-bold text-text-primary">CFO / Pénzügyi igazgató</h3>
-                    <p class="text-sm leading-relaxed text-text-secondary">Teljes pénzügyi áttekintés, cash flow előrejelzés, jövedelmezőségi elemzés és stratégiai döntéstámogatás — egyetlen dashboard-on.</p>
+                    <p class="mb-2 text-xs font-semibold uppercase tracking-wider text-indigo-600">{{ __('Financial director') }}</p>
+                    <h3 class="mb-3 text-lg font-bold text-text-primary">{{ __('CFO / Finance director') }}</h3>
+                    <p class="text-sm leading-relaxed text-text-secondary">{{ __('Complete financial overview, cash flow forecasting, profitability analysis and strategic decision support — on a single dashboard.') }}</p>
                 </div>
 
                 <div class="stagger-item group card-glow relative overflow-hidden rounded-2xl border border-border-light bg-surface-primary p-8"
@@ -397,9 +313,9 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                         </svg>
                     </div>
-                    <p class="mb-2 text-xs font-semibold uppercase tracking-wider text-blue-600">Kontrolling</p>
-                    <h3 class="mb-3 text-lg font-bold text-text-primary">Kontrollerek</h3>
-                    <p class="text-sm leading-relaxed text-text-secondary">Terv-tény elemzés, költséghelyi kontrolling, projekt-jövedelmezőség és automatikus riportgenerálás — valós időben.</p>
+                    <p class="mb-2 text-xs font-semibold uppercase tracking-wider text-blue-600">{{ __('Controlling') }}</p>
+                    <h3 class="mb-3 text-lg font-bold text-text-primary">{{ __('Controllers') }}</h3>
+                    <p class="text-sm leading-relaxed text-text-secondary">{{ __('Budget vs. actual analysis, cost center controlling, project profitability and automatic report generation — in real time.') }}</p>
                 </div>
 
                 <div class="stagger-item group card-glow relative overflow-hidden rounded-2xl border border-border-light bg-surface-primary p-8"
@@ -410,9 +326,9 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                         </svg>
                     </div>
-                    <p class="mb-2 text-xs font-semibold uppercase tracking-wider text-warning-600">Ügyvezető</p>
-                    <h3 class="mb-3 text-lg font-bold text-text-primary">Ügyvezetők/tulajdonosok</h3>
-                    <p class="text-sm leading-relaxed text-text-secondary">Árbevétel-trendek, profitabilitás, stratégiai KPI-k és automatikus heti/havi összefoglalók — könnyen emészthető formában.</p>
+                    <p class="mb-2 text-xs font-semibold uppercase tracking-wider text-warning-600">{{ __('CEO') }}</p>
+                    <h3 class="mb-3 text-lg font-bold text-text-primary">{{ __('CEOs/owners') }}</h3>
+                    <p class="text-sm leading-relaxed text-text-secondary">{{ __('Revenue trends, profitability, strategic KPIs and automatic weekly/monthly summaries — in an easily digestible format.') }}</p>
                 </div>
 
                 <div class="stagger-item group card-glow relative overflow-hidden rounded-2xl border border-border-light bg-surface-primary p-8"
@@ -424,9 +340,9 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
                     </div>
-                    <p class="mb-2 text-xs font-semibold uppercase tracking-wider text-violet-600">Operatív vezető</p>
-                    <h3 class="mb-3 text-lg font-bold text-text-primary">Projekt- és üzemvezetők</h3>
-                    <p class="text-sm leading-relaxed text-text-secondary">Projekt-szintű költségkövetés, erőforrás-felhasználás és jövedelmezőségi riportok — hogy minden projekt nyereséges maradjon.</p>
+                    <p class="mb-2 text-xs font-semibold uppercase tracking-wider text-violet-600">{{ __('Operations manager') }}</p>
+                    <h3 class="mb-3 text-lg font-bold text-text-primary">{{ __('Project and plant managers') }}</h3>
+                    <p class="text-sm leading-relaxed text-text-secondary">{{ __('Project-level cost tracking, resource utilization and profitability reports — so every project stays profitable.') }}</p>
                 </div>
             </div>
         </div>
@@ -436,12 +352,12 @@
     <section class="bg-surface-primary py-16 lg:py-24" id="megoldasok">
         <div class="mx-auto max-w-7xl px-6">
             <div class="reveal mb-12">
-                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-indigo-600">Pénzügyi eszköztár</p>
+                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-indigo-600">{{ __('Financial toolkit') }}</p>
                 <h2 class="mb-4 text-3xl text-text-primary md:text-4xl" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    4 kulcsmodul a pénzügyi átláthatósághoz
+                    {{ __('4 key modules for financial transparency') }}
                 </h2>
                 <p class="max-w-xl text-lg text-text-secondary">
-                    Ezek a modulok közvetlenül a pénzügyi döntéshozók mindennapi munkáját támogatják.
+                    {{ __('These modules directly support the daily work of financial decision-makers.') }}
                 </p>
             </div>
 
@@ -454,34 +370,34 @@
                             <x-module-icon module="kontrolling" size="sm" rounded="lg" />
                         </div>
                         <div>
-                            <span class="rounded-md bg-indigo-50 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-indigo-600">Kontrolling</span>
+                            <span class="rounded-md bg-indigo-50 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-indigo-600">{{ __('Controlling') }}</span>
                         </div>
-                        <span class="text-xs text-text-tertiary">Pénzügyi irányítás</span>
+                        <span class="text-xs text-text-tertiary">{{ __('Financial management') }}</span>
                     </div>
-                    <h3 class="mb-3 text-xl font-bold text-text-primary">Valós idejű pénzügyi áttekintés</h3>
-                    <p class="mb-6 text-sm leading-relaxed text-text-secondary">Terv-tény elemzés, költséghelyi kontrolling, projekt-jövedelmezőség, cash flow monitoring és automatikus riportkészítés. Minden pénzügyi adat egy helyen.</p>
+                    <h3 class="mb-3 text-xl font-bold text-text-primary">{{ __('Real-time financial overview') }}</h3>
+                    <p class="mb-6 text-sm leading-relaxed text-text-secondary">{{ __('Budget vs. actual analysis, cost center controlling, project profitability, cash flow monitoring and automatic report generation. All financial data in one place.') }}</p>
                     <div class="mb-6 grid grid-cols-2 gap-2">
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-indigo-500"></span>Terv-tény elemzés
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-indigo-500"></span>{{ __('Budget vs. actual analysis') }}
                         </span>
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-indigo-500"></span>Cash flow monitoring
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-indigo-500"></span>{{ __('Cash flow monitoring') }}
                         </span>
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-indigo-500"></span>Költséghelyi kontroll
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-indigo-500"></span>{{ __('Cost center control') }}
                         </span>
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-indigo-500"></span>Automatikus riportok
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-indigo-500"></span>{{ __('Automatic reports') }}
                         </span>
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-indigo-500"></span>Projekt-jövedelmezőség
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-indigo-500"></span>{{ __('Project profitability') }}
                         </span>
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-indigo-500"></span>KPI dashboard
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-indigo-500"></span>{{ __('KPI dashboard') }}
                         </span>
                     </div>
                     <a href="{{ route('products.kontrolling') }}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-600 transition-colors hover:text-indigo-700">
-                        Részletek megtekintése
+                        {{ __('View details') }}
                         <svg class="arrow-slide h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
@@ -498,32 +414,32 @@
                         <div>
                             <span class="rounded-md bg-blue-50 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-blue-600">DataMind</span>
                         </div>
-                        <span class="text-xs text-text-tertiary">MI alapú pénzügyi intelligencia</span>
+                        <span class="text-xs text-text-tertiary">{{ __('AI-powered financial intelligence') }}</span>
                     </div>
-                    <h3 class="mb-3 text-xl font-bold text-text-primary">Prediktív pénzügyi elemzés</h3>
-                    <p class="mb-6 text-sm leading-relaxed text-text-secondary">Cash flow előrejelzés, költség-anomália felismerés, jövedelmezőségi predikció és automatikus MI összefoglalók. Drag-and-drop elemzés magyar nyelven.</p>
+                    <h3 class="mb-3 text-xl font-bold text-text-primary">{{ __('Predictive financial analytics') }}</h3>
+                    <p class="mb-6 text-sm leading-relaxed text-text-secondary">{{ __('Cash flow forecasting, cost anomaly detection, profitability prediction and automatic AI summaries. Drag-and-drop analysis in Hungarian.') }}</p>
                     <div class="mb-6 grid grid-cols-2 gap-2">
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-blue-500"></span>Cash flow predikció
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-blue-500"></span>{{ __('Cash flow prediction') }}
                         </span>
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-blue-500"></span>Költség-anomália
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-blue-500"></span>{{ __('Cost anomaly') }}
                         </span>
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-blue-500"></span>Trend-elemzés
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-blue-500"></span>{{ __('Trend analysis') }}
                         </span>
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-blue-500"></span>MI összefoglalók
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-blue-500"></span>{{ __('AI summaries') }}
                         </span>
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-blue-500"></span>Profit predikció
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-blue-500"></span>{{ __('Profit prediction') }}
                         </span>
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-blue-500"></span>Automatikus riportok
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-blue-500"></span>{{ __('Automatic reports') }}
                         </span>
                     </div>
                     <a href="{{ route('products.datamind') }}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 transition-colors hover:text-blue-700">
-                        Részletek megtekintése
+                        {{ __('View details') }}
                         <svg class="arrow-slide h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
@@ -538,34 +454,34 @@
                             <x-module-icon module="ertekesites" size="sm" rounded="lg" />
                         </div>
                         <div>
-                            <span class="rounded-md bg-success-50 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-success-600">Értékesítés</span>
+                            <span class="rounded-md bg-success-50 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-success-600">{{ __('Sales') }}</span>
                         </div>
-                        <span class="text-xs text-text-tertiary">Árbevétel-forrás</span>
+                        <span class="text-xs text-text-tertiary">{{ __('Revenue source') }}</span>
                     </div>
-                    <h3 class="mb-3 text-xl font-bold text-text-primary">Árbevétel-adatok valós időben</h3>
-                    <p class="mb-6 text-sm leading-relaxed text-text-secondary">Az értékesítési modul adatai azonnal megjelennek a kontrollingban — árbevétel, pipeline érték, ajánlat→rendelés konverzió és ügyfél-szintű jövedelmezőség.</p>
+                    <h3 class="mb-3 text-xl font-bold text-text-primary">{{ __('Revenue data in real time') }}</h3>
+                    <p class="mb-6 text-sm leading-relaxed text-text-secondary">{{ __('Sales module data instantly appears in controlling — revenue, pipeline value, proposal-to-order conversion and customer-level profitability.') }}</p>
                     <div class="mb-6 grid grid-cols-2 gap-2">
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-success-500"></span>Árbevétel-tracking
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-success-500"></span>{{ __('Revenue tracking') }}
                         </span>
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-success-500"></span>Pipeline érték
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-success-500"></span>{{ __('Pipeline value') }}
                         </span>
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-success-500"></span>Konverzió-mérés
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-success-500"></span>{{ __('Conversion measurement') }}
                         </span>
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-success-500"></span>Ügyfél-jövedelmezőség
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-success-500"></span>{{ __('Customer profitability') }}
                         </span>
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-success-500"></span>Előrejelzés
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-success-500"></span>{{ __('Forecasting') }}
                         </span>
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-success-500"></span>Trend-elemzés
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-success-500"></span>{{ __('Trend analysis') }}
                         </span>
                     </div>
                     <a href="{{ route('products.ertekesites') }}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-success-600 transition-colors hover:text-success-700">
-                        Részletek megtekintése
+                        {{ __('View details') }}
                         <svg class="arrow-slide h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
@@ -580,34 +496,34 @@
                             <x-module-icon module="automatizalas" size="sm" rounded="lg" />
                         </div>
                         <div>
-                            <span class="rounded-md bg-violet-50 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-violet-600">Automatizálás</span>
+                            <span class="rounded-md bg-violet-50 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-violet-600">{{ __('Automation') }}</span>
                         </div>
-                        <span class="text-xs text-text-tertiary">Pénzügyi workflow-k</span>
+                        <span class="text-xs text-text-tertiary">{{ __('Financial workflows') }}</span>
                     </div>
-                    <h3 class="mb-3 text-xl font-bold text-text-primary">Automatizálja a pénzügyi folyamatokat</h3>
-                    <p class="mb-6 text-sm leading-relaxed text-text-secondary">Automatikus riportküldés, költség-figyelmeztető triggerek, jóváhagyási workflow-k és határidő-emlékeztetők — szabályalapúan, kód nélkül.</p>
+                    <h3 class="mb-3 text-xl font-bold text-text-primary">{{ __('Automate financial processes') }}</h3>
+                    <p class="mb-6 text-sm leading-relaxed text-text-secondary">{{ __('Automatic report delivery, cost alert triggers, approval workflows and deadline reminders — rule-based, no-code.') }}</p>
                     <div class="mb-6 grid grid-cols-2 gap-2">
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-violet-500"></span>Automatikus riportküldés
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-violet-500"></span>{{ __('Automatic report delivery') }}
                         </span>
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-violet-500"></span>Költség-figyelmeztetés
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-violet-500"></span>{{ __('Cost alert') }}
                         </span>
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-violet-500"></span>Jóváhagyási workflow
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-violet-500"></span>{{ __('Approval workflow') }}
                         </span>
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-violet-500"></span>Határidő-emlékeztetők
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-violet-500"></span>{{ __('Deadline reminders') }}
                         </span>
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-violet-500"></span>Adatvalidálás
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-violet-500"></span>{{ __('Data validation') }}
                         </span>
                         <span class="flex items-center gap-2 text-sm text-text-secondary">
-                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-violet-500"></span>Értesítés-szabályok
+                            <span class="feature-dot h-1.5 w-1.5 rounded-full bg-violet-500"></span>{{ __('Notification rules') }}
                         </span>
                     </div>
                     <a href="{{ route('products.automatizalas') }}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-violet-600 transition-colors hover:text-violet-700">
-                        Részletek megtekintése
+                        {{ __('View details') }}
                         <svg class="arrow-slide h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
@@ -621,12 +537,12 @@
     <section class="bg-surface-secondary py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-6">
             <div class="reveal mb-14">
-                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-indigo-600">Adatáramlás</p>
+                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-indigo-600">{{ __('Data flow') }}</p>
                 <h2 class="mb-4 text-3xl text-text-primary md:text-4xl" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    Zárt rendszer — az üzlettől a pénzügyi riportig
+                    {{ __('Closed system — from business to financial report') }}
                 </h2>
                 <p class="max-w-xl text-lg text-text-secondary">
-                    Minden üzleti területről automatikusan áramlanak az adatok a kontrollingba — a pénzügyi kép mindig naprakész.
+                    {{ __('Data flows automatically from every business area into controlling — the financial picture is always up to date.') }}
                 </p>
             </div>
 
@@ -637,11 +553,11 @@
                 <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-5" data-stagger>
                     @php
                         $dataFlow = [
-                            ['num' => '01', 'title' => 'Értékesítés', 'desc' => 'Ajánlatok, megrendelések és árbevétel-adatok automatikusan áramlanak', 'modules' => ['CRM', 'Értékesítés'], 'color' => 'success'],
-                            ['num' => '02', 'title' => 'Gyártás & szerviz', 'desc' => 'Gyártási költségek, munkalapok és szerviz-adatok valós időben', 'modules' => ['Gyártás', 'Munkalap'], 'color' => 'warning'],
-                            ['num' => '03', 'title' => 'Beszerzés', 'desc' => 'Beszerzési költségek, készletértékek és szállítói számlák', 'modules' => ['Beszerzés'], 'color' => 'violet'],
-                            ['num' => '04', 'title' => 'Kontrolling', 'desc' => 'Minden adat egy helyen — terv-tény elemzés és jövedelmezőség', 'modules' => ['Kontrolling'], 'color' => 'indigo'],
-                            ['num' => '05', 'title' => 'MI elemzés', 'desc' => 'Prediktív elemzés, anomália-felismerés és automatikus összefoglalók', 'modules' => ['DataMind'], 'color' => 'blue'],
+                            ['num' => '01', 'title' => __('Sales'), 'desc' => __('Proposals, orders and revenue data flow automatically'), 'modules' => ['CRM', __('Sales')], 'color' => 'success'],
+                            ['num' => '02', 'title' => __('Manufacturing & service'), 'desc' => __('Manufacturing costs, worksheets and service data in real time'), 'modules' => [__('Manufacturing'), __('Worksheet')], 'color' => 'warning'],
+                            ['num' => '03', 'title' => __('Procurement'), 'desc' => __('Procurement costs, inventory values and supplier invoices'), 'modules' => [__('Procurement')], 'color' => 'violet'],
+                            ['num' => '04', 'title' => __('Controlling'), 'desc' => __('All data in one place — budget vs. actual analysis and profitability'), 'modules' => [__('Controlling')], 'color' => 'indigo'],
+                            ['num' => '05', 'title' => __('AI analysis'), 'desc' => __('Predictive analysis, anomaly detection and automatic summaries'), 'modules' => ['DataMind'], 'color' => 'blue'],
                         ];
                     @endphp
 
@@ -669,13 +585,13 @@
         <div class="mx-auto max-w-7xl px-6">
             <div class="mb-12 grid grid-cols-1 items-start gap-8 lg:grid-cols-2">
                 <div class="reveal-left">
-                    <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-indigo-600">Teljes ökoszisztéma</p>
+                    <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-indigo-600">{{ __('Full ecosystem') }}</p>
                     <h2 class="text-3xl text-text-primary md:text-4xl" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                        Mind a 11 modul a pénzügyi átláthatóság szolgálatában
+                        {{ __('All 11 modules serving financial transparency') }}
                     </h2>
                 </div>
                 <p class="reveal-right text-lg leading-relaxed text-text-secondary lg:mt-6">
-                    A pénzügyi kép nem csak a kontrolling adataiból áll. Az értékesítés hozza az árbevételt, a gyártás a költségeket, a beszerzés a készletértéket. A Cégem360-ban minden modul adatai automatikusan beépülnek a pénzügyi riportokba.
+                    {{ __('The financial picture is not just from controlling data. Sales brings revenue, manufacturing brings costs, procurement brings inventory value. In Cégem360, all module data automatically feeds into financial reports.') }}
                 </p>
             </div>
 
@@ -686,7 +602,7 @@
                         <x-module-icon module="crm" size="xs" />
                     </div>
                     <h4 class="mb-1 text-sm font-bold text-text-primary">CRM</h4>
-                    <p class="text-xs leading-relaxed text-text-tertiary">Ügyfél-szintű árbevétel és jövedelmezőségi adatok a pénzügyi elemzésekhez.</p>
+                    <p class="text-xs leading-relaxed text-text-tertiary">{{ __('Customer-level revenue and profitability data for financial analysis.') }}</p>
                 </div>
 
                 <div class="stagger-item card-glow rounded-xl border border-border-light bg-surface-primary p-6 text-center"
@@ -694,8 +610,8 @@
                     <div class="icon-hover mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50">
                         <x-module-icon module="ertekesites" size="xs" />
                     </div>
-                    <h4 class="mb-1 text-sm font-bold text-text-primary">Értékesítés</h4>
-                    <p class="text-xs leading-relaxed text-text-tertiary">Ajánlatok, megrendelések és pipeline érték — az árbevétel-oldal adatforrása.</p>
+                    <h4 class="mb-1 text-sm font-bold text-text-primary">{{ __('Sales') }}</h4>
+                    <p class="text-xs leading-relaxed text-text-tertiary">{{ __('Proposals, orders and pipeline value — the data source for the revenue side.') }}</p>
                 </div>
 
                 <div class="stagger-item card-glow rounded-xl border border-border-light bg-surface-primary p-6 text-center"
@@ -703,8 +619,8 @@
                     <div class="icon-hover mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-violet-50">
                         <x-module-icon module="beszerzes" size="xs" />
                     </div>
-                    <h4 class="mb-1 text-sm font-bold text-text-primary">Beszerzés-logisztika</h4>
-                    <p class="text-xs leading-relaxed text-text-tertiary">Beszerzési költségek, készletértékek és szállítói kötelezettségek nyilvántartása.</p>
+                    <h4 class="mb-1 text-sm font-bold text-text-primary">{{ __('Procurement & logistics') }}</h4>
+                    <p class="text-xs leading-relaxed text-text-tertiary">{{ __('Procurement costs, inventory values and supplier liabilities tracking.') }}</p>
                 </div>
 
                 <div class="stagger-item card-glow rounded-xl border border-border-light bg-surface-primary p-6 text-center"
@@ -712,8 +628,8 @@
                     <div class="icon-hover mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-warning-50">
                         <x-module-icon module="gyartas" size="xs" />
                     </div>
-                    <h4 class="mb-1 text-sm font-bold text-text-primary">Gyártásirányítás</h4>
-                    <p class="text-xs leading-relaxed text-text-tertiary">Gyártási önköltség, kapacitás-kihasználtság és termelési hatékonyság adatok.</p>
+                    <h4 class="mb-1 text-sm font-bold text-text-primary">{{ __('Manufacturing control') }}</h4>
+                    <p class="text-xs leading-relaxed text-text-tertiary">{{ __('Manufacturing cost price, capacity utilization and production efficiency data.') }}</p>
                 </div>
 
                 <div class="stagger-item card-glow rounded-xl border border-border-light bg-surface-primary p-6 text-center"
@@ -722,7 +638,7 @@
                         <x-module-icon module="marketinghub" size="xs" />
                     </div>
                     <h4 class="mb-1 text-sm font-bold text-text-primary">MarketingHub</h4>
-                    <p class="text-xs leading-relaxed text-text-tertiary">Marketing költségek és kampány ROI — melyik csatorna hoz valódi megtérülést.</p>
+                    <p class="text-xs leading-relaxed text-text-tertiary">{{ __('Marketing costs and campaign ROI — which channel brings real returns.') }}</p>
                 </div>
 
                 <div class="stagger-item card-glow rounded-xl border border-border-light bg-surface-primary p-6 text-center"
@@ -730,8 +646,8 @@
                     <div class="icon-hover mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-cyan-50">
                         <x-module-icon module="szerviz" size="xs" />
                     </div>
-                    <h4 class="mb-1 text-sm font-bold text-text-primary">Digitális munkalap</h4>
-                    <p class="text-xs leading-relaxed text-text-tertiary">Munkaidő- és anyagköltségek projekt szinten — a szerviz-jövedelmezőség alapja.</p>
+                    <h4 class="mb-1 text-sm font-bold text-text-primary">{{ __('Digital worksheet') }}</h4>
+                    <p class="text-xs leading-relaxed text-text-tertiary">{{ __('Labor and material costs at project level — the basis for service profitability.') }}</p>
                 </div>
 
                 <div class="stagger-item card-glow rounded-xl border border-border-light bg-surface-primary p-6 text-center"
@@ -739,8 +655,8 @@
                     <div class="icon-hover mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-danger-50">
                         <x-module-icon module="seo" size="xs" />
                     </div>
-                    <h4 class="mb-1 text-sm font-bold text-text-primary">SEO Eszköz</h4>
-                    <p class="text-xs leading-relaxed text-text-tertiary">Organikus forgalom és lead-szerzési költségek — a marketing megtérülés másik oldala.</p>
+                    <h4 class="mb-1 text-sm font-bold text-text-primary">{{ __('SEO Tool') }}</h4>
+                    <p class="text-xs leading-relaxed text-text-tertiary">{{ __('Organic traffic and lead acquisition costs — the other side of marketing ROI.') }}</p>
                 </div>
             </div>
         </div>
@@ -750,9 +666,9 @@
     <section class="bg-surface-secondary py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-6">
             <div class="reveal mb-12 text-center">
-                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-indigo-600">Eredmények</p>
+                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-indigo-600">{{ __('Results') }}</p>
                 <h2 class="text-3xl text-text-primary md:text-4xl" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    Mérhető javulás a pénzügyi irányításban
+                    {{ __('Measurable improvement in financial management') }}
                 </h2>
             </div>
 
@@ -760,25 +676,25 @@
                 <div class="stagger-item stat-hover rounded-2xl border border-border-light bg-surface-primary p-8 text-center"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <p class="stat-value mb-2 text-4xl font-bold text-indigo-600" style="font-family: 'JetBrains Mono', monospace;" data-count="80" data-prefix="-" data-suffix="%">0%</p>
-                    <p class="text-sm font-medium text-text-secondary">Riportkészítési idő</p>
+                    <p class="text-sm font-medium text-text-secondary">{{ __('Report preparation time') }}</p>
                 </div>
 
                 <div class="stagger-item stat-hover rounded-2xl border border-border-light bg-surface-primary p-8 text-center"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <p class="stat-value mb-2 text-4xl font-bold text-blue-600" style="font-family: 'JetBrains Mono', monospace;" data-count="30" data-prefix="+" data-suffix="%">0%</p>
-                    <p class="text-sm font-medium text-text-secondary">Költségcsökkentés</p>
+                    <p class="text-sm font-medium text-text-secondary">{{ __('Cost reduction') }}</p>
                 </div>
 
                 <div class="stagger-item stat-hover rounded-2xl border border-border-light bg-surface-primary p-8 text-center"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <p class="stat-value mb-2 text-4xl font-bold text-cyan-600" style="font-family: 'JetBrains Mono', monospace;" data-count="3" data-suffix="×">0×</p>
-                    <p class="text-sm font-medium text-text-secondary">Gyorsabb döntéshozatal</p>
+                    <p class="text-sm font-medium text-text-secondary">{{ __('Faster decision-making') }}</p>
                 </div>
 
                 <div class="stagger-item stat-hover rounded-2xl border border-border-light bg-surface-primary p-8 text-center"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                     <p class="stat-value mb-2 text-4xl font-bold text-violet-600" style="font-family: 'JetBrains Mono', monospace;" data-count="95" data-suffix="%">0%</p>
-                    <p class="text-sm font-medium text-text-secondary">Predikció pontosság</p>
+                    <p class="text-sm font-medium text-text-secondary">{{ __('Prediction accuracy') }}</p>
                 </div>
             </div>
         </div>
@@ -788,21 +704,21 @@
     <section class="bg-surface-primary py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-6">
             <div class="reveal mb-12">
-                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-indigo-600">Felhasználási esetek</p>
+                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-indigo-600">{{ __('Use cases') }}</p>
                 <h2 class="mb-4 text-3xl text-text-primary md:text-4xl" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    Így használják pénzügyi csapatok
+                    {{ __('How financial teams use it') }}
                 </h2>
             </div>
 
             <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3" data-stagger>
                 @php
                     $useCases = [
-                        ['num' => '01', 'title' => 'Projekt-szintű jövedelmezőség', 'desc' => 'Minden projekt költsége és árbevétele valós időben látható — a kontroller azonnal látja, melyik projekt nyereséges és melyik nem.', 'tags' => ['Kontrolling', 'Gyártás', 'Értékesítés']],
-                        ['num' => '02', 'title' => 'Cash flow előrejelzés', 'desc' => 'A DataMind MI modellje a múltbeli adatok és a pipeline alapján előrejelzi a következő 3-6 hónap cash flow-ját — automatikusan, naponta frissítve.', 'tags' => ['DataMind', 'Kontrolling']],
-                        ['num' => '03', 'title' => 'Automatikus vezetői riport', 'desc' => 'Heti és havi vezetői riportok automatikusan generálódnak és kiküldésre kerülnek — KPI-k, trendek és anomáliák kiemelésével.', 'tags' => ['Automatizálás', 'Kontrolling']],
-                        ['num' => '04', 'title' => 'Marketing ROI mérés', 'desc' => 'A marketing költségek és az értékesítési eredmények összekapcsolása — végre mérhető, melyik kampány hoz valódi üzleti megtérülést.', 'tags' => ['MarketingHub', 'Kontrolling', 'CRM']],
-                        ['num' => '05', 'title' => 'Gyártási önköltségszámítás', 'desc' => 'A gyártási költségek automatikusan hozzárendelődnek a termékekhez — anyag, munkaóra, gépidő és rezsi alapján, valós adatokkal.', 'tags' => ['Gyártás', 'Kontrolling']],
-                        ['num' => '06', 'title' => 'Költség-anomália felismerése', 'desc' => 'A DataMind MI modellje figyeli a költségadatokat és automatikusan jelez, ha szokatlan tételek vagy trendek jelennek meg.', 'tags' => ['DataMind', 'Automatizálás']],
+                        ['num' => '01', 'title' => __('Project-level profitability'), 'desc' => __('Every project cost and revenue is visible in real time — the controller immediately sees which project is profitable and which is not.'), 'tags' => [__('Controlling'), __('Manufacturing'), __('Sales')]],
+                        ['num' => '02', 'title' => __('Cash flow forecasting'), 'desc' => __('The DataMind AI model forecasts the next 3-6 months cash flow based on historical data and pipeline — automatically, updated daily.'), 'tags' => ['DataMind', __('Controlling')]],
+                        ['num' => '03', 'title' => __('Automatic executive report'), 'desc' => __('Weekly and monthly executive reports are automatically generated and sent — highlighting KPIs, trends and anomalies.'), 'tags' => [__('Automation'), __('Controlling')]],
+                        ['num' => '04', 'title' => __('Marketing ROI measurement'), 'desc' => __('Linking marketing costs with sales results — finally measurable which campaign brings real business returns.'), 'tags' => ['MarketingHub', __('Controlling'), 'CRM']],
+                        ['num' => '05', 'title' => __('Manufacturing cost calculation'), 'desc' => __('Manufacturing costs are automatically assigned to products — based on material, labor hours, machine time and overhead, with real data.'), 'tags' => [__('Manufacturing'), __('Controlling')]],
+                        ['num' => '06', 'title' => __('Cost anomaly detection'), 'desc' => __('The DataMind AI model monitors cost data and automatically alerts when unusual items or trends appear.'), 'tags' => ['DataMind', __('Automation')]],
                     ];
                 @endphp
 
@@ -827,12 +743,12 @@
     <section class="bg-surface-secondary py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-6">
             <div class="reveal mb-12">
-                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-indigo-600">Összehasonlítás</p>
+                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-indigo-600">{{ __('Comparison') }}</p>
                 <h2 class="mb-4 text-3xl text-text-primary md:text-4xl" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    Excel és manuális riportok helyett — integrált rendszer
+                    {{ __('Instead of Excel and manual reports — an integrated system') }}
                 </h2>
                 <p class="max-w-xl text-lg text-text-secondary">
-                    Így változik meg a pénzügyi irányítás a Cégem360 bevezetésével.
+                    {{ __('This is how financial management changes with the introduction of Cégem360.') }}
                 </p>
             </div>
 
@@ -841,21 +757,21 @@
                 <table class="w-full text-left text-sm">
                     <thead>
                         <tr class="bg-surface-primary">
-                            <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-text-primary">Képesség</th>
-                            <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-text-tertiary">Excel + E-mail</th>
+                            <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-text-primary">{{ __('Capability') }}</th>
+                            <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-text-tertiary">{{ __('Excel + Email') }}</th>
                             <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-indigo-600">Cégem360</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-border-light">
                         @php
                             $comparisons = [
-                                ['cap' => 'Pénzügyi áttekintés', 'old' => 'Hónap végén, manuálisan', 'new' => 'Valós idejű dashboard'],
-                                ['cap' => 'Projekt-jövedelmezőség', 'old' => 'Utólagos kalkuláció', 'new' => 'Folyamatos monitoring'],
-                                ['cap' => 'Riportkészítés', 'old' => 'Napokig tartó összegyűjtés', 'new' => 'Automatikus generálás'],
-                                ['cap' => 'Cash flow előrejelzés', 'old' => 'Megérzés alapján', 'new' => 'MI-alapú predikció'],
-                                ['cap' => 'Költség-anomália', 'old' => 'Későn derül ki', 'new' => 'Automatikus felismerés'],
-                                ['cap' => 'Gyártási önköltség', 'old' => 'Becsült értékek', 'new' => 'Valós adatok alapján'],
-                                ['cap' => 'Terv vs. tény', 'old' => 'Negyedévente egyszer', 'new' => 'Napi szintű frissítés'],
+                                ['cap' => __('Financial overview'), 'old' => __('At month-end, manually'), 'new' => __('Real-time dashboard')],
+                                ['cap' => __('Project profitability'), 'old' => __('Retrospective calculation'), 'new' => __('Continuous monitoring')],
+                                ['cap' => __('Report preparation'), 'old' => __('Days of collection'), 'new' => __('Automatic generation')],
+                                ['cap' => __('Cash flow forecasting'), 'old' => __('Based on gut feeling'), 'new' => __('AI-powered prediction')],
+                                ['cap' => __('Cost anomaly'), 'old' => __('Discovered too late'), 'new' => __('Automatic detection')],
+                                ['cap' => __('Manufacturing cost price'), 'old' => __('Estimated values'), 'new' => __('Based on real data')],
+                                ['cap' => __('Budget vs. actual'), 'old' => __('Once per quarter'), 'new' => __('Daily level updates')],
                             ];
                         @endphp
 
@@ -883,27 +799,27 @@
             <div class="reveal-scale flex flex-col items-center gap-8 rounded-2xl border border-border-light bg-surface-secondary p-10 transition-shadow duration-500 hover:shadow-xl lg:flex-row lg:justify-between"
                 style="box-shadow: 0 4px 20px -4px rgba(79, 70, 229, 0.08);">
                 <div>
-                    <h3 class="mb-2 text-xl font-bold text-text-primary">Személyre szabott online konzultáció</h3>
-                    <p class="mb-4 max-w-lg text-sm leading-relaxed text-text-secondary">30 perces videóhívás, amelyben felmérjük, hogyan illeszthető a Cégem360 az Ön pénzügyi folyamataiba — az iparágára és vállalatméretére szabva.</p>
+                    <h3 class="mb-2 text-xl font-bold text-text-primary">{{ __('Personalized online consultation') }}</h3>
+                    <p class="mb-4 max-w-lg text-sm leading-relaxed text-text-secondary">{{ __('A 30-minute video call where we assess how Cégem360 can fit into your financial processes — tailored to your industry and company size.') }}</p>
                     <div class="flex flex-wrap gap-5">
                         <span class="flex items-center gap-1.5 text-xs font-medium text-text-tertiary">
                             <svg class="h-3.5 w-3.5 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
-                            30 perc videóhívás
+                            {{ __('30-minute video call') }}
                         </span>
                         <span class="flex items-center gap-1.5 text-xs font-medium text-text-tertiary">
                             <svg class="h-3.5 w-3.5 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
-                            Pénzügyre szabott tanácsadás
+                            {{ __('Finance-focused consulting') }}
                         </span>
                         <span class="flex items-center gap-1.5 text-xs font-medium text-text-tertiary">
                             <svg class="h-3.5 w-3.5 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
-                            Nincs elköteleződés
+                            {{ __('No commitment') }}
                         </span>
                     </div>
                 </div>
                 <a href="{{ route('contact') }}"
                     class="group inline-flex shrink-0 items-center gap-2 rounded-full bg-indigo-600 px-6 py-3 text-base font-medium text-white transition-all hover:bg-indigo-700 hover:shadow-lg"
                     style="box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
-                    Konzultációt kérek
+                    {{ __('Request consultation') }}
                     <svg class="arrow-slide h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>
@@ -916,21 +832,21 @@
     <section class="bg-surface-secondary py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-6">
             <div class="reveal mb-12 text-center">
-                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-indigo-600">Kezdje el</p>
+                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-indigo-600">{{ __('Get started') }}</p>
                 <h2 class="mb-4 text-3xl text-text-primary md:text-4xl" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    Készen áll a hatékonyabb pénzügyi irányításra?
+                    {{ __('Ready for more effective financial management?') }}
                 </h2>
-                <p class="text-lg text-text-secondary">Válassza ki a következő lépést az Ön számára.</p>
+                <p class="text-lg text-text-secondary">{{ __('Choose the next step for you.') }}</p>
             </div>
 
             <div class="mx-auto grid max-w-3xl grid-cols-1 gap-6 md:grid-cols-2" data-stagger>
                 <div class="stagger-item card-glow rounded-2xl border border-indigo-100 bg-linear-to-br from-indigo-50/40 to-surface-primary p-8 text-center"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-                    <h3 class="mb-3 text-lg font-bold text-text-primary">Online konzultáció</h3>
-                    <p class="mb-6 text-sm leading-relaxed text-text-secondary">Kérdezzen szakértőinktől 30 percben — videóhíváson, az Ön pénzügyi folyamataira szabva, kötelezettség nélkül.</p>
+                    <h3 class="mb-3 text-lg font-bold text-text-primary">{{ __('Online consultation') }}</h3>
+                    <p class="mb-6 text-sm leading-relaxed text-text-secondary">{{ __('Ask our experts in 30 minutes — via video call, tailored to your financial processes, with no obligation.') }}</p>
                     <a href="{{ route('contact') }}"
                         class="group inline-flex items-center gap-2 rounded-full border border-border-light bg-surface-primary px-5 py-2.5 text-sm font-medium text-text-primary transition-all hover:border-indigo-200 hover:bg-surface-secondary hover:shadow-md">
-                        Időpont foglalása
+                        {{ __('Book an appointment') }}
                         <svg class="arrow-slide h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                         </svg>
@@ -939,12 +855,12 @@
 
                 <div class="stagger-item card-glow rounded-2xl border border-blue-100 bg-linear-to-br from-blue-50/40 to-surface-primary p-8 text-center"
                     style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-                    <h3 class="mb-3 text-lg font-bold text-text-primary">Regisztráció és kipróbálás</h3>
-                    <p class="mb-6 text-sm leading-relaxed text-text-secondary">Fedezze fel a platform teljes funkcionalitását. Ismerje meg a modulokat és kezdjen el dolgozni azonnal.</p>
+                    <h3 class="mb-3 text-lg font-bold text-text-primary">{{ __('Registration and trial') }}</h3>
+                    <p class="mb-6 text-sm leading-relaxed text-text-secondary">{{ __('Explore the full functionality of the platform. Get to know the modules and start working immediately.') }}</p>
                     <a href="{{ route('register') }}"
                         class="group inline-flex items-center gap-2 rounded-full bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-indigo-700 hover:shadow-lg"
                         style="box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
-                        Regisztráció
+                        {{ __('Registration') }}
                         <svg class="arrow-slide h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                         </svg>

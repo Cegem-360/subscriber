@@ -12,21 +12,20 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                     </svg>
-                    Beszerzés-logisztika Modul
+                    {{ __('Procurement & Logistics Module') }}
                 </div>
                 <h1 class="mb-6 text-4xl font-semibold leading-tight text-gray-900 sm:text-5xl lg:text-6xl">
-                    Optimalizálja készleteit és beszállítói kapcsolatait
+                    {{ __('Optimize your inventory and supplier relationships') }}
                 </h1>
                 <p class="mx-auto max-w-3xl text-lg leading-relaxed text-gray-600 sm:text-xl">
-                    A Cégem360 Beszerzés-logisztika modul segít a készletek pontos nyomon követésében, a beszállítói
-                    rendelések kezelésében és a raktári műveletek optimalizálásában.
+                    {{ __('The Cégem360 Procurement & Logistics module helps you accurately track inventory, manage supplier orders, and optimize warehouse operations.') }}
                 </p>
 
                 {{-- CTA Buttons --}}
                 <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                     <a href="{{ route('register') }}"
                         class="inline-flex items-center justify-center gap-2 rounded-full bg-amber-600 px-8 py-4 text-base font-semibold text-white shadow-lg transition-colors hover:bg-amber-700 hover:shadow-xl">
-                        Kezdés indítása
+                        {{ __('Get started') }}
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -34,11 +33,11 @@
                     </a>
                     <a href="{{ route('contact') }}"
                         class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-amber-200 bg-white px-8 py-4 text-base font-semibold text-amber-700 transition-colors hover:bg-amber-50">
-                        Demó kérése
+                        {{ __('Request a demo') }}
                     </a>
                     <a href="{{ route('login') }}"
                         class="inline-flex items-center justify-center gap-2 text-base font-medium text-amber-600 transition-colors hover:text-amber-800">
-                        Bejelentkezés a programba →
+                        {{ __('Log in to the application') }} →
                     </a>
                 </div>
 
@@ -50,7 +49,7 @@
     <section class="bg-white py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto mb-12 max-w-3xl text-center">
-                <h2 class="text-3xl font-semibold text-gray-900 sm:text-4xl">A probléma, amit megoldunk</h2>
+                <h2 class="text-3xl font-semibold text-gray-900 sm:text-4xl">{{ __('The problem we solve') }}</h2>
             </div>
 
             <div class="grid gap-6 sm:grid-cols-2">
@@ -61,8 +60,8 @@
                                 d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 text-lg font-semibold text-gray-900">Készlethiány</h3>
-                    <p class="text-gray-600">Túl későn veszi észre, hogy kifogyott egy kulcsfontosságú alapanyag.</p>
+                    <h3 class="mb-2 text-lg font-semibold text-gray-900">{{ __('Stock shortage') }}</h3>
+                    <p class="text-gray-600">{{ __('You notice too late that a key raw material has run out.') }}</p>
                 </div>
                 <div class="rounded-2xl border border-amber-100 bg-linear-to-br from-amber-50 to-white p-8">
                     <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-white shadow-sm">
@@ -71,8 +70,8 @@
                                 d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 text-lg font-semibold text-gray-900">Túlkészletezés</h3>
-                    <p class="text-gray-600">Feleslegesen köti le a tőkét a raktárban heverő árukészlet.</p>
+                    <h3 class="mb-2 text-lg font-semibold text-gray-900">{{ __('Overstocking') }}</h3>
+                    <p class="text-gray-600">{{ __('Unnecessarily ties up capital in inventory sitting in the warehouse.') }}</p>
                 </div>
                 <div class="rounded-2xl border border-amber-100 bg-linear-to-br from-amber-50 to-white p-8">
                     <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-white shadow-sm">
@@ -81,8 +80,8 @@
                                 d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 text-lg font-semibold text-gray-900">Beszállítói káosz</h3>
-                    <p class="text-gray-600">Nem tudja, melyik beszállító mit és mikor szállít.</p>
+                    <h3 class="mb-2 text-lg font-semibold text-gray-900">{{ __('Supplier chaos') }}</h3>
+                    <p class="text-gray-600">{{ __('You don\'t know which supplier delivers what and when.') }}</p>
                 </div>
                 <div class="rounded-2xl border border-amber-100 bg-linear-to-br from-amber-50 to-white p-8">
                     <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-white shadow-sm">
@@ -91,8 +90,8 @@
                                 d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 text-lg font-semibold text-gray-900">Manuális leltározás</h3>
-                    <p class="text-gray-600">Papír alapú raktárkezelés, pontatlan készletadatok.</p>
+                    <h3 class="mb-2 text-lg font-semibold text-gray-900">{{ __('Manual inventory counting') }}</h3>
+                    <p class="text-gray-600">{{ __('Paper-based warehouse management, inaccurate stock data.') }}</p>
                 </div>
             </div>
         </div>
@@ -102,9 +101,8 @@
     <section class="bg-gray-50 py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto mb-12 max-w-3xl text-center">
-                <h2 class="text-3xl font-semibold text-gray-900 sm:text-4xl">Főbb funkciók</h2>
-                <p class="mt-4 text-lg text-gray-600">Minden, amire szüksége van a hatékony beszerzés és
-                    raktárkezeléshez.</p>
+                <h2 class="text-3xl font-semibold text-gray-900 sm:text-4xl">{{ __('Key features') }}</h2>
+                <p class="mt-4 text-lg text-gray-600">{{ __('Everything you need for efficient procurement and warehouse management.') }}</p>
             </div>
 
             <div class="grid gap-8 lg:grid-cols-3">
@@ -117,7 +115,7 @@
                                 d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                         </svg>
                     </div>
-                    <h3 class="mb-3 text-xl font-semibold text-gray-900">Készletkezelés</h3>
+                    <h3 class="mb-3 text-xl font-semibold text-gray-900">{{ __('Inventory management') }}</h3>
                     <ul class="space-y-2 text-gray-600">
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
@@ -125,7 +123,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Valós idejű készletszint követés
+                            {{ __('Real-time stock level tracking') }}
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
@@ -134,7 +132,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Automatikus minimum-készlet riasztás
+                            {{ __('Automatic minimum stock alerts') }}
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
@@ -143,7 +141,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Több raktár támogatása
+                            {{ __('Multi-warehouse support') }}
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
@@ -152,7 +150,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Vonalkód és QR-kód kezelés
+                            {{ __('Barcode and QR code management') }}
                         </li>
                     </ul>
                 </div>
@@ -167,7 +165,7 @@
                                 d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                         </svg>
                     </div>
-                    <h3 class="mb-3 text-xl font-semibold text-gray-900">Beszállító kezelés</h3>
+                    <h3 class="mb-3 text-xl font-semibold text-gray-900">{{ __('Supplier management') }}</h3>
                     <ul class="space-y-2 text-gray-600">
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
@@ -176,7 +174,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Beszállítói adatbázis
+                            {{ __('Supplier database') }}
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
@@ -185,7 +183,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Árlisták és kedvezmények kezelése
+                            {{ __('Price list and discount management') }}
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
@@ -194,7 +192,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Beszállítói teljesítmény értékelés
+                            {{ __('Supplier performance evaluation') }}
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
@@ -203,7 +201,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Szerződés és dokumentum tárolás
+                            {{ __('Contract and document storage') }}
                         </li>
                     </ul>
                 </div>
@@ -218,7 +216,7 @@
                                 d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                         </svg>
                     </div>
-                    <h3 class="mb-3 text-xl font-semibold text-gray-900">Rendeléskezelés</h3>
+                    <h3 class="mb-3 text-xl font-semibold text-gray-900">{{ __('Order management') }}</h3>
                     <ul class="space-y-2 text-gray-600">
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
@@ -227,7 +225,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Automatikus beszerzési javaslatok
+                            {{ __('Automatic procurement suggestions') }}
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
@@ -236,7 +234,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Rendelés jóváhagyási workflow
+                            {{ __('Order approval workflow') }}
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
@@ -245,7 +243,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Szállítási határidő követés
+                            {{ __('Delivery deadline tracking') }}
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
@@ -254,7 +252,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Bevételezés és minőségellenőrzés
+                            {{ __('Goods receipt and quality control') }}
                         </li>
                     </ul>
                 </div>
@@ -269,7 +267,7 @@
                                 d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                         </svg>
                     </div>
-                    <h3 class="mb-3 text-xl font-semibold text-gray-900">Raktári műveletek</h3>
+                    <h3 class="mb-3 text-xl font-semibold text-gray-900">{{ __('Warehouse operations') }}</h3>
                     <ul class="space-y-2 text-gray-600">
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
@@ -278,7 +276,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Ki- és betárolás kezelése
+                            {{ __('Inbound and outbound handling') }}
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
@@ -287,7 +285,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Raktárhelyek kezelése
+                            {{ __('Storage location management') }}
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
@@ -296,7 +294,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Átraktározási műveletek
+                            {{ __('Inter-warehouse transfer operations') }}
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
@@ -305,7 +303,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Leltározás támogatás
+                            {{ __('Stocktaking support') }}
                         </li>
                     </ul>
                 </div>
@@ -320,7 +318,7 @@
                                 d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                         </svg>
                     </div>
-                    <h3 class="mb-3 text-xl font-semibold text-gray-900">Áru- és csomagkövetés</h3>
+                    <h3 class="mb-3 text-xl font-semibold text-gray-900">{{ __('Goods and parcel tracking') }}</h3>
                     <ul class="space-y-2 text-gray-600">
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
@@ -329,7 +327,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Szállítmány tracking
+                            {{ __('Shipment tracking') }}
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
@@ -338,7 +336,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Futárszolgálat integráció
+                            {{ __('Courier service integration') }}
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
@@ -347,7 +345,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Csomagolási listák kezelése
+                            {{ __('Packing list management') }}
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
@@ -356,7 +354,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Kiszállítás tervezés
+                            {{ __('Delivery planning') }}
                         </li>
                     </ul>
                 </div>
@@ -371,7 +369,7 @@
                                 d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                         </svg>
                     </div>
-                    <h3 class="mb-3 text-xl font-semibold text-gray-900">Riportok és elemzések</h3>
+                    <h3 class="mb-3 text-xl font-semibold text-gray-900">{{ __('Reports and analytics') }}</h3>
                     <ul class="space-y-2 text-gray-600">
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
@@ -380,7 +378,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Készletforgási elemzés
+                            {{ __('Inventory turnover analysis') }}
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
@@ -389,7 +387,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            ABC elemzés
+                            {{ __('ABC analysis') }}
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
@@ -398,7 +396,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Beszerzési költség kimutatás
+                            {{ __('Procurement cost report') }}
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
@@ -407,7 +405,7 @@
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Beszállítói teljesítmény riport
+                            {{ __('Supplier performance report') }}
                         </li>
                     </ul>
                 </div>
@@ -419,30 +417,30 @@
     <section class="bg-white py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto mb-12 max-w-3xl text-center">
-                <h2 class="text-3xl font-semibold text-gray-900 sm:text-4xl">Eredmények számokban</h2>
-                <p class="mt-4 text-lg text-gray-600">Átlagos javulás ügyfeleink körében a bevezetés után.</p>
+                <h2 class="text-3xl font-semibold text-gray-900 sm:text-4xl">{{ __('Results in numbers') }}</h2>
+                <p class="mt-4 text-lg text-gray-600">{{ __('Average improvement among our clients after implementation.') }}</p>
             </div>
 
             <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
                 <div class="rounded-2xl bg-amber-50 p-6 text-center">
                     <div class="text-4xl font-bold text-amber-600">-30%</div>
-                    <div class="mt-2 text-sm text-gray-600">Készlethiány csökkenése</div>
+                    <div class="mt-2 text-sm text-gray-600">{{ __('Reduction in stock shortages') }}</div>
                 </div>
                 <div class="rounded-2xl bg-amber-50 p-6 text-center">
                     <div class="text-4xl font-bold text-amber-600">-25%</div>
-                    <div class="mt-2 text-sm text-gray-600">Túlkészletezés csökkenése</div>
+                    <div class="mt-2 text-sm text-gray-600">{{ __('Reduction in overstocking') }}</div>
                 </div>
                 <div class="rounded-2xl bg-amber-50 p-6 text-center">
                     <div class="text-4xl font-bold text-amber-600">+40%</div>
-                    <div class="mt-2 text-sm text-gray-600">Raktári hatékonyság</div>
+                    <div class="mt-2 text-sm text-gray-600">{{ __('Warehouse efficiency') }}</div>
                 </div>
                 <div class="rounded-2xl bg-amber-50 p-6 text-center">
                     <div class="text-4xl font-bold text-amber-600">-20%</div>
-                    <div class="mt-2 text-sm text-gray-600">Beszerzési költségek</div>
+                    <div class="mt-2 text-sm text-gray-600">{{ __('Procurement costs') }}</div>
                 </div>
                 <div class="rounded-2xl bg-amber-50 p-6 text-center">
                     <div class="text-4xl font-bold text-amber-600">+50%</div>
-                    <div class="mt-2 text-sm text-gray-600">Leltározási sebesség</div>
+                    <div class="mt-2 text-sm text-gray-600">{{ __('Stocktaking speed') }}</div>
                 </div>
             </div>
         </div>
@@ -452,8 +450,8 @@
     <section class="bg-gray-50 py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto mb-12 max-w-3xl text-center">
-                <h2 class="text-3xl font-semibold text-gray-900 sm:text-4xl">Integrációk</h2>
-                <p class="mt-4 text-lg text-gray-600">Kapcsolódjon a már használt eszközeihez.</p>
+                <h2 class="text-3xl font-semibold text-gray-900 sm:text-4xl">{{ __('Integrations') }}</h2>
+                <p class="mt-4 text-lg text-gray-600">{{ __('Connect to the tools you already use.') }}</p>
             </div>
 
             <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -466,7 +464,7 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="font-semibold text-gray-900">Vonalkód olvasók</h3>
+                        <h3 class="font-semibold text-gray-900">{{ __('Barcode scanners') }}</h3>
                         <p class="text-sm text-gray-600">Zebra, Honeywell, Datalogic</p>
                     </div>
                 </div>
@@ -479,7 +477,7 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="font-semibold text-gray-900">Futárszolgálatok</h3>
+                        <h3 class="font-semibold text-gray-900">{{ __('Courier services') }}</h3>
                         <p class="text-sm text-gray-600">GLS, DPD, FoxPost, MPL</p>
                     </div>
                 </div>
@@ -492,7 +490,7 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="font-semibold text-gray-900">Számlázás</h3>
+                        <h3 class="font-semibold text-gray-900">{{ __('Invoicing') }}</h3>
                         <p class="text-sm text-gray-600">Billingo, Számlázz.hu, NAV</p>
                     </div>
                 </div>
@@ -505,7 +503,7 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="font-semibold text-gray-900">Webshopok</h3>
+                        <h3 class="font-semibold text-gray-900">{{ __('Webshops') }}</h3>
                         <p class="text-sm text-gray-600">WooCommerce, Shopify, Shoprenter</p>
                     </div>
                 </div>
@@ -518,7 +516,7 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="font-semibold text-gray-900">Könyvelőprogram</h3>
+                        <h3 class="font-semibold text-gray-900">{{ __('Accounting software') }}</h3>
                         <p class="text-sm text-gray-600">Kulcs-Soft, Novitax, RLB</p>
                     </div>
                 </div>
@@ -534,7 +532,7 @@
                     </div>
                     <div>
                         <h3 class="font-semibold text-gray-900">API</h3>
-                        <p class="text-sm text-gray-600">REST API egyedi integrációkhoz</p>
+                        <p class="text-sm text-gray-600">{{ __('REST API for custom integrations') }}</p>
                     </div>
                 </div>
             </div>
@@ -545,7 +543,7 @@
     <section class="bg-white py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto mb-12 max-w-3xl text-center">
-                <h2 class="text-3xl font-semibold text-gray-900 sm:text-4xl">Ki használja?</h2>
+                <h2 class="text-3xl font-semibold text-gray-900 sm:text-4xl">{{ __('Who uses it?') }}</h2>
             </div>
 
             <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -557,8 +555,8 @@
                                 d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 font-semibold text-gray-900">Raktárosok</h3>
-                    <p class="text-sm text-gray-600">Ki- és betárolás, leltározás</p>
+                    <h3 class="mb-2 font-semibold text-gray-900">{{ __('Warehouse staff') }}</h3>
+                    <p class="text-sm text-gray-600">{{ __('Inbound and outbound, stocktaking') }}</p>
                 </div>
                 <div class="rounded-2xl border border-gray-100 bg-white p-6 text-center shadow-sm">
                     <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-amber-100">
@@ -568,8 +566,8 @@
                                 d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 font-semibold text-gray-900">Beszerzők</h3>
-                    <p class="text-sm text-gray-600">Rendelések és beszállító kezelés</p>
+                    <h3 class="mb-2 font-semibold text-gray-900">{{ __('Procurement officers') }}</h3>
+                    <p class="text-sm text-gray-600">{{ __('Orders and supplier management') }}</p>
                 </div>
                 <div class="rounded-2xl border border-gray-100 bg-white p-6 text-center shadow-sm">
                     <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-amber-100">
@@ -579,8 +577,8 @@
                                 d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 font-semibold text-gray-900">Logisztikusok</h3>
-                    <p class="text-sm text-gray-600">Szállítás tervezés és követés</p>
+                    <h3 class="mb-2 font-semibold text-gray-900">{{ __('Logistics coordinators') }}</h3>
+                    <p class="text-sm text-gray-600">{{ __('Delivery planning and tracking') }}</p>
                 </div>
                 <div class="rounded-2xl border border-gray-100 bg-white p-6 text-center shadow-sm">
                     <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-amber-100">
@@ -590,8 +588,8 @@
                                 d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 font-semibold text-gray-900">Vezetők</h3>
-                    <p class="text-sm text-gray-600">Riportok és döntéstámogatás</p>
+                    <h3 class="mb-2 font-semibold text-gray-900">{{ __('Managers') }}</h3>
+                    <p class="text-sm text-gray-600">{{ __('Reports and decision support') }}</p>
                 </div>
             </div>
         </div>
@@ -602,7 +600,7 @@
     <section class="bg-gray-50 py-16 lg:py-20">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto mb-12 max-w-3xl text-center">
-                <h2 class="text-3xl font-semibold text-gray-900 sm:text-4xl">Amit ügyfeleink mondanak</h2>
+                <h2 class="text-3xl font-semibold text-gray-900 sm:text-4xl">{{ __('What our clients say') }}</h2>
             </div>
 
             <div class="grid gap-8 lg:grid-cols-2">
@@ -616,16 +614,15 @@
                         @endfor
                     </div>
                     <blockquote class="mb-6 text-lg text-gray-700">
-                        „Korábban hetente egyszer leltároztunk, és még így is előfordultak készlethiányok. Most valós
-                        időben látjuk, mi van raktáron."
+                        {{ __('We used to do inventory once a week, and even then stock shortages occurred. Now we see what\'s in the warehouse in real time.') }}
                     </blockquote>
                     <div class="flex items-center gap-4">
                         <div
                             class="flex h-12 w-12 items-center justify-center rounded-full bg-amber-100 text-amber-600 font-semibold">
                             NI</div>
                         <div>
-                            <div class="font-semibold text-gray-900">Nagy István</div>
-                            <div class="text-sm text-gray-500">Raktárvezető, Kereskedelmi Kft.</div>
+                            <div class="font-semibold text-gray-900">{{ __('István Nagy') }}</div>
+                            <div class="text-sm text-gray-500">{{ __('Warehouse Manager, Trading Ltd.') }}</div>
                         </div>
                     </div>
                 </div>
@@ -640,16 +637,15 @@
                         @endfor
                     </div>
                     <blockquote class="mb-6 text-lg text-gray-700">
-                        „A beszállítói teljesítmény követése segített kiválasztani a megbízható partnereket. Azóta
-                        20%-kal csökkentek a késedelmes szállítások."
+                        {{ __('Tracking supplier performance helped us select reliable partners. Since then, late deliveries have decreased by 20%.') }}
                     </blockquote>
                     <div class="flex items-center gap-4">
                         <div
                             class="flex h-12 w-12 items-center justify-center rounded-full bg-amber-100 text-amber-600 font-semibold">
                             TM</div>
                         <div>
-                            <div class="font-semibold text-gray-900">Tóth Mária</div>
-                            <div class="text-sm text-gray-500">Beszerzési vezető, Gyártó Zrt.</div>
+                            <div class="font-semibold text-gray-900">{{ __('Mária Tóth') }}</div>
+                            <div class="text-sm text-gray-500">{{ __('Procurement Manager, Manufacturing Plc.') }}</div>
                         </div>
                     </div>
                 </div>
@@ -662,8 +658,8 @@
     <section class="bg-gray-50 py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto mb-12 max-w-3xl text-center">
-                <h2 class="text-3xl font-semibold text-gray-900 sm:text-4xl">Kapcsolódó modulok</h2>
-                <p class="mt-4 text-lg text-gray-600">Bővítse a Beszerzés-logisztika modult ezekkel a modulokkal.</p>
+                <h2 class="text-3xl font-semibold text-gray-900 sm:text-4xl">{{ __('Related modules') }}</h2>
+                <p class="mt-4 text-lg text-gray-600">{{ __('Extend the Procurement & Logistics module with these modules.') }}</p>
             </div>
 
             <div class="grid gap-6 sm:grid-cols-2">
@@ -673,8 +669,8 @@
                         <x-module-icon module="gyartas" size="lg" />
                         <div>
                             <h3 class="text-lg font-semibold text-gray-900 group-hover:text-indigo-600">
-                                Gyártásirányítás modul</h3>
-                            <p class="text-gray-600">Gyártási folyamatok és alapanyag-felhasználás</p>
+                                {{ __('Manufacturing module') }}</h3>
+                            <p class="text-gray-600">{{ __('Production processes and raw material usage') }}</p>
                         </div>
                     </div>
                 </a>
@@ -683,9 +679,9 @@
                     <div class="flex items-center gap-4">
                         <x-module-icon module="ertekesites" size="lg" />
                         <div>
-                            <h3 class="text-lg font-semibold text-gray-900 group-hover:text-red-600">Értékesítés modul
+                            <h3 class="text-lg font-semibold text-gray-900 group-hover:text-red-600">{{ __('Sales module') }}
                             </h3>
-                            <p class="text-gray-600">Megrendelések és kiszállítás kezelése</p>
+                            <p class="text-gray-600">{{ __('Order and delivery management') }}</p>
                         </div>
                     </div>
                 </a>
@@ -697,15 +693,15 @@
     <section class="bg-amber-600 py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
             <h2 class="text-3xl font-semibold text-white sm:text-4xl">
-                Kezdje el még ma — kockázat nélkül
+                {{ __('Start today — risk free') }}
             </h2>
             <p class="mx-auto mt-4 max-w-xl text-lg text-amber-100">
-                Teljes funkcionalitás, magyar nyelvű támogatás. Kérjen személyre szabott bemutatót.
+                {{ __('Full functionality, Hungarian-language support. Request a personalized demo.') }}
             </p>
             <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <a href="{{ route('register') }}"
                     class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-base font-semibold text-amber-600 shadow-lg transition-colors hover:bg-amber-50 hover:shadow-xl">
-                    Kezdés indítása
+                    {{ __('Get started') }}
                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -713,11 +709,11 @@
                 </a>
                 <a href="{{ route('contact') }}"
                     class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-amber-400 px-8 py-4 text-base font-semibold text-white transition-colors hover:bg-amber-700">
-                    Demó kérése
+                    {{ __('Request a demo') }}
                 </a>
                 <a href="{{ route('login') }}"
                     class="inline-flex items-center justify-center gap-2 text-base font-medium text-amber-200 transition-colors hover:text-white">
-                    Bejelentkezés a programba →
+                    {{ __('Log in to the application') }} →
                 </a>
             </div>
         </div>

@@ -10,28 +10,26 @@
                         style="box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);">
                         <span
                             class="w-1.5 h-1.5 rounded-full bg-linear-to-r from-success-500 via-warning-500 to-danger-500 mr-2.5"></span>
-                        <span class="text-sm font-medium text-text-primary">Vállalatirányítási platform</span>
+                        <span class="text-sm font-medium text-text-primary">{{ __('Enterprise management platform') }}</span>
                     </div>
 
                     {{-- Main headline --}}
                     <h1 class="text-4xl md:text-5xl lg:text-[3.5rem] text-text-primary leading-[1.15] tracking-tight mb-6"
                         style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                        Vegye kézbe cége irányítását<br>
-                        — egyetlen rendszerből
+                        {{ __('Take control of your company') }}<br>
+                        {{ __('— from a single system') }}
                     </h1>
 
                     {{-- Subheadline --}}
                     <p class="text-xl lg:text-2xl text-text-secondary mb-8 leading-relaxed">
-                        Testreszabott vállalatirányítási megoldások ipari cégeknek: CRM, kontrolling, beszerzés,
-                        értékesítés, AI-alapú SEO elemzés és automatizált munkafolyamatok — amelyek valódi eredményeket
-                        hoznak.
+                        {{ __('Customized enterprise management solutions for industrial companies: CRM, controlling, procurement, sales, AI-based SEO analysis and automated workflows — that deliver real results.') }}
                     </p>
 
                     {{-- CTA Button --}}
                     <a href="{{ route('register') }}"
                         class="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-full text-base font-medium hover:bg-primary-700 transition-colors"
                         style="box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
-                        <span>Kérjen bemutatkozást</span>
+                        <span>{{ __('Request a demo') }}</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
@@ -40,16 +38,16 @@
 
                     {{-- No credit card text --}}
                     <p class="text-sm text-text-tertiary mt-4 flex items-center gap-2">
-                        {{-- <span>Bankkártya nélkül indíthat</span>
+                        {{-- <span>{{ __('Start without a credit card') }}</span>
                         <span class="text-text-disabled">✦</span> --}}
-                        <span>Személyre szabott demó 30 percben</span>
+                        <span>{{ __('Personalized demo in 30 minutes') }}</span>
                     </p>
                 </div>
 
                 {{-- Right: Card (Zoho vertical layout) --}}
                 <div class="bg-surface-primary rounded-2xl p-8 w-full lg:w-[520px] shrink-0"
                     style="box-shadow: 0 12px 50px -6px rgba(96, 92, 212, 0.35), 0 0 1px rgba(96, 92, 212, 0.2);">
-                    <p class="text-[11px] font-semibold text-text-tertiary uppercase tracking-widest mb-6">Moduljaink
+                    <p class="text-[11px] font-semibold text-text-tertiary uppercase tracking-widest mb-6">{{ __('Our modules') }}
                     </p>
 
                     <div class="grid grid-cols-2 gap-x-6 gap-y-5">
@@ -58,8 +56,8 @@
                             <div class="flex-1 min-w-0">
                                 <p
                                     class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
-                                    Digitális munkalap</p>
-                                <p class="text-xs text-text-tertiary mt-1">Munkalapok helyszíni munkákhoz.</p>
+                                    {{ __('Digital Worksheet') }}</p>
+                                <p class="text-xs text-text-tertiary mt-1">{{ __('Worksheets for on-site jobs.') }}</p>
                             </div>
                         </a>
                         <a href="{{ route('products.kontrolling') }}" class="flex items-center gap-3.5 group">
@@ -67,8 +65,8 @@
                             <div class="flex-1 min-w-0">
                                 <p
                                     class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
-                                    Kontrolling</p>
-                                <p class="text-xs text-text-tertiary mt-1">Pénzügyi áttekintés és riportok.</p>
+                                    {{ __('Controlling') }}</p>
+                                <p class="text-xs text-text-tertiary mt-1">{{ __('Financial overview and reports.') }}</p>
                             </div>
                         </a>
                         <a href="{{ route('products.seo') }}" class="flex items-center gap-3.5 group">
@@ -76,8 +74,8 @@
                             <div class="flex-1 min-w-0">
                                 <p
                                     class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
-                                    SEO Eszköz</p>
-                                <p class="text-xs text-text-tertiary mt-1">AI alapú keresőoptimalizálás.</p>
+                                    {{ __('SEO Tool') }}</p>
+                                <p class="text-xs text-text-tertiary mt-1">{{ __('AI-based search engine optimization.') }}</p>
                             </div>
                         </a>
                         <a href="{{ route('products.crm') }}" class="flex items-center gap-3.5 group">
@@ -86,7 +84,7 @@
                                 <p
                                     class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     CRM</p>
-                                <p class="text-xs text-text-tertiary mt-1">Ügyfélkezelés a szerződésig.</p>
+                                <p class="text-xs text-text-tertiary mt-1">{{ __('Customer management to contract.') }}</p>
                             </div>
                         </a>
                         <a href="{{ route('products.beszerzes') }}" class="flex items-center gap-3.5 group">
@@ -94,8 +92,8 @@
                             <div class="flex-1 min-w-0">
                                 <p
                                     class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
-                                    Beszerzés</p>
-                                <p class="text-xs text-text-tertiary mt-1">Készlet és szállításkezelés.</p>
+                                    {{ __('Procurement') }}</p>
+                                <p class="text-xs text-text-tertiary mt-1">{{ __('Inventory and shipping management.') }}</p>
                             </div>
                         </a>
                         <a href="{{ route('products.ertekesites') }}" class="flex items-center gap-3.5 group">
@@ -103,8 +101,8 @@
                             <div class="flex-1 min-w-0">
                                 <p
                                     class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
-                                    Értékesítés</p>
-                                <p class="text-xs text-text-tertiary mt-1">Ajánlatok és megrendelések.</p>
+                                    {{ __('Sales') }}</p>
+                                <p class="text-xs text-text-tertiary mt-1">{{ __('Quotes and orders.') }}</p>
                             </div>
                         </a>
                         <a href="{{ route('products.gyartas') }}" class="flex items-center gap-3.5 group">
@@ -112,8 +110,8 @@
                             <div class="flex-1 min-w-0">
                                 <p
                                     class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
-                                    Gyártásirányítás</p>
-                                <p class="text-xs text-text-tertiary mt-1">Termelés és kapacitástervezés.</p>
+                                    {{ __('Production Management') }}</p>
+                                <p class="text-xs text-text-tertiary mt-1">{{ __('Production and capacity planning.') }}</p>
                             </div>
                         </a>
                         <a href="{{ route('products.automatizalas') }}" class="flex items-center gap-3.5 group">
@@ -121,8 +119,8 @@
                             <div class="flex-1 min-w-0">
                                 <p
                                     class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
-                                    Automatizálás</p>
-                                <p class="text-xs text-text-tertiary mt-1">Workflow-k és triggerek.</p>
+                                    {{ __('Automation') }}</p>
+                                <p class="text-xs text-text-tertiary mt-1">{{ __('Workflows and triggers.') }}</p>
                             </div>
                         </a>
                         <a href="{{ route('products.marketinghub') }}" class="flex items-center gap-3.5 group">
@@ -131,7 +129,7 @@
                                 <p
                                     class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     MarketingHub</p>
-                                <p class="text-xs text-text-tertiary mt-1">Online marketing eszközök.</p>
+                                <p class="text-xs text-text-tertiary mt-1">{{ __('Online marketing tools.') }}</p>
                             </div>
                         </a>
                         <a href="{{ route('products.datamind') }}" class="flex items-center gap-3.5 group">
@@ -140,7 +138,7 @@
                                 <p
                                     class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     DataMind</p>
-                                <p class="text-xs text-text-tertiary mt-1">MI adatbányász platform.</p>
+                                <p class="text-xs text-text-tertiary mt-1">{{ __('AI data mining platform.') }}</p>
                             </div>
                         </a>
                         <a href="{{ route('products.aichat') }}" class="flex items-center gap-3.5 group">
@@ -149,7 +147,7 @@
                                 <p
                                     class="text-base font-semibold text-text-primary leading-none group-hover:text-primary-600 transition-colors">
                                     AI Chat</p>
-                                <p class="text-xs text-text-tertiary mt-1">Intelligens chatbot weboldalakra.</p>
+                                <p class="text-xs text-text-tertiary mt-1">{{ __('Intelligent chatbot for websites.') }}</p>
                             </div>
                         </a>
                     </div>
@@ -169,11 +167,11 @@
                     <button @click="activeTab = 'szerviz'"
                         :class="activeTab === 'szerviz' ? 'bg-cyan-500 text-white' :
                             'text-text-secondary hover:text-text-primary'"
-                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Munkalap</button>
+                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">{{ __('Worksheet') }}</button>
                     <button @click="activeTab = 'projects'"
                         :class="activeTab === 'projects' ? 'bg-primary-600 text-white' :
                             'text-text-secondary hover:text-text-primary'"
-                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Kontrolling</button>
+                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">{{ __('Controlling') }}</button>
                     <button @click="activeTab = 'seo'"
                         :class="activeTab === 'seo' ? 'bg-violet-600 text-white' :
                             'text-text-secondary hover:text-text-primary'"
@@ -185,19 +183,19 @@
                     <button @click="activeTab = 'marketing'"
                         :class="activeTab === 'marketing' ? 'bg-primary-500 text-white' :
                             'text-text-secondary hover:text-text-primary'"
-                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Értékesítés</button>
+                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">{{ __('Sales') }}</button>
                     <button @click="activeTab = 'itops'"
                         :class="activeTab === 'itops' ? 'bg-[#7a1a42] text-white' :
                             'text-text-secondary hover:text-text-primary'"
-                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Beszerzés</button>
+                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">{{ __('Procurement') }}</button>
                     <button @click="activeTab = 'engineering'"
                         :class="activeTab === 'engineering' ? 'bg-success-600 text-white' :
                             'text-text-secondary hover:text-text-primary'"
-                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Automatizálás</button>
+                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">{{ __('Automation') }}</button>
                     <button @click="activeTab = 'marketinghub'"
                         :class="activeTab === 'marketinghub' ? 'bg-pink-500 text-white' :
                             'text-text-secondary hover:text-text-primary'"
-                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Marketing</button>
+                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">{{ __('Marketing') }}</button>
                     <button @click="activeTab = 'datamind'"
                         :class="activeTab === 'datamind' ? 'bg-violet-500 text-white' :
                             'text-text-secondary hover:text-text-primary'"
@@ -209,7 +207,7 @@
                     <button @click="activeTab = 'leadership'"
                         :class="activeTab === 'leadership' ? 'bg-primary-600 text-white' :
                             'text-text-secondary hover:text-text-primary'"
-                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">Vezetés</button>
+                        class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">{{ __('Leadership') }}</button>
                 </div>
             </div>
 
@@ -232,19 +230,16 @@
                                     </svg>
                                 </div>
                                 <span class="text-white/90 text-sm font-medium"><strong
-                                        class="font-bold">cégem360</strong> kontrolling</span>
+                                        class="font-bold">cégem360</strong> {{ __('controlling') }}</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Lássa át vállalata<br>pénzügyeit valós
-                                időben</h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Kövesse nyomon a
-                                bevételeket, költségeket és cash flow-t egyetlen irányítópulton. Azonnali riportok
-                                segítik a döntéshozatalt.
+                                style="font-family: 'Poppins', sans-serif;">{{ __('See your company\'s finances') }}<br>{{ __('in real time') }}</h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">{{ __('Track revenues, costs and cash flow on a single dashboard. Instant reports help you make decisions.') }}
                             </p>
                         </div>
                         <a href="#"
                             class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
-                            Kérjen demót
+                            {{ __('Request a demo') }}
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -269,16 +264,13 @@
                                         class="font-bold">cégem360</strong> SEO</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Értse meg, mit keres<br>a piaca — és
-                                legyen<br>Ön az első találat
+                                style="font-family: 'Poppins', sans-serif;">{{ __('Understand what your market') }}<br>{{ __('is searching for — and be') }}<br>{{ __('the first result') }}
                             </h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">AI-alapú kulcsszókutatás,
-                                versenytárs-elemzés és tartalom-optimalizálás egyetlen platformon. Növelje organikus
-                                forgalmát mérhető eredményekkel.</p>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">{{ __('AI-based keyword research, competitor analysis and content optimization on a single platform. Increase your organic traffic with measurable results.') }}</p>
                         </div>
                         <a href="{{ route('products.seo') }}"
                             class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
-                            Kérjen demót
+                            {{ __('Request a demo') }}
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -302,15 +294,12 @@
                                         class="font-bold">cégem360</strong> CRM</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Növelje árbevételét<br>rendszerezett
-                                ügyfélkezeléssel</h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Minden ügyfél, ajánlat és
-                                kapcsolatfelvétel egy helyen. Automatikus emlékeztetők és értékesítési pipeline — hogy
-                                csapata a lezárásra koncentrálhasson.</p>
+                                style="font-family: 'Poppins', sans-serif;">{{ __('Increase your revenue with') }}<br>{{ __('organized customer management') }}</h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">{{ __('Every customer, quote and contact in one place. Automatic reminders and sales pipeline — so your team can focus on closing.') }}</p>
                         </div>
                         <a href="#"
                             class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
-                            Kérjen demót
+                            {{ __('Request a demo') }}
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -333,19 +322,16 @@
                                     </svg>
                                 </div>
                                 <span class="text-white/90 text-sm font-medium"><strong
-                                        class="font-bold">cégem360</strong> értékesítés</span>
+                                        class="font-bold">cégem360</strong> {{ __('sales') }}</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Mérje és növelje<br>értékesítési
-                                hatékonyságát</h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Integrálja az értékesítési
-                                és marketing tevékenységeket. Tudja, melyik kampány honnan hozott ügyfelet — adatalapú
-                                döntésekkel növelje a konverziót.
+                                style="font-family: 'Poppins', sans-serif;">{{ __('Measure and increase your') }}<br>{{ __('sales efficiency') }}</h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">{{ __('Integrate sales and marketing activities. Know which campaign brought which customer — increase conversion with data-driven decisions.') }}
                             </p>
                         </div>
                         <a href="#"
                             class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
-                            Kérjen demót
+                            {{ __('Request a demo') }}
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -366,18 +352,15 @@
                                     </svg>
                                 </div>
                                 <span class="text-white/90 text-sm font-medium"><strong
-                                        class="font-bold">cégem360</strong> beszerzés</span>
+                                        class="font-bold">cégem360</strong> {{ __('procurement') }}</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Optimalizálja beszerzési<br>és logisztikai
-                                folyamatait</h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Kövesse nyomon készleteit
-                                és szállításait egyetlen felületen. A rendszer figyelmeztet, ha beavatkozás szükséges —
-                                Ön pedig időben cselekedhet.</p>
+                                style="font-family: 'Poppins', sans-serif;">{{ __('Optimize your procurement') }}<br>{{ __('and logistics processes') }}</h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">{{ __('Track your inventory and shipments on a single interface. The system alerts you when intervention is needed — so you can act in time.') }}</p>
                         </div>
                         <a href="#"
                             class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
-                            Kérjen demót
+                            {{ __('Request a demo') }}
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -398,18 +381,16 @@
                                     </svg>
                                 </div>
                                 <span class="text-white/90 text-sm font-medium"><strong
-                                        class="font-bold">cégem360</strong> automatizálás</span>
+                                        class="font-bold">cégem360</strong> {{ __('automation') }}</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Automatizálja az<br>ismétlődő feladatokat
+                                style="font-family: 'Poppins', sans-serif;">{{ __('Automate your') }}<br>{{ __('repetitive tasks') }}
                             </h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Szabjon meg szabályokat és
-                                hagyja, hogy a rendszer dolgozzon Ön helyett. Gyorsabb reakcióidő, kevesebb emberi hiba,
-                                több idő a stratégiai feladatokra.</p>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">{{ __('Set rules and let the system work for you. Faster response time, fewer human errors, more time for strategic tasks.') }}</p>
                         </div>
                         <a href="#"
                             class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
-                            Kérjen demót
+                            {{ __('Request a demo') }}
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -433,15 +414,13 @@
                                         class="font-bold">cégem360</strong> platform</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Döntsön adatok<br>alapján, ne megérzésből
+                                style="font-family: 'Poppins', sans-serif;">{{ __('Decide based on data') }}<br>{{ __('not gut feeling') }}
                             </h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Gyors áttekintés a
-                                vállalat egészéről: pénzügy, értékesítés, projektek — egy dashboardon. Legyen mindig
-                                képben, és hozza meg a megfelelő döntéseket.</p>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">{{ __('Quick overview of the entire company: finance, sales, projects — on one dashboard. Stay in the picture and make the right decisions.') }}</p>
                         </div>
                         <a href="#"
                             class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
-                            Kérjen demót
+                            {{ __('Request a demo') }}
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -463,19 +442,16 @@
                                     </svg>
                                 </div>
                                 <span class="text-white/90 text-sm font-medium"><strong
-                                        class="font-bold">cégem360</strong> digitális munkalap</span>
+                                        class="font-bold">cégem360</strong> {{ __('digital worksheet') }}</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Digitális munkalapok<br>helyszíni munkákhoz
+                                style="font-family: 'Poppins', sans-serif;">{{ __('Digital worksheets') }}<br>{{ __('for on-site jobs') }}
                             </h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Felejtse el a papíralapú
-                                munkalapokat. Rögzítsen mindent a helyszínen: munkaidőt, anyagokat, fotókat — és
-                                készítsen
-                                azonnali jegyzőkönyvet ügyfelének.</p>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">{{ __('Forget paper-based worksheets. Record everything on-site: work hours, materials, photos — and create instant reports for your clients.') }}</p>
                         </div>
                         <a href="{{ route('products.szerviz') }}"
                             class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
-                            Kérjen demót
+                            {{ __('Request a demo') }}
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -495,15 +471,12 @@
                                         class="font-bold">cégem360</strong> MarketingHub</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Minden marketing<br>adat egy helyen</h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Google Ads, Meta,
-                                Analytics
-                                és SEO eredmények egyetlen dashboardon. Lássa azonnal, melyik kampány hoz valódi
-                                ügyfelet — és melyikre ne költsön többet.</p>
+                                style="font-family: 'Poppins', sans-serif;">{{ __('All marketing data') }}<br>{{ __('in one place') }}</h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">{{ __('Google Ads, Meta, Analytics and SEO results on a single dashboard. See instantly which campaign brings real customers — and which ones to stop spending on.') }}</p>
                         </div>
                         <a href="{{ route('products.marketinghub') }}"
                             class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
-                            Kérjen demót
+                            {{ __('Request a demo') }}
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -522,16 +495,12 @@
                                         class="font-bold">cégem360</strong> DataMind</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Mesterséges intelligencia<br>az üzleti
-                                döntésekhez</h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">Automatikus
-                                összefüggés-feltárás,
-                                prediktív elemzés és drag-and-drop modellépítő — kódolás nélkül. Kössön össze több
-                                adatforrást egyetlen dashboardon.</p>
+                                style="font-family: 'Poppins', sans-serif;">{{ __('Artificial intelligence') }}<br>{{ __('for business decisions') }}</h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">{{ __('Automatic correlation discovery, predictive analysis and drag-and-drop model builder — without coding. Connect multiple data sources on a single dashboard.') }}</p>
                         </div>
                         <a href="{{ route('products.datamind') }}"
                             class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
-                            Kérjen demót
+                            {{ __('Request a demo') }}
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -550,14 +519,12 @@
                                         class="font-bold">cégem360</strong> AI Chat</span>
                             </div>
                             <h3 class="text-white text-4xl lg:text-5xl font-light leading-tight mb-6"
-                                style="font-family: 'Poppins', sans-serif;">Intelligens chatbot<br>a weboldaladra</h3>
-                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">0-24 automatizált
-                                ügyfélszolgálat, ami ismeri a termékeidet. A chatbot a weboldal tartalmából tanul
-                                — saját API kulccsal, teljes kontrollal.</p>
+                                style="font-family: 'Poppins', sans-serif;">{{ __('Intelligent chatbot') }}<br>{{ __('for your website') }}</h3>
+                            <p class="text-white/80 text-lg lg:text-xl leading-relaxed mb-8">{{ __('24/7 automated customer service that knows your products. The chatbot learns from your website content — with your own API key, full control.') }}</p>
                         </div>
                         <a href="{{ route('products.aichat') }}"
                             class="inline-flex items-center gap-2 bg-white text-text-primary px-6 py-3 rounded-full text-sm font-medium hover:bg-light-200 transition-colors w-fit">
-                            Kérjen demót
+                            {{ __('Request a demo') }}
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -572,269 +539,230 @@
                     <div x-show="activeTab === 'projects'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">IPARI ÜGYFÉL
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">{{ __('INDUSTRIAL CLIENT') }}
                         </p>
-                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-primary-600">30%
-                                költségcsökkenés</span><br>valós idejű adatokkal</p>
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-primary-600">{{ __('30% cost reduction') }}</span><br>{{ __('with real-time data') }}</p>
                     </div>
                     <div x-show="activeTab === 'sales'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">PARTNERÜNK
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">{{ __('OUR PARTNER') }}
                         </p>
                         <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span
-                                class="text-[#0f7b6c]">40%-kal
-                                több ajánlat</span><br>kevesebb adminnal</p>
+                                class="text-[#0f7b6c]">{{ __('40% more quotes') }}</span><br>{{ __('with less admin') }}</p>
                     </div>
                     <div x-show="activeTab === 'marketing'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">CRM ÜGYFÉL
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">{{ __('CRM CLIENT') }}
                         </p>
-                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-primary-500">2x
-                                konverzió</span><br>strukturált adatokkal</p>
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-primary-500">{{ __('2x conversion') }}</span><br>{{ __('with structured data') }}</p>
                     </div>
                     <div x-show="activeTab === 'itops'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">LOGISZTIKAI
-                            PARTNER</p>
-                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-[#7a1a42]">20%
-                                készletoptimalizálás</span><br>automatikus riasztásokkal</p>
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">{{ __('LOGISTICS PARTNER') }}</p>
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-[#7a1a42]">{{ __('20% inventory optimization') }}</span><br>{{ __('with automatic alerts') }}</p>
                     </div>
                     <div x-show="activeTab === 'engineering'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">AUTOMATIZÁLT
-                            ÜGYFÉL</p>
-                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-success-600">50%
-                                kevesebb manuális munka</span><br>szabályalapú folyamatokkal</p>
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">{{ __('AUTOMATION CLIENT') }}</p>
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-success-600">{{ __('50% less manual work') }}</span><br>{{ __('with rule-based processes') }}</p>
                     </div>
                     <div x-show="activeTab === 'leadership'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">VEZETŐ ÜGYFÉL
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">{{ __('EXECUTIVE CLIENT') }}
                         </p>
                         <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span
-                                class="text-primary-600">Azonnali
-                                áttekintés</span><br>egy dashboardon</p>
+                                class="text-primary-600">{{ __('Instant overview') }}</span><br>{{ __('on one dashboard') }}</p>
                     </div>
                     <div x-show="activeTab === 'szerviz'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">SZERVIZ
-                            PARTNER
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">{{ __('SERVICE PARTNER') }}
                         </p>
-                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-cyan-500">70%
-                                gyorsabb
-                                adminisztráció</span><br>digitális munkalapokkal</p>
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-cyan-500">{{ __('70% faster administration') }}</span><br>{{ __('with digital worksheets') }}</p>
                     </div>
                     <div x-show="activeTab === 'seo'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">SEO ÜGYFÉL
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">{{ __('SEO CLIENT') }}
                         </p>
-                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-violet-600">3x
-                                organikus
-                                forgalom</span><br>AI-alapú optimalizálással</p>
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-violet-600">{{ __('3x organic traffic') }}</span><br>{{ __('with AI-based optimization') }}</p>
                     </div>
                     <div x-show="activeTab === 'marketinghub'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">MARKETING
-                            ÜGYFÉL</p>
-                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-pink-500">45%
-                                jobb marketing ROI</span><br>adatalapú döntésekkel</p>
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">{{ __('MARKETING CLIENT') }}</p>
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-pink-500">{{ __('45% better marketing ROI') }}</span><br>{{ __('with data-driven decisions') }}</p>
                     </div>
                     <div x-show="activeTab === 'datamind'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">DATAMIND
-                            ÜGYFÉL</p>
-                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-violet-500">3x
-                                gyorsabb döntéshozatal</span><br>MI predikciókkal</p>
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">{{ __('DATAMIND CLIENT') }}</p>
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-violet-500">{{ __('3x faster decision making') }}</span><br>{{ __('with AI predictions') }}</p>
                     </div>
                     <div x-show="activeTab === 'aichat'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">AI CHAT
-                            ÜGYFÉL</p>
-                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-blue-500">85%
-                                automatikus válasz</span><br>0-24 elérhetőséggel</p>
+                        <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">{{ __('AI CHAT CLIENT') }}</p>
+                        <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-blue-500">{{ __('85% automatic responses') }}</span><br>{{ __('with 24/7 availability') }}</p>
                     </div>
 
                     {{-- Testimonial Quote Card --}}
                     <div x-show="activeTab === 'projects'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Végre látom, hova fogy a pénz, és
-                            miért. A havi zárásunk napok helyett órákra csökkent."</p>
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"{{ __('I can finally see where the money goes, and why. Our monthly closing went from days to hours.') }}"</p>
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center text-primary-600 font-semibold text-sm">
                                 NT</div>
                             <div>
-                                <p class="text-text-primary font-semibold text-sm">Nagy Tamás</p>
-                                <p class="text-text-tertiary text-xs">Pénzügyi igazgató, Ipari gyártó cég</p>
+                                <p class="text-text-primary font-semibold text-sm">{{ __('Tamas Nagy') }}</p>
+                                <p class="text-text-tertiary text-xs">{{ __('Financial Director, Industrial manufacturing company') }}</p>
                             </div>
                         </div>
                     </div>
                     <div x-show="activeTab === 'sales'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Tudom, melyik ügyféllel mikor
-                            beszéltünk utoljára, és mit ígértünk. Nincs több elveszett érdeklődő."</p>
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"{{ __('I know which client we last spoke to, when, and what we promised. No more lost leads.') }}"</p>
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 bg-[#0f7b6c]/10 rounded-full flex items-center justify-center text-[#0f7b6c] font-semibold text-sm">
                                 KA</div>
                             <div>
-                                <p class="text-text-primary font-semibold text-sm">Kovács Anna</p>
-                                <p class="text-text-tertiary text-xs">Értékesítési vezető, B2B szolgáltató</p>
+                                <p class="text-text-primary font-semibold text-sm">{{ __('Anna Kovacs') }}</p>
+                                <p class="text-text-tertiary text-xs">{{ __('Sales Manager, B2B service provider') }}</p>
                             </div>
                         </div>
                     </div>
                     <div x-show="activeTab === 'marketing'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Látom, melyik kampányunk hozott
-                            valódi vevőt — és melyikre ne költsünk többet."</p>
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"{{ __('I can see which campaign brought real buyers — and which ones to stop spending on.') }}"</p>
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center text-primary-600 font-semibold text-sm">
                                 SB</div>
                             <div>
-                                <p class="text-text-primary font-semibold text-sm">Szabó Béla</p>
-                                <p class="text-text-tertiary text-xs">Marketing igazgató, Kereskedelmi cég</p>
+                                <p class="text-text-primary font-semibold text-sm">{{ __('Bela Szabo') }}</p>
+                                <p class="text-text-tertiary text-xs">{{ __('Marketing Director, Trading company') }}</p>
                             </div>
                         </div>
                     </div>
                     <div x-show="activeTab === 'itops'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Korábban Excelben nyomon követni a
-                            készleteket rémálom volt. Most egy kattintás, és látom, mi hiányzik."</p>
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"{{ __('Tracking inventory in Excel used to be a nightmare. Now one click and I see what\'s missing.') }}"</p>
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 bg-[#7a1a42]/10 rounded-full flex items-center justify-center text-[#7a1a42] font-semibold text-sm">
                                 TG</div>
                             <div>
-                                <p class="text-text-primary font-semibold text-sm">Tóth Gábor</p>
-                                <p class="text-text-tertiary text-xs">Logisztikai vezető, Gyártó vállalat</p>
+                                <p class="text-text-primary font-semibold text-sm">{{ __('Gabor Toth') }}</p>
+                                <p class="text-text-tertiary text-xs">{{ __('Logistics Manager, Manufacturing company') }}</p>
                             </div>
                         </div>
                     </div>
                     <div x-show="activeTab === 'engineering'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"A rendszer automatikusan
-                            emlékeztet a határidőkre, és értesíti a kollégát, ha rá vár egy feladat. Nekem nem kell
-                            utánajárni."</p>
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"{{ __('The system automatically reminds about deadlines and notifies colleagues when a task awaits them. I don\'t need to follow up.') }}"</p>
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 bg-success-100 rounded-full flex items-center justify-center text-success-600 font-semibold text-sm">
                                 VE</div>
                             <div>
-                                <p class="text-text-primary font-semibold text-sm">Varga Eszter</p>
-                                <p class="text-text-tertiary text-xs">Üzemeltetési igazgató, Ipari cég</p>
+                                <p class="text-text-primary font-semibold text-sm">{{ __('Eszter Varga') }}</p>
+                                <p class="text-text-tertiary text-xs">{{ __('Operations Director, Industrial company') }}</p>
                             </div>
                         </div>
                     </div>
                     <div x-show="activeTab === 'leadership'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Reggeli kávé mellett megnézem a
-                            dashboardot, és tudom, mi történt tegnap — minden területen."</p>
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"{{ __('With my morning coffee I check the dashboard and know what happened yesterday — across all areas.') }}"</p>
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center text-primary-600 font-semibold text-sm">
                                 HP</div>
                             <div>
-                                <p class="text-text-primary font-semibold text-sm">Horváth Péter</p>
-                                <p class="text-text-tertiary text-xs">Ügyvezető, Közepes méretű vállalkozás</p>
+                                <p class="text-text-primary font-semibold text-sm">{{ __('Peter Horvath') }}</p>
+                                <p class="text-text-tertiary text-xs">{{ __('CEO, Mid-sized enterprise') }}</p>
                             </div>
                         </div>
                     </div>
                     <div x-show="activeTab === 'szerviz'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Mióta digitális munkalapot
-                            használunk,
-                            a számlázásunk napokkal gyorsabb lett. Az ügyfelek is elégedettebbek, mert azonnal kapják a
-                            jegyzőkönyvet."</p>
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"{{ __('Since we started using digital worksheets, our invoicing is days faster. Clients are happier too, because they get the report instantly.') }}"</p>
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 bg-cyan-100 rounded-full flex items-center justify-center text-cyan-600 font-semibold text-sm">
                                 BL</div>
                             <div>
-                                <p class="text-text-primary font-semibold text-sm">Balogh László</p>
-                                <p class="text-text-tertiary text-xs">Ügyvezető, KlimaProfi Kft.</p>
+                                <p class="text-text-primary font-semibold text-sm">{{ __('Laszlo Balogh') }}</p>
+                                <p class="text-text-tertiary text-xs">{{ __('CEO, KlimaProfi Kft.') }}</p>
                             </div>
                         </div>
                     </div>
                     <div x-show="activeTab === 'seo'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Három hónap alatt
-                            megháromszoroztuk
-                            az organikus forgalmunkat. Az AI-alapú kulcsszójavaslatok pontosan azt mutatták, amire a
-                            piacunk
-                            keres."</p>
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"{{ __('In three months we tripled our organic traffic. The AI-based keyword suggestions showed exactly what our market is searching for.') }}"</p>
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 bg-violet-100 rounded-full flex items-center justify-center text-violet-600 font-semibold text-sm">
                                 FM</div>
                             <div>
-                                <p class="text-text-primary font-semibold text-sm">Fehér Márton</p>
-                                <p class="text-text-tertiary text-xs">Marketing vezető, TechBuild Kft.</p>
+                                <p class="text-text-primary font-semibold text-sm">{{ __('Marton Feher') }}</p>
+                                <p class="text-text-tertiary text-xs">{{ __('Marketing Manager, TechBuild Kft.') }}</p>
                             </div>
                         </div>
                     </div>
                     <div x-show="activeTab === 'marketinghub'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"Végre egy helyen látom, melyik
-                            kampány hozza a leadeket és melyik csak égeti a büdzsét. A havi riportunk órák helyett
-                            percek alatt kész."</p>
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"{{ __('Finally I can see in one place which campaign brings leads and which just burns the budget. Our monthly report is ready in minutes instead of hours.') }}"</p>
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 font-semibold text-sm">
                                 MK</div>
                             <div>
-                                <p class="text-text-primary font-semibold text-sm">Molnár Kata</p>
-                                <p class="text-text-tertiary text-xs">Marketing igazgató, WebShop Solutions Kft.</p>
+                                <p class="text-text-primary font-semibold text-sm">{{ __('Kata Molnar') }}</p>
+                                <p class="text-text-tertiary text-xs">{{ __('Marketing Director, WebShop Solutions Kft.') }}</p>
                             </div>
                         </div>
                     </div>
                     <div x-show="activeTab === 'datamind'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"A DataMind felfedezte, hogy a
-                            Google Ads kampányaink 30%-a nem hoz konverziót. Az MI javaslatai alapján átcsoportosítottuk
-                            a büdzsét — 2 hónap alatt 25%-kal nőtt a ROI-nk."</p>
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"{{ __('DataMind discovered that 30% of our Google Ads campaigns weren\'t converting. Based on the AI recommendations, we reallocated the budget — our ROI grew 25% in 2 months.') }}"</p>
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 bg-violet-100 rounded-full flex items-center justify-center text-violet-600 font-semibold text-sm">
                                 KP</div>
                             <div>
-                                <p class="text-text-primary font-semibold text-sm">Kovács Péter</p>
-                                <p class="text-text-tertiary text-xs">Marketing igazgató, ipari gyártó cég</p>
+                                <p class="text-text-primary font-semibold text-sm">{{ __('Peter Kovacs') }}</p>
+                                <p class="text-text-tertiary text-xs">{{ __('Marketing Director, Industrial manufacturing company') }}</p>
                             </div>
                         </div>
                     </div>
                     <div x-show="activeTab === 'aichat'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
-                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"5 perc alatt telepítettük, és
-                            aznap estétől már válaszolt a vendégeink kérdéseire. A többnyelvű támogatás a külföldi
-                            vendégeknél is kiválóan működik."</p>
+                        <p class="text-text-secondary text-lg leading-relaxed mb-6">"{{ __('We installed it in 5 minutes, and that same evening it was answering our guests\' questions. The multilingual support works great with foreign guests too.') }}"</p>
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-semibold text-sm">
                                 SB</div>
                             <div>
-                                <p class="text-text-primary font-semibold text-sm">Szabó Balázs</p>
-                                <p class="text-text-tertiary text-xs">Tulajdonos, Balatoni panzió</p>
+                                <p class="text-text-primary font-semibold text-sm">{{ __('Balazs Szabo') }}</p>
+                                <p class="text-text-tertiary text-xs">{{ __('Owner, Balaton guesthouse') }}</p>
                             </div>
                         </div>
                     </div>
@@ -852,7 +780,7 @@
                     {{-- Main Headline --}}
                     <h2 class="text-4xl md:text-5xl text-text-primary leading-tight mb-12"
                         style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                        Egy rendszer,<br>minden üzleti területre
+                        {{ __('One system,') }}<br>{{ __('for every business area') }}
                     </h2>
 
                     {{-- Product Cards Grid --}}
@@ -875,14 +803,12 @@
                                     </div>
                                     <div>
                                         <p class="text-lg font-bold text-text-primary">cégem360</p>
-                                        <p class="text-base text-text-tertiary -mt-0.5">kontrolling</p>
+                                        <p class="text-base text-text-tertiary -mt-0.5">{{ __('controlling') }}</p>
                                     </div>
                                 </div>
-                                <p class="text-text-secondary text-lg leading-relaxed mb-5">Valós idejű pénzügyi adatok
-                                    és riportok — döntéstámogatás pillanatok alatt.</p>
+                                <p class="text-text-secondary text-lg leading-relaxed mb-5">{{ __('Real-time financial data and reports — decision support in moments.') }}</p>
                                 <a href="#"
-                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon
-                                    meg többet</a>
+                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">{{ __('Learn more') }}</a>
                             </div>
                         </div>
 
@@ -902,14 +828,12 @@
                                     </div>
                                     <div>
                                         <p class="text-lg font-bold text-text-primary">cégem360</p>
-                                        <p class="text-base text-text-tertiary -mt-0.5">SEO eszköz</p>
+                                        <p class="text-base text-text-tertiary -mt-0.5">{{ __('SEO tool') }}</p>
                                     </div>
                                 </div>
-                                <p class="text-text-secondary text-lg leading-relaxed mb-5">AI-alapú kulcsszókutatás és
-                                    versenytárs-elemzés — organikus forgalomnövelés.</p>
+                                <p class="text-text-secondary text-lg leading-relaxed mb-5">{{ __('AI-based keyword research and competitor analysis — organic traffic growth.') }}</p>
                                 <a href="{{ route('products.seo') }}"
-                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon
-                                    meg többet</a>
+                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">{{ __('Learn more') }}</a>
                             </div>
                         </div>
 
@@ -931,11 +855,9 @@
                                         <p class="text-base text-text-tertiary -mt-0.5">CRM</p>
                                     </div>
                                 </div>
-                                <p class="text-text-secondary text-lg leading-relaxed mb-5">Átlátható ügyfélkezelés — a
-                                    kapcsolatfelvételtől a lezárt üzletig.</p>
+                                <p class="text-text-secondary text-lg leading-relaxed mb-5">{{ __('Transparent customer management — from first contact to closed deal.') }}</p>
                                 <a href="#"
-                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon
-                                    meg többet</a>
+                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">{{ __('Learn more') }}</a>
                             </div>
                         </div>
 
@@ -955,14 +877,12 @@
                                     </div>
                                     <div>
                                         <p class="text-lg font-bold text-text-primary">cégem360</p>
-                                        <p class="text-base text-text-tertiary -mt-0.5">beszerzés</p>
+                                        <p class="text-base text-text-tertiary -mt-0.5">{{ __('procurement') }}</p>
                                     </div>
                                 </div>
-                                <p class="text-text-secondary text-lg leading-relaxed mb-5">Készletnyilvántartás és
-                                    szállítások — egy felületen, valós időben.</p>
+                                <p class="text-text-secondary text-lg leading-relaxed mb-5">{{ __('Inventory tracking and shipments — on one interface, in real time.') }}</p>
                                 <a href="#"
-                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon
-                                    meg többet</a>
+                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">{{ __('Learn more') }}</a>
                             </div>
                         </div>
 
@@ -979,11 +899,9 @@
                                         <p class="text-base text-text-tertiary -mt-0.5">MarketingHub</p>
                                     </div>
                                 </div>
-                                <p class="text-text-secondary text-lg leading-relaxed mb-5">Online marketing csatornák
-                                    és kampányok teljesítménye — egy dashboardon.</p>
+                                <p class="text-text-secondary text-lg leading-relaxed mb-5">{{ __('Online marketing channels and campaign performance — on one dashboard.') }}</p>
                                 <a href="{{ route('products.marketinghub') }}"
-                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon
-                                    meg többet</a>
+                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">{{ __('Learn more') }}</a>
                             </div>
                         </div>
 
@@ -1000,12 +918,9 @@
                                         <p class="text-base text-text-tertiary -mt-0.5">DataMind</p>
                                     </div>
                                 </div>
-                                <p class="text-text-secondary text-lg leading-relaxed mb-5">MI alapú adatbányász
-                                    platform
-                                    — prediktív elemzés és összefüggés-feltárás.</p>
+                                <p class="text-text-secondary text-lg leading-relaxed mb-5">{{ __('AI-based data mining platform — predictive analysis and correlation discovery.') }}</p>
                                 <a href="{{ route('products.datamind') }}"
-                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">Tudjon
-                                    meg többet</a>
+                                    class="text-text-primary text-base font-semibold underline underline-offset-2 hover:text-primary-600 transition-colors">{{ __('Learn more') }}</a>
                             </div>
                         </div>
 
@@ -1017,13 +932,12 @@
                     {{-- Description and CTAs --}}
                     <div class="mb-8">
                         <p class="text-text-secondary text-xl lg:text-2xl leading-relaxed mb-6">
-                            Minden modul önállóan is értékes, együtt pedig összehangolt működést biztosít az egész
-                            vállalaton belül.
+                            {{ __('Each module is valuable on its own, and together they ensure coordinated operation across the entire company.') }}
                         </p>
                         <div class="flex items-center gap-4">
                             <a href="{{ route('register') }}"
                                 class="inline-flex items-center gap-2 bg-dark-900 text-white px-7 py-3.5 rounded-full text-base font-medium hover:bg-dark-800 transition-colors">
-                                Kezdés
+                                {{ __('Get started') }}
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -1031,7 +945,7 @@
                             </a>
                             <a href="{{ route('contact') }}"
                                 class="inline-flex items-center gap-2 bg-surface-primary text-text-primary px-7 py-3.5 rounded-full text-base font-medium border border-border-default hover:bg-surface-secondary transition-colors">
-                                Bemutató kérése
+                                {{ __('Request demo') }}
                             </a>
                         </div>
                     </div>
@@ -1039,21 +953,21 @@
                     {{-- Team Image with Labels --}}
                     <div class="relative flex-1 min-h-80 rounded-2xl overflow-hidden">
                         {{-- Background Image --}}
-                        <img src="{{ Vite::asset('resources/images/products-main-img.webp') }}" alt="Csapatmunka"
+                        <img src="{{ Vite::asset('resources/images/products-main-img.webp') }}" alt="{{ __('Teamwork') }}"
                             class="absolute inset-0 w-full h-full object-cover">
 
                         {{-- Floating Labels --}}
                         <div class="absolute top-24 right-12">
                             <span
-                                class="bg-[#0f7b6c] text-white text-sm font-medium px-4 py-2 rounded-lg">Értékesítés</span>
+                                class="bg-[#0f7b6c] text-white text-sm font-medium px-4 py-2 rounded-lg">{{ __('Sales') }}</span>
                         </div>
                         <div class="absolute top-30 left-60">
                             <span
-                                class="bg-success-500 text-white text-sm font-medium px-4 py-2 rounded-lg">Kontrolling</span>
+                                class="bg-success-500 text-white text-sm font-medium px-4 py-2 rounded-lg">{{ __('Controlling') }}</span>
                         </div>
                         <div class="absolute top-1/2 left-1/6">
                             <span
-                                class="bg-danger-500 text-white text-sm font-medium px-4 py-2 rounded-lg">Beszerzés</span>
+                                class="bg-danger-500 text-white text-sm font-medium px-4 py-2 rounded-lg">{{ __('Procurement') }}</span>
                         </div>
                         <div class="absolute bottom-24 right-16">
                             <span class="bg-primary-500 text-white text-sm font-medium px-4 py-2 rounded-lg">CRM</span>
@@ -1085,7 +999,7 @@
             {{-- Section Headline --}}
             <h2 class="text-4xl md:text-5xl text-text-primary text-center mb-16"
                 style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                A Cégem360 előnyei
+                {{ __('Benefits of Cégem360') }}
             </h2>
 
             {{-- Bento Grid --}}
@@ -1107,11 +1021,10 @@
                     <div class="flex flex-col md:flex-row md:items-center gap-6 md:gap-16">
                         <h3 class="text-white text-3xl md:text-[2.5rem] lg:text-[2.75rem] font-medium leading-[1.15]"
                             style="font-family: 'Poppins', sans-serif;">
-                            Rugalmas,<br>mégis egységes
+                            {{ __('Flexible,') }}<br>{{ __('yet unified') }}
                         </h3>
                         <p class="text-white/90 text-lg lg:text-xl leading-relaxed max-w-md">
-                            Alakítsa a rendszert az igényeihez — kód nélkül. Közben tartsa meg a vállalati szintű
-                            egységességet.
+                            {{ __('Shape the system to your needs — without code. While maintaining enterprise-level consistency.') }}
                         </p>
                     </div>
                 </div>
@@ -1123,10 +1036,10 @@
                     <div class="flex flex-col md:flex-row md:items-center gap-6 md:gap-12">
                         <h3 class="text-white text-3xl md:text-[2.5rem] lg:text-[2.75rem] font-medium leading-[1.15]"
                             style="font-family: 'Poppins', sans-serif;">
-                            Amit a csapat<br>szeret használni
+                            {{ __('What the team') }}<br>{{ __('loves to use') }}
                         </h3>
                         <p class="text-white/90 text-lg lg:text-xl leading-relaxed max-w-sm">
-                            Intuitív felület, amit a kollégák tényleg használnak — nem kényszerből, hanem örömmel.
+                            {{ __('An intuitive interface that colleagues actually use — not out of obligation, but with pleasure.') }}
                         </p>
                     </div>
                 </div>
@@ -1163,10 +1076,10 @@
                     <div class="flex flex-col md:flex-row md:items-center gap-6 md:gap-16">
                         <h3 class="text-white text-3xl md:text-[2.5rem] lg:text-[2.75rem] font-medium leading-[1.15]"
                             style="font-family: 'Poppins', sans-serif;">
-                            Gyors<br>eredmények
+                            {{ __('Fast') }}<br>{{ __('results') }}
                         </h3>
                         <p class="text-white/90 text-lg lg:text-xl leading-relaxed max-w-md">
-                            Napok alatt bevezethető, percek alatt megtanulható. Így azonnal megtérül a befektetés.
+                            {{ __('Deployable in days, learnable in minutes. So your investment pays off immediately.') }}
                         </p>
                     </div>
                 </div>
@@ -1191,11 +1104,11 @@
                 <div class="flex items-start justify-between mb-12">
                     <h2 class="text-4xl md:text-5xl lg:text-[3.5rem] text-text-primary leading-tight max-w-2xl"
                         style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                        Blog: hasznos tippek és tudás vállalkozóknak
+                        {{ __('Blog: useful tips and knowledge for entrepreneurs') }}
                     </h2>
                     <a href="{{ route('blog.category', ['blogCategory' => 'blog']) }}"
                         class="hidden md:inline-flex items-center gap-2 bg-text-primary text-white px-7 py-3.5 rounded-full text-base font-medium hover:bg-dark-700 transition-colors shrink-0">
-                        Összes bejegyzés
+                        {{ __('All posts') }}
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -1318,7 +1231,7 @@
                                         </span>
                                         <a href="{{ route('blog.show', [$post->blogCategory?->slug, $post->slug]) }}"
                                             class="text-primary-600 text-base font-medium hover:text-primary-700 transition-colors">
-                                            Tovább →
+                                            {{ __('Read more') }} →
                                         </a>
                                     </div>
                                 </div>
@@ -1369,11 +1282,11 @@
             <div class="flex items-start justify-between mb-12">
                 <h2 class="text-4xl md:text-5xl lg:text-[3.5rem] text-text-primary leading-tight max-w-2xl"
                     style="font-family: 'Poppins', sans-serif; font-weight: 400;">
-                    Sikertörténetek: hogyan segít a Cégem360 az ipari cégeknek?
+                    {{ __('Success stories: how does Cégem360 help industrial companies?') }}
                 </h2>
                 <a href="#"
                     class="hidden md:inline-flex items-center gap-2 bg-text-primary text-white px-7 py-3.5 rounded-full text-base font-medium hover:bg-dark-700 transition-colors shrink-0">
-                    Kapcsolatfelvétel
+                    {{ __('Contact us') }}
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -1488,7 +1401,7 @@
     <section class="hidden bg-surface-secondary border-y border-border-light py-16">
         <div class="max-w-7xl mx-auto px-6">
             <p class="text-center text-text-tertiary text-sm uppercase tracking-wider mb-10">
-                Több mint 500+ vállalat bízik bennünk
+                {{ __('Trusted by over 500+ companies') }}
             </p>
 
             {{-- Logo cloud --}}
@@ -1551,19 +1464,19 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16">
                 <div class="text-center">
                     <div class="text-4xl font-bold text-text-primary mb-2">500+</div>
-                    <div class="text-text-secondary">Elégedett ügyfél</div>
+                    <div class="text-text-secondary">{{ __('Satisfied clients') }}</div>
                 </div>
                 <div class="text-center">
                     <div class="text-4xl font-bold text-text-primary mb-2">99.9%</div>
-                    <div class="text-text-secondary">Üzemidő garancia</div>
+                    <div class="text-text-secondary">{{ __('Uptime guarantee') }}</div>
                 </div>
                 <div class="text-center">
                     <div class="text-4xl font-bold text-text-primary mb-2">24/7</div>
-                    <div class="text-text-secondary">Támogatás</div>
+                    <div class="text-text-secondary">{{ __('Support') }}</div>
                 </div>
                 <div class="text-center">
                     <div class="text-4xl font-bold text-text-primary mb-2">346%</div>
-                    <div class="text-text-secondary">Átlagos ROI</div>
+                    <div class="text-text-secondary">{{ __('Average ROI') }}</div>
                 </div>
             </div>
         </div>
@@ -1574,13 +1487,12 @@
         <div class="max-w-7xl mx-auto px-6">
             {{-- Section header --}}
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="badge badge-primary mb-4">Funkciók</span>
+                <span class="badge badge-primary mb-4">{{ __('Features') }}</span>
                 <h2 class="text-3xl md:text-4xl font-bold text-text-primary mb-6">
-                    Minden, amire szüksége van egy helyen
+                    {{ __('Everything you need in one place') }}
                 </h2>
                 <p class="text-lg text-text-secondary">
-                    Fedezze fel azokat a funkciókat, amelyek segítenek hatékonyabban dolgozni és gyorsabban elérni
-                    céljait.
+                    {{ __('Discover the features that help you work more efficiently and reach your goals faster.') }}
                 </p>
             </div>
 
@@ -1597,14 +1509,13 @@
                             </path>
                         </svg>
                     </div>
-                    <h4 class="text-xl font-semibold text-text-primary mb-3">Feladatkezelés</h4>
+                    <h4 class="text-xl font-semibold text-text-primary mb-3">{{ __('Task Management') }}</h4>
                     <p class="text-text-secondary mb-4">
-                        Szervezze és kövesse nyomon feladatait egyszerűen. Hozzon létre határidőket, rendeljen
-                        felelősöket és figyelje a haladást valós időben.
+                        {{ __('Organize and track your tasks easily. Create deadlines, assign responsibilities and monitor progress in real time.') }}
                     </p>
                     <a href="#"
                         class="inline-flex items-center gap-2 text-primary-600 font-medium hover:text-primary-800 transition-colors">
-                        <span>Tudjon meg többet</span>
+                        <span>{{ __('Learn more') }}</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
                             </path>
@@ -1622,14 +1533,13 @@
                                 d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                         </svg>
                     </div>
-                    <h4 class="text-xl font-semibold text-text-primary mb-3">Automatizálás</h4>
+                    <h4 class="text-xl font-semibold text-text-primary mb-3">{{ __('Automation') }}</h4>
                     <p class="text-text-secondary mb-4">
-                        Szabadítsa fel idejét automatizált munkafolyamatokkal. Állítson be triggereket és akciókat kód
-                        nélkül, percek alatt.
+                        {{ __('Free up your time with automated workflows. Set up triggers and actions without code, in minutes.') }}
                     </p>
                     <a href="#"
                         class="inline-flex items-center gap-2 text-primary-600 font-medium hover:text-primary-800 transition-colors">
-                        <span>Tudjon meg többet</span>
+                        <span>{{ __('Learn more') }}</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
                             </path>
@@ -1648,14 +1558,13 @@
                             </path>
                         </svg>
                     </div>
-                    <h4 class="text-xl font-semibold text-text-primary mb-3">Riportok és elemzések</h4>
+                    <h4 class="text-xl font-semibold text-text-primary mb-3">{{ __('Reports and analytics') }}</h4>
                     <p class="text-text-secondary mb-4">
-                        Hozzon döntéseket adatok alapján. Részletes riportok és dashboardok segítenek megérteni
-                        teljesítményét.
+                        {{ __('Make decisions based on data. Detailed reports and dashboards help you understand your performance.') }}
                     </p>
                     <a href="#"
                         class="inline-flex items-center gap-2 text-primary-600 font-medium hover:text-primary-800 transition-colors">
-                        <span>Tudjon meg többet</span>
+                        <span>{{ __('Learn more') }}</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
                             </path>
@@ -1674,14 +1583,13 @@
                             </path>
                         </svg>
                     </div>
-                    <h4 class="text-xl font-semibold text-text-primary mb-3">Csapatmunka</h4>
+                    <h4 class="text-xl font-semibold text-text-primary mb-3">{{ __('Teamwork') }}</h4>
                     <p class="text-text-secondary mb-4">
-                        Dolgozzon együtt csapatával valós időben. Osszon meg fájlokat, kommunikáljon és tartsa mindenkit
-                        naprakészen.
+                        {{ __('Collaborate with your team in real time. Share files, communicate and keep everyone up to date.') }}
                     </p>
                     <a href="#"
                         class="inline-flex items-center gap-2 text-primary-600 font-medium hover:text-primary-800 transition-colors">
-                        <span>Tudjon meg többet</span>
+                        <span>{{ __('Learn more') }}</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
                             </path>
@@ -1700,14 +1608,13 @@
                             </path>
                         </svg>
                     </div>
-                    <h4 class="text-xl font-semibold text-text-primary mb-3">Integrációk</h4>
+                    <h4 class="text-xl font-semibold text-text-primary mb-3">{{ __('Integrations') }}</h4>
                     <p class="text-text-secondary mb-4">
-                        Kapcsolja össze kedvenc eszközeit. 50+ integráció érhető el, beleértve a Google, Microsoft és
-                        Slack alkalmazásokat.
+                        {{ __('Connect your favorite tools. 50+ integrations available, including Google, Microsoft and Slack applications.') }}
                     </p>
                     <a href="#"
                         class="inline-flex items-center gap-2 text-primary-600 font-medium hover:text-primary-800 transition-colors">
-                        <span>Tudjon meg többet</span>
+                        <span>{{ __('Learn more') }}</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
                             </path>
@@ -1726,14 +1633,13 @@
                             </path>
                         </svg>
                     </div>
-                    <h4 class="text-xl font-semibold text-text-primary mb-3">Biztonság</h4>
+                    <h4 class="text-xl font-semibold text-text-primary mb-3">{{ __('Security') }}</h4>
                     <p class="text-text-secondary mb-4">
-                        Enterprise szintű biztonság. SOC 2 tanúsítvány, GDPR megfelelőség és végpontok közötti
-                        titkosítás.
+                        {{ __('Enterprise-level security. SOC 2 certification, GDPR compliance and end-to-end encryption.') }}
                     </p>
                     <a href="#"
                         class="inline-flex items-center gap-2 text-primary-600 font-medium hover:text-primary-800 transition-colors">
-                        <span>Tudjon meg többet</span>
+                        <span>{{ __('Learn more') }}</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M9 5l7 7-7 7">
@@ -1746,10 +1652,10 @@
             {{-- Bottom CTA --}}
             <div class="hidden text-center mt-16">
                 <a href="{{ route('register') }}" class="btn btn-primary btn-lg">
-                    Próbálja ki ingyen
+                    {{ __('Try it for free') }}
                 </a>
                 <p class="text-text-tertiary text-sm mt-4">
-                    Nincs bankkártya szükséges • 14 napos ingyenes próbaidőszak
+                    {{ __('No credit card required') }} • {{ __('14-day free trial') }}
                 </p>
             </div>
         </div>

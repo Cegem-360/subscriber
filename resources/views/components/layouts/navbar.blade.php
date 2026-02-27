@@ -14,7 +14,7 @@
                 <div class="relative" @mouseenter="openDropdown = 'products'" @mouseleave="openDropdown = null">
                     <button
                         class="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
-                        Termékek
+                        {{ __('Products') }}
                         <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
@@ -29,8 +29,8 @@
                                 class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50">
                                 <x-module-icon module="kontrolling" size="sm" />
                                 <div>
-                                    <div class="font-medium">Kontrolling</div>
-                                    <div class="text-xs text-gray-500">Pénzügyi tervezés és elemzés</div>
+                                    <div class="font-medium">{{ __('Controlling') }}</div>
+                                    <div class="text-xs text-gray-500">{{ __('Financial planning and analysis') }}</div>
                                 </div>
                             </a>
                             <a href="{{ route('products.crm') }}"
@@ -38,55 +38,55 @@
                                 <x-module-icon module="crm" size="sm" />
                                 <div>
                                     <div class="font-medium">CRM</div>
-                                    <div class="text-xs text-gray-500">Ügyfélkapcsolat-kezelés</div>
+                                    <div class="text-xs text-gray-500">{{ __('Customer relationship management') }}</div>
                                 </div>
                             </a>
                             <a href="{{ route('products.ertekesites') }}"
                                 class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50">
                                 <x-module-icon module="ertekesites" size="sm" />
                                 <div>
-                                    <div class="font-medium">Értékesítés</div>
-                                    <div class="text-xs text-gray-500">Ajánlatok és megrendelések</div>
+                                    <div class="font-medium">{{ __('Sales') }}</div>
+                                    <div class="text-xs text-gray-500">{{ __('Quotes and orders') }}</div>
                                 </div>
                             </a>
                             <a href="{{ route('products.beszerzes') }}"
                                 class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50">
                                 <x-module-icon module="beszerzes" size="sm" />
                                 <div>
-                                    <div class="font-medium">Beszerzés-logisztika</div>
-                                    <div class="text-xs text-gray-500">Készlet és szállításkezelés</div>
+                                    <div class="font-medium">{{ __('Procurement & Logistics') }}</div>
+                                    <div class="text-xs text-gray-500">{{ __('Inventory and shipping management') }}</div>
                                 </div>
                             </a>
                             <a href="{{ route('products.gyartas') }}"
                                 class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50">
                                 <x-module-icon module="gyartas" size="sm" />
                                 <div>
-                                    <div class="font-medium">Gyártásirányítás</div>
-                                    <div class="text-xs text-gray-500">Termelés és minőség</div>
+                                    <div class="font-medium">{{ __('Manufacturing Management') }}</div>
+                                    <div class="text-xs text-gray-500">{{ __('Production and quality') }}</div>
                                 </div>
                             </a>
                             <a href="{{ route('products.automatizalas') }}"
                                 class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50">
                                 <x-module-icon module="automatizalas" size="sm" />
                                 <div>
-                                    <div class="font-medium">Automatizálás</div>
-                                    <div class="text-xs text-gray-500">Workflow-k és triggerek</div>
+                                    <div class="font-medium">{{ __('Automation') }}</div>
+                                    <div class="text-xs text-gray-500">{{ __('Workflows and triggers') }}</div>
                                 </div>
                             </a>
                             <a href="{{ route('products.szerviz') }}"
                                 class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50">
                                 <x-module-icon module="szerviz" size="sm" />
                                 <div>
-                                    <div class="font-medium">Digitális munkalap</div>
-                                    <div class="text-xs text-gray-500">Munkalapok kiszállásokhoz</div>
+                                    <div class="font-medium">{{ __('Digital Worksheet') }}</div>
+                                    <div class="text-xs text-gray-500">{{ __('Worksheets for field visits') }}</div>
                                 </div>
                             </a>
                             <a href="{{ route('products.seo') }}"
                                 class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50">
                                 <x-module-icon module="seo" size="sm" />
                                 <div>
-                                    <div class="font-medium">SEO Eszköz</div>
-                                    <div class="text-xs text-gray-500">AI alapú keresőoptimalizálás</div>
+                                    <div class="font-medium">{{ __('SEO Tool') }}</div>
+                                    <div class="text-xs text-gray-500">{{ __('AI-powered search optimization') }}</div>
                                 </div>
                             </a>
                             <a href="{{ route('products.marketinghub') }}"
@@ -94,7 +94,7 @@
                                 <x-module-icon module="marketinghub" size="sm" />
                                 <div>
                                     <div class="font-medium">MarketingHub</div>
-                                    <div class="text-xs text-gray-500">Online marketing eszközök</div>
+                                    <div class="text-xs text-gray-500">{{ __('Online marketing tools') }}</div>
                                 </div>
                             </a>
                             <a href="{{ route('products.datamind') }}"
@@ -102,7 +102,7 @@
                                 <x-module-icon module="datamind" size="sm" />
                                 <div>
                                     <div class="font-medium">DataMind</div>
-                                    <div class="text-xs text-gray-500">MI alapú adatbányász platform</div>
+                                    <div class="text-xs text-gray-500">{{ __('AI-powered data mining platform') }}</div>
                                 </div>
                             </a>
                             <a href="{{ route('products.aichat') }}"
@@ -110,7 +110,7 @@
                                 <x-module-icon module="ai-chat" size="sm" />
                                 <div>
                                     <div class="font-medium">AI Chat</div>
-                                    <div class="text-xs text-gray-500">Intelligens chatbot weboldalakra</div>
+                                    <div class="text-xs text-gray-500">{{ __('Intelligent chatbot for websites') }}</div>
                                 </div>
                             </a>
                         </div>
@@ -121,7 +121,7 @@
                 <div class="relative" @mouseenter="openDropdown = 'solutions'" @mouseleave="openDropdown = null">
                     <button
                         class="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
-                        Megoldások
+                        {{ __('Solutions') }}
                         <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
@@ -132,9 +132,9 @@
                         x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
                         class="absolute left-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
                         <a href="{{ route('solutions.kkv') }}"
-                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">KKV</a>
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">{{ __('SME') }}</a>
                         <a href="{{ route('solutions.enterprise') }}"
-                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Nagyvállalat</a>
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">{{ __('Enterprise') }}</a>
                     </div>
                 </div>
 
@@ -142,7 +142,7 @@
                 <div class="relative" @mouseenter="openDropdown = 'resources'" @mouseleave="openDropdown = null">
                     <button
                         class="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
-                        Erőforrások
+                        {{ __('Resources') }}
                         <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M19 9l-7 7-7-7" />
@@ -154,18 +154,18 @@
                         x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
                         class="absolute left-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
                         <a href="{{ route('blog.category', ['blogCategory' => 'sugo']) }}"
-                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Súgó</a>
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">{{ __('Help') }}</a>
                         <a href="{{ route('blog.category', ['blogCategory' => 'blog']) }}"
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Blog</a>
                         <a href="{{ route('blog.category', ['blogCategory' => 'akademia']) }}"
-                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Akadémia</a>
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">{{ __('Academy') }}</a>
                     </div>
                 </div>
 
                 {{-- Custom Solutions (no dropdown) --}}
                 <a href="{{ route('solutions.custom') }}"
                     class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
-                    Egyedi megoldások
+                    {{ __('Custom solutions') }}
                 </a>
             </div>
 
@@ -177,25 +177,25 @@
                 {{-- Pricing --}}
                 <a href="{{ route('pricing') }}"
                     class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
-                    Árazás
+                    {{ __('Pricing') }}
                 </a>
 
                 @guest
                     {{-- Log in --}}
                     <a href="/admin" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
-                        Bejelentkezés
+                        {{ __('Log in') }}
                     </a>
 
                     {{-- Contact sales (outlined) --}}
                     <a href="{{ route('contact') }}"
                         class="inline-flex items-center px-4 py-2 text-sm font-medium text-indigo-600 border border-indigo-600 rounded-full hover:bg-indigo-50 transition-colors">
-                        Kapcsolat
+                        {{ __('Contact') }}
                     </a>
 
                     {{-- Get Started (filled) --}}
                     <a href="{{ route('filament.admin.auth.register') }}"
                         class="inline-flex items-center gap-1 px-5 py-2 text-sm font-medium text-white bg-indigo-600 rounded-full hover:bg-indigo-700 transition-colors">
-                        Kezdés
+                        {{ __('Get started') }}
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -207,18 +207,18 @@
                     {{-- User menu for authenticated users --}}
                     <a href="{{ route('modules') }}"
                         class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
-                        Moduljaim
+                        {{ __('My Modules') }}
                     </a>
 
                     <a href="{{ route('subscriptions') }}"
                         class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
-                        Előfizetések
+                        {{ __('Subscriptions') }}
                     </a>
 
                     @if (auth()->user()->isAdmin() || auth()->user()->isManager())
                         <a href="{{ route('manage.users') }}"
                             class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
-                            Felhasználók
+                            {{ __('Users') }}
                         </a>
                     @endif
 
@@ -241,13 +241,13 @@
                             x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
                             class="absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
                             <a href="{{ route('filament.admin.auth.profile') }}"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Profilom</a>
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">{{ __('My Profile') }}</a>
                             <hr class="my-1 border-gray-200">
                             <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
                                 @csrf
                                 <button type="submit"
                                     class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                                    Kijelentkezés
+                                    {{ __('Sign out') }}
                                 </button>
                             </form>
                         </div>
@@ -276,21 +276,21 @@
     <div x-show="mobileMenuOpen" x-collapse class="lg:hidden border-t border-gray-200">
         <div class="px-4 py-4 space-y-3">
             <div class="py-2">
-                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Termékek</p>
+                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">{{ __('Products') }}</p>
                 <a href="{{ route('products.szerviz') }}"
                     class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
                     <x-module-icon module="szerviz" size="xs" />
-                    Digitális munkalap
+                    {{ __('Digital Worksheet') }}
                 </a>
                 <a href="{{ route('products.kontrolling') }}"
                     class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
                     <x-module-icon module="kontrolling" size="xs" />
-                    Kontrolling
+                    {{ __('Controlling') }}
                 </a>
                 <a href="{{ route('products.seo') }}"
                     class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
                     <x-module-icon module="seo" size="xs" />
-                    SEO Eszköz
+                    {{ __('SEO Tool') }}
                 </a>
                 <a href="{{ route('products.crm') }}"
                     class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
@@ -300,22 +300,22 @@
                 <a href="{{ route('products.beszerzes') }}"
                     class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
                     <x-module-icon module="beszerzes" size="xs" />
-                    Beszerzés-logisztika
+                    {{ __('Procurement & Logistics') }}
                 </a>
                 <a href="{{ route('products.ertekesites') }}"
                     class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
                     <x-module-icon module="ertekesites" size="xs" />
-                    Értékesítés
+                    {{ __('Sales') }}
                 </a>
                 <a href="{{ route('products.gyartas') }}"
                     class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
                     <x-module-icon module="gyartas" size="xs" />
-                    Gyártásirányítás
+                    {{ __('Manufacturing Management') }}
                 </a>
                 <a href="{{ route('products.automatizalas') }}"
                     class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
                     <x-module-icon module="automatizalas" size="xs" />
-                    Automatizálás
+                    {{ __('Automation') }}
                 </a>
                 <a href="{{ route('products.marketinghub') }}"
                     class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
@@ -334,13 +334,13 @@
                 </a>
             </div>
             <div class="py-2">
-                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Megoldások</p>
-                <a href="{{ route('solutions.kkv') }}" class="block py-1.5 pl-3 text-sm text-gray-700">KKV</a>
+                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">{{ __('Solutions') }}</p>
+                <a href="{{ route('solutions.kkv') }}" class="block py-1.5 pl-3 text-sm text-gray-700">{{ __('SME') }}</a>
                 <a href="{{ route('solutions.enterprise') }}"
-                    class="block py-1.5 pl-3 text-sm text-gray-700">Nagyvállalat</a>
+                    class="block py-1.5 pl-3 text-sm text-gray-700">{{ __('Enterprise') }}</a>
             </div>
-            <a href="#" class="block py-2 text-sm font-medium text-gray-700">Erőforrások</a>
-            <a href="{{ route('pricing') }}" class="block py-2 text-sm font-medium text-gray-700">Árazás</a>
+            <a href="#" class="block py-2 text-sm font-medium text-gray-700">{{ __('Resources') }}</a>
+            <a href="{{ route('pricing') }}" class="block py-2 text-sm font-medium text-gray-700">{{ __('Pricing') }}</a>
 
             {{-- Language Switcher for Mobile --}}
             <div class="py-2">
@@ -350,28 +350,28 @@
             <hr class="border-gray-200">
 
             @guest
-                <a href="/admin" class="block py-2 text-sm font-medium text-gray-700">Bejelentkezés</a>
-                <a href="{{ route('contact') }}" class="block py-2 text-sm font-medium text-indigo-600">Kapcsolat</a>
+                <a href="/admin" class="block py-2 text-sm font-medium text-gray-700">{{ __('Log in') }}</a>
+                <a href="{{ route('contact') }}" class="block py-2 text-sm font-medium text-indigo-600">{{ __('Contact') }}</a>
                 <a href="{{ route('filament.admin.auth.register') }}"
                     class="block w-full text-center py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-full">
-                    Kezdés
+                    {{ __('Get started') }}
                 </a>
             @endguest
 
             @auth
-                <a href="{{ route('modules') }}" class="block py-2 text-sm font-medium text-gray-700">Moduljaim</a>
+                <a href="{{ route('modules') }}" class="block py-2 text-sm font-medium text-gray-700">{{ __('My Modules') }}</a>
                 <a href="{{ route('subscriptions') }}"
-                    class="block py-2 text-sm font-medium text-gray-700">Előfizetések</a>
+                    class="block py-2 text-sm font-medium text-gray-700">{{ __('Subscriptions') }}</a>
                 @if (auth()->user()->isAdmin() || auth()->user()->isManager())
                     <a href="{{ route('manage.users') }}"
-                        class="block py-2 text-sm font-medium text-gray-700">Felhasználók</a>
+                        class="block py-2 text-sm font-medium text-gray-700">{{ __('Users') }}</a>
                 @endif
                 <a href="{{ route('filament.admin.auth.profile') }}"
-                    class="block py-2 text-sm font-medium text-gray-700">Profilom</a>
+                    class="block py-2 text-sm font-medium text-gray-700">{{ __('My Profile') }}</a>
                 <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
                     @csrf
                     <button type="submit" class="block w-full text-left py-2 text-sm font-medium text-red-600">
-                        Kijelentkezés
+                        {{ __('Sign out') }}
                     </button>
                 </form>
             @endauth

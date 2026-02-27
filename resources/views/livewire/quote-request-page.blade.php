@@ -4,11 +4,11 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                 <h1 class="mb-6 text-3xl font-semibold text-gray-900 sm:text-4xl lg:text-5xl">
-                    Egyedi ajánlatkérés
+                    {{ __('Custom quote request') }}
                 </h1>
                 <p class="mx-auto mt-4 max-w-3xl text-xl text-gray-600">
-                    Egyedi igények, dedikált erőforrások, személyre szabott támogatás.
-                    Töltse ki az alábbi űrlapot, és készítünk Önnek testre szabott ajánlatot.
+                    {{ __('Custom needs, dedicated resources, personalized support.') }}
+                    {{ __('Fill out the form below and we\'ll prepare a tailored quote for you.') }}
                 </p>
             </div>
         </div>
@@ -26,13 +26,13 @@
                                 d="M5 13l4 4L19 7" />
                         </svg>
                     </div>
-                    <h2 class="mb-2 text-2xl font-semibold text-gray-900">Köszönjük megkeresését!</h2>
+                    <h2 class="mb-2 text-2xl font-semibold text-gray-900">{{ __('Thank you for your inquiry!') }}</h2>
                     <p class="mb-6 text-gray-600">
-                        Munkatársunk hamarosan felveszi Önnel a kapcsolatot a megadott elérhetőségen.
+                        {{ __('Our colleague will contact you shortly at the provided contact details.') }}
                     </p>
                     <a href="{{ route('pricing') }}"
                         class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-indigo-700">
-                        Vissza az árakhoz
+                        {{ __('Back to pricing') }}
                     </a>
                 </div>
             @else
@@ -46,7 +46,7 @@
                             <button type="submit"
                                 class="flex w-full items-center justify-center rounded-lg bg-indigo-600 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                 wire:loading.attr="disabled" wire:loading.class="opacity-75 cursor-not-allowed">
-                                <span wire:loading.remove>Ajánlatkérés elküldése</span>
+                                <span wire:loading.remove>{{ __('Submit quote request') }}</span>
                                 <span wire:loading class="flex items-center">
                                     <svg class="mr-2 h-5 w-5 animate-spin text-white" fill="none"
                                         viewBox="0 0 24 24">
@@ -56,7 +56,7 @@
                                             d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                                         </path>
                                     </svg>
-                                    Küldés...
+                                    {{ __('Sending...') }}
                                 </span>
                             </button>
                         </div>
@@ -66,7 +66,7 @@
                     <div class="mt-6 text-center">
                         <a href="{{ route('pricing') }}"
                             class="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                            ← Vissza az árakhoz
+                            {{ __('← Back to pricing') }}
                         </a>
                     </div>
                 </div>

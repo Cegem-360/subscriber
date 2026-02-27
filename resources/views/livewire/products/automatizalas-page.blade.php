@@ -11,23 +11,22 @@
                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
-                    Intelligens üzleti automatizáció
+                    {{ __('Intelligent business automation') }}
                 </div>
 
                 <h1 class="mb-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
-                    Automatizálja üzleti
-                    <span class="text-violet-600">folyamatait</span>
+                    {{ __('Automate your business') }}
+                    <span class="text-violet-600">{{ __('processes') }}</span>
                 </h1>
 
                 <p class="mx-auto mb-10 max-w-2xl text-lg text-gray-600 sm:text-xl">
-                    Szabaduljon meg az ismétlődő manuális feladatoktól. Az Automatizálás modul
-                    intelligens workflow-kkal és triggerekkel optimalizálja vállalkozása működését.
+                    {{ __('Get rid of repetitive manual tasks. The Automation module optimizes your business operations with intelligent workflows and triggers.') }}
                 </p>
 
                 <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                     <a href="{{ route('register') }}"
                         class="inline-flex items-center justify-center gap-2 rounded-full bg-violet-600 px-8 py-4 text-base font-semibold text-white shadow-lg transition-colors hover:bg-violet-700 hover:shadow-xl">
-                        Kezdés indítása
+                        {{ __('Get started') }}
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -35,11 +34,11 @@
                     </a>
                     <a href="{{ route('contact') }}"
                         class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-violet-200 bg-white px-8 py-4 text-base font-semibold text-violet-700 transition-colors hover:bg-violet-50">
-                        Demó kérése
+                        {{ __('Request a demo') }}
                     </a>
                     <a href="{{ route('login') }}"
                         class="inline-flex items-center justify-center gap-2 text-base font-medium text-violet-600 transition-colors hover:text-violet-800">
-                        Bejelentkezés a programba →
+                        {{ __('Log in to the application') }} →
                     </a>
                 </div>
             </div>
@@ -51,10 +50,10 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-3xl text-center">
                 <h2 class="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
-                    Ismerős problémák?
+                    {{ __('Familiar problems?') }}
                 </h2>
                 <p class="text-lg text-gray-600">
-                    A manuális, ismétlődő feladatok rengeteg időt és energiát emésztenek fel.
+                    {{ __('Manual, repetitive tasks consume a lot of time and energy.') }}
                 </p>
             </div>
 
@@ -65,8 +64,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 font-semibold text-gray-900">Ismétlődő feladatok</h3>
-                    <p class="text-sm text-gray-600">Munkatársai napi szinten ugyanazokat a manuális lépéseket hajtják végre újra és újra.</p>
+                    <h3 class="mb-2 font-semibold text-gray-900">{{ __('Repetitive tasks') }}</h3>
+                    <p class="text-sm text-gray-600">{{ __('Your employees perform the same manual steps over and over again on a daily basis.') }}</p>
                 </div>
 
                 <div class="rounded-xl bg-white p-6 shadow-sm">
@@ -75,8 +74,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 font-semibold text-gray-900">Emberi hibák</h3>
-                    <p class="text-sm text-gray-600">A manuális adatrögzítés és -átadás során gyakran előfordulnak elfelejtett vagy hibás műveletek.</p>
+                    <h3 class="mb-2 font-semibold text-gray-900">{{ __('Human errors') }}</h3>
+                    <p class="text-sm text-gray-600">{{ __('Forgotten or incorrect operations frequently occur during manual data entry and handover.') }}</p>
                 </div>
 
                 <div class="rounded-xl bg-white p-6 shadow-sm">
@@ -85,8 +84,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 font-semibold text-gray-900">Lassú folyamatok</h3>
-                    <p class="text-sm text-gray-600">Az információk késve jutnak el a megfelelő személyek számára, ami lassítja a döntéshozatalt.</p>
+                    <h3 class="mb-2 font-semibold text-gray-900">{{ __('Slow processes') }}</h3>
+                    <p class="text-sm text-gray-600">{{ __('Information reaches the right people late, slowing down decision-making.') }}</p>
                 </div>
 
                 <div class="rounded-xl bg-white p-6 shadow-sm">
@@ -95,8 +94,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 font-semibold text-gray-900">Motiválatlan csapat</h3>
-                    <p class="text-sm text-gray-600">Az unalmas, ismétlődő feladatok csökkentik a munkatársak elégedettségét és hatékonyságát.</p>
+                    <h3 class="mb-2 font-semibold text-gray-900">{{ __('Unmotivated team') }}</h3>
+                    <p class="text-sm text-gray-600">{{ __('Boring, repetitive tasks reduce employee satisfaction and efficiency.') }}</p>
                 </div>
             </div>
         </div>
@@ -110,13 +109,13 @@
                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                     </svg>
-                    Funkciók
+                    {{ __('Features') }}
                 </div>
                 <h2 class="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
-                    Minden, amire szüksége van az automatizáláshoz
+                    {{ __('Everything you need for automation') }}
                 </h2>
                 <p class="text-lg text-gray-600">
-                    Átfogó eszköztár a munkafolyamatok automatizálásához és optimalizálásához.
+                    {{ __('Comprehensive toolkit for automating and optimizing workflows.') }}
                 </p>
             </div>
 
@@ -128,28 +127,28 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                         </svg>
                     </div>
-                    <h3 class="mb-3 text-xl font-semibold text-gray-900">Workflow builder</h3>
+                    <h3 class="mb-3 text-xl font-semibold text-gray-900">{{ __('Workflow builder') }}</h3>
                     <p class="mb-4 text-gray-600">
-                        Vizuális drag-and-drop felületen tervezze meg üzleti folyamatait programozás nélkül.
+                        {{ __('Design your business processes on a visual drag-and-drop interface without programming.') }}
                     </p>
                     <ul class="space-y-2 text-sm text-gray-600">
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
-                            Drag-and-drop szerkesztő
+                            {{ __('Drag-and-drop editor') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
-                            Elágazások és feltételrendszer
+                            {{ __('Branches and conditions') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
-                            Sablonok és példák
+                            {{ __('Templates and examples') }}
                         </li>
                     </ul>
                 </div>
@@ -161,28 +160,28 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                         </svg>
                     </div>
-                    <h3 class="mb-3 text-xl font-semibold text-gray-900">Triggerek és események</h3>
+                    <h3 class="mb-3 text-xl font-semibold text-gray-900">{{ __('Triggers and events') }}</h3>
                     <p class="mb-4 text-gray-600">
-                        Állítson be automatikus akciókat, amelyek események bekövetkeztekor futnak le.
+                        {{ __('Set up automatic actions that run when events occur.') }}
                     </p>
                     <ul class="space-y-2 text-sm text-gray-600">
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
-                            Időalapúak és ütemezettek
+                            {{ __('Time-based and scheduled') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
-                            Adatváltozáson alapuló
+                            {{ __('Data change based') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
-                            Felhasználói akció alapú
+                            {{ __('User action based') }}
                         </li>
                     </ul>
                 </div>
@@ -194,28 +193,28 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
                     </div>
-                    <h3 class="mb-3 text-xl font-semibold text-gray-900">Automatikus értesítések</h3>
+                    <h3 class="mb-3 text-xl font-semibold text-gray-900">{{ __('Automatic notifications') }}</h3>
                     <p class="mb-4 text-gray-600">
-                        Küldjön automatikusan emaileket, SMS-eket vagy rendszerértesítéseket az eseményekről.
+                        {{ __('Automatically send emails, SMS messages, or system notifications about events.') }}
                     </p>
                     <ul class="space-y-2 text-sm text-gray-600">
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
-                            Email sablonok
+                            {{ __('Email templates') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
-                            SMS és push értesítések
+                            {{ __('SMS and push notifications') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
-                            Slack és Teams integráció
+                            {{ __('Slack and Teams integration') }}
                         </li>
                     </ul>
                 </div>
@@ -227,28 +226,28 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                     </div>
-                    <h3 class="mb-3 text-xl font-semibold text-gray-900">Dokumentum generálás</h3>
+                    <h3 class="mb-3 text-xl font-semibold text-gray-900">{{ __('Document generation') }}</h3>
                     <p class="mb-4 text-gray-600">
-                        Hozzon létre automatikusan számlákat, szerződéseket, jelentéseket és más dokumentumokat.
+                        {{ __('Automatically create invoices, contracts, reports, and other documents.') }}
                     </p>
                     <ul class="space-y-2 text-sm text-gray-600">
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
-                            PDF és Word export
+                            {{ __('PDF and Word export') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
-                            Testreszabható sablonok
+                            {{ __('Customizable templates') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
-                            Automatikus számozás
+                            {{ __('Automatic numbering') }}
                         </li>
                     </ul>
                 </div>
@@ -260,28 +259,28 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
                         </svg>
                     </div>
-                    <h3 class="mb-3 text-xl font-semibold text-gray-900">Adatszinkronizálás</h3>
+                    <h3 class="mb-3 text-xl font-semibold text-gray-900">{{ __('Data synchronization') }}</h3>
                     <p class="mb-4 text-gray-600">
-                        Tartsa szinkronban az adatokat a különböző modulok és külső rendszerek között.
+                        {{ __('Keep data in sync between different modules and external systems.') }}
                     </p>
                     <ul class="space-y-2 text-sm text-gray-600">
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
-                            Két- és egyirányú szinkron
+                            {{ __('Two-way and one-way sync') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
-                            Adatleképezések
+                            {{ __('Data mappings') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
-                            Konfliktuskezelés
+                            {{ __('Conflict resolution') }}
                         </li>
                     </ul>
                 </div>
@@ -293,28 +292,28 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                         </svg>
                     </div>
-                    <h3 class="mb-3 text-xl font-semibold text-gray-900">Automatizálási riportok</h3>
+                    <h3 class="mb-3 text-xl font-semibold text-gray-900">{{ __('Automation reports') }}</h3>
                     <p class="mb-4 text-gray-600">
-                        Kövesse nyomon az automatizációk teljesítményét és azonosítsa az optimalizálási lehetőségeket.
+                        {{ __('Track the performance of automations and identify optimization opportunities.') }}
                     </p>
                     <ul class="space-y-2 text-sm text-gray-600">
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
-                            Futási statisztikák
+                            {{ __('Execution statistics') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
-                            Hibajelentések
+                            {{ __('Error reports') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
-                            Időmegtakarítás mérőszámok
+                            {{ __('Time savings metrics') }}
                         </li>
                     </ul>
                 </div>
@@ -327,33 +326,33 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-3xl text-center">
                 <h2 class="mb-4 text-3xl font-bold text-white sm:text-4xl">
-                    Mérhető eredmények
+                    {{ __('Measurable results') }}
                 </h2>
                 <p class="text-lg text-violet-100">
-                    Ügyfeleink által elért átlagos javulások az automatizáció bevezetésének első 6 hónapjában.
+                    {{ __('Average improvements achieved by our clients in the first 6 months of automation implementation.') }}
                 </p>
             </div>
 
             <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
                 <div class="rounded-xl bg-white/10 p-6 text-center backdrop-blur-sm">
                     <div class="mb-2 text-4xl font-bold text-white">75%</div>
-                    <div class="text-sm text-violet-100">Kevesebb manuális feladat</div>
+                    <div class="text-sm text-violet-100">{{ __('Fewer manual tasks') }}</div>
                 </div>
                 <div class="rounded-xl bg-white/10 p-6 text-center backdrop-blur-sm">
                     <div class="mb-2 text-4xl font-bold text-white">60%</div>
-                    <div class="text-sm text-violet-100">Gyorsabb folyamatok</div>
+                    <div class="text-sm text-violet-100">{{ __('Faster processes') }}</div>
                 </div>
                 <div class="rounded-xl bg-white/10 p-6 text-center backdrop-blur-sm">
                     <div class="mb-2 text-4xl font-bold text-white">90%</div>
-                    <div class="text-sm text-violet-100">Kevesebb emberi hiba</div>
+                    <div class="text-sm text-violet-100">{{ __('Fewer human errors') }}</div>
                 </div>
                 <div class="rounded-xl bg-white/10 p-6 text-center backdrop-blur-sm">
                     <div class="mb-2 text-4xl font-bold text-white">40%</div>
-                    <div class="text-sm text-violet-100">Több időmegtakarítás</div>
+                    <div class="text-sm text-violet-100">{{ __('More time saved') }}</div>
                 </div>
                 <div class="rounded-xl bg-white/10 p-6 text-center backdrop-blur-sm">
                     <div class="mb-2 text-4xl font-bold text-white">3x</div>
-                    <div class="text-sm text-violet-100">ROI 12 hónap alatt</div>
+                    <div class="text-sm text-violet-100">{{ __('ROI within 12 months') }}</div>
                 </div>
             </div>
         </div>
@@ -367,13 +366,13 @@
                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                     </svg>
-                    Integrációk
+                    {{ __('Integrations') }}
                 </div>
                 <h2 class="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
-                    Kapcsolódjon kedvenc eszközeihez
+                    {{ __('Connect to your favorite tools') }}
                 </h2>
                 <p class="text-lg text-gray-600">
-                    Automatizálja a munkafolyamatokat a már használt rendszerekkel.
+                    {{ __('Automate workflows with the systems you already use.') }}
                 </p>
             </div>
 
@@ -385,7 +384,7 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="font-semibold text-gray-900">Email szolgáltatók</h3>
+                        <h3 class="font-semibold text-gray-900">{{ __('Email providers') }}</h3>
                         <p class="text-sm text-gray-600">Gmail, Outlook, SMTP</p>
                     </div>
                 </div>
@@ -397,7 +396,7 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="font-semibold text-gray-900">Kommunikáció</h3>
+                        <h3 class="font-semibold text-gray-900">{{ __('Communication') }}</h3>
                         <p class="text-sm text-gray-600">Slack, Teams, Discord</p>
                     </div>
                 </div>
@@ -409,7 +408,7 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="font-semibold text-gray-900">Felhőtárhelyek</h3>
+                        <h3 class="font-semibold text-gray-900">{{ __('Cloud storage') }}</h3>
                         <p class="text-sm text-gray-600">Google Drive, Dropbox, OneDrive</p>
                     </div>
                 </div>
@@ -421,8 +420,8 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="font-semibold text-gray-900">Pénzügyi rendszerek</h3>
-                        <p class="text-sm text-gray-600">NAV, Számlázó, Billingo</p>
+                        <h3 class="font-semibold text-gray-900">{{ __('Financial systems') }}</h3>
+                        <p class="text-sm text-gray-600">NAV, Szamlazzo, Billingo</p>
                     </div>
                 </div>
 
@@ -433,7 +432,7 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="font-semibold text-gray-900">Webhook és API</h3>
+                        <h3 class="font-semibold text-gray-900">{{ __('Webhook and API') }}</h3>
                         <p class="text-sm text-gray-600">REST API, Webhooks, Zapier</p>
                     </div>
                 </div>
@@ -445,7 +444,7 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="font-semibold text-gray-900">Naptárak</h3>
+                        <h3 class="font-semibold text-gray-900">{{ __('Calendars') }}</h3>
                         <p class="text-sm text-gray-600">Google Calendar, Outlook</p>
                     </div>
                 </div>
@@ -458,10 +457,10 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-3xl text-center">
                 <h2 class="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
-                    Kiknek készült?
+                    {{ __('Who is it for?') }}
                 </h2>
                 <p class="text-lg text-gray-600">
-                    Az Automatizálás modul minden olyan csapat számára ideális, akik hatékonyabban szeretnének dolgozni.
+                    {{ __('The Automation module is ideal for any team that wants to work more efficiently.') }}
                 </p>
             </div>
 
@@ -472,8 +471,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 font-semibold text-gray-900">Irodavezetők</h3>
-                    <p class="text-sm text-gray-600">Automatizálják az adminisztratív feladatokat és a csapaton belüli kommunikációt.</p>
+                    <h3 class="mb-2 font-semibold text-gray-900">{{ __('Office managers') }}</h3>
+                    <p class="text-sm text-gray-600">{{ __('Automate administrative tasks and team communication.') }}</p>
                 </div>
 
                 <div class="rounded-xl bg-white p-6 shadow-sm">
@@ -482,8 +481,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 font-semibold text-gray-900">Folyamatmenedzserek</h3>
-                    <p class="text-sm text-gray-600">Optimalizálják és automatizálják a vállalati üzleti folyamatokat.</p>
+                    <h3 class="mb-2 font-semibold text-gray-900">{{ __('Process managers') }}</h3>
+                    <p class="text-sm text-gray-600">{{ __('Optimize and automate corporate business processes.') }}</p>
                 </div>
 
                 <div class="rounded-xl bg-white p-6 shadow-sm">
@@ -493,8 +492,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 font-semibold text-gray-900">IT csapatok</h3>
-                    <p class="text-sm text-gray-600">Integrációt és rendszerautomatizációt valósítanak meg a vállalaton belül.</p>
+                    <h3 class="mb-2 font-semibold text-gray-900">{{ __('IT teams') }}</h3>
+                    <p class="text-sm text-gray-600">{{ __('Implement integrations and system automation within the company.') }}</p>
                 </div>
 
                 <div class="rounded-xl bg-white p-6 shadow-sm">
@@ -503,8 +502,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                         </svg>
                     </div>
-                    <h3 class="mb-2 font-semibold text-gray-900">Vállalkozók</h3>
-                    <p class="text-sm text-gray-600">Kevesebb erőforrással többet érnek el a mindennapi működésben.</p>
+                    <h3 class="mb-2 font-semibold text-gray-900">{{ __('Entrepreneurs') }}</h3>
+                    <p class="text-sm text-gray-600">{{ __('Achieve more with fewer resources in daily operations.') }}</p>
                 </div>
             </div>
         </div>
@@ -516,10 +515,10 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-3xl text-center">
                 <h2 class="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
-                    Ügyfeleink véleménye
+                    {{ __('What our clients say') }}
                 </h2>
                 <p class="text-lg text-gray-600">
-                    Ismerje meg, hogyan segítette az Automatizálás modul más vállalkozásokat.
+                    {{ __('Learn how the Automation module has helped other businesses.') }}
                 </p>
             </div>
 
@@ -533,7 +532,7 @@
                         @endfor
                     </div>
                     <blockquote class="mb-6 text-gray-700">
-                        "Az automatizálás bevezetésének előtt a csapatunk napi 3-4 órát töltött ismétlődő adminisztratív feladatokkal. Ma már ezek többsége automatikusan történik, és a kollégák értékesebb munkára tudnak koncentrálni."
+                        "{{ __('Before implementing automation, our team spent 3-4 hours daily on repetitive administrative tasks. Today, most of these happen automatically, and colleagues can focus on more valuable work.') }}"
                     </blockquote>
                     <div class="flex items-center gap-4">
                         <div class="flex h-12 w-12 items-center justify-center rounded-full bg-violet-200 font-semibold text-violet-700">
@@ -541,7 +540,7 @@
                         </div>
                         <div>
                             <div class="font-semibold text-gray-900">Nagy Katalin</div>
-                            <div class="text-sm text-gray-600">Operációs igazgató, LogiTech Kft.</div>
+                            <div class="text-sm text-gray-600">{{ __('Operations Director, LogiTech Kft.') }}</div>
                         </div>
                     </div>
                 </div>
@@ -555,7 +554,7 @@
                         @endfor
                     </div>
                     <blockquote class="mb-6 text-gray-700">
-                        "A workflow-ket kezdetben szépen, egyenként állítottuk be, de már az első hónapban 90%-kal csökkent az emberi hibák száma. A rendszer megbízhatóan működik, és a csapat motiváltabb lett."
+                        "{{ __('We set up the workflows nicely, one by one at first, but already in the first month human errors decreased by 90%. The system works reliably, and the team has become more motivated.') }}"
                     </blockquote>
                     <div class="flex items-center gap-4">
                         <div class="flex h-12 w-12 items-center justify-center rounded-full bg-violet-200 font-semibold text-violet-700">
@@ -563,7 +562,7 @@
                         </div>
                         <div>
                             <div class="font-semibold text-gray-900">Fehér Tamás</div>
-                            <div class="text-sm text-gray-600">IT vezető, MediaPrint Zrt.</div>
+                            <div class="text-sm text-gray-600">{{ __('IT Director, MediaPrint Zrt.') }}</div>
                         </div>
                     </div>
                 </div>
@@ -577,10 +576,10 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-3xl text-center">
                 <h2 class="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
-                    Kapcsolódó modulok
+                    {{ __('Related modules') }}
                 </h2>
                 <p class="text-lg text-gray-600">
-                    Bővítse az Automatizálás modult más Cégem360 modulokkal a teljes körű működés érdekében.
+                    {{ __('Extend the Automation module with other Cégem360 modules for complete operations.') }}
                 </p>
             </div>
 
@@ -591,7 +590,7 @@
                     </div>
                     <div>
                         <h3 class="mb-2 text-xl font-semibold text-gray-900 group-hover:text-sky-600">CRM</h3>
-                        <p class="text-gray-600">Automatizálja az ügyfélkapcsolati folyamatokat: follow-up emailek, lead pontozás, feladat-hozzárendelések.</p>
+                        <p class="text-gray-600">{{ __('Automate customer relationship processes: follow-up emails, lead scoring, task assignments.') }}</p>
                     </div>
                 </a>
 
@@ -600,8 +599,8 @@
                         <x-module-icon module="gyartas" size="lg" />
                     </div>
                     <div>
-                        <h3 class="mb-2 text-xl font-semibold text-gray-900 group-hover:text-indigo-600">Gyártásirányítás</h3>
-                        <p class="text-gray-600">Automatizálja a gyártási folyamatokat: munkautasítások generálása, minőség-ellenőrzési riasztások.</p>
+                        <h3 class="mb-2 text-xl font-semibold text-gray-900 group-hover:text-indigo-600">{{ __('Manufacturing Management') }}</h3>
+                        <p class="text-gray-600">{{ __('Automate manufacturing processes: work order generation, quality control alerts.') }}</p>
                     </div>
                 </a>
             </div>
@@ -613,15 +612,15 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-3xl text-center">
                 <h2 class="mb-6 text-3xl font-bold text-white sm:text-4xl">
-                    Készen áll a folyamatok automatizálására?
+                    {{ __('Ready to automate your processes?') }}
                 </h2>
                 <p class="mb-10 text-lg text-violet-100">
-                    Teljes funkcionalitás, magyar nyelvű támogatás. Kérjen személyre szabott bemutatót.
+                    {{ __('Full functionality, Hungarian language support. Request a personalized demo.') }}
                 </p>
                 <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
                     <a href="{{ route('register') }}"
                         class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-base font-semibold text-violet-600 shadow-lg transition-colors hover:bg-violet-50 hover:shadow-xl">
-                        Kezdés indítása
+                        {{ __('Get started') }}
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -629,11 +628,11 @@
                     </a>
                     <a href="{{ route('contact') }}"
                         class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-violet-400 px-8 py-4 text-base font-semibold text-white transition-colors hover:bg-violet-700">
-                        Demó kérése
+                        {{ __('Request a demo') }}
                     </a>
                     <a href="{{ route('login') }}"
                         class="inline-flex items-center justify-center gap-2 text-base font-medium text-violet-200 transition-colors hover:text-white">
-                        Bejelentkezés a programba →
+                        {{ __('Log in to the application') }} →
                     </a>
                 </div>
             </div>

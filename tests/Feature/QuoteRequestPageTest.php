@@ -15,7 +15,7 @@ describe('QuoteRequestPage', function (): void {
     it('displays the form fields', function (): void {
         Livewire::test(QuoteRequestPage::class)
             ->assertSee('Név')
-            ->assertSee('Email')
+            ->assertSee('E-mail')
             ->assertSee('Üzenet')
             ->assertSee('Ajánlatkérés elküldése');
     });
@@ -66,10 +66,8 @@ describe('QuoteRequestPage', function (): void {
             ->assertSet('data.message', null);
     });
 
-    it('displays enterprise features', function (): void {
+    it('displays page subtitle', function (): void {
         Livewire::test(QuoteRequestPage::class)
-            ->assertSee('Dedikált szerver környezet')
-            ->assertSee('SLA garancia')
-            ->assertSee('Személyes account manager');
+            ->assertSee('Egyedi igények, dedikált erőforrások, személyre szabott támogatás.');
     });
 });
