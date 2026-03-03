@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Auth\EmailVerificationPrompt;
 use App\Filament\Pages\Auth\Login;
 use App\Filament\Pages\Auth\PasswordReset\RequestPasswordReset;
 use App\Filament\Pages\Auth\PasswordReset\ResetPassword;
@@ -38,7 +39,7 @@ final class AdminPanelServiceProvider extends PanelProvider
                 requestAction: RequestPasswordReset::class,
                 resetAction: ResetPassword::class,
             )
-            ->emailVerification()
+            ->emailVerification(promptAction: EmailVerificationPrompt::class)
             ->profile(EditProfile::class)
             ->colors([
                 'primary' => Color::Indigo,
