@@ -19,14 +19,17 @@
 
         <p class="text-center text-xs text-gray-500">
             A folytatással elfogadod az
-            <a href="#" class="underline" style="color: #4f46e5 !important;">ÁSZF-et</a>
+            <a wire:navigate href="{{ route('legal.szolgaltatasi-feltetelek') }}" class="underline"
+                style="color: #4f46e5 !important;">ÁSZF-et</a>
             és az
-            <a href="#" class="underline" style="color: #4f46e5 !important;">Adatvédelmi Szabályzatot</a>.
+            <a wire:navigate href="{{ route('legal.jogi-nyilatkozat') }}" class="underline"
+                style="color: #4f46e5 !important;">Adatvédelmi Szabályzatot</a>.
         </p>
 
         <p class="text-center text-sm text-gray-500 pt-2">
             Van már fiókod?
-            <a href="{{ route('filament.admin.auth.login') }}" class="font-medium" style="color: #4f46e5 !important;">
+            <a wire:navigate href="{{ route('filament.admin.auth.login') }}" class="font-medium"
+                style="color: #4f46e5 !important;">
                 Bejelentkezés
             </a>
         </p>
