@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Auth\EmailVerificationPrompt;
 use App\Filament\Pages\Auth\Login;
 use App\Filament\Pages\Auth\PasswordReset\RequestPasswordReset;
 use App\Filament\Pages\Auth\PasswordReset\ResetPassword;
 use App\Filament\Pages\Auth\Register;
 use App\Filament\Pages\EditProfile;
 use App\Filament\Pages\Plans;
+use App\Http\Middleware\RedirectNonAdminFromPanel;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -38,7 +40,7 @@ final class AdminPanelServiceProvider extends PanelProvider
                 requestAction: RequestPasswordReset::class,
                 resetAction: ResetPassword::class,
             )
-            ->emailVerification()
+            ->emailVerification(promptAction: EmailVerificationPrompt::class)
             ->profile(EditProfile::class)
             ->colors([
                 'primary' => Color::Indigo,
@@ -65,6 +67,7 @@ final class AdminPanelServiceProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+                RedirectNonAdminFromPanel::class,
             ]);
     }
 }

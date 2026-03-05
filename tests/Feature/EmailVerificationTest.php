@@ -28,7 +28,7 @@ it('allows guest to verify email with valid signed link', function (): void {
 
     expect($user->fresh()->hasVerifiedEmail())->toBeTrue();
 
-    Event::assertDispatched(Verified::class, fn($event): bool => $event->user->id === $user->id);
+    Event::assertDispatched(Verified::class, fn ($event): bool => $event->user->id === $user->id);
 });
 
 it('shows info notification when email is already verified', function (): void {
@@ -95,5 +95,45 @@ it('does not require authentication to verify email', function (): void {
 
     // Should succeed without being logged in
     $response->assertRedirect(route('filament.admin.auth.login'));
+    expect($user->fresh()->hasVerifiedEmail())->toBeTrue();
+});
+
+it('redirects authenticated non-admin user to modules after verification', function (): void {
+    Event::fake([Verified::class]);
+
+    $user = User::factory()->subscriber()->create([
+        'email_verified_at' => null,
+    ]);
+
+    $verificationUrl = URL::temporarySignedRoute(
+        'verification.verify',
+        now()->addMinutes(60),
+        ['id' => $user->id, 'hash' => sha1((string) $user->email)],
+    );
+
+    $response = $this->actingAs($user)->get($verificationUrl);
+
+    $response->assertRedirect(route('modules'));
+    $response->assertSessionHas('notification.status', 'success');
+    expect($user->fresh()->hasVerifiedEmail())->toBeTrue();
+});
+
+it('redirects authenticated admin user to login after verification', function (): void {
+    Event::fake([Verified::class]);
+
+    $user = User::factory()->admin()->create([
+        'email_verified_at' => null,
+    ]);
+
+    $verificationUrl = URL::temporarySignedRoute(
+        'verification.verify',
+        now()->addMinutes(60),
+        ['id' => $user->id, 'hash' => sha1((string) $user->email)],
+    );
+
+    $response = $this->actingAs($user)->get($verificationUrl);
+
+    $response->assertRedirect(route('filament.admin.auth.login'));
+    $response->assertSessionHas('notification.status', 'success');
     expect($user->fresh()->hasVerifiedEmail())->toBeTrue();
 });

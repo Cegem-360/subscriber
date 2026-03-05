@@ -13,7 +13,8 @@
                 Bejelentkezés
                 <x-slot name="iconAfter">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
                 </x-slot>
             </x-filament::button>
@@ -23,13 +24,15 @@
     <div class="mt-10 text-center space-y-3">
         <p class="text-sm text-gray-500">
             Nincs még fiókod?
-            <a href="{{ route('filament.admin.auth.register') }}" class="text-indigo-600 hover:text-indigo-700 font-medium" style="color: #4f46e5 !important;">
+            <a wire:navigate href="{{ route('filament.admin.auth.register') }}"
+                class="text-indigo-600 hover:text-indigo-700 font-medium" style="color: #4f46e5 !important;">
                 Regisztrálj
             </a>
         </p>
         @if (filament()->hasPasswordReset())
             <p class="text-sm text-gray-400">
-                <a href="{{ filament()->getRequestPasswordResetUrl() }}" class="hover:text-gray-600" style="color: #9ca3af !important;">
+                <a wire:navigate href="{{ filament()->getRequestPasswordResetUrl() }}" class="hover:text-gray-600"
+                    style="color: #9ca3af !important;">
                     Elfelejtetted a jelszavad?
                 </a>
             </p>

@@ -167,9 +167,9 @@ Route::get(uri: '/email/verify', action: fn (): Redirector|RedirectResponse => t
     ->middleware(middleware: ['auth'])
     ->name(name: 'verification.notice');
 
-// Guest-accessible email verification (no login required)
+// Email verification (accessible for both guests and authenticated users)
 Route::get('/email/verify/{id}/{hash}', EmailVerificationController::class)
-    ->middleware(['guest', 'signed'])
+    ->middleware(['signed'])
     ->name('verification.verify');
 
 Route::middleware(['guest'])->group(function (): void {
