@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Blogs\Tables;
 
+use App\Models\Blog\Blog;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -57,6 +60,14 @@ class BlogsTable
                     ->placeholder('Mind'),
             ])
             ->recordActions([
+                Action::make('view_frontend')
+                    ->label('Megtekintés')
+                    ->icon(Heroicon::OutlinedEye)
+                    ->url(fn (Blog $record): string => route('blog.show', [
+                        'blogCategory' => $record->blogCategory,
+                        'blog' => $record,
+                    ]))
+                    ->openUrlInNewTab(),
                 EditAction::make(),
             ])
             ->toolbarActions([
