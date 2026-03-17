@@ -13,10 +13,8 @@ use Filament\Schemas\Components\Fieldset;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
-use Laravel\Cashier\Events\WebhookReceived;
 
 final class AppServiceProvider extends ServiceProvider
 {
@@ -44,9 +42,5 @@ final class AppServiceProvider extends ServiceProvider
         TextInput::configureUsing(fn (TextInput $textInput) => $textInput->translateLabel());
         Select::configureUsing(fn (Select $select) => $select->translateLabel());
         TextColumn::configureUsing(fn (TextColumn $textColumn) => $textColumn->translateLabel());
-
-        /* Event::listen(
-            WebhookReceived::class,
-        ); */
     }
 }
