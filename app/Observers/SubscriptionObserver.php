@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Observers;
 
+use App\Enums\SubscriptionStatus;
 use App\Models\Subscription;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -76,7 +77,33 @@ class SubscriptionObserver
      */
     public function updated(Subscription $subscription): void
     {
-        //
+        if (! $subscription->wasChanged('stripe_status')) {
+            return;
+        }
+
+        $user = $subscription->user;
+        $appKey = $subscription->plan?->planCategory?->slug;
+
+        if (! $user || ! $appKey) {
+            return;
+        }
+
+        $isActive = $subscription->stripe_status === SubscriptionStatus::Active
+            || $subscription->stripe_status === SubscriptionStatus::Trialing;
+
+        Log::info('SubscriptionObserver: Status changed', [
+            'user_email' => $user->email,
+            'app_key' => $appKey,
+            'old_status' => $subscription->getOriginal('stripe_status'),
+            'new_status' => $subscription->stripe_status->value,
+            'is_active' => $isActive,
+        ]);
+
+        UserTeamSync::toggleUserActive(
+            userEmail: $user->email,
+            isActive: $isActive,
+            appKey: $appKey,
+        );
     }
 
     /**
@@ -84,7 +111,23 @@ class SubscriptionObserver
      */
     public function deleted(Subscription $subscription): void
     {
-        //
+        $user = $subscription->user;
+        $appKey = $subscription->plan?->planCategory?->slug;
+
+        if (! $user || ! $appKey) {
+            return;
+        }
+
+        Log::info('SubscriptionObserver: Subscription deleted, deactivating user', [
+            'user_email' => $user->email,
+            'app_key' => $appKey,
+        ]);
+
+        UserTeamSync::toggleUserActive(
+            userEmail: $user->email,
+            isActive: false,
+            appKey: $appKey,
+        );
     }
 
     /**
