@@ -64,11 +64,6 @@ final class QuoteRequestPage extends Component implements HasSchemas
 
     public function submit(): void
     {
-        $data = $this->form->getState();
-
-        // TODO: Send email notification or store in database
-        // Mail::to(config('mail.admin_address'))->send(new QuoteRequestMail($data));
-
         Notification::make()
             ->title('Köszönjük megkeresését!')
             ->body('Munkatársunk hamarosan felveszi Önnel a kapcsolatot.')

@@ -68,9 +68,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
-use Laravel\Cashier\Events\WebhookReceived;
 
 Route::get(uri: '/', action: fn (): Factory|View => view(view: 'home'))->name(name: 'home');
 Route::get(uri: '/welcome', action: fn (): Factory|View => view(view: 'welcome'))->name(name: 'welcome');
@@ -195,27 +193,3 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get(uri: '/subscription/{subscription}', action: ViewSubscriptionPage::class)->name(name: 'subscription.view');
     Route::get(uri: '/subscription/{subscription}/update', action: UpdateModulePage::class)->name(name: 'subscription.update');
 });
-
-// Debug endpoint - trigger event manually
-Route::get(uri: '/stripe/webhook/debug', action: function () {
-    Log::info('🔍 Debug: Manually triggering WebhookReceived event');
-
-    $payload = [
-        'type' => 'customer.subscription.created',
-        'id' => 'evt_test_' . time(),
-        'data' => [
-            'object' => [
-                'id' => 'sub_test_' . time(),
-                'customer' => 'cus_test',
-                'status' => 'active',
-            ],
-        ],
-    ];
-
-    event(new WebhookReceived($payload));
-
-    return response()->json([
-        'message' => 'Event triggered manually',
-        'check_logs' => storage_path('logs/laravel.log'),
-    ]);
-})->name(name: 'webhook.debug');
