@@ -105,6 +105,7 @@
                                     <div class="text-xs text-gray-500">{{ __('AI-powered data mining platform') }}</div>
                                 </div>
                             </a>
+                            @if(false)
                             <a href="{{ route('products.aichat') }}"
                                 class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50">
                                 <x-module-icon module="ai-chat" size="sm" />
@@ -113,6 +114,7 @@
                                     <div class="text-xs text-gray-500">{{ __('Intelligent chatbot for websites') }}</div>
                                 </div>
                             </a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -327,11 +329,13 @@
                     <x-module-icon module="datamind" size="xs" />
                     DataMind
                 </a>
+                @if(false)
                 <a href="{{ route('products.aichat') }}"
                     class="flex items-center gap-2 py-1.5 pl-3 text-sm text-gray-700">
                     <x-module-icon module="ai-chat" size="xs" />
                     AI Chat
                 </a>
+                @endif
             </div>
             <div class="py-2">
                 <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">{{ __('Solutions') }}</p>

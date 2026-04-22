@@ -141,6 +141,7 @@
                                 <p class="text-xs text-text-tertiary mt-1">{{ __('AI data mining platform.') }}</p>
                             </div>
                         </a>
+                        @if(false)
                         <a href="{{ route('products.aichat') }}" class="flex items-center gap-3.5 group">
                             <x-module-icon module="ai-chat" size="md" rounded="full" />
                             <div class="flex-1 min-w-0">
@@ -150,6 +151,7 @@
                                 <p class="text-xs text-text-tertiary mt-1">{{ __('Intelligent chatbot for websites.') }}</p>
                             </div>
                         </a>
+                        @endif
                     </div>
 
                 </div>
@@ -200,10 +202,12 @@
                         :class="activeTab === 'datamind' ? 'bg-violet-500 text-white' :
                             'text-text-secondary hover:text-text-primary'"
                         class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">DataMind</button>
+                    @if(false)
                     <button @click="activeTab = 'aichat'"
                         :class="activeTab === 'aichat' ? 'bg-blue-500 text-white' :
                             'text-text-secondary hover:text-text-primary'"
                         class="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200">AI Chat</button>
+                    @endif
                     <button @click="activeTab = 'leadership'"
                         :class="activeTab === 'leadership' ? 'bg-primary-600 text-white' :
                             'text-text-secondary hover:text-text-primary'"
@@ -509,6 +513,7 @@
                     </div>
 
                     {{-- AI Chat Tab --}}
+                    @if(false)
                     <div x-show="activeTab === 'aichat'" x-transition:enter="transition ease-out duration-200"
                         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                         class="bg-blue-500 rounded-3xl p-10 h-full flex flex-col justify-between min-h-120">
@@ -531,6 +536,7 @@
                             </svg>
                         </a>
                     </div>
+                    @endif
                 </div>
 
                 {{-- Right: Testimonial Cards --}}
@@ -604,12 +610,14 @@
                         <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">{{ __('DATAMIND CLIENT') }}</p>
                         <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-violet-500">{{ __('3x faster decision making') }}</span><br>{{ __('with AI predictions') }}</p>
                     </div>
+                    @if(false)
                     <div x-show="activeTab === 'aichat'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
                         <p class="text-text-tertiary text-xs uppercase tracking-wider mb-2 font-semibold">{{ __('AI CHAT CLIENT') }}</p>
                         <p class="text-3xl lg:text-4xl font-bold text-text-primary"><span class="text-blue-500">{{ __('85% automatic responses') }}</span><br>{{ __('with 24/7 availability') }}</p>
                     </div>
+                    @endif
 
                     {{-- Testimonial Quote Card --}}
                     <div x-show="activeTab === 'projects'" x-transition
@@ -752,6 +760,7 @@
                             </div>
                         </div>
                     </div>
+                    @if(false)
                     <div x-show="activeTab === 'aichat'" x-transition
                         class="bg-surface-primary rounded-2xl p-6 border border-border-light flex-1"
                         style="box-shadow: 0 4px 20px -4px rgba(96, 92, 212, 0.12);">
@@ -766,6 +775,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -983,10 +993,12 @@
                             <span
                                 class="bg-violet-500 text-white text-sm font-medium px-4 py-2 rounded-lg">DataMind</span>
                         </div>
+                        @if(false)
                         <div class="absolute bottom-36 right-40">
                             <span
                                 class="bg-blue-500 text-white text-sm font-medium px-4 py-2 rounded-lg">AI Chat</span>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
