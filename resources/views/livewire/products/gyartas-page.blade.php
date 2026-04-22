@@ -35,7 +35,7 @@
                         class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-indigo-200 bg-white px-8 py-4 text-base font-semibold text-indigo-700 transition-colors hover:bg-indigo-50">
                         {{ __('Request a demo') }}
                     </a>
-                    <a href="{{ route('login') }}"
+                    <a href="https://mes.cegem360.eu/"
                         class="inline-flex items-center justify-center gap-2 text-base font-medium text-indigo-600 transition-colors hover:text-indigo-800">
                         {{ __('Log in to the application') }} →
                     </a>
@@ -717,7 +717,7 @@
                     class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-indigo-400 px-8 py-4 text-base font-semibold text-white transition-colors hover:bg-indigo-700">
                     {{ __('Request a demo') }}
                 </a>
-                <a href="{{ route('login') }}"
+                <a href="https://mes.cegem360.eu/"
                     class="inline-flex items-center justify-center gap-2 text-base font-medium text-indigo-200 transition-colors hover:text-white">
                     {{ __('Log in to the application') }} →
                 </a>

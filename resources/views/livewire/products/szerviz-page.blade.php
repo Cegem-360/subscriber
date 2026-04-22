@@ -35,7 +35,7 @@
                         class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-cyan-200 bg-white px-8 py-4 text-base font-semibold text-cyan-700 transition-colors hover:bg-cyan-50">
                         {{ __('Request a demo') }}
                     </a>
-                    <a href="{{ route('login') }}"
+                    <a href="https://field.cegem360.eu/"
                         class="inline-flex items-center justify-center gap-2 text-base font-medium text-cyan-600 transition-colors hover:text-cyan-800">
                         {{ __('Log in to the application') }} →
                     </a>
@@ -577,7 +577,7 @@
                         class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white bg-transparent px-8 py-4 text-base font-semibold text-white transition-colors hover:bg-white/10">
                         {{ __('Request a demo') }}
                     </a>
-                    <a href="{{ route('login') }}"
+                    <a href="https://field.cegem360.eu/"
                         class="inline-flex items-center justify-center gap-2 text-base font-medium text-cyan-200 transition-colors hover:text-white">
                         {{ __('Log in to the application') }} →
                     </a>
