@@ -6,7 +6,6 @@ namespace App\Observers;
 
 use App\Enums\SubscriptionStatus;
 use App\Models\Subscription;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Madbox99\UserTeamSync\Facades\UserTeamSync;
 
@@ -17,59 +16,51 @@ class SubscriptionObserver
      */
     public function created(Subscription $subscription): void
     {
+        $user = $subscription->user;
+        $appKey = $subscription->plan?->planCategory?->slug;
+
         Log::info('🔔 SubscriptionObserver: Subscription created event fired', [
             'subscription_id' => $subscription->id,
             'stripe_id' => $subscription->stripe_id,
             'stripe_status' => $subscription->stripe_status,
             'plan_id' => $subscription->plan_id,
             'user_id' => $subscription->user_id,
-            'auth_check' => Auth::check(),
         ]);
 
-        if (Auth::check()) {
-            $subscription->update(['user_id' => Auth::id()]);
-
-            $user = Auth::user();
-            $appKey = $subscription->plan?->planCategory?->slug;
-
-            Log::info('🔍 SubscriptionObserver: Checking CRM activation requirements', [
-                'user_id' => $user->id,
-                'user_email' => $user->email,
-                'plan_id' => $subscription->plan_id,
-                'plan_name' => $subscription->plan?->name,
-                'plan_category_id' => $subscription->plan?->plan_category_id,
-                'plan_category_slug' => $appKey,
-            ]);
-
-            if ($appKey) {
-                Log::info('📤 SubscriptionObserver: Dispatching ToggleUserActiveInSecondaryApp job', [
-                    'user_email' => $user->email,
-                    'is_active' => true,
-                    'app_key' => $appKey,
-                ]);
-
-                UserTeamSync::toggleUserActive(
-                    userEmail: $user->email,
-                    isActive: true,
-                    appKey: $appKey,
-                );
-
-                Log::info('✅ SubscriptionObserver: CRM activation job dispatched successfully', [
-                    'user_email' => $user->email,
-                    'app_key' => $appKey,
-                ]);
-            } else {
-                Log::warning('⚠️ SubscriptionObserver: No appKey found, CRM activation skipped', [
-                    'subscription_id' => $subscription->id,
-                    'plan_id' => $subscription->plan_id,
-                    'plan_has_category' => $subscription->plan?->planCategory !== null,
-                ]);
-            }
-        } else {
-            Log::warning('⚠️ SubscriptionObserver: No authenticated user, CRM activation skipped', [
+        if (! $user) {
+            Log::warning('⚠️ SubscriptionObserver: Subscription has no user, CRM activation skipped', [
                 'subscription_id' => $subscription->id,
             ]);
+
+            return;
         }
+
+        if (! $appKey) {
+            Log::warning('⚠️ SubscriptionObserver: No appKey found, CRM activation skipped', [
+                'subscription_id' => $subscription->id,
+                'plan_id' => $subscription->plan_id,
+                'plan_has_category' => $subscription->plan?->planCategory !== null,
+            ]);
+
+            return;
+        }
+
+        Log::info('📤 SubscriptionObserver: Dispatching ToggleUserActiveInSecondaryApp job', [
+            'user_email' => $user->email,
+            'is_active' => true,
+            'app_key' => $appKey,
+        ]);
+
+        UserTeamSync::toggleUserActive(
+            userEmail: $user->email,
+            isActive: true,
+            appKey: $appKey,
+        );
+
+        Log::info('✅ SubscriptionObserver: CRM activation job dispatched successfully', [
+            'user_email' => $user->email,
+            'app_key' => $appKey,
+        ]);
     }
 
     /**
