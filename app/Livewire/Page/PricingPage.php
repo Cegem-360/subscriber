@@ -18,9 +18,52 @@ final class PricingPage extends Component
 
     public bool $isYearly = true;
 
+    public string $firstName = '';
+
+    public string $lastName = '';
+
+    public string $email = '';
+
+    public string $phone = '';
+
+    public string $company = '';
+
+    /** @var array<int, string> */
+    public array $interestedModules = [];
+
+    public string $message = '';
+
+    public bool $privacyAccepted = false;
+
+    public bool $submitted = false;
+
     public function mount(): void
     {
         $this->currency = app(CurrencyService::class)->getCurrentCurrency();
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    protected function rules(): array
+    {
+        return [
+            'firstName' => 'required|string|max:255',
+            'lastName' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'nullable|string|max:50',
+            'company' => 'nullable|string|max:255',
+            'interestedModules' => 'nullable|array',
+            'message' => 'required|string|min:20',
+            'privacyAccepted' => 'accepted',
+        ];
+    }
+
+    public function submitQuote(): void
+    {
+        $this->validate();
+
+        $this->submitted = true;
     }
 
     public function toggleCurrency(): void
@@ -107,36 +150,39 @@ final class PricingPage extends Component
         return $currencyService->format((float) $price, $this->currency);
     }
 
+    /**
+     * @return array<int, array{question: string, answer: string}>
+     */
     public function getFaqsProperty(): array
     {
         return [
             [
-                'question' => 'Kipróbálhatom a modulokat vásárlás előtt?',
-                'answer' => 'Igen, minden modult 14 napig ingyenesen kipróbálhat, teljes funkcionalitással. A próbaidőszak végén dönthet az előfizetésről — nincs automatikus terhelés.',
+                'question' => __('Can I try the modules before purchase?'),
+                'answer' => __('Yes, you can try each module free for 14 days with full functionality. At the end of the trial period you can decide on your subscription — no automatic charge.'),
             ],
             [
-                'question' => 'Válthat-e havi és éves előfizetés között?',
-                'answer' => 'Igen, bármikor válthat. Havi előfizetésről éves előfizetésre váltva a fennmaradó összeg jóváírásra kerül. Éves előfizetésről havira váltás az éves időszak lejártakor lehetséges.',
+                'question' => __('Can I switch between monthly and yearly subscriptions?'),
+                'answer' => __('Yes, you can switch anytime. When switching from monthly to yearly subscription, the remaining amount is credited. Switching from yearly to monthly is possible at the end of the yearly period.'),
             ],
             [
-                'question' => 'Mi történik, ha lemondja az előfizetést?',
-                'answer' => 'Lemondás esetén a szolgáltatás a kifizetett időszak végéig elérhető marad. Éves előfizetés esetén nincs arányos visszatérítés, de adatait 30 napig megőrizzük exportálásra.',
+                'question' => __('What happens if I cancel my subscription?'),
+                'answer' => __('If cancelled, the service remains available until the end of the paid period. For yearly subscriptions there is no pro-rata refund, but we keep your data for 30 days for export.'),
             ],
             [
-                'question' => 'Van felhasználói létszám korlát?',
-                'answer' => 'Nem, minden modulhoz korlátlan számú felhasználót adhat hozzá külön díj nélkül. A felhasználók jogosultsági szintjeit a központi dashboardon állíthatja be.',
+                'question' => __('Is there a user limit?'),
+                'answer' => __('No, you can add unlimited users to each module at no extra cost. You can set user permission levels on the central dashboard.'),
             ],
             [
-                'question' => 'Kapok számlát az előfizetésről?',
-                'answer' => 'Igen, minden előfizetésről magyar nyelvű, NAV-kompatibilis számlát állítunk ki. Magyar cégek esetén az ár ÁFÁ-t tartalmaz, EU-s cégek esetén fordított adózás érvényesül.',
+                'question' => __('Do I get an invoice for my subscription?'),
+                'answer' => __('Yes, we issue a Hungarian-language, NAV-compatible invoice for every subscription. For Hungarian companies, the price includes VAT; for EU companies, reverse charge applies.'),
             ],
             [
-                'question' => 'Használhatok több modult egyszerre?',
-                'answer' => 'Igen, a modulok teljesen integráltak, és egy közös felületen keresztül érhetők el. Az adatok átjárnak a modulok között, így például a CRM-ből közvetlenül indíthat értékesítési folyamatot.',
+                'question' => __('Can I use multiple modules at once?'),
+                'answer' => __('Yes, the modules are fully integrated and accessible through a single interface. Data flows between modules, so for example you can start a sales process directly from CRM.'),
             ],
             [
-                'question' => 'Biztonságban vannak az adataim?',
-                'answer' => 'Igen. Titkosított kapcsolat (HTTPS), GDPR-kompatibilis adatkezelés, rendszeres biztonsági mentések. Az adatok EU-n belüli szervereken tárolódnak.',
+                'question' => __('Is my data secure?'),
+                'answer' => __('Yes. Encrypted connection (HTTPS), GDPR-compliant data handling, regular backups. Data is stored on servers within the EU.'),
             ],
         ];
     }

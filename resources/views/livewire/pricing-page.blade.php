@@ -14,7 +14,136 @@
         </div>
     </section>
 
+    {{-- Quote Request Form --}}
+    <section class="bg-white py-12 lg:py-16">
+        <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <div class="rounded-2xl bg-gray-50 p-8 shadow-sm sm:p-10">
+                @if ($submitted)
+                    <div class="text-center">
+                        <div class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+                            <svg class="h-8 w-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                        <h3 class="mb-2 text-2xl font-bold text-gray-900">{{ __('Thank you for your inquiry!') }}</h3>
+                        <p class="text-gray-600">{{ __('Our colleague will contact you shortly.') }}</p>
+                    </div>
+                @else
+                    <h2 class="mb-2 text-center text-2xl font-bold text-gray-900 sm:text-3xl">
+                        {{ __('Get a custom quote tailored to your company') }}
+                    </h2>
+                    <p class="mb-8 text-center text-gray-600">
+                        {{ __('Select the modules you are interested in and tell us about your needs.') }}
+                    </p>
+
+                    <form wire:submit="submitQuote" class="space-y-6">
+                        <div class="grid gap-4 sm:grid-cols-2">
+                            <div>
+                                <label for="lastName" class="mb-2 block text-sm font-medium text-gray-700">{{ __('Last name') }} *</label>
+                                <input wire:model="lastName" type="text" id="lastName"
+                                    class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500">
+                                @error('lastName')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div>
+                                <label for="firstName" class="mb-2 block text-sm font-medium text-gray-700">{{ __('First name') }} *</label>
+                                <input wire:model="firstName" type="text" id="firstName"
+                                    class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500">
+                                @error('firstName')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="grid gap-4 sm:grid-cols-2">
+                            <div>
+                                <label for="email" class="mb-2 block text-sm font-medium text-gray-700">{{ __('Email address') }} *</label>
+                                <input wire:model="email" type="email" id="email"
+                                    class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500">
+                                @error('email')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div>
+                                <label for="phone" class="mb-2 block text-sm font-medium text-gray-700">{{ __('Phone number') }}</label>
+                                <input wire:model="phone" type="tel" id="phone"
+                                    class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500">
+                                @error('phone')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="company" class="mb-2 block text-sm font-medium text-gray-700">{{ __('Company name') }}</label>
+                            <input wire:model="company" type="text" id="company"
+                                class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500">
+                            @error('company')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label class="mb-2 block text-sm font-medium text-gray-700">{{ __('Which modules interest you?') }}</label>
+                            @php
+                                $moduleLabels = [
+                                    'kontrolling' => 'Controlling',
+                                    'beszerzes-logisztika' => 'Procurement & Logistics',
+                                    'gyartasiranyitas' => 'Manufacturing management',
+                                    'automatizalas' => 'Automation',
+                                    'ertekesites' => 'Sales',
+                                    'crm' => 'CRM',
+                                    'szerviz' => 'Digital service worksheet',
+                                    'data-mind' => 'DataMind',
+                                    'marketinghub' => 'MarketingHub',
+                                    'seo-and-stat-ai-assisstant' => 'SEO & analytics AI assistant',
+                                ];
+                            @endphp
+                            <div class="grid gap-2 sm:grid-cols-2">
+                                @foreach ($this->modules as $module)
+                                    <label class="flex items-center gap-2">
+                                        <input wire:model="interestedModules" type="checkbox" value="{{ $module['id'] }}"
+                                            class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <span class="text-sm text-gray-700">{{ __($moduleLabels[$module['id']] ?? $module['name']) }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="message" class="mb-2 block text-sm font-medium text-gray-700">{{ __('Message') }} *</label>
+                            <textarea wire:model="message" id="message" rows="4"
+                                class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500"
+                                placeholder="{{ __('Describe your question or requirement...') }}"></textarea>
+                            @error('message')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <label class="flex items-start gap-2">
+                            <input wire:model="privacyAccepted" type="checkbox"
+                                class="mt-1 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                            <span class="text-sm text-gray-700">{!! __('I have read and accept the <a href="#" class="text-indigo-600 hover:underline">privacy policy</a>.') !!} *</span>
+                        </label>
+                        @error('privacyAccepted')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+
+                        <button type="submit"
+                            class="w-full rounded-lg bg-indigo-600 px-6 py-4 font-semibold text-white transition hover:bg-indigo-700"
+                            wire:loading.attr="disabled" wire:loading.class="opacity-50">
+                            <span wire:loading.remove>{{ __('Send message') }}</span>
+                            <span wire:loading>{{ __('Sending...') }}</span>
+                        </button>
+                    </form>
+                @endif
+            </div>
+        </div>
+    </section>
+
     {{-- Module Cards Section with Toggles --}}
+    @if (false)
     <section class="bg-white py-12 lg:py-16">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             {{-- Toggles Row - Currency left, Billing right --}}
@@ -150,6 +279,7 @@
             </div>
         </div>
     </section>
+    @endif
 
     {{-- Comparison Table Section --}}
     <section class="bg-gray-50 py-16 lg:py-20">
@@ -510,6 +640,7 @@
                         </tr>
 
                         {{-- Price row --}}
+                        @if (false)
                         <tr class="border-t-2 border-gray-200 bg-white">
                             <td class="py-5 px-4 text-base font-semibold text-gray-900">{{ __('Yearly price') }}</td>
                             @foreach ($this->modules as $module)
@@ -519,6 +650,7 @@
                                 </td>
                             @endforeach
                         </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -528,6 +660,7 @@
     {{-- Trust Section --}}
     <section class="bg-white py-12 lg:py-16">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            @if (false)
             <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
                 <div class="text-center">
                     <div class="text-4xl font-bold text-indigo-600">100+</div>
@@ -546,8 +679,9 @@
                     <div class="mt-2 text-base text-gray-600">{{ __('support') }}</div>
                 </div>
             </div>
+            @endif
 
-            <div class="mt-12 grid gap-4 sm:grid-cols-3">
+            <div class="grid gap-4 sm:grid-cols-3">
                 <div class="flex items-center gap-3 rounded-lg border border-gray-200 p-4">
                     <svg class="h-6 w-6 shrink-0 text-green-500" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
@@ -568,6 +702,51 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>
                     <span class="text-base text-gray-700">{{ __('GDPR compliance') }}</span>
+                </div>
+            </div>
+
+            {{-- Storage Package Prices --}}
+            <div class="mx-auto mt-12 max-w-3xl">
+                <h2 class="mb-8 text-center text-3xl font-semibold text-gray-900">
+                    {{ __('Storage package prices') }}
+                </h2>
+                <div class="overflow-x-auto rounded-2xl border border-gray-200 bg-white">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="border-b border-gray-200 bg-gray-50">
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">{{ __('Package / module') }}</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">{{ __('Storage') }}</th>
+                                <th class="px-6 py-4 text-right text-sm font-semibold text-gray-900">{{ __('Monthly fee (net)') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <tr>
+                                <td class="px-6 py-4 text-base text-gray-700">{{ __('Basic (included in monthly fee)') }}</td>
+                                <td class="px-6 py-4 text-base text-gray-700">1 GB</td>
+                                <td class="px-6 py-4 text-right text-base text-gray-700">0 Ft</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-base text-gray-700">{{ __('+S package') }}</td>
+                                <td class="px-6 py-4 text-base text-gray-700">+3 GB</td>
+                                <td class="px-6 py-4 text-right text-base text-gray-700">2 900 Ft</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-base text-gray-700">{{ __('+M package') }}</td>
+                                <td class="px-6 py-4 text-base text-gray-700">+10 GB</td>
+                                <td class="px-6 py-4 text-right text-base text-gray-700">7 900 Ft</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-base text-gray-700">{{ __('+L package') }}</td>
+                                <td class="px-6 py-4 text-base text-gray-700">+50 GB</td>
+                                <td class="px-6 py-4 text-right text-base text-gray-700">15 900 Ft</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-base text-gray-700">+XL</td>
+                                <td class="px-6 py-4 text-base text-gray-700">+150 GB</td>
+                                <td class="px-6 py-4 text-right text-base text-gray-700">29 900 Ft</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
