@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 use App\Enums\BillingPeriod;
 use App\Livewire\Page\PricingPage;
+use App\Mail\ContactInquiryMail;
 use App\Models\Plan;
 use App\Models\Plan\PlanCategory;
 use App\Services\CurrencyService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Livewire;
 
 uses(RefreshDatabase::class);
@@ -87,5 +89,46 @@ describe('PricingPage', function (): void {
 
         Livewire::test(PricingPage::class)
             ->assertSet('currency', CurrencyService::CURRENCY_EUR);
+    });
+
+    it('sends quote inquiry email to tamas@cegem360.hu on submit', function (): void {
+        Mail::fake();
+
+        Livewire::test(PricingPage::class)
+            ->set('firstName', 'János')
+            ->set('lastName', 'Kovács')
+            ->set('email', 'janos@example.com')
+            ->set('phone', '+36201234567')
+            ->set('company', 'Example Kft.')
+            ->set('interestedModules', ['crm', 'kontrolling'])
+            ->set('message', 'Érdeklődni szeretnék a rendszerről részletesebben.')
+            ->set('privacyAccepted', true)
+            ->call('submitQuote')
+            ->assertHasNoErrors()
+            ->assertSet('submitted', true);
+
+        Mail::assertSent(ContactInquiryMail::class, function (ContactInquiryMail $mail): bool {
+            return $mail->hasTo('tamas@cegem360.hu')
+                && $mail->source === 'pricing'
+                && $mail->data['email'] === 'janos@example.com'
+                && $mail->data['firstName'] === 'János'
+                && $mail->data['lastName'] === 'Kovács'
+                && $mail->data['interestedModules'] === ['crm', 'kontrolling'];
+        });
+    });
+
+    it('does not send quote inquiry email when validation fails', function (): void {
+        Mail::fake();
+
+        Livewire::test(PricingPage::class)
+            ->set('firstName', '')
+            ->set('email', 'not-an-email')
+            ->set('message', 'short')
+            ->set('privacyAccepted', false)
+            ->call('submitQuote')
+            ->assertHasErrors(['firstName', 'lastName', 'email', 'message', 'privacyAccepted'])
+            ->assertSet('submitted', false);
+
+        Mail::assertNothingSent();
     });
 });

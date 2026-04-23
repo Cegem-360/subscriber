@@ -5,11 +5,15 @@ declare(strict_types=1);
 namespace App\Livewire\Page;
 
 use App\Enums\BillingPeriod;
+use App\Mail\ContactInquiryMail;
 use App\Models\Plan\PlanCategory;
 use App\Services\CurrencyService;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Throwable;
 
 #[Layout('components.layouts.app')]
 final class PricingPage extends Component
@@ -62,6 +66,27 @@ final class PricingPage extends Component
     public function submitQuote(): void
     {
         $this->validate();
+
+        try {
+            Mail::to('tamas@cegem360.hu')->send(new ContactInquiryMail(
+                source: 'pricing',
+                data: [
+                    'firstName' => $this->firstName,
+                    'lastName' => $this->lastName,
+                    'email' => $this->email,
+                    'phone' => $this->phone,
+                    'company' => $this->company,
+                    'interestedModules' => $this->interestedModules,
+                    'message' => $this->message,
+                    'privacyAccepted' => $this->privacyAccepted,
+                ],
+            ));
+        } catch (Throwable $exception) {
+            Log::error('Pricing quote request mail failed to send', [
+                'error' => $exception->getMessage(),
+                'email' => $this->email,
+            ]);
+        }
 
         $this->submitted = true;
     }

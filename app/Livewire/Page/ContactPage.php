@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace App\Livewire\Page;
 
+use App\Mail\ContactInquiryMail;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Throwable;
 
 #[Layout('components.layouts.app')]
 final class ContactPage extends Component
@@ -73,7 +77,30 @@ final class ContactPage extends Component
     {
         $this->validate();
 
-        // TODO: Send email, create CRM record, etc.
+        try {
+            Mail::to('tamas@cegem360.hu')->send(new ContactInquiryMail(
+                source: 'contact',
+                data: [
+                    'inquiryType' => $this->inquiryType,
+                    'firstName' => $this->firstName,
+                    'lastName' => $this->lastName,
+                    'email' => $this->email,
+                    'phone' => $this->phone,
+                    'company' => $this->company,
+                    'position' => $this->position,
+                    'companySize' => $this->companySize,
+                    'interestedModules' => $this->interestedModules,
+                    'message' => $this->message,
+                    'privacyAccepted' => $this->privacyAccepted,
+                    'newsletterSubscribe' => $this->newsletterSubscribe,
+                ],
+            ));
+        } catch (Throwable $exception) {
+            Log::error('Contact inquiry mail failed to send', [
+                'error' => $exception->getMessage(),
+                'email' => $this->email,
+            ]);
+        }
 
         $this->submitted = true;
     }
