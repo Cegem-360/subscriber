@@ -15,6 +15,7 @@
         "laravel/framework": "^12.37",
         "laravel/tinker": "^2.10.1",
         "livewire/livewire": "^3.6.4",
+        "madbox-99/filament-chat-widget": "^0.3.6",
         "madbox-99/laravel-user-team-sync": "^1.0",
         "nunomaduro/essentials": "^1.0"
     },

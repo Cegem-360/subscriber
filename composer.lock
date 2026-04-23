@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d0dd86b291ad57b65582d0056bda1636",
+    "content-hash": "0558a3d91c276d22f82c91ebc498f4b8",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -3388,6 +3388,71 @@
                 }
             ],
             "time": "2026-02-26T00:58:19+00:00"
+        },
+        {
+            "name": "madbox-99/filament-chat-widget",
+            "version": "v0.3.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MadBox-99/filament-chat-widget.git",
+                "reference": "5a5c7f78b26b244db83ecb9d0adaf3dde3df3ad1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MadBox-99/filament-chat-widget/zipball/5a5c7f78b26b244db83ecb9d0adaf3dde3df3ad1",
+                "reference": "5a5c7f78b26b244db83ecb9d0adaf3dde3df3ad1",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^4.0 || ^5.0",
+                "laravel/framework": "^11.0 || ^12.0 || ^13.0",
+                "php": "^8.3"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "orchestra/testbench": "^9.0 || ^10.0 || ^11.0",
+                "pestphp/pest": "^3.0 || ^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Madbox99\\FilamentChatWidget\\FilamentChatWidgetServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Madbox99\\FilamentChatWidget\\": "src/",
+                    "Madbox99\\FilamentChatWidget\\Database\\Factories\\": "database/factories/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Zoltán Tamás Szabó",
+                    "email": "zoli.szabok@gmail.com"
+                }
+            ],
+            "description": "Embeddable chat widget for Laravel with a Filament v5 admin panel. Drop a JS snippet into any HTML page (WordPress, static site, SPA) and manage conversations from Filament.",
+            "keywords": [
+                "chat",
+                "chat-widget",
+                "embeddable",
+                "filament",
+                "filament-plugin",
+                "laravel",
+                "livechat",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/MadBox-99/filament-chat-widget/issues",
+                "source": "https://github.com/MadBox-99/filament-chat-widget/tree/v0.3.6"
+            },
+            "time": "2026-04-20T13:35:56+00:00"
         },
         {
             "name": "madbox-99/laravel-user-team-sync",
