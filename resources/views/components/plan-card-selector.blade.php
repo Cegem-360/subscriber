@@ -2,6 +2,7 @@
     $statePath = $getStatePath();
     $selected = $getState();
     $currentPlanId = $currentPlanId ?? null;
+    $team = $team ?? null;
 @endphp
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -43,13 +44,22 @@
             </h3>
 
             {{-- Price --}}
+            @php
+                $effectivePrice = $plan->priceForTeam($team);
+                $hasCustom = $plan->hasCustomPriceForTeam($team);
+            @endphp
             <div class="mt-4">
                 <span class="text-3xl font-bold text-gray-900 dark:text-white">
-                    {{ Number::currency($plan->price, 'HUF', 'hu', 0) }}
+                    {{ Number::currency($effectivePrice, 'HUF', 'hu', 0) }}
                 </span>
                 <span class="text-sm text-gray-500 dark:text-gray-400">
                     /{{ $plan->billing_period?->getLabel() }}
                 </span>
+                @if ($hasCustom)
+                    <div class="mt-1 text-xs text-primary-600 dark:text-primary-400">
+                        {{ __('Egyedi céges ár') }} · <span class="line-through">{{ Number::currency($plan->price, 'HUF', 'hu', 0) }}</span>
+                    </div>
+                @endif
             </div>
 
             {{-- Description --}}

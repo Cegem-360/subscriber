@@ -67,6 +67,40 @@ class Plan extends Model
             ->withTimestamps();
     }
 
+    public function priceForTeam(?Team $team): ?string
+    {
+        return $this->teamPriceField($team, 'price') ?? $this->price;
+    }
+
+    public function priceEurForTeam(?Team $team): ?string
+    {
+        return $this->teamPriceField($team, 'price_eur') ?? $this->price_eur;
+    }
+
+    public function stripePriceIdForTeam(?Team $team): ?string
+    {
+        return $this->teamPriceField($team, 'stripe_price_id') ?? $this->stripe_price_id;
+    }
+
+    public function stripePriceIdEurForTeam(?Team $team): ?string
+    {
+        return $this->teamPriceField($team, 'stripe_price_id_eur') ?? $this->stripe_price_id_eur;
+    }
+
+    public function hasCustomPriceForTeam(?Team $team): bool
+    {
+        return $this->teamPriceField($team, 'price') !== null;
+    }
+
+    protected function teamPriceField(?Team $team, string $field): mixed
+    {
+        if ($team === null) {
+            return null;
+        }
+
+        return $team->planPrices->firstWhere('plan_id', $this->id)?->{$field};
+    }
+
     #[Scope]
     protected function active(Builder $query): void
     {

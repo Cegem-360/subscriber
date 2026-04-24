@@ -7,6 +7,8 @@ namespace App\Livewire\Page;
 use App\Enums\BillingPeriod;
 use App\Models\Plan;
 use App\Models\Plan\PlanCategory;
+use App\Models\Team;
+use App\Models\User;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Components\TextInput;
@@ -36,6 +38,14 @@ final class CreateModulePage extends Component implements HasActions, HasSchemas
     public function mount(): void
     {
         $this->form->fill();
+    }
+
+    protected function currentTeam(): ?Team
+    {
+        /** @var User|null $user */
+        $user = Auth::user();
+
+        return $user?->teams()->with('planPrices')->first();
     }
 
     public function form(Schema $schema): Schema
@@ -74,6 +84,7 @@ final class CreateModulePage extends Component implements HasActions, HasSchemas
                                             ->active()
                                             ->orderBy('sort_order')
                                             ->get(),
+                                        'team' => $this->currentTeam(),
                                     ])
                                     ->required(),
                             ]),
@@ -102,6 +113,7 @@ final class CreateModulePage extends Component implements HasActions, HasSchemas
 
                                             return [
                                                 'plan' => $plan,
+                                                'team' => $this->currentTeam(),
                                                 'billing_period' => BillingPeriod::tryFrom($get('billing_period')),
                                                 'quantity' => $get('quantity'),
                                             ];
@@ -118,8 +130,10 @@ final class CreateModulePage extends Component implements HasActions, HasSchemas
         $data = $this->form->getState();
         $plan = Plan::query()->findOrFail($data['plan_id']);
         $quantity = (int) $data['quantity'];
+        $team = $this->currentTeam();
+        $stripePriceId = $plan->stripePriceIdForTeam($team);
 
-        if (! $plan->stripe_price_id) {
+        if (! $stripePriceId) {
             Notification::make()
                 ->title('Ez a csomag még nincs szinkronizálva a Stripe-pal.')
                 ->body('Kérjük, futtassa a `php artisan stripe:sync-prices` parancsot.')
@@ -131,7 +145,7 @@ final class CreateModulePage extends Component implements HasActions, HasSchemas
 
         // Don't create local subscription - let webhook handle it
         // Just redirect to Stripe checkout with plan info in metadata
-        $checkout = Auth::user()->newSubscription('default', $plan->stripe_price_id)
+        $checkout = Auth::user()->newSubscription('default', $stripePriceId)
             ->quantity($quantity)
             ->checkout([
                 'success_url' => route('subscription.success', ['plan' => $plan->id]),
@@ -139,6 +153,7 @@ final class CreateModulePage extends Component implements HasActions, HasSchemas
                 'metadata' => [
                     'plan_id' => $plan->id,
                     'plan_name' => $plan->name,
+                    'team_id' => $team?->id,
                     'quantity' => $quantity,
                 ],
             ]);

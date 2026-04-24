@@ -109,6 +109,47 @@ describe('Team.planPrices relationship', function (): void {
     });
 });
 
+describe('Plan priceForTeam helpers', function (): void {
+    it('returns team custom price when set', function (): void {
+        $team = Team::factory()->create();
+        $plan = Plan::factory()->create(['price' => 99990, 'price_eur' => 250]);
+        TeamPlanPrice::factory()->create([
+            'team_id' => $team->id,
+            'plan_id' => $plan->id,
+            'price' => 75000,
+            'price_eur' => 180,
+            'stripe_price_id' => 'price_team_custom',
+        ]);
+
+        $team->load('planPrices');
+
+        expect((float) $plan->priceForTeam($team))->toEqual(75000.00);
+        expect((float) $plan->priceEurForTeam($team))->toEqual(180.00);
+        expect($plan->stripePriceIdForTeam($team))->toBe('price_team_custom');
+        expect($plan->hasCustomPriceForTeam($team))->toBeTrue();
+    });
+
+    it('falls back to plan values when team has no custom price', function (): void {
+        $team = Team::factory()->create();
+        $plan = Plan::factory()->create([
+            'price' => 99990,
+            'stripe_price_id' => 'price_plan_default',
+        ]);
+        $team->load('planPrices');
+
+        expect((float) $plan->priceForTeam($team))->toEqual(99990.00);
+        expect($plan->stripePriceIdForTeam($team))->toBe('price_plan_default');
+        expect($plan->hasCustomPriceForTeam($team))->toBeFalse();
+    });
+
+    it('falls back to plan values when team is null', function (): void {
+        $plan = Plan::factory()->create(['price' => 99990]);
+
+        expect((float) $plan->priceForTeam(null))->toEqual(99990.00);
+        expect($plan->hasCustomPriceForTeam(null))->toBeFalse();
+    });
+});
+
 describe('Subscription effective price', function (): void {
     it('returns the plan default price when no team is assigned', function (): void {
         $user = User::factory()->manager()->create();
