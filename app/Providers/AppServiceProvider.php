@@ -15,6 +15,7 @@ use Filament\Support\Facades\FilamentColor;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
+use Livewire\Blaze\Blaze;
 
 final class AppServiceProvider extends ServiceProvider
 {
@@ -42,5 +43,9 @@ final class AppServiceProvider extends ServiceProvider
         TextInput::configureUsing(fn (TextInput $textInput) => $textInput->translateLabel());
         Select::configureUsing(fn (Select $select) => $select->translateLabel());
         TextColumn::configureUsing(fn (TextColumn $textColumn) => $textColumn->translateLabel());
+
+        Blaze::optimize()
+            ->in(resource_path('views/components'))
+            ->in(resource_path('views/components/layouts'), compile: false);
     }
 }
