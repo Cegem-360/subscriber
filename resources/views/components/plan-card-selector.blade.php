@@ -57,7 +57,7 @@
                 </span>
                 @if ($hasCustom)
                     <div class="mt-1 text-xs text-primary-600 dark:text-primary-400">
-                        {{ __('Egyedi céges ár') }} · <span class="line-through">{{ Number::currency($plan->price, 'HUF', 'hu', 0) }}</span>
+                        {{ __('Egyedi céges ár') }}
                     </div>
                 @endif
             </div>
