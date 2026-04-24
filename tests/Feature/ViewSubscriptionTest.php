@@ -6,8 +6,11 @@ use App\Livewire\Page\ViewSubscriptionPage;
 use App\Models\Plan;
 use App\Models\Plan\PlanCategory;
 use App\Models\Subscription;
+use App\Models\Team;
+use App\Models\TeamPlanPrice;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Number;
 use Livewire\Livewire;
 
 uses(RefreshDatabase::class);
@@ -87,4 +90,29 @@ it('shows team members when present', function (): void {
         ->test(ViewSubscriptionPage::class, ['subscription' => $this->subscription])
         ->assertSee($member->name)
         ->assertSee($member->email);
+});
+
+it('shows team-specific custom price when set', function (): void {
+    $team = Team::factory()->create();
+
+    TeamPlanPrice::factory()->create([
+        'team_id' => $team->id,
+        'plan_id' => $this->plan->id,
+        'price' => 3500,
+    ]);
+
+    $this->subscription->update(['team_id' => $team->id]);
+
+    Livewire::actingAs($this->user)
+        ->test(ViewSubscriptionPage::class, ['subscription' => $this->subscription->fresh()])
+        ->assertSee(__('(egyedi)'))
+        ->assertSee(Number::currency(3500, 'HUF', 'hu', 0))
+        ->assertSee(Number::currency(3500 * 3, 'HUF', 'hu', 0));
+});
+
+it('shows plan default price when team has no custom pricing', function (): void {
+    Livewire::actingAs($this->user)
+        ->test(ViewSubscriptionPage::class, ['subscription' => $this->subscription])
+        ->assertDontSee(__('(egyedi)'))
+        ->assertSee(Number::currency(5000, 'HUF', 'hu', 0));
 });

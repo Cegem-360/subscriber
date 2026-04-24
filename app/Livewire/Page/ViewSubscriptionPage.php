@@ -16,7 +16,7 @@ final class ViewSubscriptionPage extends Component
 
     public function mount(Subscription $subscription): void
     {
-        $this->subscription = $subscription->load(['plan.planCategory', 'user', 'members']);
+        $this->subscription = $subscription->load(['plan.planCategory', 'user', 'members', 'team.planPrices']);
     }
 
     public function render(): View
