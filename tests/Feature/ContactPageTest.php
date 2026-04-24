@@ -28,7 +28,7 @@ describe('ContactPage', function (): void {
             ->assertHasNoErrors()
             ->assertSet('submitted', true);
 
-        Mail::assertSent(ContactInquiryMail::class, function (ContactInquiryMail $mail): bool {
+        Mail::assertQueued(ContactInquiryMail::class, function (ContactInquiryMail $mail): bool {
             return $mail->hasTo('tamas@cegem360.hu')
                 && $mail->source === 'contact'
                 && $mail->data['inquiryType'] === 'demo'
@@ -54,6 +54,7 @@ describe('ContactPage', function (): void {
             ->assertHasErrors(['inquiryType', 'firstName', 'lastName', 'email', 'message', 'privacyAccepted'])
             ->assertSet('submitted', false);
 
+        Mail::assertNothingQueued();
         Mail::assertNothingSent();
     });
 });

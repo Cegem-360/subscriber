@@ -64,6 +64,8 @@ final class QuoteRequestPage extends Component implements HasSchemas
 
     public function submit(): void
     {
+        $this->form->getState();
+
         Notification::make()
             ->title('Köszönjük megkeresését!')
             ->body('Munkatársunk hamarosan felveszi Önnel a kapcsolatot.')

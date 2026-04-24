@@ -30,6 +30,7 @@ class Subscription extends CashierSubscription
 
     protected $fillable = [
         'user_id',
+        'team_id',
         'plan_id',
         'type',
         'stripe_id',
@@ -58,6 +59,45 @@ class Subscription extends CashierSubscription
     public function plan(): BelongsTo
     {
         return $this->belongsTo(Plan::class);
+    }
+
+    public function team(): BelongsTo
+    {
+        return $this->belongsTo(Team::class);
+    }
+
+    public function teamPlanPrice(): ?TeamPlanPrice
+    {
+        if ($this->team_id === null || $this->plan_id === null) {
+            return null;
+        }
+
+        return $this->team?->planPrices->firstWhere('plan_id', $this->plan_id);
+    }
+
+    public function effectivePrice(): ?string
+    {
+        return $this->effective('price');
+    }
+
+    public function effectivePriceEur(): ?string
+    {
+        return $this->effective('price_eur');
+    }
+
+    public function effectiveStripePriceId(): ?string
+    {
+        return $this->effective('stripe_price_id');
+    }
+
+    public function effectiveStripePriceIdEur(): ?string
+    {
+        return $this->effective('stripe_price_id_eur');
+    }
+
+    protected function effective(string $field): mixed
+    {
+        return $this->teamPlanPrice()?->{$field} ?? $this->plan?->{$field};
     }
 
     public function localInvoices(): HasMany

@@ -24,12 +24,19 @@ class SubscriptionsTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn ($query) => $query->with('team.planPrices'))
             ->columns([
                 TextColumn::make('user.name')
                     ->searchable()
                     ->sortable()
                     ->visible(fn (): bool => Auth::user()?->isAdmin() ?? false)
                     ->weight('bold'),
+                TextColumn::make('team.name')
+                    ->label('Team')
+                    ->searchable()
+                    ->sortable()
+                    ->placeholder('-')
+                    ->toggleable(),
                 TextColumn::make('plan.planCategory.name')
                     ->searchable()
                     ->sortable(),
@@ -41,10 +48,13 @@ class SubscriptionsTable
 
                 TextColumn::make('stripe_status')
                     ->badge(),
-                TextColumn::make('plan.price')
+                TextColumn::make('effective_price')
                     ->label('Price')
+                    ->state(fn ($record) => $record->effectivePrice())
                     ->money('HUF')
-                    ->sortable()
+                    ->description(fn ($record): ?string => $record->team_id && $record->teamPlanPrice()
+                        ? 'Egyedi ár (team)'
+                        : null)
                     ->placeholder('-'),
 
                 TextColumn::make('trial_ends_at')

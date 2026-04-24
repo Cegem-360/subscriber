@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 beforeEach(function (): void {
     /** @var TestCase $this */
-    $this->actingAs(User::factory()->create());
+    $this->actingAs(User::factory()->admin()->create());
 });
 
 test('subscription stats widget can render', function (): void {

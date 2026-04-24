@@ -23,6 +23,12 @@ class SubscriptionForm
                 ->required()
                 ->preload()
                 ->searchable(),
+            Select::make('team_id')
+                ->label('Team')
+                ->relationship('team', 'name')
+                ->preload()
+                ->searchable()
+                ->helperText('Ha megadod, a team-re beállított egyedi ár (ha van) lesz használva.'),
             Select::make('plan_id')
                 ->relationship('plan', 'name')
                 ->preload()

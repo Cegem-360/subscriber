@@ -3019,5 +3019,18 @@
     "Can I use multiple modules at once?": "Használhatok több modult egyszerre?",
     "Yes, the modules are fully integrated and accessible through a single interface. Data flows between modules, so for example you can start a sales process directly from CRM.": "Igen, a modulok teljesen integráltak, és egy közös felületen keresztül érhetők el. Az adatok átjárnak a modulok között, így például a CRM-ből közvetlenül indíthat értékesítési folyamatot.",
     "Is my data secure?": "Biztonságban vannak az adataim?",
-    "Yes. Encrypted connection (HTTPS), GDPR-compliant data handling, regular backups. Data is stored on servers within the EU.": "Igen. Titkosított kapcsolat (HTTPS), GDPR-kompatibilis adatkezelés, rendszeres biztonsági mentések. Az adatok EU-n belüli szervereken tárolódnak."
+    "Yes. Encrypted connection (HTTPS), GDPR-compliant data handling, regular backups. Data is stored on servers within the EU.": "Igen. Titkosított kapcsolat (HTTPS), GDPR-kompatibilis adatkezelés, rendszeres biztonsági mentések. Az adatok EU-n belüli szervereken tárolódnak.",
+    "from real industrial companies": "valós ipari cégektől",
+    "to the Cégem360 team": "a Cégem360 csapatnak",
+    "— and what will be tomorrow": "— és mi lesz holnap",
+    "dashboard, every morning": "irányítópulton, minden reggel",
+    "✓ Single source of truth": "✓ Egyetlen igazságforrás",
+    "— faster": "— az ipari üzleteket",
+    "— with data-driven marketing tools": "— adatvezérelt marketing eszközökkel",
+    "— in real time, not at month-end": "— valós időben, nem hónap végén",
+    "— from order to handover": "— a megrendeléstől az átadásig",
+    "— don't let production control you": "— ne a termelés irányítsa Önt",
+    "✓ Predictive AI planning": "✓ Prediktív MI tervezés",
+    "✓ Gantt, with capacity sync": "✓ Gantt, kapacitás-szinkronnal",
+    "— and retain your customers": "— és tartsa meg ügyfeleit"
 }

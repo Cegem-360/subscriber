@@ -3,17 +3,20 @@
         "claude_code"
     ],
     "guidelines": true,
-    "herd_mcp": true,
     "mcp": true,
     "nightwatch_mcp": false,
     "packages": [
         "filament/filament",
-        "filament/blueprint"
+        "filament/blueprint",
+        "barryvdh/laravel-debugbar"
     ],
     "sail": false,
     "skills": [
+        "cashier-stripe-development",
+        "laravel-best-practices",
         "livewire-development",
         "pest-testing",
-        "tailwindcss-development"
+        "tailwindcss-development",
+        "debug-using-debugbar"
     ]
 }
