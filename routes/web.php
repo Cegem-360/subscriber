@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\EmailVerificationController;
+use App\Http\Controllers\OauthProxy\ProxyController as OauthProxyController;
 use App\Http\Controllers\SubscriptionController;
 use App\Livewire\Page\AkademiaPage;
 use App\Livewire\Page\BlogCategoryPage;
@@ -193,3 +194,12 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get(uri: '/subscription/{subscription}', action: ViewSubscriptionPage::class)->name(name: 'subscription.view');
     Route::get(uri: '/subscription/{subscription}/update', action: UpdateModulePage::class)->name(name: 'subscription.update');
 });
+
+Route::prefix('oauth/{provider}')
+    ->whereIn('provider', ['google-ads', 'google-analytics4', 'facebook-ads'])
+    ->controller(OauthProxyController::class)
+    ->middleware('throttle:30,1')
+    ->group(function (): void {
+        Route::get('/start', 'start')->name('oauth.proxy.start');
+        Route::get('/callback', 'callback')->name('oauth.proxy.callback');
+    });
