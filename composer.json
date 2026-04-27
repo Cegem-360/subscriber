@@ -1,6 +1,6 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "dcrepper/filament-starter-kit",
+    "name": "madbox-99/quantum",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
     "keywords": [

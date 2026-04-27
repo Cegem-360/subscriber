@@ -7,12 +7,10 @@ namespace App\Providers;
 use App\Http\Responses\EmailVerificationResponse;
 use App\Models\Subscription;
 use Filament\Auth\Http\Responses\Contracts\EmailVerificationResponse as EmailVerificationResponseContract;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Field;
 use Filament\Schemas\Components\Fieldset;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
-use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
 
@@ -39,8 +37,6 @@ final class AppServiceProvider extends ServiceProvider
         ]);
 
         Fieldset::configureUsing(fn (Fieldset $fieldset) => $fieldset->translateLabel());
-        TextInput::configureUsing(fn (TextInput $textInput) => $textInput->translateLabel());
-        Select::configureUsing(fn (Select $select) => $select->translateLabel());
-        TextColumn::configureUsing(fn (TextColumn $textColumn) => $textColumn->translateLabel());
+        Field::configureUsing(fn (Field $field) => $field->translateLabel());
     }
 }
