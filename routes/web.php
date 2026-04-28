@@ -196,7 +196,7 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
 });
 
 Route::prefix('oauth/{provider}')
-    ->whereIn('provider', ['google-ads', 'google-analytics4', 'facebook-ads'])
+    ->whereIn('provider', ['google', 'google-ads', 'google-analytics4', 'facebook-ads'])
     ->controller(OauthProxyController::class)
     ->middleware('throttle:30,1')
     ->group(function (): void {

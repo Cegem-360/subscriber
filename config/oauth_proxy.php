@@ -23,6 +23,27 @@ return [
     ))),
 
     'providers' => [
+        // Unified Google OAuth — Site Kit-style "Connect Google" that grants
+        // access to Ads, Search Console, and Analytics in a single consent.
+        // Tenants ask for an account/property selector after connecting.
+        'google' => [
+            'auth_url' => 'https://accounts.google.com/o/oauth2/v2/auth',
+            'client_id' => env('GOOGLE_CLIENT_ID', env('GOOGLE_ADS_CLIENT_ID')),
+            'scope' => implode(' ', [
+                'https://www.googleapis.com/auth/adwords',
+                'https://www.googleapis.com/auth/webmasters.readonly',
+                'https://www.googleapis.com/auth/analytics.readonly',
+                'openid',
+                'email',
+                'profile',
+            ]),
+            'extra_params' => [
+                'access_type' => 'offline',
+                'prompt' => 'consent',
+                'include_granted_scopes' => 'true',
+            ],
+        ],
+
         'google-ads' => [
             'auth_url' => 'https://accounts.google.com/o/oauth2/v2/auth',
             'client_id' => env('GOOGLE_ADS_CLIENT_ID'),
