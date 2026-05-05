@@ -60,7 +60,7 @@
                     </div>
                     <h3 class="mb-2 text-lg font-semibold text-gray-900">{{ __('In person') }}</h3>
                     <p class="mb-4 text-sm text-gray-600">{{ __('By prior appointment') }}</p>
-                    <p class="text-gray-700">1146 Budapest,<br>Istvánmezei út 1-3. IV. emelet</p>
+                    <p class="text-gray-700">1051 Budapest,<br>Széchenyi István tér 7-8.</p>
                 </div>
             </div>
         </div>
@@ -411,7 +411,7 @@
     <section class="bg-gray-100">
         <div class="h-96 w-full">
             <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2694.4831693457584!2d19.0846!3d47.5068!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4741dc6f3e3a3c65%3A0x1!2sIstv%C3%A1nmezei%20%C3%BAt%201-3%2C%20Budapest%2C%201146!5e0!3m2!1sen!2shu!4v1704067200000!5m2!1sen!2shu"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2694.4!2d19.0503!3d47.5025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4741dc403a85f0ab%3A0x6cf0e6e8b0a0a15e!2sSz%C3%A9chenyi%20Istv%C3%A1n%20t%C3%A9r%207-8%2C%20Budapest%2C%201051!5e0!3m2!1sen!2shu!4v1704067200000!5m2!1sen!2shu"
                 width="100%"
                 height="100%"
                 style="border:0;"
