@@ -9,22 +9,29 @@ use App\Models\Plan\PlanCategory;
 use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Http;
 use Livewire\Livewire;
+use Madbox99\UserTeamSync\Publisher\Jobs\ToggleUserActiveJob;
+
+use function Pest\Laravel\actingAs;
+use function Pest\Laravel\assertDatabaseHas;
+use function Pest\Laravel\assertDatabaseMissing;
+use function Pest\Laravel\get;
 
 uses(RefreshDatabase::class);
 
 beforeEach(function (): void {
     Http::fake();
-    PlanCategory::factory()->create();
-    Plan::factory()->create();
+    $category = PlanCategory::factory()->create();
+    Plan::factory()->create(['plan_category_id' => $category->id]);
 });
 
 describe('ManageUsers page access', function (): void {
     it('allows managers to access the page', function (): void {
         $manager = User::factory()->manager()->create();
 
-        $this->actingAs($manager)
+        actingAs($manager)
             ->get('/manage-users')
             ->assertOk();
     });
@@ -32,13 +39,13 @@ describe('ManageUsers page access', function (): void {
     it('allows admins to access the page', function (): void {
         $admin = User::factory()->admin()->create();
 
-        $this->actingAs($admin)
+        actingAs($admin)
             ->get('/manage-users')
             ->assertOk();
     });
 
     it('requires authentication', function (): void {
-        $this->get('/manage-users')
+        get('/manage-users')
             ->assertRedirect('/login');
     });
 });
@@ -62,6 +69,8 @@ describe('ManageUsers component', function (): void {
     });
 
     it('creates a new user within seat limit', function (): void {
+        Bus::fake();
+
         $manager = User::factory()->manager()->create();
         $plan = Plan::query()->first();
 
@@ -81,11 +90,18 @@ describe('ManageUsers component', function (): void {
             ->call('createUser')
             ->assertHasNoErrors();
 
-        $this->assertDatabaseHas('users', [
+        assertDatabaseHas('users', [
             'email' => 'newuser@test.com',
             'subscription_id' => $subscription->id,
             'role' => UserRole::Subscriber->value,
         ]);
+
+        Bus::assertDispatched(
+            ToggleUserActiveJob::class,
+            fn (ToggleUserActiveJob $job): bool => $job->userEmail === 'newuser@test.com'
+                && $job->isActive === true
+                && $job->appKey === $plan->planCategory->slug,
+        );
     });
 
     it('prevents creating user when subscription is full', function (): void {
@@ -113,7 +129,7 @@ describe('ManageUsers component', function (): void {
             ->set('data.password', 'password123')
             ->call('createUser');
 
-        $this->assertDatabaseMissing('users', [
+        assertDatabaseMissing('users', [
             'email' => 'newuser@test.com',
         ]);
     });

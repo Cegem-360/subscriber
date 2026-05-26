@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Madbox99\UserTeamSync\Facades\UserTeamSync;
+use Madbox99\UserTeamSync\Publisher\Jobs\ToggleUserActiveJob;
 
 class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
 {
@@ -206,6 +207,16 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
             role: UserRole::Subscriber->value,
             ownerEmail: $subscription->user?->email ?? '',
         );
+
+        $appKey = $subscription->plan?->planCategory?->slug;
+
+        if ($appKey !== null && $appKey !== '') {
+            ToggleUserActiveJob::dispatch(
+                userEmail: $data['email'],
+                isActive: true,
+                appKey: $appKey,
+            )->delay(now()->addSeconds(20));
+        }
 
         Notification::make()
             ->title(__('User created successfully'))
