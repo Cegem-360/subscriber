@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Teams;
 
-use Override;
 use App\Filament\Resources\Teams\Pages\CreateTeam;
 use App\Filament\Resources\Teams\Pages\EditTeam;
 use App\Filament\Resources\Teams\Pages\ListTeams;
@@ -19,6 +18,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
+use Override;
 
 class TeamResource extends Resource
 {

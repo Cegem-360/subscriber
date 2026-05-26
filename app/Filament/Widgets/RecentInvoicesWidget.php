@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets;
 
-use Override;
 use App\Enums\InvoiceStatus;
 use App\Models\Invoice;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget;
 use Illuminate\Support\Facades\Auth;
+use Override;
 
 class RecentInvoicesWidget extends TableWidget
 {

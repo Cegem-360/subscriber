@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\SyncApps\Pages;
 
-use Override;
 use App\Filament\Resources\SyncApps\SyncAppResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Override;
 
 class ListSyncApps extends ListRecords
 {

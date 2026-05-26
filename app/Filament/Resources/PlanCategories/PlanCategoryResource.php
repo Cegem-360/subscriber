@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\PlanCategories;
 
-use Override;
 use App\Filament\Resources\PlanCategories\Pages\CreatePlanCategory;
 use App\Filament\Resources\PlanCategories\Pages\EditPlanCategory;
 use App\Filament\Resources\PlanCategories\Pages\ListPlanCategories;
@@ -18,6 +17,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
+use Override;
 
 class PlanCategoryResource extends Resource
 {

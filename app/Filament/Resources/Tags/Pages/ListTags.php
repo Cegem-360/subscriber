@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Tags\Pages;
 
-use Override;
 use App\Filament\Resources\Tags\TagResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Override;
 
 class ListTags extends ListRecords
 {

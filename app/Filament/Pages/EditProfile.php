@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages;
 
-use Override;
 use App\Enums\Country;
 use Filament\Actions\Action;
 use Filament\Auth\Pages\EditProfile as BaseEditProfile;
@@ -15,6 +14,7 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Madbox99\UserTeamSync\Facades\UserTeamSync;
+use Override;
 
 final class EditProfile extends BaseEditProfile
 {

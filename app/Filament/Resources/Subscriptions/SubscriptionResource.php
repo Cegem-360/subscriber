@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Subscriptions;
 
-use Override;
 use App\Filament\Resources\Subscriptions\Pages\CreateSubscription;
 use App\Filament\Resources\Subscriptions\Pages\EditSubscription;
 use App\Filament\Resources\Subscriptions\Pages\ListSubscriptions;
@@ -18,6 +17,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Override;
 
 class SubscriptionResource extends Resource
 {

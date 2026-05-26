@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Tags;
 
-use Override;
 use App\Filament\Resources\Tags\Pages\CreateTag;
 use App\Filament\Resources\Tags\Pages\EditTag;
 use App\Filament\Resources\Tags\Pages\ListTags;
@@ -18,6 +17,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
+use Override;
 use UnitEnum;
 
 class TagResource extends Resource

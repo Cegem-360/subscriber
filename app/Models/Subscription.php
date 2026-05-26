@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Override;
 use App\Enums\SubscriptionStatus;
 use App\Enums\SubscriptionType;
 use App\Models\Scopes\ForCurrentUserScope;
 use App\Observers\SubscriptionObserver;
 use Database\Factories\SubscriptionFactory;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
@@ -18,6 +17,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Cashier\Subscription as CashierSubscription;
+use Override;
 
 #[ScopedBy([ForCurrentUserScope::class])]
 #[ObservedBy([SubscriptionObserver::class])]

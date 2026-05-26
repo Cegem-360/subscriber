@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Subscriptions\Pages;
 
-use Override;
 use App\Filament\Resources\Subscriptions\SubscriptionResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Override;
 
 class ListSubscriptions extends ListRecords
 {

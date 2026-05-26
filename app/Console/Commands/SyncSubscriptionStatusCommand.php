@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Attributes\Description;
-use Illuminate\Console\Attributes\Signature;
 use App\Enums\SubscriptionStatus;
 use App\Models\Plan\PlanCategory;
 use App\Models\Subscription;
 use App\Models\User;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Madbox99\UserTeamSync\Facades\UserTeamSync;
 use Madbox99\UserTeamSync\Publisher\PublisherService;

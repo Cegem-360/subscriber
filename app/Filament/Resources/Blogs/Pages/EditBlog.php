@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Blogs\Pages;
 
-use Override;
 use App\Filament\Resources\Blogs\BlogResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
+use Override;
 
 class EditBlog extends EditRecord
 {

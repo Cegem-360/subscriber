@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\SyncApps;
 
-use Override;
 use App\Filament\Resources\SyncApps\Pages\CreateSyncApp;
 use App\Filament\Resources\SyncApps\Pages\EditSyncApp;
 use App\Filament\Resources\SyncApps\Pages\ListSyncApps;
@@ -17,6 +16,7 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
 use Madbox99\UserTeamSync\Models\SyncApp;
+use Override;
 use UnitEnum;
 
 class SyncAppResource extends Resource

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Plans\Pages;
 
-use Override;
 use App\Filament\Resources\Plans\PlanResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
+use Override;
 
 class EditPlan extends EditRecord
 {

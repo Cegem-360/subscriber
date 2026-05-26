@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models\Plan;
 
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 use App\Models\Plan;
 use Database\Factories\Plan\PlanCategoryFactory;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;

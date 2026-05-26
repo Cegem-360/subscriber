@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages;
 
-use Override;
 use BackedEnum;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Override;
 
 class Plans extends Page
 {

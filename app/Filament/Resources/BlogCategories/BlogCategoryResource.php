@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\BlogCategories;
 
-use Override;
 use App\Filament\Resources\BlogCategories\Pages\CreateBlogCategory;
 use App\Filament\Resources\BlogCategories\Pages\EditBlogCategory;
 use App\Filament\Resources\BlogCategories\Pages\ListBlogCategories;
@@ -18,6 +17,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
+use Override;
 use UnitEnum;
 
 class BlogCategoryResource extends Resource

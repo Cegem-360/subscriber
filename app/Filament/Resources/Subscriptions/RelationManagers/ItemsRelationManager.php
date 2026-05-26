@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Subscriptions\RelationManagers;
 
-use Override;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Override;
 
 class ItemsRelationManager extends RelationManager
 {

@@ -28,7 +28,7 @@ describe('ContactPage', function (): void {
             ->assertHasNoErrors()
             ->assertSet('submitted', true);
 
-        Mail::assertQueued(ContactInquiryMail::class, fn(ContactInquiryMail $mail): bool => $mail->hasTo('tamas@cegem360.hu')
+        Mail::assertQueued(ContactInquiryMail::class, fn (ContactInquiryMail $mail): bool => $mail->hasTo('tamas@cegem360.hu')
             && $mail->source === 'contact'
             && $mail->data['inquiryType'] === 'demo'
             && $mail->data['firstName'] === 'Anna'

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages\Auth\PasswordReset;
 
-use Override;
 use Filament\Auth\Pages\PasswordReset\RequestPasswordReset as BasePage;
 use Filament\Forms\Components\TextInput;
+use Override;
 
 final class RequestPasswordReset extends BasePage
 {

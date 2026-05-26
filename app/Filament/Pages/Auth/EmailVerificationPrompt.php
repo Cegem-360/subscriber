@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages\Auth;
 
-use Override;
 use App\Models\User;
 use Filament\Auth\Pages\EmailVerification\EmailVerificationPrompt as BaseEmailVerificationPrompt;
 use Filament\Facades\Filament;
+use Override;
 
 final class EmailVerificationPrompt extends BaseEmailVerificationPrompt
 {

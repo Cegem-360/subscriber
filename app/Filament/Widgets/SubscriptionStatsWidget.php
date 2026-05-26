@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets;
 
-use Override;
 use App\Models\Subscription;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Support\Facades\Auth;
+use Override;
 
 class SubscriptionStatsWidget extends StatsOverviewWidget
 {

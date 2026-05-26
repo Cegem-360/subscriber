@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\SyncApps\Pages;
 
-use Override;
 use App\Filament\Resources\SyncApps\SyncAppResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
+use Override;
 
 class EditSyncApp extends EditRecord
 {

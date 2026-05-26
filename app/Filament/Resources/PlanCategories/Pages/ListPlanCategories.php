@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\PlanCategories\Pages;
 
-use Override;
 use App\Filament\Resources\PlanCategories\PlanCategoryResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Override;
 
 class ListPlanCategories extends ListRecords
 {

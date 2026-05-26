@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Invoices;
 
-use Override;
 use App\Filament\Resources\Invoices\Pages\CreateInvoice;
 use App\Filament\Resources\Invoices\Pages\EditInvoice;
 use App\Filament\Resources\Invoices\Pages\ListInvoices;
@@ -17,6 +16,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
+use Override;
 
 class InvoiceResource extends Resource
 {

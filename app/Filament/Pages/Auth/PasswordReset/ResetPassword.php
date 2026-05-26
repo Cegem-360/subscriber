@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages\Auth\PasswordReset;
 
-use Override;
 use Filament\Auth\Http\Responses\Contracts\PasswordResetResponse;
 use Filament\Auth\Pages\PasswordReset\ResetPassword as BasePage;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Validation\Rules\Password as PasswordRule;
 use Madbox99\UserTeamSync\Facades\UserTeamSync;
+use Override;
 
 final class ResetPassword extends BasePage
 {

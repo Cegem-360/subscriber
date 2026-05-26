@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Invoices\Pages;
 
-use Override;
 use App\Filament\Resources\Invoices\InvoiceResource;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Facades\Auth;
+use Override;
 
 class CreateInvoice extends CreateRecord
 {

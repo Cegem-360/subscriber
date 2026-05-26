@@ -107,7 +107,7 @@ describe('PricingPage', function (): void {
             ->assertHasNoErrors()
             ->assertSet('submitted', true);
 
-        Mail::assertQueued(ContactInquiryMail::class, fn(ContactInquiryMail $mail): bool => $mail->hasTo('tamas@cegem360.hu')
+        Mail::assertQueued(ContactInquiryMail::class, fn (ContactInquiryMail $mail): bool => $mail->hasTo('tamas@cegem360.hu')
             && $mail->source === 'pricing'
             && $mail->data['email'] === 'janos@example.com'
             && $mail->data['firstName'] === 'János'

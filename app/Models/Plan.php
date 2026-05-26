@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Override;
 use App\Enums\BillingPeriod;
 use App\Models\Plan\PlanCategory;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Override;
 
 #[Fillable([
     'name',
@@ -96,7 +96,7 @@ class Plan extends Model
 
     protected function teamPriceField(?Team $team, string $field): mixed
     {
-        if (!$team instanceof Team) {
+        if (! $team instanceof Team) {
             return null;
         }
 
