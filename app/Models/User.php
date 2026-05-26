@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Override;
 use App\Enums\UserRole;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
@@ -16,42 +19,30 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Cashier\Billable;
 
+#[Fillable([
+    'name',
+    'email',
+    'password',
+    'role',
+    'company_name',
+    'tax_number',
+    'address',
+    'city',
+    'postal_code',
+    'country',
+    'stripe_id',
+    'billingo_partner_id',
+    'subscription_id',
+])]
+#[Hidden([
+    'password',
+    'remember_token',
+])]
 final class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 {
     use Billable;
     use HasFactory;
     use Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'role',
-        'company_name',
-        'tax_number',
-        'address',
-        'city',
-        'postal_code',
-        'country',
-        'stripe_id',
-        'billingo_partner_id',
-        'subscription_id',
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
 
     /**
      * Get the attributes that should be cast.
@@ -63,6 +54,7 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
         return true;
     }
 
+    #[Override]
     protected function casts(): array
     {
         return [

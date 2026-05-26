@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Blogs\RelationManagers;
 
+use Override;
 use Filament\Actions\AttachAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
@@ -26,6 +27,7 @@ class TagsRelationManager extends RelationManager
 
     protected static ?string $title = 'Címkék';
 
+    #[Override]
     public function form(Schema $schema): Schema
     {
         return $schema
@@ -37,7 +39,7 @@ class TagsRelationManager extends RelationManager
                             ->required()
                             ->maxLength(255)
                             ->live(onBlur: true)
-                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state ?? ''))),
+                            ->afterStateUpdated(fn (Set $set, ?string $state): mixed => $set('slug', Str::slug($state ?? ''))),
                         TextInput::make('slug')
                             ->required()
                             ->unique(ignoreRecord: true)

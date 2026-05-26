@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages\Auth;
 
+use Override;
 use Filament\Auth\Http\Responses\Contracts\LoginResponse;
 use Filament\Auth\Pages\Login as BasePage;
 use Filament\Forms\Components\Checkbox;
@@ -17,6 +18,7 @@ final class Login extends BasePage
 
     protected static string $layout = 'filament.layouts.auth';
 
+    #[Override]
     protected function getEmailFormComponent(): TextInput
     {
         return TextInput::make('email')
@@ -29,6 +31,7 @@ final class Login extends BasePage
             ->extraInputAttributes(['tabindex' => 1]);
     }
 
+    #[Override]
     protected function getPasswordFormComponent(): TextInput
     {
         return TextInput::make('password')
@@ -40,6 +43,7 @@ final class Login extends BasePage
             ->extraInputAttributes(['tabindex' => 2]);
     }
 
+    #[Override]
     protected function getRememberFormComponent(): Checkbox
     {
         return Checkbox::make('remember')
@@ -47,6 +51,7 @@ final class Login extends BasePage
             ->extraInputAttributes(['tabindex' => 3]);
     }
 
+    #[Override]
     public function mount(): void
     {
         parent::mount();
@@ -69,6 +74,7 @@ final class Login extends BasePage
         }
     }
 
+    #[Override]
     public function authenticate(): ?LoginResponse
     {
         $response = parent::authenticate();

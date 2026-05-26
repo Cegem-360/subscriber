@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets;
 
+use Override;
 use App\Enums\InvoiceStatus;
 use App\Models\Invoice;
 use Filament\Tables\Columns\TextColumn;
@@ -17,6 +18,7 @@ class RecentInvoicesWidget extends TableWidget
 
     protected int|string|array $columnSpan = 'full';
 
+    #[Override]
     public function table(Table $table): Table
     {
         $query = Invoice::query()->latest()->limit(10);

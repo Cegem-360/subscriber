@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-test('hibabejelentes page renders successfully', function () {
+test('hibabejelentes page renders successfully', function (): void {
     $response = $this->get(route('hibabejelentes'));
 
     $response->assertStatus(200);
@@ -10,7 +10,7 @@ test('hibabejelentes page renders successfully', function () {
     $response->assertSee('a Cégem360 csapatnak');
 });
 
-test('hibabejelentes page displays hero info bar', function () {
+test('hibabejelentes page displays hero info bar', function (): void {
     $response = $this->get(route('hibabejelentes'));
 
     $response->assertSee('Hibabejelentés');
@@ -19,7 +19,7 @@ test('hibabejelentes page displays hero info bar', function () {
     $response->assertSee('E-mail értesítés');
 });
 
-test('hibabejelentes page displays bug report form', function () {
+test('hibabejelentes page displays bug report form', function (): void {
     $response = $this->get(route('hibabejelentes'));
 
     $response->assertSee('Hibabejelentő űrlap');
@@ -29,7 +29,7 @@ test('hibabejelentes page displays bug report form', function () {
     $response->assertSee('Képernyőkép / csatolmány');
 });
 
-test('hibabejelentes page displays form fields', function () {
+test('hibabejelentes page displays form fields', function (): void {
     $response = $this->get(route('hibabejelentes'));
 
     $response->assertSee('name="name"', escape: false);
@@ -42,7 +42,7 @@ test('hibabejelentes page displays form fields', function () {
     $response->assertSee('name="priority"', escape: false);
 });
 
-test('hibabejelentes page displays module options', function () {
+test('hibabejelentes page displays module options', function (): void {
     $response = $this->get(route('hibabejelentes'));
 
     $response->assertSee('CRM');
@@ -52,7 +52,7 @@ test('hibabejelentes page displays module options', function () {
     $response->assertSee('DataMind (MI)');
 });
 
-test('hibabejelentes page displays priority options', function () {
+test('hibabejelentes page displays priority options', function (): void {
     $response = $this->get(route('hibabejelentes'));
 
     $response->assertSee('Kritikus');
@@ -61,7 +61,7 @@ test('hibabejelentes page displays priority options', function () {
     $response->assertSee('Alacsony');
 });
 
-test('hibabejelentes page displays sidebar with SLA', function () {
+test('hibabejelentes page displays sidebar with SLA', function (): void {
     $response = $this->get(route('hibabejelentes'));
 
     $response->assertSee('Válaszidők prioritás szerint');
@@ -71,7 +71,7 @@ test('hibabejelentes page displays sidebar with SLA', function () {
     $response->assertSee('&lt; 24 óra', escape: false);
 });
 
-test('hibabejelentes page displays sidebar tips', function () {
+test('hibabejelentes page displays sidebar tips', function (): void {
     $response = $this->get(route('hibabejelentes'));
 
     $response->assertSee('Tippek a gyorsabb megoldáshoz');
@@ -79,7 +79,7 @@ test('hibabejelentes page displays sidebar tips', function () {
     $response->assertSee('Másolja be a hibaüzenet pontos szövegét');
 });
 
-test('hibabejelentes page displays alternative channels', function () {
+test('hibabejelentes page displays alternative channels', function (): void {
     $response = $this->get(route('hibabejelentes'));
 
     $response->assertSee('Egyéb elérhetőségek');
@@ -88,13 +88,13 @@ test('hibabejelentes page displays alternative channels', function () {
     $response->assertSee('24/7 Támogatás oldal');
 });
 
-test('hibabejelentes page displays system status', function () {
+test('hibabejelentes page displays system status', function (): void {
     $response = $this->get(route('hibabejelentes'));
 
     $response->assertSee('jelenleg elérhető');
 });
 
-test('hibabejelentes page displays after-form steps section', function () {
+test('hibabejelentes page displays after-form steps section', function (): void {
     $response = $this->get(route('hibabejelentes'));
 
     $response->assertSee('3 lépésben a megoldásig');
@@ -103,7 +103,7 @@ test('hibabejelentes page displays after-form steps section', function () {
     $response->assertSee('3. Megoldás és lezárás');
 });
 
-test('hibabejelentes page displays footer CTA section', function () {
+test('hibabejelentes page displays footer CTA section', function (): void {
     $response = $this->get(route('hibabejelentes'));
 
     $response->assertSee('Nem hiba, hanem kérdés?');

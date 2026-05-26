@@ -8,6 +8,7 @@ use App\Enums\BillingPeriod;
 use App\Mail\ContactInquiryMail;
 use App\Models\Plan\PlanCategory;
 use App\Services\CurrencyService;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -43,13 +44,13 @@ final class PricingPage extends Component
 
     public function mount(): void
     {
-        $this->currency = app(CurrencyService::class)->getCurrentCurrency();
+        $this->currency = resolve(CurrencyService::class)->getCurrentCurrency();
     }
 
     /**
      * @return array<string, string>
      */
-    protected function rules(): array
+    private function rules(): array
     {
         return [
             'firstName' => 'required|string|max:255',
@@ -93,7 +94,7 @@ final class PricingPage extends Component
 
     public function toggleCurrency(): void
     {
-        $currencyService = app(CurrencyService::class);
+        $currencyService = resolve(CurrencyService::class);
 
         $newCurrency = $this->currency === CurrencyService::CURRENCY_HUF
             ? CurrencyService::CURRENCY_EUR
@@ -116,7 +117,7 @@ final class PricingPage extends Component
         return PlanCategory::query()
             ->with(['plans' => fn ($query) => $query->where('is_active', true)])
             ->get()
-            ->map(function (PlanCategory $category) {
+            ->map(function (PlanCategory $category): array {
                 $yearlyPlan = $category->plans
                     ->where('billing_period', BillingPeriod::Yearly)
                     ->first();
@@ -146,7 +147,7 @@ final class PricingPage extends Component
      */
     public function calculatePrice(array $module): string
     {
-        $currencyService = app(CurrencyService::class);
+        $currencyService = resolve(CurrencyService::class);
 
         if ($this->isYearly) {
             $price = $this->currency === CurrencyService::CURRENCY_EUR
@@ -166,7 +167,7 @@ final class PricingPage extends Component
      */
     public function calculateYearlyPrice(array $module): string
     {
-        $currencyService = app(CurrencyService::class);
+        $currencyService = resolve(CurrencyService::class);
 
         $price = $this->currency === CurrencyService::CURRENCY_EUR
             ? $module['yearlyPriceEUR']
@@ -212,7 +213,7 @@ final class PricingPage extends Component
         ];
     }
 
-    public function render(): \Illuminate\Contracts\View\View
+    public function render(): View
     {
         return view('livewire.pricing-page');
     }

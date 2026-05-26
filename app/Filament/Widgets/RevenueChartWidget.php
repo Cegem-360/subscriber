@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Widgets;
 
+use Override;
 use App\Models\Invoice;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +15,7 @@ class RevenueChartWidget extends ChartWidget
 
     protected ?string $description = 'Revenue from paid invoices over the last 12 months';
 
+    #[Override]
     protected function getData(): array
     {
         $data = $this->getRevenuePerMonth();

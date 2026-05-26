@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-test('termeles-uzemvezetes use-case page renders successfully', function () {
+test('termeles-uzemvezetes use-case page renders successfully', function (): void {
     $response = $this->get(route('usecases.termeles-uzemvezetes'));
 
     $response->assertStatus(200);
@@ -10,7 +10,7 @@ test('termeles-uzemvezetes use-case page renders successfully', function () {
     $response->assertSee('ne a termelés irányítsa Önt');
 });
 
-test('termeles-uzemvezetes use-case page displays pain points section', function () {
+test('termeles-uzemvezetes use-case page displays pain points section', function (): void {
     $response = $this->get(route('usecases.termeles-uzemvezetes'));
 
     $response->assertSee('Nem tervezett leállások');
@@ -19,7 +19,7 @@ test('termeles-uzemvezetes use-case page displays pain points section', function
     $response->assertSee('Gyártás–értékesítés szinkronhiba');
 });
 
-test('termeles-uzemvezetes use-case page displays target audience section', function () {
+test('termeles-uzemvezetes use-case page displays target audience section', function (): void {
     $response = $this->get(route('usecases.termeles-uzemvezetes'));
 
     $response->assertSee('Üzem- és műszakvezetők');
@@ -28,7 +28,7 @@ test('termeles-uzemvezetes use-case page displays target audience section', func
     $response->assertSee('Minőségirányítási vezető');
 });
 
-test('termeles-uzemvezetes use-case page displays core toolkit modules', function () {
+test('termeles-uzemvezetes use-case page displays core toolkit modules', function (): void {
     $response = $this->get(route('usecases.termeles-uzemvezetes'));
 
     $response->assertSee('Gyártásirányítás');
@@ -37,7 +37,7 @@ test('termeles-uzemvezetes use-case page displays core toolkit modules', functio
     $response->assertSee('DataMind');
 });
 
-test('termeles-uzemvezetes use-case page displays production lifecycle section', function () {
+test('termeles-uzemvezetes use-case page displays production lifecycle section', function (): void {
     $response = $this->get(route('usecases.termeles-uzemvezetes'));
 
     $response->assertSee('Megrendelés');
@@ -48,7 +48,7 @@ test('termeles-uzemvezetes use-case page displays production lifecycle section',
     $response->assertSee('Elemzés');
 });
 
-test('termeles-uzemvezetes use-case page displays stats section', function () {
+test('termeles-uzemvezetes use-case page displays stats section', function (): void {
     $response = $this->get(route('usecases.termeles-uzemvezetes'));
 
     $response->assertSee('data-count="25"', escape: false);
@@ -61,7 +61,7 @@ test('termeles-uzemvezetes use-case page displays stats section', function () {
     $response->assertSee('Adminisztrációs idő');
 });
 
-test('termeles-uzemvezetes use-case page displays use cases section', function () {
+test('termeles-uzemvezetes use-case page displays use cases section', function (): void {
     $response = $this->get(route('usecases.termeles-uzemvezetes'));
 
     $response->assertSee('OEE mérés és gépkihasználtság-elemzés');
@@ -72,7 +72,7 @@ test('termeles-uzemvezetes use-case page displays use cases section', function (
     $response->assertSee('Gyártás–értékesítés szinkronizáció');
 });
 
-test('termeles-uzemvezetes use-case page displays comparison table', function () {
+test('termeles-uzemvezetes use-case page displays comparison table', function (): void {
     $response = $this->get(route('usecases.termeles-uzemvezetes'));
 
     $response->assertSee('Gépállapot áttekintés');
@@ -81,7 +81,7 @@ test('termeles-uzemvezetes use-case page displays comparison table', function ()
     $response->assertSee('Gantt, kapacitás-szinkronnal');
 });
 
-test('termeles-uzemvezetes use-case page displays CTA sections', function () {
+test('termeles-uzemvezetes use-case page displays CTA sections', function (): void {
     $response = $this->get(route('usecases.termeles-uzemvezetes'));
 
     $response->assertSee('Online konzultáció');
@@ -89,7 +89,7 @@ test('termeles-uzemvezetes use-case page displays CTA sections', function () {
     $response->assertSee('Készen áll a digitális üzemirányításra?');
 });
 
-test('termeles-uzemvezetes use-case page displays OEE dashboard visual', function () {
+test('termeles-uzemvezetes use-case page displays OEE dashboard visual', function (): void {
     $response = $this->get(route('usecases.termeles-uzemvezetes'));
 
     $response->assertSee('Üzemi vezérlőpult');

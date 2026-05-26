@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Override;
 use App\Enums\SubscriptionStatus;
 use App\Enums\SubscriptionType;
 use App\Models\Scopes\ForCurrentUserScope;
@@ -19,28 +21,29 @@ use Laravel\Cashier\Subscription as CashierSubscription;
 
 #[ScopedBy([ForCurrentUserScope::class])]
 #[ObservedBy([SubscriptionObserver::class])]
+#[Fillable([
+    'user_id',
+    'team_id',
+    'plan_id',
+    'type',
+    'stripe_id',
+    'stripe_status',
+    'stripe_price',
+    'quantity',
+    'trial_ends_at',
+    'ends_at',
+])]
 class Subscription extends CashierSubscription
 {
     use HasFactory;
 
+    #[Override]
     protected static function newFactory(): SubscriptionFactory
     {
         return SubscriptionFactory::new();
     }
 
-    protected $fillable = [
-        'user_id',
-        'team_id',
-        'plan_id',
-        'type',
-        'stripe_id',
-        'stripe_status',
-        'stripe_price',
-        'quantity',
-        'trial_ends_at',
-        'ends_at',
-    ];
-
+    #[Override]
     protected function casts(): array
     {
         return [
@@ -51,6 +54,7 @@ class Subscription extends CashierSubscription
         ];
     }
 
+    #[Override]
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

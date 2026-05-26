@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages\Auth\PasswordReset;
 
+use Override;
 use Filament\Auth\Pages\PasswordReset\RequestPasswordReset as BasePage;
 use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Components\Component;
 
 final class RequestPasswordReset extends BasePage
 {
@@ -14,7 +14,8 @@ final class RequestPasswordReset extends BasePage
 
     protected static string $layout = 'filament.layouts.auth';
 
-    protected function getEmailFormComponent(): Component
+    #[Override]
+    protected function getEmailFormComponent(): TextInput
     {
         return TextInput::make('email')
             ->label('E-mail cím')

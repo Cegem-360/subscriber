@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-test('ugyfelszolgalat-after-sales use-case page renders successfully', function () {
+test('ugyfelszolgalat-after-sales use-case page renders successfully', function (): void {
     $response = $this->get(route('usecases.ugyfelszolgalat-after-sales'));
 
     $response->assertStatus(200);
@@ -10,7 +10,7 @@ test('ugyfelszolgalat-after-sales use-case page renders successfully', function 
     $response->assertSee('és tartsa meg ügyfeleit');
 });
 
-test('ugyfelszolgalat-after-sales use-case page displays pain points section', function () {
+test('ugyfelszolgalat-after-sales use-case page displays pain points section', function (): void {
     $response = $this->get(route('usecases.ugyfelszolgalat-after-sales'));
 
     $response->assertSee('Lassú reakcióidő');
@@ -19,7 +19,7 @@ test('ugyfelszolgalat-after-sales use-case page displays pain points section', f
     $response->assertSee('Elszalasztott upsell-lehetőségek');
 });
 
-test('ugyfelszolgalat-after-sales use-case page displays target audience section', function () {
+test('ugyfelszolgalat-after-sales use-case page displays target audience section', function (): void {
     $response = $this->get(route('usecases.ugyfelszolgalat-after-sales'));
 
     $response->assertSee('Helyszíni szerelők');
@@ -28,7 +28,7 @@ test('ugyfelszolgalat-after-sales use-case page displays target audience section
     $response->assertSee('Ügyvezetők');
 });
 
-test('ugyfelszolgalat-after-sales use-case page displays core toolkit modules', function () {
+test('ugyfelszolgalat-after-sales use-case page displays core toolkit modules', function (): void {
     $response = $this->get(route('usecases.ugyfelszolgalat-after-sales'));
 
     $response->assertSee('Digitális munkalap');
@@ -37,7 +37,7 @@ test('ugyfelszolgalat-after-sales use-case page displays core toolkit modules', 
     $response->assertSee('Automatizálás');
 });
 
-test('ugyfelszolgalat-after-sales use-case page displays service lifecycle section', function () {
+test('ugyfelszolgalat-after-sales use-case page displays service lifecycle section', function (): void {
     $response = $this->get(route('usecases.ugyfelszolgalat-after-sales'));
 
     $response->assertSee('Bejelentés');
@@ -48,7 +48,7 @@ test('ugyfelszolgalat-after-sales use-case page displays service lifecycle secti
     $response->assertSee('Proaktív gondoskodás');
 });
 
-test('ugyfelszolgalat-after-sales use-case page displays stats section', function () {
+test('ugyfelszolgalat-after-sales use-case page displays stats section', function (): void {
     $response = $this->get(route('usecases.ugyfelszolgalat-after-sales'));
 
     $response->assertSee('data-count="60"', escape: false);
@@ -61,7 +61,7 @@ test('ugyfelszolgalat-after-sales use-case page displays stats section', functio
     $response->assertSee('Admin-idő helyszínen');
 });
 
-test('ugyfelszolgalat-after-sales use-case page displays use cases section', function () {
+test('ugyfelszolgalat-after-sales use-case page displays use cases section', function (): void {
     $response = $this->get(route('usecases.ugyfelszolgalat-after-sales'));
 
     $response->assertSee('Helyszíni szerviz digitális dokumentálása');
@@ -72,7 +72,7 @@ test('ugyfelszolgalat-after-sales use-case page displays use cases section', fun
     $response->assertSee('Szerviz-jövedelmezőség elemzés');
 });
 
-test('ugyfelszolgalat-after-sales use-case page displays comparison table', function () {
+test('ugyfelszolgalat-after-sales use-case page displays comparison table', function (): void {
     $response = $this->get(route('usecases.ugyfelszolgalat-after-sales'));
 
     $response->assertSee('Szervizbejelentés');
@@ -81,7 +81,7 @@ test('ugyfelszolgalat-after-sales use-case page displays comparison table', func
     $response->assertSee('Proaktív gondoskodás');
 });
 
-test('ugyfelszolgalat-after-sales use-case page displays CTA sections', function () {
+test('ugyfelszolgalat-after-sales use-case page displays CTA sections', function (): void {
     $response = $this->get(route('usecases.ugyfelszolgalat-after-sales'));
 
     $response->assertSee('Online konzultáció');
@@ -89,7 +89,7 @@ test('ugyfelszolgalat-after-sales use-case page displays CTA sections', function
     $response->assertSee('Készen áll a proaktív ügyfélszolgálatra?');
 });
 
-test('ugyfelszolgalat-after-sales use-case page displays service ticket dashboard visual', function () {
+test('ugyfelszolgalat-after-sales use-case page displays service ticket dashboard visual', function (): void {
     $response = $this->get(route('usecases.ugyfelszolgalat-after-sales'));
 
     $response->assertSee('Szerviz irányítópult');

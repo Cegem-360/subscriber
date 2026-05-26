@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Subscriptions\Pages;
 
+use Override;
 use App\Filament\Resources\Subscriptions\SubscriptionResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
@@ -12,6 +13,7 @@ class ListSubscriptions extends ListRecords
 {
     protected static string $resource = SubscriptionResource::class;
 
+    #[Override]
     protected function getHeaderActions(): array
     {
         return [

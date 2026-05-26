@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Override;
 use App\Enums\InvoiceStatus;
 use App\Models\Scopes\ForCurrentUserScope;
 use Illuminate\Database\Eloquent\Attributes\Scope;
@@ -14,24 +16,24 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 #[ScopedBy([ForCurrentUserScope::class])]
+#[Fillable([
+    'user_id',
+    'subscription_id',
+    'stripe_invoice_id',
+    'stripe_payment_intent_id',
+    'billingo_invoice_id',
+    'invoice_number',
+    'amount',
+    'currency',
+    'status',
+    'billingo_synced_at',
+    'pdf_path',
+])]
 class Invoice extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_id',
-        'subscription_id',
-        'stripe_invoice_id',
-        'stripe_payment_intent_id',
-        'billingo_invoice_id',
-        'invoice_number',
-        'amount',
-        'currency',
-        'status',
-        'billingo_synced_at',
-        'pdf_path',
-    ];
-
+    #[Override]
     protected function casts(): array
     {
         return [

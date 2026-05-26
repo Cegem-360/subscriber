@@ -163,7 +163,7 @@ describe('Password reset form', function (): void {
             ->call('resetPassword')
             ->assertNotified();
 
-        Http::assertSent(fn ($request): bool => str_contains($request->url(), '/api/sync-password')
+        Http::assertSent(fn ($request): bool => str_contains((string) $request->url(), '/api/sync-password')
             && $request['email'] === $user->email,
         );
     });

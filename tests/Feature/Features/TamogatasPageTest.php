@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-test('tamogatas feature page renders successfully', function () {
+test('tamogatas feature page renders successfully', function (): void {
     $response = $this->get(route('features.tamogatas'));
 
     $response->assertStatus(200);
@@ -10,7 +10,7 @@ test('tamogatas feature page renders successfully', function () {
     $response->assertSee('nappal a csapatunk is ott van');
 });
 
-test('tamogatas feature page displays hero support visual', function () {
+test('tamogatas feature page displays hero support visual', function (): void {
     $response = $this->get(route('features.tamogatas'));
 
     $response->assertSee('Támogatás');
@@ -21,7 +21,7 @@ test('tamogatas feature page displays hero support visual', function () {
     $response->assertSee('AI Chat online');
 });
 
-test('tamogatas feature page displays two pillars section', function () {
+test('tamogatas feature page displays two pillars section', function (): void {
     $response = $this->get(route('features.tamogatas'));
 
     $response->assertSee('AI Chat');
@@ -32,7 +32,7 @@ test('tamogatas feature page displays two pillars section', function () {
     $response->assertSee('Technikai hibaelhárítás és bugfix');
 });
 
-test('tamogatas feature page displays how it works section', function () {
+test('tamogatas feature page displays how it works section', function (): void {
     $response = $this->get(route('features.tamogatas'));
 
     $response->assertSee('A kérdéstől a megoldásig');
@@ -43,7 +43,7 @@ test('tamogatas feature page displays how it works section', function () {
     $response->assertSee('Megoldás');
 });
 
-test('tamogatas feature page displays contact channels section', function () {
+test('tamogatas feature page displays contact channels section', function (): void {
     $response = $this->get(route('features.tamogatas'));
 
     $response->assertSee('Három csatorna');
@@ -53,7 +53,7 @@ test('tamogatas feature page displays contact channels section', function () {
     $response->assertSee('support@cegem360.eu');
 });
 
-test('tamogatas feature page displays AI chat capabilities section', function () {
+test('tamogatas feature page displays AI chat capabilities section', function (): void {
     $response = $this->get(route('features.tamogatas'));
 
     $response->assertSee('Nem generikus chatbot');
@@ -65,7 +65,7 @@ test('tamogatas feature page displays AI chat capabilities section', function ()
     $response->assertSee('Magyar nyelv');
 });
 
-test('tamogatas feature page displays example dialogues section', function () {
+test('tamogatas feature page displays example dialogues section', function (): void {
     $response = $this->get(route('features.tamogatas'));
 
     $response->assertSee('Ilyen kérdésekre válaszol az AI Chat');
@@ -74,7 +74,7 @@ test('tamogatas feature page displays example dialogues section', function () {
     $response->assertSee('KARB-2024-0087');
 });
 
-test('tamogatas feature page displays SLA section', function () {
+test('tamogatas feature page displays SLA section', function (): void {
     $response = $this->get(route('features.tamogatas'));
 
     $response->assertSee('Mire számíthat');
@@ -84,7 +84,7 @@ test('tamogatas feature page displays SLA section', function () {
     $response->assertSee('&lt; 4 óra', escape: false);
 });
 
-test('tamogatas feature page displays stats section', function () {
+test('tamogatas feature page displays stats section', function (): void {
     $response = $this->get(route('features.tamogatas'));
 
     $response->assertSee('data-count="24/7"', escape: false);
@@ -95,7 +95,7 @@ test('tamogatas feature page displays stats section', function () {
     $response->assertSee('Emberi válaszidő (átlag)');
 });
 
-test('tamogatas feature page displays competitor comparison section', function () {
+test('tamogatas feature page displays competitor comparison section', function (): void {
     $response = $this->get(route('features.tamogatas'));
 
     $response->assertSee('Hagyományos helpdesk');
@@ -105,7 +105,7 @@ test('tamogatas feature page displays competitor comparison section', function (
     $response->assertSee('Nem ismeri a rendszer adatait');
 });
 
-test('tamogatas feature page displays comparison table', function () {
+test('tamogatas feature page displays comparison table', function (): void {
     $response = $this->get(route('features.tamogatas'));
 
     $response->assertSee('24/7 elérhetőség');
@@ -115,7 +115,7 @@ test('tamogatas feature page displays comparison table', function () {
     $response->assertSee('Magyar nyelv és ipari terminológia');
 });
 
-test('tamogatas feature page displays CTA sections', function () {
+test('tamogatas feature page displays CTA sections', function (): void {
     $response = $this->get(route('features.tamogatas'));
 
     $response->assertSee('Kérdése van? Vegye fel a kapcsolatot!');

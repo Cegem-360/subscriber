@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models\Blog;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Override;
 use Database\Factories\Blog\BlogFactory;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
@@ -12,27 +14,27 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+#[Fillable([
+    'blog_category_id',
+    'title',
+    'slug',
+    'content',
+    'editor_mode',
+    'content_html',
+    'excerpt',
+    'featured_image',
+    'meta_title',
+    'meta_description',
+    'og_image',
+    'published_at',
+    'is_active',
+])]
 class Blog extends Model
 {
     /** @use HasFactory<BlogFactory> */
     use HasFactory;
 
-    protected $fillable = [
-        'blog_category_id',
-        'title',
-        'slug',
-        'content',
-        'editor_mode',
-        'content_html',
-        'excerpt',
-        'featured_image',
-        'meta_title',
-        'meta_description',
-        'og_image',
-        'published_at',
-        'is_active',
-    ];
-
+    #[Override]
     protected function casts(): array
     {
         return [

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Tags;
 
+use Override;
 use App\Filament\Resources\Tags\Pages\CreateTag;
 use App\Filament\Resources\Tags\Pages\EditTag;
 use App\Filament\Resources\Tags\Pages\ListTags;
@@ -37,21 +38,25 @@ class TagResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
+    #[Override]
     public static function shouldRegisterNavigation(): bool
     {
         return Auth::user()?->isAdmin() ?? false;
     }
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return TagForm::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return TagsTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -59,6 +64,7 @@ class TagResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [

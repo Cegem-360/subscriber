@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Teams\RelationManagers;
 
+use Override;
 use Filament\Actions\AttachAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DetachAction;
@@ -19,6 +20,7 @@ class UsersRelationManager extends RelationManager
 
     protected static ?string $title = 'Felhasználók';
 
+    #[Override]
     public function form(Schema $schema): Schema
     {
         return $schema->components([]);

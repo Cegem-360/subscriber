@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use App\Enums\SubscriptionStatus;
 use App\Models\Plan\PlanCategory;
 use App\Models\Subscription;
@@ -12,13 +14,11 @@ use Illuminate\Console\Command;
 use Madbox99\UserTeamSync\Facades\UserTeamSync;
 use Madbox99\UserTeamSync\Publisher\PublisherService;
 
+#[Description('Sync is_active status to all receiver apps based on current subscription state')]
+#[Signature('subscriptions:sync-status
+                            {--dry-run : Show what would be changed without making changes}')]
 class SyncSubscriptionStatusCommand extends Command
 {
-    protected $signature = 'subscriptions:sync-status
-                            {--dry-run : Show what would be changed without making changes}';
-
-    protected $description = 'Sync is_active status to all receiver apps based on current subscription state';
-
     public function handle(): int
     {
         $dryRun = $this->option('dry-run');
@@ -28,7 +28,7 @@ class SyncSubscriptionStatusCommand extends Command
         }
 
         $appKeys = PlanCategory::query()->pluck('slug')->unique()->toArray();
-        $apps = app(PublisherService::class)->getActiveApps();
+        $apps = resolve(PublisherService::class)->getActiveApps();
 
         $this->components->info('Found ' . count($appKeys) . ' module categories, ' . count($apps) . ' active receiver apps');
 

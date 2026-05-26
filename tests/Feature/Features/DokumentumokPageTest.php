@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-test('dokumentumok feature page renders successfully', function () {
+test('dokumentumok feature page renders successfully', function (): void {
     $response = $this->get(route('features.dokumentumok'));
 
     $response->assertStatus(200);
@@ -10,7 +10,7 @@ test('dokumentumok feature page renders successfully', function () {
     $response->assertSee('automatikusan, a folyamatból');
 });
 
-test('dokumentumok feature page displays document dashboard visual', function () {
+test('dokumentumok feature page displays document dashboard visual', function (): void {
     $response = $this->get(route('features.dokumentumok'));
 
     $response->assertSee('Dokumentumközpont');
@@ -21,7 +21,7 @@ test('dokumentumok feature page displays document dashboard visual', function ()
     $response->assertSee('Klímaberendezés árajánlat');
 });
 
-test('dokumentumok feature page displays document types section', function () {
+test('dokumentumok feature page displays document types section', function (): void {
     $response = $this->get(route('features.dokumentumok'));
 
     $response->assertSee('Árajánlatok');
@@ -34,7 +34,7 @@ test('dokumentumok feature page displays document types section', function () {
     $response->assertSee('Marketing anyagok és kampány-riportok');
 });
 
-test('dokumentumok feature page displays capabilities section', function () {
+test('dokumentumok feature page displays capabilities section', function (): void {
     $response = $this->get(route('features.dokumentumok'));
 
     $response->assertSee('Automatikus dokumentumgenerálás');
@@ -45,7 +45,7 @@ test('dokumentumok feature page displays capabilities section', function () {
     $response->assertSee('Jogosultságkezelés és megosztás');
 });
 
-test('dokumentumok feature page displays module document map section', function () {
+test('dokumentumok feature page displays module document map section', function (): void {
     $response = $this->get(route('features.dokumentumok'));
 
     $response->assertSee('CRM');
@@ -56,7 +56,7 @@ test('dokumentumok feature page displays module document map section', function 
     $response->assertSee('Automatizálás');
 });
 
-test('dokumentumok feature page displays document workflow section', function () {
+test('dokumentumok feature page displays document workflow section', function (): void {
     $response = $this->get(route('features.dokumentumok'));
 
     $response->assertSee('Generálás');
@@ -67,7 +67,7 @@ test('dokumentumok feature page displays document workflow section', function ()
     $response->assertSee('Archiválás');
 });
 
-test('dokumentumok feature page displays stats section', function () {
+test('dokumentumok feature page displays stats section', function (): void {
     $response = $this->get(route('features.dokumentumok'));
 
     $response->assertSee('data-count="80"', escape: false);
@@ -80,7 +80,7 @@ test('dokumentumok feature page displays stats section', function () {
     $response->assertSee('Audit-nyomonkövethetőség');
 });
 
-test('dokumentumok feature page displays competitor comparison section', function () {
+test('dokumentumok feature page displays competitor comparison section', function (): void {
     $response = $this->get(route('features.dokumentumok'));
 
     $response->assertSee('Általános DMS rendszerek');
@@ -90,7 +90,7 @@ test('dokumentumok feature page displays competitor comparison section', functio
     $response->assertSee('Automatikus generálás modulokból');
 });
 
-test('dokumentumok feature page displays comparison table', function () {
+test('dokumentumok feature page displays comparison table', function (): void {
     $response = $this->get(route('features.dokumentumok'));
 
     $response->assertSee('Automatikus dokumentumgenerálás');
@@ -101,7 +101,7 @@ test('dokumentumok feature page displays comparison table', function () {
     $response->assertSee('Ipari dokumentumtípusok');
 });
 
-test('dokumentumok feature page displays use cases section', function () {
+test('dokumentumok feature page displays use cases section', function (): void {
     $response = $this->get(route('features.dokumentumok'));
 
     $response->assertSee('Ajánlat küldése CRM-ből');
@@ -112,7 +112,7 @@ test('dokumentumok feature page displays use cases section', function () {
     $response->assertSee('Ügyfélportál: minden dokumentum egy helyen');
 });
 
-test('dokumentumok feature page displays CTA sections', function () {
+test('dokumentumok feature page displays CTA sections', function (): void {
     $response = $this->get(route('features.dokumentumok'));
 
     $response->assertSee('Személyre szabott online konzultáció');

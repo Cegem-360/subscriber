@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-test('marketing use-case page renders successfully', function () {
+test('marketing use-case page renders successfully', function (): void {
     $response = $this->get(route('usecases.marketing'));
 
     $response->assertStatus(200);
@@ -10,7 +10,7 @@ test('marketing use-case page renders successfully', function () {
     $response->assertSee('adatvezérelt marketing eszközökkel');
 });
 
-test('marketing use-case page displays pain points section', function () {
+test('marketing use-case page displays pain points section', function (): void {
     $response = $this->get(route('usecases.marketing'));
 
     $response->assertSee('Szétszórt adatforrások');
@@ -19,7 +19,7 @@ test('marketing use-case page displays pain points section', function () {
     $response->assertSee('Manuális riportolás');
 });
 
-test('marketing use-case page displays target audience section', function () {
+test('marketing use-case page displays target audience section', function (): void {
     $response = $this->get(route('usecases.marketing'));
 
     $response->assertSee('Beszerzési vezetők és referensek');
@@ -27,7 +27,7 @@ test('marketing use-case page displays target audience section', function () {
     $response->assertSee('Ügyvezetők és tulajdonosok');
 });
 
-test('marketing use-case page displays core toolkit modules', function () {
+test('marketing use-case page displays core toolkit modules', function (): void {
     $response = $this->get(route('usecases.marketing'));
 
     $response->assertSee('MarketingHub');
@@ -36,7 +36,7 @@ test('marketing use-case page displays core toolkit modules', function () {
     $response->assertSee('AI Chat');
 });
 
-test('marketing use-case page displays stats section', function () {
+test('marketing use-case page displays stats section', function (): void {
     $response = $this->get(route('usecases.marketing'));
 
     $response->assertSee('data-count="45"', escape: false);
@@ -44,7 +44,7 @@ test('marketing use-case page displays stats section', function () {
     $response->assertSee('Organikus forgalom');
 });
 
-test('marketing use-case page displays use cases section', function () {
+test('marketing use-case page displays use cases section', function (): void {
     $response = $this->get(route('usecases.marketing'));
 
     $response->assertSee('Lead generálás ipari beszerzőknek');
@@ -52,7 +52,7 @@ test('marketing use-case page displays use cases section', function () {
     $response->assertSee('Marketing-Sales összehangolás');
 });
 
-test('marketing use-case page displays CTA sections', function () {
+test('marketing use-case page displays CTA sections', function (): void {
     $response = $this->get(route('usecases.marketing'));
 
     $response->assertSee('Online konzultáció');

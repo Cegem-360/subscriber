@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\BlogCategories\RelationManagers;
 
+use Override;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
@@ -34,6 +35,7 @@ class BlogsRelationManager extends RelationManager
 
     protected static ?string $title = 'Bejegyzések';
 
+    #[Override]
     public function form(Schema $schema): Schema
     {
         return $schema
@@ -45,7 +47,7 @@ class BlogsRelationManager extends RelationManager
                             ->required()
                             ->maxLength(255)
                             ->live(onBlur: true)
-                            ->afterStateUpdated(callback: fn (Set $set, ?string $state) => $set('slug', Str::slug($state ?? ''))),
+                            ->afterStateUpdated(callback: fn (Set $set, ?string $state): mixed => $set('slug', Str::slug($state ?? ''))),
                         TextInput::make('slug')
                             ->required()
                             ->unique(ignoreRecord: true)

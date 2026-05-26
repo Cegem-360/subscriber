@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Subscriptions;
 
+use Override;
 use App\Filament\Resources\Subscriptions\Pages\CreateSubscription;
 use App\Filament\Resources\Subscriptions\Pages\EditSubscription;
 use App\Filament\Resources\Subscriptions\Pages\ListSubscriptions;
@@ -22,6 +23,7 @@ class SubscriptionResource extends Resource
 {
     protected static ?string $model = Subscription::class;
 
+    #[Override]
     public static function getNavigationLabel(): string
     {
         return __('Subscriptions');
@@ -29,16 +31,19 @@ class SubscriptionResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBanknotes;
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return SubscriptionForm::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return SubscriptionsTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -47,6 +52,7 @@ class SubscriptionResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [

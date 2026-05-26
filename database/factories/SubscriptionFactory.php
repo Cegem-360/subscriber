@@ -5,19 +5,20 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Enums\SubscriptionStatus;
+use App\Models\Subscription;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Subscription>
+ * @extends Factory<Subscription>
  */
 class SubscriptionFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
-     * @var class-string<\App\Models\Subscription>
+     * @var class-string<Subscription>
      */
-    protected $model = \App\Models\Subscription::class;
+    protected $model = Subscription::class;
 
     /**
      * Define the model's default state.

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\BlogCategories;
 
+use Override;
 use App\Filament\Resources\BlogCategories\Pages\CreateBlogCategory;
 use App\Filament\Resources\BlogCategories\Pages\EditBlogCategory;
 use App\Filament\Resources\BlogCategories\Pages\ListBlogCategories;
@@ -37,21 +38,25 @@ class BlogCategoryResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
+    #[Override]
     public static function shouldRegisterNavigation(): bool
     {
         return Auth::user()->isAdmin();
     }
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return BlogCategoryForm::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return BlogCategoriesTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -59,6 +64,7 @@ class BlogCategoryResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [

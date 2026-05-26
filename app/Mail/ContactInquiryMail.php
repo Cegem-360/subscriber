@@ -27,18 +27,18 @@ final class ContactInquiryMail extends Mailable implements ShouldQueue
 
     public function envelope(): Envelope
     {
-        $name = trim(((string) ($this->data['lastName'] ?? '')) . ' ' . ((string) ($this->data['firstName'] ?? '')));
+        $name = trim((($this->data['lastName'] ?? '')) . ' ' . (($this->data['firstName'] ?? '')));
         $subjectPrefix = $this->source === 'pricing'
             ? 'Új árajánlatkérés'
             : 'Új kapcsolatfelvétel';
 
         return new Envelope(
+            replyTo: empty($this->data['email'])
+                ? []
+                : [new Address((string) $this->data['email'], $name !== '' ? $name : null)],
             subject: $name !== ''
                 ? sprintf('%s – %s', $subjectPrefix, $name)
                 : $subjectPrefix,
-            replyTo: ! empty($this->data['email'])
-                ? [new Address((string) $this->data['email'], $name !== '' ? $name : null)]
-                : [],
         );
     }
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\PlanCategories\RelationManagers;
 
+use Override;
 use App\Enums\BillingPeriod;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
@@ -28,6 +29,7 @@ class PlansRelationManager extends RelationManager
 
     protected static ?string $title = 'Csomagok';
 
+    #[Override]
     public function form(Schema $schema): Schema
     {
         return $schema

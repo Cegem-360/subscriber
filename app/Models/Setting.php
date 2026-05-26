@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 
+#[Fillable([
+    'key',
+    'value',
+])]
 final class Setting extends Model
 {
-    protected $fillable = [
-        'key',
-        'value',
-    ];
-
-    private const CACHE_TTL = 3600;
+    private const int CACHE_TTL = 3600;
 
     public static function get(string $key, mixed $default = null): mixed
     {

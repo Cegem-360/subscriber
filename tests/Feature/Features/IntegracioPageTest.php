@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-test('integracio feature page renders successfully', function () {
+test('integracio feature page renders successfully', function (): void {
     $response = $this->get(route('features.integraciok'));
 
     $response->assertStatus(200);
@@ -10,7 +10,7 @@ test('integracio feature page renders successfully', function () {
     $response->assertSee('REST API');
 });
 
-test('integracio feature page displays integration hub visual', function () {
+test('integracio feature page displays integration hub visual', function (): void {
     $response = $this->get(route('features.integraciok'));
 
     $response->assertSee('Integrációs áttekintés');
@@ -21,7 +21,7 @@ test('integracio feature page displays integration hub visual', function () {
     $response->assertSee('AI-támogatott integráció');
 });
 
-test('integracio feature page displays two pillars section', function () {
+test('integracio feature page displays two pillars section', function (): void {
     $response = $this->get(route('features.integraciok'));
 
     $response->assertSee('Belső integráció');
@@ -32,7 +32,7 @@ test('integracio feature page displays two pillars section', function () {
     $response->assertSee('REST API teljes hozzáféréssel minden modulhoz');
 });
 
-test('integracio feature page displays internal ecosystem modules', function () {
+test('integracio feature page displays internal ecosystem modules', function (): void {
     $response = $this->get(route('features.integraciok'));
 
     $response->assertSee('CRM');
@@ -45,7 +45,7 @@ test('integracio feature page displays internal ecosystem modules', function () 
     $response->assertSee('AI Chat');
 });
 
-test('integracio feature page displays connection flow cards', function () {
+test('integracio feature page displays connection flow cards', function (): void {
     $response = $this->get(route('features.integraciok'));
 
     $response->assertSee('Elfogadott ajánlatból automatikus gyártási utasítás');
@@ -54,7 +54,7 @@ test('integracio feature page displays connection flow cards', function () {
     $response->assertSee('AI chatbottól kérdezi');
 });
 
-test('integracio feature page displays external API section', function () {
+test('integracio feature page displays external API section', function (): void {
     $response = $this->get(route('features.integraciok'));
 
     $response->assertSee('Dokumentáció és sandbox');
@@ -65,7 +65,7 @@ test('integracio feature page displays external API section', function () {
     $response->assertSee('api.cegem360.eu');
 });
 
-test('integracio feature page displays possible connections', function () {
+test('integracio feature page displays possible connections', function (): void {
     $response = $this->get(route('features.integraciok'));
 
     $response->assertSee('Számlázóprogramok');
@@ -78,7 +78,7 @@ test('integracio feature page displays possible connections', function () {
     $response->assertSee('Kommunikáció');
 });
 
-test('integracio feature page displays stats section', function () {
+test('integracio feature page displays stats section', function (): void {
     $response = $this->get(route('features.integraciok'));
 
     $response->assertSee('data-count="11"', escape: false);
@@ -90,7 +90,7 @@ test('integracio feature page displays stats section', function () {
     $response->assertSee('Fejlesztéstámogatás beépítve');
 });
 
-test('integracio feature page displays use cases section', function () {
+test('integracio feature page displays use cases section', function (): void {
     $response = $this->get(route('features.integraciok'));
 
     $response->assertSee('Megrendelés');
@@ -101,7 +101,7 @@ test('integracio feature page displays use cases section', function () {
     $response->assertSee('Webshop rendelések behúzása API-n');
 });
 
-test('integracio feature page displays competitor comparison section', function () {
+test('integracio feature page displays competitor comparison section', function (): void {
     $response = $this->get(route('features.integraciok'));
 
     $response->assertSee('Pont-megoldások halmaza');
@@ -111,7 +111,7 @@ test('integracio feature page displays competitor comparison section', function 
     $response->assertSee('11 modul natívan összekapcsolva');
 });
 
-test('integracio feature page displays comparison table', function () {
+test('integracio feature page displays comparison table', function (): void {
     $response = $this->get(route('features.integraciok'));
 
     $response->assertSee('Belső modulok integrációja');
@@ -122,7 +122,7 @@ test('integracio feature page displays comparison table', function () {
     $response->assertSee('Szinkron-hibák kockázata');
 });
 
-test('integracio feature page displays CTA sections', function () {
+test('integracio feature page displays CTA sections', function (): void {
     $response = $this->get(route('features.integraciok'));
 
     $response->assertSee('Személyre szabott integrációs konzultáció');

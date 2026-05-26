@@ -4,28 +4,30 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Override;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 
+#[Fillable([
+    'user_id',
+    'name',
+    'token',
+    'abilities',
+    'last_used_at',
+    'expires_at',
+])]
+#[Hidden([
+    'token',
+])]
 class ApiToken extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_id',
-        'name',
-        'token',
-        'abilities',
-        'last_used_at',
-        'expires_at',
-    ];
-
-    protected $hidden = [
-        'token',
-    ];
-
+    #[Override]
     protected function casts(): array
     {
         return [

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-test('automatizacio feature page renders successfully', function () {
+test('automatizacio feature page renders successfully', function (): void {
     $response = $this->get(route('features.automatizaciok'));
 
     $response->assertStatus(200);
@@ -10,7 +10,7 @@ test('automatizacio feature page renders successfully', function () {
     $response->assertSee('utána a rendszer dolgozik helyetted');
 });
 
-test('automatizacio feature page displays workflow builder visual', function () {
+test('automatizacio feature page displays workflow builder visual', function (): void {
     $response = $this->get(route('features.automatizaciok'));
 
     $response->assertSee('Automatizáció-kezelő');
@@ -25,7 +25,7 @@ test('automatizacio feature page displays workflow builder visual', function () 
     $response->assertSee('2 283 futás / hó');
 });
 
-test('automatizacio feature page displays trigger types section', function () {
+test('automatizacio feature page displays trigger types section', function (): void {
     $response = $this->get(route('features.automatizaciok'));
 
     $response->assertSee('Esemény-trigger');
@@ -37,7 +37,7 @@ test('automatizacio feature page displays trigger types section', function () {
     $response->assertSee('Churn-kockázat');
 });
 
-test('automatizacio feature page displays capabilities section', function () {
+test('automatizacio feature page displays capabilities section', function (): void {
     $response = $this->get(route('features.automatizaciok'));
 
     $response->assertSee('Vizuális workflow-építő');
@@ -48,7 +48,7 @@ test('automatizacio feature page displays capabilities section', function () {
     $response->assertSee('Napló és audit trail');
 });
 
-test('automatizacio feature page displays module automations map', function () {
+test('automatizacio feature page displays module automations map', function (): void {
     $response = $this->get(route('features.automatizaciok'));
 
     $response->assertSee('CRM');
@@ -63,7 +63,7 @@ test('automatizacio feature page displays module automations map', function () {
     $response->assertSee('fizetési felszólítás workflow');
 });
 
-test('automatizacio feature page displays workflow builder section', function () {
+test('automatizacio feature page displays workflow builder section', function (): void {
     $response = $this->get(route('features.automatizaciok'));
 
     $response->assertSee('Trigger kiválasztása');
@@ -74,7 +74,7 @@ test('automatizacio feature page displays workflow builder section', function ()
     $response->assertSee('Van aktív szervizszerződés');
 });
 
-test('automatizacio feature page displays stats section', function () {
+test('automatizacio feature page displays stats section', function (): void {
     $response = $this->get(route('features.automatizaciok'));
 
     $response->assertSee('data-count="75"', escape: false);
@@ -88,7 +88,7 @@ test('automatizacio feature page displays stats section', function () {
     $response->assertSee('Audit-nyomonkövethetőség');
 });
 
-test('automatizacio feature page displays use cases section', function () {
+test('automatizacio feature page displays use cases section', function (): void {
     $response = $this->get(route('features.automatizaciok'));
 
     $response->assertSee('Szervizjegy-kiosztás és SLA-eszkaláció');
@@ -99,7 +99,7 @@ test('automatizacio feature page displays use cases section', function () {
     $response->assertSee('MI predikció');
 });
 
-test('automatizacio feature page displays competitor comparison section', function () {
+test('automatizacio feature page displays competitor comparison section', function (): void {
     $response = $this->get(route('features.automatizaciok'));
 
     $response->assertSee('Általános automatizálók');
@@ -109,7 +109,7 @@ test('automatizacio feature page displays competitor comparison section', functi
     $response->assertSee('Modulok között — nulla szinkron-hiba');
 });
 
-test('automatizacio feature page displays comparison table', function () {
+test('automatizacio feature page displays comparison table', function (): void {
     $response = $this->get(route('features.automatizaciok'));
 
     $response->assertSee('Modulok közötti workflow');
@@ -121,7 +121,7 @@ test('automatizacio feature page displays comparison table', function () {
     $response->assertSee('Árazási modell');
 });
 
-test('automatizacio feature page displays CTA sections', function () {
+test('automatizacio feature page displays CTA sections', function (): void {
     $response = $this->get(route('features.automatizaciok'));
 
     $response->assertSee('Személyre szabott automatizációs konzultáció');

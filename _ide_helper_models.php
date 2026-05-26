@@ -46,7 +46,7 @@ namespace App\Models\Blog{
  * @property int $blog_category_id
  * @property string $title
  * @property string $slug
- * @property string $content
+ * @property string|null $content
  * @property string|null $excerpt
  * @property string|null $featured_image
  * @property string|null $meta_title
@@ -188,14 +188,13 @@ namespace App\Models{
  * @property int $id
  * @property string $name
  * @property string $slug
- * @property int|null $plan_category_id
- * @property int $quantity
  * @property string|null $description
  * @property numeric $price
  * @property \App\Enums\BillingPeriod $billing_period
  * @property string|null $stripe_price_id
  * @property string|null $stripe_product_id
  * @property array<array-key, mixed>|null $features
+ * @property string|null $microservices
  * @property bool $is_active
  * @property int $sort_order
  * @property \Carbon\CarbonImmutable|null $created_at
@@ -205,6 +204,10 @@ namespace App\Models{
  * @property-read \App\Models\Plan\PlanCategory|null $planCategory
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subscription> $subscriptions
  * @property-read int|null $subscriptions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TeamPlanPrice> $teamPrices
+ * @property-read int|null $team_prices_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Team> $teams
+ * @property-read int|null $teams_count
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan active()
  * @method static \Database\Factories\PlanFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan newModelQuery()
@@ -216,11 +219,10 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereFeatures($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereMicroservices($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan wherePlanCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan wherePriceEur($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereSortOrder($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereStripePriceId($value)
@@ -283,17 +285,17 @@ namespace App\Models{
 namespace App\Models{
 /**
  * @property int $id
- * @property int|null $user_id
- * @property int|null $plan_id
+ * @property int $user_id
  * @property \App\Enums\SubscriptionType $type
- * @property string|null $stripe_id
- * @property \App\Enums\SubscriptionStatus|null $stripe_status
+ * @property string $stripe_id
+ * @property \App\Enums\SubscriptionStatus $stripe_status
  * @property string|null $stripe_price
  * @property int|null $quantity
  * @property \Carbon\CarbonImmutable|null $trial_ends_at
  * @property \Carbon\CarbonImmutable|null $ends_at
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property int|null $plan_id
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Cashier\SubscriptionItem> $items
  * @property-read int|null $items_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invoice> $localInvoices
@@ -302,6 +304,7 @@ namespace App\Models{
  * @property-read int|null $members_count
  * @property-read \App\Models\User|null $owner
  * @property-read \App\Models\Plan|null $plan
+ * @property-read \App\Models\Team|null $team
  * @property-read \App\Models\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription active()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription activeSubscription()
@@ -340,25 +343,59 @@ namespace App\Models{
 /**
  * @property int $id
  * @property string $name
+ * @property string $slug
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TeamPlanPrice> $planPrices
+ * @property-read int|null $plan_prices_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Plan> $plans
+ * @property-read int|null $plans_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subscription> $subscriptions
+ * @property-read int|null $subscriptions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
+ * @property-read int|null $users_count
+ * @method static \Database\Factories\TeamFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Team newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Team newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Team query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Team whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Team whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Team whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Team whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Team whereUpdatedAt($value)
+ */
+	class Team extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property-read \App\Models\Plan|null $plan
+ * @property-read \App\Models\Team|null $team
+ * @method static \Database\Factories\TeamPlanPriceFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TeamPlanPrice newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TeamPlanPrice newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TeamPlanPrice query()
+ */
+	class TeamPlanPrice extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property string $name
  * @property string $email
- * @property string|null $billingo_partner_id
  * @property \Carbon\CarbonImmutable|null $email_verified_at
  * @property string $password
- * @property \App\Enums\UserRole $role
- * @property int|null $subscription_id
- * @property string $company_name
- * @property string|null $tax_number
- * @property string|null $address
- * @property string|null $city
- * @property string|null $postal_code
- * @property string|null $country
+ * @property string|null $remember_token
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property string|null $stripe_customer_id
+ * @property string|null $billingo_partner_id
  * @property string|null $stripe_id
  * @property string|null $pm_type
  * @property string|null $pm_last_four
  * @property string|null $trial_ends_at
- * @property string|null $remember_token
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property \App\Enums\UserRole $role
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ApiToken> $apiTokens
  * @property-read int|null $api_tokens_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invoice> $invoices
@@ -368,17 +405,15 @@ namespace App\Models{
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subscription> $subscriptions
  * @property-read int|null $subscriptions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Team> $teams
+ * @property-read int|null $teams_count
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User hasExpiredGenericTrial()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User onGenericTrial()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereBillingoPartnerId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereCity($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereCompanyName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereCountry($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereEmailVerifiedAt($value)
@@ -387,12 +422,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePmLastFour($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePmType($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePostalCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRememberToken($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRole($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereStripeCustomerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereStripeId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereSubscriptionId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereTaxNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereTrialEndsAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
  */

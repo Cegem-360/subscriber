@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-test('ugyfelsztorik page renders successfully', function () {
+test('ugyfelsztorik page renders successfully', function (): void {
     $response = $this->get(route('company.ugyfelsztorik'));
 
     $response->assertStatus(200);
@@ -10,7 +10,7 @@ test('ugyfelsztorik page renders successfully', function () {
     $response->assertSee('valós ipari cégektől');
 });
 
-test('ugyfelsztorik page displays hero filter buttons', function () {
+test('ugyfelsztorik page displays hero filter buttons', function (): void {
     $response = $this->get(route('company.ugyfelsztorik'));
 
     $response->assertSee('Összes');
@@ -20,7 +20,7 @@ test('ugyfelsztorik page displays hero filter buttons', function () {
     $response->assertSee('Szolgáltatás');
 });
 
-test('ugyfelsztorik page displays PrecizTech story card', function () {
+test('ugyfelsztorik page displays PrecizTech story card', function (): void {
     $response = $this->get(route('company.ugyfelsztorik'));
 
     $response->assertSee('PrecízTech Kft.');
@@ -31,7 +31,7 @@ test('ugyfelsztorik page displays PrecizTech story card', function () {
     $response->assertSee('Üzemvezető, PrecízTech Kft.');
 });
 
-test('ugyfelsztorik page displays SzervizPont story card', function () {
+test('ugyfelsztorik page displays SzervizPont story card', function (): void {
     $response = $this->get(route('company.ugyfelsztorik'));
 
     $response->assertSee('SzervizPont Zrt.');
@@ -42,7 +42,7 @@ test('ugyfelsztorik page displays SzervizPont story card', function () {
     $response->assertSee('Szervizmenedzser, SzervizPont Zrt.');
 });
 
-test('ugyfelsztorik page displays IndusztriParts story card', function () {
+test('ugyfelsztorik page displays IndusztriParts story card', function (): void {
     $response = $this->get(route('company.ugyfelsztorik'));
 
     $response->assertSee('IndusztriParts Kft.');
@@ -53,7 +53,7 @@ test('ugyfelsztorik page displays IndusztriParts story card', function () {
     $response->assertSee('Értékesítési vezető, IndusztriParts Kft.');
 });
 
-test('ugyfelsztorik page displays module tags', function () {
+test('ugyfelsztorik page displays module tags', function (): void {
     $response = $this->get(route('company.ugyfelsztorik'));
 
     $response->assertSee('Gyártásirányítás');
@@ -66,7 +66,7 @@ test('ugyfelsztorik page displays module tags', function () {
     $response->assertSee('Kontrolling');
 });
 
-test('ugyfelsztorik page displays more stories teaser', function () {
+test('ugyfelsztorik page displays more stories teaser', function (): void {
     $response = $this->get(route('company.ugyfelsztorik'));
 
     $response->assertSee('Folyamatosan bővülő ügyfélsztorik');
@@ -74,7 +74,7 @@ test('ugyfelsztorik page displays more stories teaser', function () {
     $response->assertSee('Értesítsen az új sztorikról');
 });
 
-test('ugyfelsztorik page displays anatomy section', function () {
+test('ugyfelsztorik page displays anatomy section', function (): void {
     $response = $this->get(route('company.ugyfelsztorik'));
 
     $response->assertSee('Minden sztorinkat így építjük fel');
@@ -84,7 +84,7 @@ test('ugyfelsztorik page displays anatomy section', function () {
     $response->assertSee('Eredmények');
 });
 
-test('ugyfelsztorik page displays stats section', function () {
+test('ugyfelsztorik page displays stats section', function (): void {
     $response = $this->get(route('company.ugyfelsztorik'));
 
     $response->assertSee('Amit az ügyfeleink együtt elértek');
@@ -94,7 +94,7 @@ test('ugyfelsztorik page displays stats section', function () {
     $response->assertSee('Ügyfél-elégedettség');
 });
 
-test('ugyfelsztorik page displays CTA section', function () {
+test('ugyfelsztorik page displays CTA section', function (): void {
     $response = $this->get(route('company.ugyfelsztorik'));
 
     $response->assertSee('Az Ön cége is lehet a következő sztori');

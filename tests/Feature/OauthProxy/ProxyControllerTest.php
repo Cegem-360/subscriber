@@ -83,7 +83,7 @@ describe('start endpoint', function (): void {
     });
 
     it('returns 503 when provider client_id is missing', function (): void {
-        config()->set('oauth_proxy.providers.google-ads.client_id', null);
+        config()->set('oauth_proxy.providers.google-ads.client_id');
 
         $response = $this->get(route('oauth.proxy.start', [
             'provider' => 'google-ads',

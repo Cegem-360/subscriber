@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Teams\RelationManagers;
 
+use Override;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
@@ -23,6 +24,7 @@ class PlanPricesRelationManager extends RelationManager
 
     protected static ?string $title = 'Egyedi árak';
 
+    #[Override]
     public function form(Schema $schema): Schema
     {
         return $schema

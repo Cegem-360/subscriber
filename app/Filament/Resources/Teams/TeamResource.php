@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Teams;
 
+use Override;
 use App\Filament\Resources\Teams\Pages\CreateTeam;
 use App\Filament\Resources\Teams\Pages\EditTeam;
 use App\Filament\Resources\Teams\Pages\ListTeams;
@@ -25,21 +26,25 @@ class TeamResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUserGroup;
 
+    #[Override]
     public static function shouldRegisterNavigation(): bool
     {
         return Auth::user()->isAdmin();
     }
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return TeamForm::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return TeamsTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -48,6 +53,7 @@ class TeamResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [

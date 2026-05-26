@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
+use Exception;
 use App\Enums\BillingPeriod;
 use App\Models\Plan;
 use Illuminate\Console\Command;
@@ -11,14 +14,12 @@ use Stripe\Price;
 use Stripe\Product;
 use Stripe\StripeClient;
 
+#[Description('Sync plans to Stripe by creating products and prices (HUF and EUR)')]
+#[Signature('stripe:sync-prices
+                            {--force : Recreate prices even if they already exist}
+                            {--dry-run : Show what would be created without making changes}')]
 class SyncStripePricesCommand extends Command
 {
-    protected $signature = 'stripe:sync-prices
-                            {--force : Recreate prices even if they already exist}
-                            {--dry-run : Show what would be created without making changes}';
-
-    protected $description = 'Sync plans to Stripe by creating products and prices (HUF and EUR)';
-
     public function handle(): int
     {
         $stripe = new StripeClient(config('cashier.secret'));
@@ -124,7 +125,7 @@ class SyncStripePricesCommand extends Command
             $stripe->prices->retrieve($priceId);
 
             return true;
-        } catch (\Exception $e) {
+        } catch (Exception) {
             return false;
         }
     }
@@ -138,7 +139,7 @@ class SyncStripePricesCommand extends Command
         if ($plan->stripe_product_id) {
             try {
                 return $stripe->products->retrieve($plan->stripe_product_id);
-            } catch (\Exception $e) {
+            } catch (Exception) {
                 // Product doesn't exist, create new one
             }
         }

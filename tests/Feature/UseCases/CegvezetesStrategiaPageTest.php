@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-test('cegvezetes-strategia use-case page renders successfully', function () {
+test('cegvezetes-strategia use-case page renders successfully', function (): void {
     $response = $this->get(route('usecases.cegvezetes-strategia'));
 
     $response->assertStatus(200);
@@ -10,7 +10,7 @@ test('cegvezetes-strategia use-case page renders successfully', function () {
     $response->assertSee('irányítópulton, minden reggel');
 });
 
-test('cegvezetes-strategia use-case page displays pain points section', function () {
+test('cegvezetes-strategia use-case page displays pain points section', function (): void {
     $response = $this->get(route('usecases.cegvezetes-strategia'));
 
     $response->assertSee('Nincs valós idejű áttekintés');
@@ -19,7 +19,7 @@ test('cegvezetes-strategia use-case page displays pain points section', function
     $response->assertSee('Heti menedzsment-riport');
 });
 
-test('cegvezetes-strategia use-case page displays target audience section', function () {
+test('cegvezetes-strategia use-case page displays target audience section', function (): void {
     $response = $this->get(route('usecases.cegvezetes-strategia'));
 
     $response->assertSee('Ügyvezetők és cégtulajdonosok');
@@ -28,7 +28,7 @@ test('cegvezetes-strategia use-case page displays target audience section', func
     $response->assertSee('Műszaki és termelési igazgatók');
 });
 
-test('cegvezetes-strategia use-case page displays core toolkit modules', function () {
+test('cegvezetes-strategia use-case page displays core toolkit modules', function (): void {
     $response = $this->get(route('usecases.cegvezetes-strategia'));
 
     $response->assertSee('Kontrolling');
@@ -37,7 +37,7 @@ test('cegvezetes-strategia use-case page displays core toolkit modules', functio
     $response->assertSee('MarketingHub');
 });
 
-test('cegvezetes-strategia use-case page displays decision flow section', function () {
+test('cegvezetes-strategia use-case page displays decision flow section', function (): void {
     $response = $this->get(route('usecases.cegvezetes-strategia'));
 
     $response->assertSee('Reggeli összefoglaló');
@@ -47,7 +47,7 @@ test('cegvezetes-strategia use-case page displays decision flow section', functi
     $response->assertSee('Végrehajtás-követés');
 });
 
-test('cegvezetes-strategia use-case page displays stats section', function () {
+test('cegvezetes-strategia use-case page displays stats section', function (): void {
     $response = $this->get(route('usecases.cegvezetes-strategia'));
 
     $response->assertSee('data-count="5"', escape: false);
@@ -60,7 +60,7 @@ test('cegvezetes-strategia use-case page displays stats section', function () {
     $response->assertSee('Stratégiai célok teljesülése');
 });
 
-test('cegvezetes-strategia use-case page displays use cases section', function () {
+test('cegvezetes-strategia use-case page displays use cases section', function (): void {
     $response = $this->get(route('usecases.cegvezetes-strategia'));
 
     $response->assertSee('Reggeli MI összefoglaló és napi prioritások');
@@ -71,7 +71,7 @@ test('cegvezetes-strategia use-case page displays use cases section', function (
     $response->assertSee('Tulajdonosi riport és befektetői kommunikáció');
 });
 
-test('cegvezetes-strategia use-case page displays comparison table', function () {
+test('cegvezetes-strategia use-case page displays comparison table', function (): void {
     $response = $this->get(route('usecases.cegvezetes-strategia'));
 
     $response->assertSee('Vállalati áttekintés');
@@ -80,7 +80,7 @@ test('cegvezetes-strategia use-case page displays comparison table', function ()
     $response->assertSee('Egyetlen igazságforrás');
 });
 
-test('cegvezetes-strategia use-case page displays CTA sections', function () {
+test('cegvezetes-strategia use-case page displays CTA sections', function (): void {
     $response = $this->get(route('usecases.cegvezetes-strategia'));
 
     $response->assertSee('Vezetői konzultáció');
@@ -88,7 +88,7 @@ test('cegvezetes-strategia use-case page displays CTA sections', function () {
     $response->assertSee('Készen áll az adatvezérelt cégirányításra?');
 });
 
-test('cegvezetes-strategia use-case page displays CEO command center visual', function () {
+test('cegvezetes-strategia use-case page displays CEO command center visual', function (): void {
     $response = $this->get(route('usecases.cegvezetes-strategia'));
 
     $response->assertSee('Vezetői irányítóközpont');

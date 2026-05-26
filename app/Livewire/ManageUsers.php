@@ -211,11 +211,7 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
         $appKey = $subscription->plan?->planCategory?->slug;
 
         if ($appKey !== null && $appKey !== '') {
-            ToggleUserActiveJob::dispatch(
-                userEmail: $data['email'],
-                isActive: true,
-                appKey: $appKey,
-            )->delay(now()->addSeconds(20));
+            dispatch(new ToggleUserActiveJob(userEmail: $data['email'], isActive: true, appKey: $appKey))->delay(now()->addSeconds(20));
         }
 
         Notification::make()

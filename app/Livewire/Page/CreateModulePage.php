@@ -40,7 +40,7 @@ final class CreateModulePage extends Component implements HasActions, HasSchemas
         $this->form->fill();
     }
 
-    protected function currentTeam(): ?Team
+    private function currentTeam(): ?Team
     {
         /** @var User|null $user */
         $user = Auth::user();

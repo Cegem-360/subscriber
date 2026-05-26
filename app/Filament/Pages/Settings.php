@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages;
 
+use Override;
 use App\Models\Setting;
 use BackedEnum;
 use Filament\Forms\Components\TextInput;
@@ -30,6 +31,7 @@ final class Settings extends Page
 
     public ?array $data = [];
 
+    #[Override]
     public static function shouldRegisterNavigation(): bool
     {
         return Auth::user()?->isAdmin() ?? false;

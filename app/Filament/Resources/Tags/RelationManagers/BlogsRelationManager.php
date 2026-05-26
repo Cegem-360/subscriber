@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Tags\RelationManagers;
 
+use Override;
 use Filament\Actions\AttachAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DetachAction;
@@ -20,6 +21,7 @@ class BlogsRelationManager extends RelationManager
 
     protected static ?string $title = 'Bejegyzések';
 
+    #[Override]
     public function form(Schema $schema): Schema
     {
         return $schema

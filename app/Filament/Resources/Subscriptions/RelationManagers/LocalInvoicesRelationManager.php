@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Subscriptions\RelationManagers;
 
+use Override;
 use Filament\Actions\AssociateAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
@@ -22,6 +23,7 @@ class LocalInvoicesRelationManager extends RelationManager
 {
     protected static string $relationship = 'localInvoices';
 
+    #[Override]
     public function form(Schema $schema): Schema
     {
         return $schema

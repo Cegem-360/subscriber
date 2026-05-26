@@ -107,14 +107,12 @@ describe('PricingPage', function (): void {
             ->assertHasNoErrors()
             ->assertSet('submitted', true);
 
-        Mail::assertQueued(ContactInquiryMail::class, function (ContactInquiryMail $mail): bool {
-            return $mail->hasTo('tamas@cegem360.hu')
-                && $mail->source === 'pricing'
-                && $mail->data['email'] === 'janos@example.com'
-                && $mail->data['firstName'] === 'János'
-                && $mail->data['lastName'] === 'Kovács'
-                && $mail->data['interestedModules'] === ['crm', 'kontrolling'];
-        });
+        Mail::assertQueued(ContactInquiryMail::class, fn(ContactInquiryMail $mail): bool => $mail->hasTo('tamas@cegem360.hu')
+            && $mail->source === 'pricing'
+            && $mail->data['email'] === 'janos@example.com'
+            && $mail->data['firstName'] === 'János'
+            && $mail->data['lastName'] === 'Kovács'
+            && $mail->data['interestedModules'] === ['crm', 'kontrolling']);
     });
 
     it('does not send quote inquiry email when validation fails', function (): void {

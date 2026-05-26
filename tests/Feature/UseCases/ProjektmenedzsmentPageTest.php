@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-test('projektmenedzsment use-case page renders successfully', function () {
+test('projektmenedzsment use-case page renders successfully', function (): void {
     $response = $this->get(route('usecases.projektmenedzsment'));
 
     $response->assertStatus(200);
@@ -10,7 +10,7 @@ test('projektmenedzsment use-case page renders successfully', function () {
     $response->assertSee('a megrendeléstől az átadásig');
 });
 
-test('projektmenedzsment use-case page displays pain points section', function () {
+test('projektmenedzsment use-case page displays pain points section', function (): void {
     $response = $this->get(route('usecases.projektmenedzsment'));
 
     $response->assertSee('Csúszó határidők');
@@ -19,7 +19,7 @@ test('projektmenedzsment use-case page displays pain points section', function (
     $response->assertSee('Szétesett kommunikáció');
 });
 
-test('projektmenedzsment use-case page displays target audience section', function () {
+test('projektmenedzsment use-case page displays target audience section', function (): void {
     $response = $this->get(route('usecases.projektmenedzsment'));
 
     $response->assertSee('Projektvezetők');
@@ -28,7 +28,7 @@ test('projektmenedzsment use-case page displays target audience section', functi
     $response->assertSee('Ügyvezetők');
 });
 
-test('projektmenedzsment use-case page displays core toolkit modules', function () {
+test('projektmenedzsment use-case page displays core toolkit modules', function (): void {
     $response = $this->get(route('usecases.projektmenedzsment'));
 
     $response->assertSee('Gyártásirányítás');
@@ -37,7 +37,7 @@ test('projektmenedzsment use-case page displays core toolkit modules', function 
     $response->assertSee('Kontrolling');
 });
 
-test('projektmenedzsment use-case page displays project lifecycle section', function () {
+test('projektmenedzsment use-case page displays project lifecycle section', function (): void {
     $response = $this->get(route('usecases.projektmenedzsment'));
 
     $response->assertSee('Ajánlattétel');
@@ -46,7 +46,7 @@ test('projektmenedzsment use-case page displays project lifecycle section', func
     $response->assertSee('Átadás');
 });
 
-test('projektmenedzsment use-case page displays stats section', function () {
+test('projektmenedzsment use-case page displays stats section', function (): void {
     $response = $this->get(route('usecases.projektmenedzsment'));
 
     $response->assertSee('data-count="30"', escape: false);
@@ -54,7 +54,7 @@ test('projektmenedzsment use-case page displays stats section', function () {
     $response->assertSee('Projektköltség csökkenés');
 });
 
-test('projektmenedzsment use-case page displays use cases section', function () {
+test('projektmenedzsment use-case page displays use cases section', function (): void {
     $response = $this->get(route('usecases.projektmenedzsment'));
 
     $response->assertSee('Gyártósor telepítési projekt');
@@ -62,7 +62,7 @@ test('projektmenedzsment use-case page displays use cases section', function () 
     $response->assertSee('Projekt-alapú költségkontroll');
 });
 
-test('projektmenedzsment use-case page displays comparison table', function () {
+test('projektmenedzsment use-case page displays comparison table', function (): void {
     $response = $this->get(route('usecases.projektmenedzsment'));
 
     $response->assertSee('Excel és e-mail helyett');
@@ -70,7 +70,7 @@ test('projektmenedzsment use-case page displays comparison table', function () {
     $response->assertSee('Helyszíni adatrögzítés');
 });
 
-test('projektmenedzsment use-case page displays CTA sections', function () {
+test('projektmenedzsment use-case page displays CTA sections', function (): void {
     $response = $this->get(route('usecases.projektmenedzsment'));
 
     $response->assertSee('Online konzultáció');
@@ -78,7 +78,7 @@ test('projektmenedzsment use-case page displays CTA sections', function () {
     $response->assertSee('Készen áll a hatékonyabb projektmenedzsmentre?');
 });
 
-test('projektmenedzsment use-case page displays gantt chart visual', function () {
+test('projektmenedzsment use-case page displays gantt chart visual', function (): void {
     $response = $this->get(route('usecases.projektmenedzsment'));
 
     $response->assertSee('Projekt ütemterv');

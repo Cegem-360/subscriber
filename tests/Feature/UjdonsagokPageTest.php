@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-test('ujdonsagok page renders successfully', function () {
+test('ujdonsagok page renders successfully', function (): void {
     $response = $this->get(route('ujdonsagok'));
 
     $response->assertStatus(200);
@@ -10,7 +10,7 @@ test('ujdonsagok page renders successfully', function () {
     $response->assertSee('Minden hónapban új funkciók');
 });
 
-test('ujdonsagok page displays hero filter buttons', function () {
+test('ujdonsagok page displays hero filter buttons', function (): void {
     $response = $this->get(route('ujdonsagok'));
 
     $response->assertSee('Összes');
@@ -20,14 +20,14 @@ test('ujdonsagok page displays hero filter buttons', function () {
     $response->assertSee('Integráció');
 });
 
-test('ujdonsagok page displays february month block', function () {
+test('ujdonsagok page displays february month block', function (): void {
     $response = $this->get(route('ujdonsagok'));
 
     $response->assertSee('2026. február');
     $response->assertSee('3 frissítés');
 });
 
-test('ujdonsagok page displays datamind anomaly entry', function () {
+test('ujdonsagok page displays datamind anomaly entry', function (): void {
     $response = $this->get(route('ujdonsagok'));
 
     $response->assertSee('DataMind anomália-detekció');
@@ -37,7 +37,7 @@ test('ujdonsagok page displays datamind anomaly entry', function () {
     $response->assertSee('Automatikus anomália-detekció bevétel');
 });
 
-test('ujdonsagok page displays digital worksheet entry', function () {
+test('ujdonsagok page displays digital worksheet entry', function (): void {
     $response = $this->get(route('ujdonsagok'));
 
     $response->assertSee('Digitális munkalap: offline mód');
@@ -45,7 +45,7 @@ test('ujdonsagok page displays digital worksheet entry', function () {
     $response->assertSee('Offline mód: teljes munkalap-kitöltés');
 });
 
-test('ujdonsagok page displays security fix entry', function () {
+test('ujdonsagok page displays security fix entry', function (): void {
     $response = $this->get(route('ujdonsagok'));
 
     $response->assertSee('Jogosultságkezelés javítás és biztonsági frissítés');
@@ -53,14 +53,14 @@ test('ujdonsagok page displays security fix entry', function () {
     $response->assertSee('Session timeout');
 });
 
-test('ujdonsagok page displays january month block', function () {
+test('ujdonsagok page displays january month block', function (): void {
     $response = $this->get(route('ujdonsagok'));
 
     $response->assertSee('2026. január');
     $response->assertSee('4 frissítés');
 });
 
-test('ujdonsagok page displays marketinghub entry', function () {
+test('ujdonsagok page displays marketinghub entry', function (): void {
     $response = $this->get(route('ujdonsagok'));
 
     $response->assertSee('MarketingHub: hírlevél-kampányok a CRM-adatokra építve');
@@ -68,7 +68,7 @@ test('ujdonsagok page displays marketinghub entry', function () {
     $response->assertSee('A/B tesztelés');
 });
 
-test('ujdonsagok page displays kontrolling entry', function () {
+test('ujdonsagok page displays kontrolling entry', function (): void {
     $response = $this->get(route('ujdonsagok'));
 
     $response->assertSee('Kontrolling: pénzforgalmi előrejelzés');
@@ -76,7 +76,7 @@ test('ujdonsagok page displays kontrolling entry', function () {
     $response->assertSee('Cash flow előrejelzés');
 });
 
-test('ujdonsagok page displays performance entry', function () {
+test('ujdonsagok page displays performance entry', function (): void {
     $response = $this->get(route('ujdonsagok'));
 
     $response->assertSee('Rendszerszintű teljesítmény-optimalizálás');
@@ -84,7 +84,7 @@ test('ujdonsagok page displays performance entry', function () {
     $response->assertSee('API válaszidő');
 });
 
-test('ujdonsagok page displays customer portal entry', function () {
+test('ujdonsagok page displays customer portal entry', function (): void {
     $response = $this->get(route('ujdonsagok'));
 
     $response->assertSee('Ügyfélportál béta');
@@ -93,7 +93,7 @@ test('ujdonsagok page displays customer portal entry', function () {
     $response->assertSee('Garancia-nyilvántartás');
 });
 
-test('ujdonsagok page displays stats section', function () {
+test('ujdonsagok page displays stats section', function (): void {
     $response = $this->get(route('ujdonsagok'));
 
     $response->assertSee('A Cégem360 folyamatosan fejlődik');
@@ -104,7 +104,7 @@ test('ujdonsagok page displays stats section', function () {
     $response->assertSee('Ügyfélvisszajelzés-alapú');
 });
 
-test('ujdonsagok page displays roadmap section', function () {
+test('ujdonsagok page displays roadmap section', function (): void {
     $response = $this->get(route('ujdonsagok'));
 
     $response->assertSee('Amin most dolgozunk');
@@ -116,7 +116,7 @@ test('ujdonsagok page displays roadmap section', function () {
     $response->assertSee('Mobil app');
 });
 
-test('ujdonsagok page displays subscribe section', function () {
+test('ujdonsagok page displays subscribe section', function (): void {
     $response = $this->get(route('ujdonsagok'));
 
     $response->assertSee('Tudjon elsőként az újdonságokról');
@@ -126,7 +126,7 @@ test('ujdonsagok page displays subscribe section', function () {
     $response->assertSee('LinkedIn');
 });
 
-test('ujdonsagok page displays CTA section', function () {
+test('ujdonsagok page displays CTA section', function (): void {
     $response = $this->get(route('ujdonsagok'));
 
     $response->assertSee('Kíváncsi az új funkciókra?');

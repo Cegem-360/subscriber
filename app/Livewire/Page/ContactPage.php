@@ -42,7 +42,7 @@ final class ContactPage extends Component
 
     public bool $submitted = false;
 
-    protected function rules(): array
+    private function rules(): array
     {
         return [
             'inquiryType' => 'required|string',
@@ -59,7 +59,7 @@ final class ContactPage extends Component
         ];
     }
 
-    protected function messages(): array
+    private function messages(): array
     {
         return [
             'inquiryType.required' => 'Kérjük, válassza ki a megkeresés típusát.',

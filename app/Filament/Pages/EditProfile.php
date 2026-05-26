@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages;
 
+use Override;
 use App\Enums\Country;
 use Filament\Actions\Action;
 use Filament\Auth\Pages\EditProfile as BaseEditProfile;
@@ -21,16 +22,19 @@ final class EditProfile extends BaseEditProfile
 
     public string $view = 'filament.pages.edit-profile';
 
+    #[Override]
     public function getHeading(): string
     {
         return '';
     }
 
+    #[Override]
     public function getBreadcrumbs(): array
     {
         return [];
     }
 
+    #[Override]
     public function form(Schema $schema): Schema
     {
         return $schema
@@ -102,6 +106,7 @@ final class EditProfile extends BaseEditProfile
             ->statePath('data');
     }
 
+    #[Override]
     protected function getHeaderActions(): array
     {
         $actions = [];
@@ -119,6 +124,7 @@ final class EditProfile extends BaseEditProfile
         return $actions;
     }
 
+    #[Override]
     public function save(): void
     {
         $data = $this->form->getState();

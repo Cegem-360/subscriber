@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Invoices;
 
+use Override;
 use App\Filament\Resources\Invoices\Pages\CreateInvoice;
 use App\Filament\Resources\Invoices\Pages\EditInvoice;
 use App\Filament\Resources\Invoices\Pages\ListInvoices;
@@ -23,21 +24,25 @@ class InvoiceResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
 
+    #[Override]
     public static function shouldRegisterNavigation(): bool
     {
         return Auth::user()?->isAdmin() ?? false;
     }
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return InvoiceForm::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return InvoicesTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -45,6 +50,7 @@ class InvoiceResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages\Auth;
 
+use Override;
 use App\Enums\Country;
 use App\Enums\UserRole;
 use Filament\Auth\Pages\Register as BaseRegister;
@@ -28,6 +29,7 @@ final class Register extends BaseRegister
         $this->rawPassword = $this->data['password'] ?? null;
     }
 
+    #[Override]
     protected function handleRegistration(array $data): Model
     {
         $user = parent::handleRegistration($data);
@@ -49,6 +51,7 @@ final class Register extends BaseRegister
         return $user;
     }
 
+    #[Override]
     public function form(Schema $schema): Schema
     {
         return $schema

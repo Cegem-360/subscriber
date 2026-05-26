@@ -28,18 +28,16 @@ describe('ContactPage', function (): void {
             ->assertHasNoErrors()
             ->assertSet('submitted', true);
 
-        Mail::assertQueued(ContactInquiryMail::class, function (ContactInquiryMail $mail): bool {
-            return $mail->hasTo('tamas@cegem360.hu')
-                && $mail->source === 'contact'
-                && $mail->data['inquiryType'] === 'demo'
-                && $mail->data['firstName'] === 'Anna'
-                && $mail->data['lastName'] === 'Nagy'
-                && $mail->data['email'] === 'anna@example.com'
-                && $mail->data['position'] === 'CEO'
-                && $mail->data['companySize'] === '11-50'
-                && $mail->data['interestedModules'] === ['crm', 'automatizalas']
-                && $mail->data['newsletterSubscribe'] === true;
-        });
+        Mail::assertQueued(ContactInquiryMail::class, fn(ContactInquiryMail $mail): bool => $mail->hasTo('tamas@cegem360.hu')
+            && $mail->source === 'contact'
+            && $mail->data['inquiryType'] === 'demo'
+            && $mail->data['firstName'] === 'Anna'
+            && $mail->data['lastName'] === 'Nagy'
+            && $mail->data['email'] === 'anna@example.com'
+            && $mail->data['position'] === 'CEO'
+            && $mail->data['companySize'] === '11-50'
+            && $mail->data['interestedModules'] === ['crm', 'automatizalas']
+            && $mail->data['newsletterSubscribe'] === true);
     });
 
     it('does not send contact inquiry email when validation fails', function (): void {

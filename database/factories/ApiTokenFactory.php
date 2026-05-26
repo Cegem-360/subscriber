@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Models\ApiToken;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ApiToken>
+ * @extends Factory<ApiToken>
  */
 class ApiTokenFactory extends Factory
 {
@@ -18,11 +19,11 @@ class ApiTokenFactory extends Factory
      */
     public function definition(): array
     {
-        $plainTextToken = \App\Models\ApiToken::generateToken();
+        $plainTextToken = ApiToken::generateToken();
 
         return [
             'name' => $this->faker->words(2, true) . ' Token',
-            'token' => \App\Models\ApiToken::hashToken($plainTextToken),
+            'token' => ApiToken::hashToken($plainTextToken),
             'abilities' => ['*'],
             'last_used_at' => $this->faker->optional(0.7)->dateTimeBetween('-30 days', 'now'),
             'expires_at' => $this->faker->optional(0.3)->dateTimeBetween('+30 days', '+365 days'),

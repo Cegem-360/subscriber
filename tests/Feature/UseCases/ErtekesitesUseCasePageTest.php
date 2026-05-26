@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-test('ertekesites use-case page renders successfully', function () {
+test('ertekesites use-case page renders successfully', function (): void {
     $response = $this->get(route('usecases.ertekesites'));
 
     $response->assertStatus(200);
@@ -10,7 +10,7 @@ test('ertekesites use-case page renders successfully', function () {
     $response->assertSee('az ipari üzleteket');
 });
 
-test('ertekesites use-case page displays pain points section', function () {
+test('ertekesites use-case page displays pain points section', function (): void {
     $response = $this->get(route('usecases.ertekesites'));
 
     $response->assertSee('Elveszett érdeklődők');
@@ -19,7 +19,7 @@ test('ertekesites use-case page displays pain points section', function () {
     $response->assertSee('Marketing–Sales szakadék');
 });
 
-test('ertekesites use-case page displays target audience section', function () {
+test('ertekesites use-case page displays target audience section', function (): void {
     $response = $this->get(route('usecases.ertekesites'));
 
     $response->assertSee('Sales igazgatók');
@@ -28,7 +28,7 @@ test('ertekesites use-case page displays target audience section', function () {
     $response->assertSee('Marketing csapat');
 });
 
-test('ertekesites use-case page displays core toolkit modules', function () {
+test('ertekesites use-case page displays core toolkit modules', function (): void {
     $response = $this->get(route('usecases.ertekesites'));
 
     $response->assertSee('CRM');
@@ -37,7 +37,7 @@ test('ertekesites use-case page displays core toolkit modules', function () {
     $response->assertSee('DataMind');
 });
 
-test('ertekesites use-case page displays sales funnel section', function () {
+test('ertekesites use-case page displays sales funnel section', function (): void {
     $response = $this->get(route('usecases.ertekesites'));
 
     $response->assertSee('Lead beérkezés');
@@ -47,7 +47,7 @@ test('ertekesites use-case page displays sales funnel section', function () {
     $response->assertSee('Lezárás');
 });
 
-test('ertekesites use-case page displays stats section', function () {
+test('ertekesites use-case page displays stats section', function (): void {
     $response = $this->get(route('usecases.ertekesites'));
 
     $response->assertSee('data-count="40"', escape: false);
@@ -57,7 +57,7 @@ test('ertekesites use-case page displays stats section', function () {
     $response->assertSee('Ügyfél-visszatérés');
 });
 
-test('ertekesites use-case page displays use cases section', function () {
+test('ertekesites use-case page displays use cases section', function (): void {
     $response = $this->get(route('usecases.ertekesites'));
 
     $response->assertSee('Ipari lead kezelés és kvalifikálás');
@@ -65,7 +65,7 @@ test('ertekesites use-case page displays use cases section', function () {
     $response->assertSee('Pipeline menedzsment és előrejelzés');
 });
 
-test('ertekesites use-case page displays comparison table', function () {
+test('ertekesites use-case page displays comparison table', function (): void {
     $response = $this->get(route('usecases.ertekesites'));
 
     $response->assertSee('Excel és fejben tartás helyett');
@@ -73,7 +73,7 @@ test('ertekesites use-case page displays comparison table', function () {
     $response->assertSee('Dinamikus ajánlat percek alatt');
 });
 
-test('ertekesites use-case page displays CTA sections', function () {
+test('ertekesites use-case page displays CTA sections', function (): void {
     $response = $this->get(route('usecases.ertekesites'));
 
     $response->assertSee('Online konzultáció');
@@ -81,7 +81,7 @@ test('ertekesites use-case page displays CTA sections', function () {
     $response->assertSee('Készen áll a hatékonyabb értékesítésre?');
 });
 
-test('ertekesites use-case page displays pipeline visual', function () {
+test('ertekesites use-case page displays pipeline visual', function (): void {
     $response = $this->get(route('usecases.ertekesites'));
 
     $response->assertSee('Sales Pipeline');

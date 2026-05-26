@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages\Auth\PasswordReset;
 
+use Override;
 use Filament\Auth\Http\Responses\Contracts\PasswordResetResponse;
 use Filament\Auth\Pages\PasswordReset\ResetPassword as BasePage;
 use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Components\Component;
 use Illuminate\Validation\Rules\Password as PasswordRule;
 use Madbox99\UserTeamSync\Facades\UserTeamSync;
 
@@ -17,6 +17,7 @@ final class ResetPassword extends BasePage
 
     protected static string $layout = 'filament.layouts.auth';
 
+    #[Override]
     public function resetPassword(): ?PasswordResetResponse
     {
         $rawPassword = $this->password;
@@ -24,14 +25,15 @@ final class ResetPassword extends BasePage
 
         $response = parent::resetPassword();
 
-        if ($response !== null && filled($rawPassword) && filled($email)) {
+        if ($response instanceof PasswordResetResponse && filled($rawPassword) && filled($email)) {
             UserTeamSync::syncPassword($email, $rawPassword);
         }
 
         return $response;
     }
 
-    protected function getEmailFormComponent(): Component
+    #[Override]
+    protected function getEmailFormComponent(): TextInput
     {
         return TextInput::make('email')
             ->label('E-mail cím')
@@ -39,7 +41,8 @@ final class ResetPassword extends BasePage
             ->autofocus();
     }
 
-    protected function getPasswordFormComponent(): Component
+    #[Override]
+    protected function getPasswordFormComponent(): TextInput
     {
         return TextInput::make('password')
             ->label('Új jelszó')
@@ -52,7 +55,8 @@ final class ResetPassword extends BasePage
             ->validationAttribute('jelszó');
     }
 
-    protected function getPasswordConfirmationFormComponent(): Component
+    #[Override]
+    protected function getPasswordConfirmationFormComponent(): TextInput
     {
         return TextInput::make('passwordConfirmation')
             ->label('Jelszó megerősítése')

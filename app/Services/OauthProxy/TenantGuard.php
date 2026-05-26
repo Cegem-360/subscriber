@@ -27,10 +27,10 @@ final readonly class TenantGuard
             return false;
         }
 
-        $scheme = strtolower((string) $parts['scheme']);
-        $host = strtolower((string) $parts['host']);
+        $scheme = strtolower($parts['scheme']);
+        $host = strtolower($parts['host']);
 
-        if (! in_array($host, array_map('strtolower', $this->allowedHosts), true)) {
+        if (! in_array($host, array_map(strtolower(...), $this->allowedHosts), true)) {
             return false;
         }
 

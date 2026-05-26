@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-test('iranyitopultok feature page renders successfully', function () {
+test('iranyitopultok feature page renders successfully', function (): void {
     $response = $this->get(route('features.iranyitopultok'));
 
     $response->assertSuccessful();
@@ -10,7 +10,7 @@ test('iranyitopultok feature page renders successfully', function () {
     $response->assertSee('az Ön szerepkörére szabva');
 });
 
-test('iranyitopultok feature page displays dashboard visual', function () {
+test('iranyitopultok feature page displays dashboard visual', function (): void {
     $response = $this->get(route('features.iranyitopultok'));
 
     $response->assertSee('Vezetői irányítópult');
@@ -24,7 +24,7 @@ test('iranyitopultok feature page displays dashboard visual', function () {
     $response->assertSee('11 modul forrás');
 });
 
-test('iranyitopultok feature page displays role dashboards section', function () {
+test('iranyitopultok feature page displays role dashboards section', function (): void {
     $response = $this->get(route('features.iranyitopultok'));
 
     $response->assertSee('Szerepkör-alapú dashboardok');
@@ -36,7 +36,7 @@ test('iranyitopultok feature page displays role dashboards section', function ()
     $response->assertSee('Beszerzési vezető');
 });
 
-test('iranyitopultok feature page displays capabilities section', function () {
+test('iranyitopultok feature page displays capabilities section', function (): void {
     $response = $this->get(route('features.iranyitopultok'));
 
     $response->assertSee('Drag-and-drop widget-rendszer');
@@ -47,7 +47,7 @@ test('iranyitopultok feature page displays capabilities section', function () {
     $response->assertSee('Export és megosztás');
 });
 
-test('iranyitopultok feature page displays widget library section', function () {
+test('iranyitopultok feature page displays widget library section', function (): void {
     $response = $this->get(route('features.iranyitopultok'));
 
     $response->assertSee('Widget-könyvtár');
@@ -63,7 +63,7 @@ test('iranyitopultok feature page displays widget library section', function () 
     $response->assertSee('Pipeline funnel');
 });
 
-test('iranyitopultok feature page displays module dashboards section', function () {
+test('iranyitopultok feature page displays module dashboards section', function (): void {
     $response = $this->get(route('features.iranyitopultok'));
 
     $response->assertSee('Modul-irányítópultok');
@@ -75,7 +75,7 @@ test('iranyitopultok feature page displays module dashboards section', function 
     $response->assertSee('Marketing dashboard');
 });
 
-test('iranyitopultok feature page displays dashboard builder section', function () {
+test('iranyitopultok feature page displays dashboard builder section', function (): void {
     $response = $this->get(route('features.iranyitopultok'));
 
     $response->assertSee('Dashboard-építő');
@@ -87,7 +87,7 @@ test('iranyitopultok feature page displays dashboard builder section', function 
     $response->assertSee('Heti vezetői áttekintés');
 });
 
-test('iranyitopultok feature page displays stats section', function () {
+test('iranyitopultok feature page displays stats section', function (): void {
     $response = $this->get(route('features.iranyitopultok'));
 
     $response->assertSee('data-count="90"', escape: false);
@@ -100,7 +100,7 @@ test('iranyitopultok feature page displays stats section', function () {
     $response->assertSee('Widget a könyvtárban');
 });
 
-test('iranyitopultok feature page displays use cases section', function () {
+test('iranyitopultok feature page displays use cases section', function (): void {
     $response = $this->get(route('features.iranyitopultok'));
 
     $response->assertSee('CEO reggeli áttekintés');
@@ -111,7 +111,7 @@ test('iranyitopultok feature page displays use cases section', function () {
     $response->assertSee('Egyedi projekt-dashboard az ügyfélnek');
 });
 
-test('iranyitopultok feature page displays competitor comparison section', function () {
+test('iranyitopultok feature page displays competitor comparison section', function (): void {
     $response = $this->get(route('features.iranyitopultok'));
 
     $response->assertSee('Külső BI eszközök');
@@ -122,7 +122,7 @@ test('iranyitopultok feature page displays competitor comparison section', funct
     $response->assertSee('Drag-and-drop widget-rendszer, 40+ widget');
 });
 
-test('iranyitopultok feature page displays comparison table', function () {
+test('iranyitopultok feature page displays comparison table', function (): void {
     $response = $this->get(route('features.iranyitopultok'));
 
     $response->assertSee('Irányítópult képesség-összehasonlítás');
@@ -134,7 +134,7 @@ test('iranyitopultok feature page displays comparison table', function () {
     $response->assertSee('Ipari KPI-k beépítve');
 });
 
-test('iranyitopultok feature page displays CTA sections', function () {
+test('iranyitopultok feature page displays CTA sections', function (): void {
     $response = $this->get(route('features.iranyitopultok'));
 
     $response->assertSee('Személyre szabott dashboard-konzultáció');

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages;
 
+use Override;
 use BackedEnum;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
@@ -28,6 +29,7 @@ class Plans extends Page
 
     public bool $isRunning = false;
 
+    #[Override]
     public static function shouldRegisterNavigation(): bool
     {
         return Auth::user()?->isAdmin() ?? false;
@@ -42,7 +44,7 @@ class Plans extends Page
         $output = Artisan::output();
 
         $optionString = collect($options)
-            ->map(fn ($value, $key) => $value === true ? $key : "{$key}={$value}")
+            ->map(fn ($value, $key): int|string => $value === true ? $key : "{$key}={$value}")
             ->implode(' ');
 
         $timestamp = now()->format('Y-m-d H:i:s');

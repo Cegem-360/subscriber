@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Responses;
 
+use App\Models\User;
 use Filament\Auth\Http\Responses\Contracts\EmailVerificationResponse as Responsable;
 use Filament\Facades\Filament;
 use Illuminate\Http\RedirectResponse;
@@ -14,7 +15,7 @@ final class EmailVerificationResponse implements Responsable
 {
     public function toResponse($request): RedirectResponse|Redirector
     {
-        /** @var \App\Models\User|null $user */
+        /** @var User|null $user */
         $user = Auth::user();
 
         if ($user && ! $user->isAdmin()) {

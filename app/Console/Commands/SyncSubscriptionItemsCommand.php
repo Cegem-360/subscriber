@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use App\Models\Subscription;
 use Exception;
 use Illuminate\Console\Command;
 use Laravel\Cashier\SubscriptionItem;
 use Stripe\StripeClient;
 
+#[Description('Sync subscription items from Stripe to local database')]
+#[Signature('subscriptions:sync-items {--subscription= : Specific subscription ID to sync}')]
 class SyncSubscriptionItemsCommand extends Command
 {
-    protected $signature = 'subscriptions:sync-items {--subscription= : Specific subscription ID to sync}';
-
-    protected $description = 'Sync subscription items from Stripe to local database';
-
     public function handle(): int
     {
         $stripe = new StripeClient(config('cashier.secret'));

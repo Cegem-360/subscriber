@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-test('ai feature page renders successfully', function () {
+test('ai feature page renders successfully', function (): void {
     $response = $this->get(route('features.ai'));
 
     $response->assertStatus(200);
@@ -10,7 +10,7 @@ test('ai feature page renders successfully', function () {
     $response->assertSee('beépítve az ipari vállalatirányításba');
 });
 
-test('ai feature page displays AI dashboard visual', function () {
+test('ai feature page displays AI dashboard visual', function (): void {
     $response = $this->get(route('features.ai'));
 
     $response->assertSee('MI Irányítópult');
@@ -27,7 +27,7 @@ test('ai feature page displays AI dashboard visual', function () {
     $response->assertSee('11 modul forrás');
 });
 
-test('ai feature page displays two pillars section', function () {
+test('ai feature page displays two pillars section', function (): void {
     $response = $this->get(route('features.ai'));
 
     $response->assertSee('DataMind elemez');
@@ -40,7 +40,7 @@ test('ai feature page displays two pillars section', function () {
     $response->assertSee('Live handoff');
 });
 
-test('ai feature page displays capabilities section', function () {
+test('ai feature page displays capabilities section', function (): void {
     $response = $this->get(route('features.ai'));
 
     $response->assertSee('Prediktív elemzés');
@@ -51,7 +51,7 @@ test('ai feature page displays capabilities section', function () {
     $response->assertSee('Adatbiztonság és jogosultság');
 });
 
-test('ai feature page displays module AI map', function () {
+test('ai feature page displays module AI map', function (): void {
     $response = $this->get(route('features.ai'));
 
     $response->assertSee('CRM');
@@ -65,7 +65,7 @@ test('ai feature page displays module AI map', function () {
     $response->assertSee('Cash flow előrejelzés');
 });
 
-test('ai feature page displays NLQ section', function () {
+test('ai feature page displays NLQ section', function (): void {
     $response = $this->get(route('features.ai'));
 
     $response->assertSee('Kérdezz magyarul');
@@ -76,7 +76,7 @@ test('ai feature page displays NLQ section', function () {
     $response->assertSee('Forrás: CRM');
 });
 
-test('ai feature page displays stats section', function () {
+test('ai feature page displays stats section', function (): void {
     $response = $this->get(route('features.ai'));
 
     $response->assertSee('data-count="5"', escape: false);
@@ -91,7 +91,7 @@ test('ai feature page displays stats section', function () {
     $response->assertSee('AI Chat elérhetőség');
 });
 
-test('ai feature page displays use cases section', function () {
+test('ai feature page displays use cases section', function (): void {
     $response = $this->get(route('features.ai'));
 
     $response->assertSee('Reggeli MI összefoglaló a CEO-nak');
@@ -102,7 +102,7 @@ test('ai feature page displays use cases section', function () {
     $response->assertSee('Belső adatlekérdezés természetes nyelven');
 });
 
-test('ai feature page displays competitor comparison section', function () {
+test('ai feature page displays competitor comparison section', function (): void {
     $response = $this->get(route('features.ai'));
 
     $response->assertSee('Általános MI eszközök');
@@ -112,7 +112,7 @@ test('ai feature page displays competitor comparison section', function () {
     $response->assertSee('11 modul valós adatain dolgozik');
 });
 
-test('ai feature page displays comparison table', function () {
+test('ai feature page displays comparison table', function (): void {
     $response = $this->get(route('features.ai'));
 
     $response->assertSee('Modulok közötti adathozzáférés');
@@ -125,7 +125,7 @@ test('ai feature page displays comparison table', function () {
     $response->assertSee('Árazási modell');
 });
 
-test('ai feature page displays CTA sections', function () {
+test('ai feature page displays CTA sections', function (): void {
     $response = $this->get(route('features.ai'));
 
     $response->assertSee('Személyre szabott MI konzultáció');

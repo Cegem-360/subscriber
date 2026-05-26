@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-test('beszerzes-supply-chain use-case page renders successfully', function () {
+test('beszerzes-supply-chain use-case page renders successfully', function (): void {
     $response = $this->get(route('usecases.beszerzes-supply-chain'));
 
     $response->assertStatus(200);
@@ -10,7 +10,7 @@ test('beszerzes-supply-chain use-case page renders successfully', function () {
     $response->assertSee('és mi lesz holnap');
 });
 
-test('beszerzes-supply-chain use-case page displays pain points section', function () {
+test('beszerzes-supply-chain use-case page displays pain points section', function (): void {
     $response = $this->get(route('usecases.beszerzes-supply-chain'));
 
     $response->assertSee('Váratlan készlethiány');
@@ -19,7 +19,7 @@ test('beszerzes-supply-chain use-case page displays pain points section', functi
     $response->assertSee('Manuális rendelési folyamat');
 });
 
-test('beszerzes-supply-chain use-case page displays target audience section', function () {
+test('beszerzes-supply-chain use-case page displays target audience section', function (): void {
     $response = $this->get(route('usecases.beszerzes-supply-chain'));
 
     $response->assertSee('Beszerzési vezetők');
@@ -28,7 +28,7 @@ test('beszerzes-supply-chain use-case page displays target audience section', fu
     $response->assertSee('CFO-k és kontrollerek');
 });
 
-test('beszerzes-supply-chain use-case page displays core toolkit modules', function () {
+test('beszerzes-supply-chain use-case page displays core toolkit modules', function (): void {
     $response = $this->get(route('usecases.beszerzes-supply-chain'));
 
     $response->assertSee('Beszerzés-logisztika');
@@ -37,7 +37,7 @@ test('beszerzes-supply-chain use-case page displays core toolkit modules', funct
     $response->assertSee('DataMind');
 });
 
-test('beszerzes-supply-chain use-case page displays supply chain lifecycle section', function () {
+test('beszerzes-supply-chain use-case page displays supply chain lifecycle section', function (): void {
     $response = $this->get(route('usecases.beszerzes-supply-chain'));
 
     $response->assertSee('Szükséglet');
@@ -48,7 +48,7 @@ test('beszerzes-supply-chain use-case page displays supply chain lifecycle secti
     $response->assertSee('Elszámolás');
 });
 
-test('beszerzes-supply-chain use-case page displays stats section', function () {
+test('beszerzes-supply-chain use-case page displays stats section', function (): void {
     $response = $this->get(route('usecases.beszerzes-supply-chain'));
 
     $response->assertSee('data-count="35"', escape: false);
@@ -60,7 +60,7 @@ test('beszerzes-supply-chain use-case page displays stats section', function () 
     $response->assertSee('Szállítói teljesítmény-javulás');
 });
 
-test('beszerzes-supply-chain use-case page displays use cases section', function () {
+test('beszerzes-supply-chain use-case page displays use cases section', function (): void {
     $response = $this->get(route('usecases.beszerzes-supply-chain'));
 
     $response->assertSee('Automatikus minimumkészlet-riasztás és újrarendelés');
@@ -71,7 +71,7 @@ test('beszerzes-supply-chain use-case page displays use cases section', function
     $response->assertSee('Prediktív készletezés MI-vel');
 });
 
-test('beszerzes-supply-chain use-case page displays comparison table', function () {
+test('beszerzes-supply-chain use-case page displays comparison table', function (): void {
     $response = $this->get(route('usecases.beszerzes-supply-chain'));
 
     $response->assertSee('Készletszint áttekintés');
@@ -80,7 +80,7 @@ test('beszerzes-supply-chain use-case page displays comparison table', function 
     $response->assertSee('BOM alapú, automatikus');
 });
 
-test('beszerzes-supply-chain use-case page displays CTA sections', function () {
+test('beszerzes-supply-chain use-case page displays CTA sections', function (): void {
     $response = $this->get(route('usecases.beszerzes-supply-chain'));
 
     $response->assertSee('Online konzultáció');
@@ -88,7 +88,7 @@ test('beszerzes-supply-chain use-case page displays CTA sections', function () {
     $response->assertSee('Készen áll az átlátható ellátási láncra?');
 });
 
-test('beszerzes-supply-chain use-case page displays supply chain tracker visual', function () {
+test('beszerzes-supply-chain use-case page displays supply chain tracker visual', function (): void {
     $response = $this->get(route('usecases.beszerzes-supply-chain'));
 
     $response->assertSee('Ellátásilánc tracker');

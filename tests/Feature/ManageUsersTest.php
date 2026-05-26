@@ -99,7 +99,7 @@ describe('ManageUsers component', function (): void {
         Bus::assertDispatched(
             ToggleUserActiveJob::class,
             fn (ToggleUserActiveJob $job): bool => $job->userEmail === 'newuser@test.com'
-                && $job->isActive === true
+                && $job->isActive
                 && $job->appKey === $plan->planCategory->slug,
         );
     });

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-test('penzugy-kontrolling use-case page renders successfully', function () {
+test('penzugy-kontrolling use-case page renders successfully', function (): void {
     $response = $this->get(route('usecases.penzugy-kontrolling'));
 
     $response->assertStatus(200);
@@ -10,7 +10,7 @@ test('penzugy-kontrolling use-case page renders successfully', function () {
     $response->assertSee('valós időben, nem hónap végén');
 });
 
-test('penzugy-kontrolling use-case page displays pain points section', function () {
+test('penzugy-kontrolling use-case page displays pain points section', function (): void {
     $response = $this->get(route('usecases.penzugy-kontrolling'));
 
     $response->assertSee('Hónap végi meglepetések');
@@ -19,7 +19,7 @@ test('penzugy-kontrolling use-case page displays pain points section', function 
     $response->assertSee('Nincs előrejelzés');
 });
 
-test('penzugy-kontrolling use-case page displays target audience section', function () {
+test('penzugy-kontrolling use-case page displays target audience section', function (): void {
     $response = $this->get(route('usecases.penzugy-kontrolling'));
 
     $response->assertSee('CFO / Pénzügyi igazgató');
@@ -28,7 +28,7 @@ test('penzugy-kontrolling use-case page displays target audience section', funct
     $response->assertSee('Projekt- és üzemvezetők');
 });
 
-test('penzugy-kontrolling use-case page displays core toolkit modules', function () {
+test('penzugy-kontrolling use-case page displays core toolkit modules', function (): void {
     $response = $this->get(route('usecases.penzugy-kontrolling'));
 
     $response->assertSee('Kontrolling');
@@ -37,7 +37,7 @@ test('penzugy-kontrolling use-case page displays core toolkit modules', function
     $response->assertSee('Automatizálás');
 });
 
-test('penzugy-kontrolling use-case page displays data flow section', function () {
+test('penzugy-kontrolling use-case page displays data flow section', function (): void {
     $response = $this->get(route('usecases.penzugy-kontrolling'));
 
     $response->assertSee('Értékesítés');
@@ -46,7 +46,7 @@ test('penzugy-kontrolling use-case page displays data flow section', function ()
     $response->assertSee('MI elemzés');
 });
 
-test('penzugy-kontrolling use-case page displays stats section', function () {
+test('penzugy-kontrolling use-case page displays stats section', function (): void {
     $response = $this->get(route('usecases.penzugy-kontrolling'));
 
     $response->assertSee('data-count="80"', escape: false);
@@ -57,7 +57,7 @@ test('penzugy-kontrolling use-case page displays stats section', function () {
     $response->assertSee('Predikció pontosság');
 });
 
-test('penzugy-kontrolling use-case page displays use cases section', function () {
+test('penzugy-kontrolling use-case page displays use cases section', function (): void {
     $response = $this->get(route('usecases.penzugy-kontrolling'));
 
     $response->assertSee('Projekt-szintű jövedelmezőség');
@@ -68,7 +68,7 @@ test('penzugy-kontrolling use-case page displays use cases section', function ()
     $response->assertSee('Költség-anomália felismerése');
 });
 
-test('penzugy-kontrolling use-case page displays comparison table', function () {
+test('penzugy-kontrolling use-case page displays comparison table', function (): void {
     $response = $this->get(route('usecases.penzugy-kontrolling'));
 
     $response->assertSee('Pénzügyi áttekintés');
@@ -77,7 +77,7 @@ test('penzugy-kontrolling use-case page displays comparison table', function () 
     $response->assertSee('MI-alapú predikció');
 });
 
-test('penzugy-kontrolling use-case page displays CTA sections', function () {
+test('penzugy-kontrolling use-case page displays CTA sections', function (): void {
     $response = $this->get(route('usecases.penzugy-kontrolling'));
 
     $response->assertSee('Online konzultáció');
@@ -85,7 +85,7 @@ test('penzugy-kontrolling use-case page displays CTA sections', function () {
     $response->assertSee('Készen áll a hatékonyabb pénzügyi irányításra?');
 });
 
-test('penzugy-kontrolling use-case page displays finance dashboard visual', function () {
+test('penzugy-kontrolling use-case page displays finance dashboard visual', function (): void {
     $response = $this->get(route('usecases.penzugy-kontrolling'));
 
     $response->assertSee('Pénzügyi Dashboard');

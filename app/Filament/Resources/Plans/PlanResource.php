@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Plans;
 
+use Override;
 use App\Filament\Resources\Plans\Pages\CreatePlan;
 use App\Filament\Resources\Plans\Pages\EditPlan;
 use App\Filament\Resources\Plans\Pages\ListPlans;
@@ -23,21 +24,25 @@ class PlanResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    #[Override]
     public static function shouldRegisterNavigation(): bool
     {
         return Auth::user()->isAdmin();
     }
 
+    #[Override]
     public static function form(Schema $schema): Schema
     {
         return PlanForm::configure($schema);
     }
 
+    #[Override]
     public static function table(Table $table): Table
     {
         return PlansTable::configure($table);
     }
 
+    #[Override]
     public static function getRelations(): array
     {
         return [
@@ -45,6 +50,7 @@ class PlanResource extends Resource
         ];
     }
 
+    #[Override]
     public static function getPages(): array
     {
         return [

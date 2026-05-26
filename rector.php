@@ -72,7 +72,7 @@ return RectorConfig::configure()
         NullCoalescingOperatorRector::class,
     ])
     ->withSets([
-        LaravelLevelSetList::UP_TO_LARAVEL_120,
+        LaravelLevelSetList::UP_TO_LARAVEL_130,
         LaravelSetList::LARAVEL_CODE_QUALITY,
         LaravelSetList::LARAVEL_ARRAY_STR_FUNCTION_TO_STATIC_CALL,
         LaravelSetList::LARAVEL_FACADE_ALIASES_TO_FULL_NAMES,
