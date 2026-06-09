@@ -10,6 +10,7 @@ use Filament\Panel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -136,6 +137,18 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
     public function isManager(): bool
     {
         return $this->role === UserRole::Manager;
+    }
+
+    /**
+     * Scope to accounts within the owner's organization (sharing a team), so a
+     * manager can only attach accounts from their own organization.
+     */
+    #[Scope]
+    protected function inOrganizationOf(Builder $query, ?User $owner): void
+    {
+        $teamIds = $owner?->teams()->pluck('teams.id')->all() ?? [];
+
+        $query->whereHas('teams', fn (Builder $teams) => $teams->whereIn('teams.id', $teamIds));
     }
 
     public function hasValidVerificationHash(string $hash): bool

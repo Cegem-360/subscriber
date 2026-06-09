@@ -109,10 +109,7 @@ class MembersRelationManager extends RelationManager
                     ->label(__('Attach Existing Account'))
                     ->recordSelectOptionsQuery(fn (Builder $query): Builder => $query
                         ->whereKeyNot($this->subscription()->user_id)
-                        ->whereHas('teams', fn (Builder $teams): Builder => $teams->whereIn(
-                            'teams.id',
-                            $this->subscription()->user?->teams()->pluck('teams.id')->all() ?? [],
-                        )))
+                        ->inOrganizationOf($this->subscription()->user))
                     ->visible(fn (): bool => $this->subscription()->availableSeats() > 0)
                     ->after(function (array $data): void {
                         $user = User::query()->find($data['recordId'] ?? null);

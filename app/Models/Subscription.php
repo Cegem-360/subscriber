@@ -126,6 +126,28 @@ class Subscription extends CashierSubscription
         return $this->stripe_status === SubscriptionStatus::Active;
     }
 
+    /**
+     * Distinct app keys (plan category slugs) the owner of this subscription
+     * grants across all of their active subscriptions, including this one.
+     *
+     * @return array<int, string>
+     */
+    public function ownerAppKeys(): array
+    {
+        return self::query()
+            ->withoutGlobalScopes()
+            ->where('user_id', $this->user_id)
+            ->activeSubscription()
+            ->with('plan.planCategory')
+            ->get()
+            ->map(fn (self $subscription): ?string => $subscription->plan?->planCategory?->slug)
+            ->push($this->plan?->planCategory?->slug)
+            ->filter()
+            ->unique()
+            ->values()
+            ->all();
+    }
+
     #[Scope]
     protected function activeSubscription($query): void
     {

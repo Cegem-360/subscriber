@@ -33,12 +33,7 @@ final class AttachSubscriptionMember
             ownerEmail: $subscription->user?->email ?? '',
         );
 
-        $appKeys = collect($user->accessibleAppKeys())
-            ->push($subscription->plan?->planCategory?->slug)
-            ->filter()
-            ->unique();
-
-        foreach ($appKeys as $appKey) {
+        foreach ($subscription->ownerAppKeys() as $appKey) {
             dispatch(new ToggleUserActiveJob(userEmail: $user->email, isActive: true, appKey: $appKey))
                 ->delay(now()->addSeconds(20));
         }

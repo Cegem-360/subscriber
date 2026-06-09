@@ -22,20 +22,7 @@ final class DetachSubscriptionMember
     {
         $user->memberSubscriptions()->detach($subscription->id);
 
-        $ownerAppKeys = Subscription::query()
-            ->withoutGlobalScopes()
-            ->where('user_id', $subscription->user_id)
-            ->activeSubscription()
-            ->with('plan.planCategory')
-            ->get()
-            ->map(fn (Subscription $owned): ?string => $owned->plan?->planCategory?->slug)
-            ->push($subscription->plan?->planCategory?->slug)
-            ->filter()
-            ->unique()
-            ->values()
-            ->all();
-
-        $lostAppKeys = array_diff($ownerAppKeys, $user->accessibleAppKeys());
+        $lostAppKeys = array_diff($subscription->ownerAppKeys(), $user->accessibleAppKeys());
 
         foreach ($lostAppKeys as $appKey) {
             dispatch(new ToggleUserActiveJob(userEmail: $user->email, isActive: false, appKey: $appKey))
