@@ -10,6 +10,7 @@ use Filament\Panel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -90,6 +91,21 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
     public function memberSubscriptions(): BelongsToMany
     {
         return $this->belongsToMany(Subscription::class);
+    }
+
+    /**
+     * Subscriptions the user can access: those they own plus those they are a
+     * member of. Bypasses the owner-only global scope on purpose, since it is
+     * explicitly constrained to this user.
+     */
+    public function accessibleSubscriptions(): Builder
+    {
+        return Subscription::query()
+            ->withoutGlobalScopes()
+            ->where(function (Builder $query): void {
+                $query->where('subscriptions.user_id', $this->id)
+                    ->orWhereHas('members', fn (Builder $members) => $members->whereKey($this->id));
+            });
     }
 
     public function isManager(): bool

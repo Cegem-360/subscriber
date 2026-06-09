@@ -50,7 +50,7 @@
             <ul class="space-y-1">
                 @auth
                     @php
-                        $userSubscriptions = auth()->user()->subscriptions()
+                        $userSubscriptions = auth()->user()->accessibleSubscriptions()
                             ->activeSubscription()
                             ->with('plan.planCategory')
                             ->join('plans', 'subscriptions.plan_id', '=', 'plans.id')

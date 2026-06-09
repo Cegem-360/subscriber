@@ -97,6 +97,25 @@ describe('Subscription available seats', function (): void {
     });
 });
 
+describe('User accessible subscriptions', function (): void {
+    it('includes both owned and member subscriptions', function (): void {
+        $plan = Plan::query()->first();
+
+        $owner = User::factory()->create();
+        $owned = Subscription::factory()->active()->for($owner)->create(['plan_id' => $plan->id, 'quantity' => 5]);
+
+        $otherOwner = User::factory()->create();
+        $memberSub = Subscription::factory()->active()->for($otherOwner)->create(['plan_id' => $plan->id, 'quantity' => 5]);
+
+        $member = User::factory()->memberOf($memberSub)->create();
+
+        expect($owner->accessibleSubscriptions()->pluck('id')->all())->toContain($owned->id);
+        expect($member->accessibleSubscriptions()->pluck('id')->all())
+            ->toContain($memberSub->id)
+            ->not->toContain($owned->id);
+    });
+});
+
 describe('Subscription members relationship', function (): void {
     it('returns users assigned to subscription', function (): void {
         $manager = User::factory()->manager()->create();
