@@ -7,6 +7,7 @@ use App\Filament\Resources\Subscriptions\RelationManagers\MembersRelationManager
 use App\Models\Plan;
 use App\Models\Plan\PlanCategory;
 use App\Models\Subscription;
+use App\Models\Team;
 use App\Models\User;
 use Filament\Actions\Testing\TestAction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -34,13 +35,16 @@ it('attaches an existing account through the relation manager', function (): voi
     actingAs($admin);
 
     $plan = Plan::query()->first();
+    $team = Team::factory()->create();
     $owner = User::factory()->manager()->create();
+    $owner->teams()->attach($team);
     $subscription = Subscription::factory()->active()->for($owner)->create([
         'plan_id' => $plan->id,
         'quantity' => 5,
     ]);
 
     $existing = User::factory()->create();
+    $existing->teams()->attach($team);
 
     livewire(MembersRelationManager::class, [
         'ownerRecord' => $subscription,

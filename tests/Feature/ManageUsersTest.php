@@ -7,6 +7,7 @@ use App\Livewire\ManageUsers;
 use App\Models\Plan;
 use App\Models\Plan\PlanCategory;
 use App\Models\Subscription;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Bus;
@@ -245,10 +246,13 @@ describe('ManageUsers component', function (): void {
 });
 
 describe('ManageUsers attaching existing accounts', function (): void {
-    it('attaches an existing account to the selected subscription', function (): void {
+    it('attaches an existing account from the same organization', function (): void {
         Bus::fake();
 
+        $team = Team::factory()->create();
         $manager = User::factory()->manager()->create();
+        $manager->teams()->attach($team);
+
         $plan = Plan::query()->first();
 
         $subscription = Subscription::factory()
@@ -257,6 +261,7 @@ describe('ManageUsers attaching existing accounts', function (): void {
             ->create(['plan_id' => $plan->id, 'quantity' => 5]);
 
         $existing = User::factory()->create();
+        $existing->teams()->attach($team);
 
         Livewire::actingAs($manager)
             ->test(ManageUsers::class)
@@ -276,10 +281,46 @@ describe('ManageUsers attaching existing accounts', function (): void {
         );
     });
 
+    it('does not attach an account from another organization', function (): void {
+        $team = Team::factory()->create();
+        $manager = User::factory()->manager()->create();
+        $manager->teams()->attach($team);
+
+        $plan = Plan::query()->first();
+
+        $subscription = Subscription::factory()
+            ->active()
+            ->for($manager)
+            ->create(['plan_id' => $plan->id, 'quantity' => 5]);
+
+        // Belongs to a different organization (different team).
+        $outsider = User::factory()->create();
+        $outsider->teams()->attach(Team::factory()->create());
+
+        Livewire::actingAs($manager)
+            ->test(ManageUsers::class)
+            ->call('attachExistingUser', $outsider->id);
+
+        assertDatabaseMissing('subscription_user', [
+            'subscription_id' => $subscription->id,
+            'user_id' => $outsider->id,
+        ]);
+
+        $options = Livewire::actingAs($manager)
+            ->test(ManageUsers::class)
+            ->instance()
+            ->getAttachableUsers();
+
+        expect($options)->not->toHaveKey($outsider->id);
+    });
+
     it('lets the same account belong to two subscriptions', function (): void {
         Bus::fake();
 
+        $team = Team::factory()->create();
         $manager = User::factory()->manager()->create();
+        $manager->teams()->attach($team);
+
         $plan = Plan::query()->first();
 
         $sub1 = Subscription::factory()
@@ -293,6 +334,7 @@ describe('ManageUsers attaching existing accounts', function (): void {
             ->create(['plan_id' => $plan->id, 'quantity' => 5]);
 
         $account = User::factory()->memberOf($sub1)->create();
+        $account->teams()->attach($team);
 
         Livewire::actingAs($manager)
             ->test(ManageUsers::class)
@@ -326,8 +368,11 @@ describe('ManageUsers attaching existing accounts', function (): void {
         ]);
     });
 
-    it('excludes the owner and current members from attachable accounts', function (): void {
+    it('only lists organization accounts that are not yet members', function (): void {
+        $team = Team::factory()->create();
         $manager = User::factory()->manager()->create();
+        $manager->teams()->attach($team);
+
         $plan = Plan::query()->first();
 
         $subscription = Subscription::factory()
@@ -336,7 +381,13 @@ describe('ManageUsers attaching existing accounts', function (): void {
             ->create(['plan_id' => $plan->id, 'quantity' => 5]);
 
         $member = User::factory()->memberOf($subscription)->create();
+        $member->teams()->attach($team);
+
         $available = User::factory()->create();
+        $available->teams()->attach($team);
+
+        $outsider = User::factory()->create();
+        $outsider->teams()->attach(Team::factory()->create());
 
         $options = Livewire::actingAs($manager)
             ->test(ManageUsers::class)
@@ -346,6 +397,7 @@ describe('ManageUsers attaching existing accounts', function (): void {
         expect($options)
             ->toHaveKey($available->id)
             ->not->toHaveKey($member->id)
-            ->not->toHaveKey($manager->id);
+            ->not->toHaveKey($manager->id)
+            ->not->toHaveKey($outsider->id);
     });
 });

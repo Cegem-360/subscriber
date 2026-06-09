@@ -107,7 +107,12 @@ class MembersRelationManager extends RelationManager
                     }),
                 AttachAction::make()
                     ->label(__('Attach Existing Account'))
-                    ->recordSelectOptionsQuery(fn (Builder $query): Builder => $query->whereKeyNot($this->subscription()->user_id))
+                    ->recordSelectOptionsQuery(fn (Builder $query): Builder => $query
+                        ->whereKeyNot($this->subscription()->user_id)
+                        ->whereHas('teams', fn (Builder $teams): Builder => $teams->whereIn(
+                            'teams.id',
+                            $this->subscription()->user?->teams()->pluck('teams.id')->all() ?? [],
+                        )))
                     ->visible(fn (): bool => $this->subscription()->availableSeats() > 0)
                     ->after(function (array $data): void {
                         $user = User::query()->find($data['recordId'] ?? null);

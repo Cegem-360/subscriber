@@ -94,18 +94,43 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
     }
 
     /**
-     * Subscriptions the user can access: those they own plus those they are a
-     * member of. Bypasses the owner-only global scope on purpose, since it is
-     * explicitly constrained to this user.
+     * Subscriptions the user can access. A member mirrors the main account: they
+     * see every subscription owned by any account whose subscription they belong
+     * to, plus their own. Bypasses the owner-only global scope on purpose, since
+     * it is explicitly constrained to the resolved owner ids.
      */
     public function accessibleSubscriptions(): Builder
     {
+        $ownerIds = Subscription::query()
+            ->withoutGlobalScopes()
+            ->whereHas('members', fn (Builder $members) => $members->whereKey($this->id))
+            ->pluck('user_id')
+            ->push($this->id)
+            ->unique()
+            ->all();
+
         return Subscription::query()
             ->withoutGlobalScopes()
-            ->where(function (Builder $query): void {
-                $query->where('subscriptions.user_id', $this->id)
-                    ->orWhereHas('members', fn (Builder $members) => $members->whereKey($this->id));
-            });
+            ->whereIn('subscriptions.user_id', $ownerIds);
+    }
+
+    /**
+     * Distinct app keys (plan category slugs) the user should be active on,
+     * derived from every module of every main account they belong to.
+     *
+     * @return array<int, string>
+     */
+    public function accessibleAppKeys(): array
+    {
+        return $this->accessibleSubscriptions()
+            ->activeSubscription()
+            ->with('plan.planCategory')
+            ->get()
+            ->map(fn (Subscription $subscription): ?string => $subscription->plan?->planCategory?->slug)
+            ->filter()
+            ->unique()
+            ->values()
+            ->all();
     }
 
     public function isManager(): bool

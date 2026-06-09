@@ -11,31 +11,35 @@ use Madbox99\UserTeamSync\Publisher\Jobs\ToggleUserActiveJob;
 final class DetachSubscriptionMember
 {
     /**
-     * Detach a user from the subscription and deactivate the account on the
-     * subscription's app — but only when the user has no other subscription
-     * pointing at the same app, otherwise we would lock them out of access
-     * they still legitimately have.
+     * Detach a user from the subscription and deactivate the account on every
+     * app the detached main account granted but the user can no longer reach.
+     *
+     * Order-independent: it does not rely on a pre-detach snapshot (Filament's
+     * DetachAction already removes the pivot before this runs), but compares the
+     * detached owner's app set against the user's remaining accessible apps.
      */
     public function handle(Subscription $subscription, User $user): void
     {
         $user->memberSubscriptions()->detach($subscription->id);
 
-        $appKey = $subscription->plan?->planCategory?->slug;
-
-        if ($appKey === null || $appKey === '') {
-            return;
-        }
-
-        $stillHasAccess = $user->memberSubscriptions()
+        $ownerAppKeys = Subscription::query()
             ->withoutGlobalScopes()
-            ->whereHas('plan.planCategory', fn ($query) => $query->where('slug', $appKey))
-            ->exists();
+            ->where('user_id', $subscription->user_id)
+            ->activeSubscription()
+            ->with('plan.planCategory')
+            ->get()
+            ->map(fn (Subscription $owned): ?string => $owned->plan?->planCategory?->slug)
+            ->push($subscription->plan?->planCategory?->slug)
+            ->filter()
+            ->unique()
+            ->values()
+            ->all();
 
-        if ($stillHasAccess) {
-            return;
+        $lostAppKeys = array_diff($ownerAppKeys, $user->accessibleAppKeys());
+
+        foreach ($lostAppKeys as $appKey) {
+            dispatch(new ToggleUserActiveJob(userEmail: $user->email, isActive: false, appKey: $appKey))
+                ->delay(now()->addSeconds(20));
         }
-
-        dispatch(new ToggleUserActiveJob(userEmail: $user->email, isActive: false, appKey: $appKey))
-            ->delay(now()->addSeconds(20));
     }
 }

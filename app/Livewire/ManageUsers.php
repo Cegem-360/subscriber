@@ -238,12 +238,17 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
             return [];
         }
 
+        // Only accounts within the owner's organization (shared team) may be
+        // attached, so a manager cannot pull in users from another organization.
+        $ownerTeamIds = $subscription->user?->teams()->pluck('teams.id')->all() ?? [];
+
         return User::query()
             ->whereKeyNot($subscription->user_id)
             ->whereDoesntHave(
                 'memberSubscriptions',
                 fn ($query) => $query->whereKey($subscription->id),
             )
+            ->whereHas('teams', fn ($query) => $query->whereIn('teams.id', $ownerTeamIds))
             ->orderBy('name')
             ->get()
             ->mapWithKeys(fn (User $user): array => [
@@ -280,6 +285,17 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
         if (! $user instanceof User) {
             Notification::make()
                 ->title(__('Account not found'))
+                ->danger()
+                ->send();
+
+            return;
+        }
+
+        $ownerTeamIds = $subscription->user?->teams()->pluck('teams.id')->all() ?? [];
+
+        if (! $user->teams()->whereIn('teams.id', $ownerTeamIds)->exists()) {
+            Notification::make()
+                ->title(__('This account is not in your organization'))
                 ->danger()
                 ->send();
 

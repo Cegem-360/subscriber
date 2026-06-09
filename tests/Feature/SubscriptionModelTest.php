@@ -114,6 +114,31 @@ describe('User accessible subscriptions', function (): void {
             ->toContain($memberSub->id)
             ->not->toContain($owned->id);
     });
+
+    it('mirrors all of the main account modules even when attached to only one', function (): void {
+        $owner = User::factory()->create();
+
+        $categoryA = PlanCategory::factory()->create(['slug' => 'module-a']);
+        $categoryB = PlanCategory::factory()->create(['slug' => 'module-b']);
+        $planA = Plan::factory()->create(['plan_category_id' => $categoryA->id]);
+        $planB = Plan::factory()->create(['plan_category_id' => $categoryB->id]);
+
+        $subA = Subscription::factory()->active()->for($owner)->create(['plan_id' => $planA->id, 'quantity' => 5]);
+        $subB = Subscription::factory()->active()->for($owner)->create(['plan_id' => $planB->id, 'quantity' => 5]);
+
+        // Member is attached only to subA, but should see both modules.
+        $member = User::factory()->memberOf($subA)->create();
+
+        $accessibleIds = $member->accessibleSubscriptions()->pluck('id')->all();
+
+        expect($accessibleIds)
+            ->toContain($subA->id)
+            ->toContain($subB->id);
+
+        expect($member->accessibleAppKeys())
+            ->toContain('module-a')
+            ->toContain('module-b');
+    });
 });
 
 describe('Subscription members relationship', function (): void {

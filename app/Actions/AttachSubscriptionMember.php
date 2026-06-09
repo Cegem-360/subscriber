@@ -12,9 +12,10 @@ use Madbox99\UserTeamSync\Publisher\Jobs\ToggleUserActiveJob;
 final class AttachSubscriptionMember
 {
     /**
-     * Attach a user as a member of the subscription and propagate the change
-     * to the sibling apps: ensure the account exists on every receiver app and
-     * activate it on the subscription's specific app.
+     * Attach a user as a member of the subscription (occupying one seat there)
+     * and propagate access to the sibling apps: ensure the account exists on
+     * every receiver app and activate it on every app the main account (owner)
+     * grants — so the member mirrors the main account's modules.
      *
      * Pass the raw password when the account was just created; otherwise the
      * already-hashed password on the model is forwarded (receiver apps accept
@@ -32,13 +33,14 @@ final class AttachSubscriptionMember
             ownerEmail: $subscription->user?->email ?? '',
         );
 
-        $appKey = $subscription->plan?->planCategory?->slug;
+        $appKeys = collect($user->accessibleAppKeys())
+            ->push($subscription->plan?->planCategory?->slug)
+            ->filter()
+            ->unique();
 
-        if ($appKey === null || $appKey === '') {
-            return;
+        foreach ($appKeys as $appKey) {
+            dispatch(new ToggleUserActiveJob(userEmail: $user->email, isActive: true, appKey: $appKey))
+                ->delay(now()->addSeconds(20));
         }
-
-        dispatch(new ToggleUserActiveJob(userEmail: $user->email, isActive: true, appKey: $appKey))
-            ->delay(now()->addSeconds(20));
     }
 }
