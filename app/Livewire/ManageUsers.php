@@ -124,7 +124,9 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
                             ->searchable()
                             ->required(),
                     ])
-                    ->action(fn (array $data): null => $this->attachExistingUser((int) $data['user_id'])),
+                    ->action(function (array $data): void {
+                        $this->attachExistingUser((int) $data['user_id']);
+                    }),
             ])
             ->columns([
                 TextColumn::make('name')

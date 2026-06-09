@@ -9,9 +9,6 @@ use App\Models\Subscription;
 use App\Models\Team;
 use App\Models\TeamPlanPrice;
 use App\Models\User;
-
-use function beforeEach;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Number;
 use Livewire\Livewire;
