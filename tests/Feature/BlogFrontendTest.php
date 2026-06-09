@@ -11,13 +11,15 @@ use App\Models\Blog\Tag;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 
+use function Pest\Laravel\get;
+
 uses(RefreshDatabase::class);
 
 describe('BlogCategoryPage', function (): void {
     it('is accessible via route', function (): void {
         $category = BlogCategory::factory()->create();
 
-        $this->get("/eroforrasok/{$category->slug}")
+        get("/eroforrasok/{$category->slug}")
             ->assertOk()
             ->assertSeeLivewire(BlogCategoryPage::class);
     });
@@ -82,12 +84,12 @@ describe('BlogCategoryPage', function (): void {
             'slug' => 'inaktiv-kategoria',
         ]);
 
-        $this->get('/eroforrasok/inaktiv-kategoria')
+        get('/eroforrasok/inaktiv-kategoria')
             ->assertNotFound();
     });
 
     it('returns 404 for non-existent category', function (): void {
-        $this->get('/eroforrasok/nem-letezik')
+        get('/eroforrasok/nem-letezik')
             ->assertNotFound();
     });
 
@@ -104,7 +106,7 @@ describe('BlogPostPage', function (): void {
         $category = BlogCategory::factory()->create();
         $blog = Blog::factory()->for($category)->create();
 
-        $this->get("/eroforrasok/{$category->slug}/{$blog->slug}")
+        get("/eroforrasok/{$category->slug}/{$blog->slug}")
             ->assertOk()
             ->assertSeeLivewire(BlogPostPage::class);
     });
@@ -148,7 +150,7 @@ describe('BlogPostPage', function (): void {
             'slug' => 'nem-publikalt',
         ]);
 
-        $this->get('/eroforrasok/teszt-kategoria/nem-publikalt')
+        get('/eroforrasok/teszt-kategoria/nem-publikalt')
             ->assertNotFound();
     });
 
@@ -161,7 +163,7 @@ describe('BlogPostPage', function (): void {
             'slug' => 'inaktiv-post',
         ]);
 
-        $this->get('/eroforrasok/teszt-kategoria/inaktiv-post')
+        get('/eroforrasok/teszt-kategoria/inaktiv-post')
             ->assertNotFound();
     });
 
@@ -170,7 +172,7 @@ describe('BlogPostPage', function (): void {
             'slug' => 'teszt-kategoria',
         ]);
 
-        $this->get('/eroforrasok/teszt-kategoria/nem-letezik')
+        get('/eroforrasok/teszt-kategoria/nem-letezik')
             ->assertNotFound();
     });
 
@@ -187,7 +189,7 @@ describe('BlogPostPage', function (): void {
             'slug' => 'teszt-post',
         ]);
 
-        $this->get('/eroforrasok/kategoria-1/teszt-post')
+        get('/eroforrasok/kategoria-1/teszt-post')
             ->assertNotFound();
     });
 });
@@ -196,7 +198,7 @@ describe('TagPage', function (): void {
     it('is accessible via route', function (): void {
         $tag = Tag::factory()->create();
 
-        $this->get("/tag/{$tag->slug}")
+        get("/tag/{$tag->slug}")
             ->assertOk()
             ->assertSeeLivewire(TagPage::class);
     });
@@ -254,12 +256,12 @@ describe('TagPage', function (): void {
             'slug' => 'inaktiv-tag',
         ]);
 
-        $this->get('/tag/inaktiv-tag')
+        get('/tag/inaktiv-tag')
             ->assertNotFound();
     });
 
     it('returns 404 for non-existent tag', function (): void {
-        $this->get('/tag/nem-letezik')
+        get('/tag/nem-letezik')
             ->assertNotFound();
     });
 

@@ -11,16 +11,17 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\URL;
 
+use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
 
 describe('Password reset request page', function (): void {
     it('renders the request password reset page', function (): void {
-        $this->get('/admin/password-reset/request')
+        get('/admin/password-reset/request')
             ->assertOk();
     });
 
     it('shows the forgot password heading', function (): void {
-        $this->get('/admin/password-reset/request')
+        get('/admin/password-reset/request')
             ->assertOk()
             ->assertSee('Elfelejtett jelszó');
     });
@@ -32,7 +33,7 @@ describe('Password reset request page', function (): void {
     });
 
     it('shows a link back to login', function (): void {
-        $this->get('/admin/password-reset/request')
+        get('/admin/password-reset/request')
             ->assertOk()
             ->assertSee('Bejelentkezés');
     });
@@ -97,7 +98,7 @@ describe('Password reset page', function (): void {
             'email' => 'test@example.com',
         ]);
 
-        $this->get($url)->assertOk();
+        get($url)->assertOk();
     });
 
     it('shows the reset password heading', function (): void {
@@ -106,13 +107,13 @@ describe('Password reset page', function (): void {
             'email' => 'test@example.com',
         ]);
 
-        $this->get($url)
+        get($url)
             ->assertOk()
             ->assertSee('Jelszó visszaállítása');
     });
 
     it('rejects unsigned requests', function (): void {
-        $this->get('/admin/password-reset/reset?token=test-token&email=test@example.com')
+        get('/admin/password-reset/reset?token=test-token&email=test@example.com')
             ->assertForbidden();
     });
 });
@@ -193,7 +194,7 @@ describe('Password reset form', function (): void {
 
 describe('Login page password reset link', function (): void {
     it('shows the forgot password link on login page', function (): void {
-        $this->get('/admin/login')
+        get('/admin/login')
             ->assertOk()
             ->assertSee('Elfelejtetted a jelszavad?');
     });

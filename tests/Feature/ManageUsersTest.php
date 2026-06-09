@@ -92,8 +92,14 @@ describe('ManageUsers component', function (): void {
 
         assertDatabaseHas('users', [
             'email' => 'newuser@test.com',
-            'subscription_id' => $subscription->id,
             'role' => UserRole::Subscriber->value,
+        ]);
+
+        $newUserId = User::query()->where('email', 'newuser@test.com')->value('id');
+
+        assertDatabaseHas('subscription_user', [
+            'subscription_id' => $subscription->id,
+            'user_id' => $newUserId,
         ]);
 
         Bus::assertDispatched(
@@ -117,9 +123,8 @@ describe('ManageUsers component', function (): void {
             ]);
 
         // Fill the subscription
-        User::factory()->create([
+        User::factory()->memberOf($subscription)->create([
             'role' => UserRole::Subscriber,
-            'subscription_id' => $subscription->id,
         ]);
 
         Livewire::actingAs($manager)
@@ -190,10 +195,9 @@ describe('ManageUsers component', function (): void {
                 'quantity' => 5,
             ]);
 
-        $member = User::factory()->create([
+        $member = User::factory()->memberOf($subscription)->create([
             'name' => 'Test Member',
             'role' => UserRole::Subscriber,
-            'subscription_id' => $subscription->id,
         ]);
 
         Livewire::actingAs($manager)
@@ -221,16 +225,14 @@ describe('ManageUsers component', function (): void {
                 'quantity' => 3,
             ]);
 
-        User::factory()->create([
+        User::factory()->memberOf($subscription1)->create([
             'name' => 'Member One',
             'role' => UserRole::Subscriber,
-            'subscription_id' => $subscription1->id,
         ]);
 
-        User::factory()->create([
+        User::factory()->memberOf($subscription2)->create([
             'name' => 'Member Two',
             'role' => UserRole::Subscriber,
-            'subscription_id' => $subscription2->id,
         ]);
 
         $component = Livewire::actingAs($manager)
@@ -239,5 +241,111 @@ describe('ManageUsers component', function (): void {
 
         $component->call('selectSubscription', $subscription2->id)
             ->assertSee('Member Two');
+    });
+});
+
+describe('ManageUsers attaching existing accounts', function (): void {
+    it('attaches an existing account to the selected subscription', function (): void {
+        Bus::fake();
+
+        $manager = User::factory()->manager()->create();
+        $plan = Plan::query()->first();
+
+        $subscription = Subscription::factory()
+            ->active()
+            ->for($manager)
+            ->create(['plan_id' => $plan->id, 'quantity' => 5]);
+
+        $existing = User::factory()->create();
+
+        Livewire::actingAs($manager)
+            ->test(ManageUsers::class)
+            ->call('attachExistingUser', $existing->id)
+            ->assertHasNoErrors();
+
+        assertDatabaseHas('subscription_user', [
+            'subscription_id' => $subscription->id,
+            'user_id' => $existing->id,
+        ]);
+
+        Bus::assertDispatched(
+            ToggleUserActiveJob::class,
+            fn (ToggleUserActiveJob $job): bool => $job->userEmail === $existing->email
+                && $job->isActive
+                && $job->appKey === $plan->planCategory->slug,
+        );
+    });
+
+    it('lets the same account belong to two subscriptions', function (): void {
+        Bus::fake();
+
+        $manager = User::factory()->manager()->create();
+        $plan = Plan::query()->first();
+
+        $sub1 = Subscription::factory()
+            ->active()
+            ->for($manager)
+            ->create(['plan_id' => $plan->id, 'quantity' => 5]);
+
+        $sub2 = Subscription::factory()
+            ->active()
+            ->for($manager)
+            ->create(['plan_id' => $plan->id, 'quantity' => 5]);
+
+        $account = User::factory()->memberOf($sub1)->create();
+
+        Livewire::actingAs($manager)
+            ->test(ManageUsers::class)
+            ->call('selectSubscription', $sub2->id)
+            ->call('attachExistingUser', $account->id);
+
+        assertDatabaseHas('subscription_user', ['subscription_id' => $sub1->id, 'user_id' => $account->id]);
+        assertDatabaseHas('subscription_user', ['subscription_id' => $sub2->id, 'user_id' => $account->id]);
+
+        expect($account->memberSubscriptions()->count())->toBe(2);
+    });
+
+    it('prevents attaching when the subscription is full', function (): void {
+        $manager = User::factory()->manager()->create();
+        $plan = Plan::query()->first();
+
+        $subscription = Subscription::factory()
+            ->active()
+            ->for($manager)
+            ->create(['plan_id' => $plan->id, 'quantity' => 1]); // owner only, no member seats
+
+        $existing = User::factory()->create();
+
+        Livewire::actingAs($manager)
+            ->test(ManageUsers::class)
+            ->call('attachExistingUser', $existing->id);
+
+        assertDatabaseMissing('subscription_user', [
+            'subscription_id' => $subscription->id,
+            'user_id' => $existing->id,
+        ]);
+    });
+
+    it('excludes the owner and current members from attachable accounts', function (): void {
+        $manager = User::factory()->manager()->create();
+        $plan = Plan::query()->first();
+
+        $subscription = Subscription::factory()
+            ->active()
+            ->for($manager)
+            ->create(['plan_id' => $plan->id, 'quantity' => 5]);
+
+        $member = User::factory()->memberOf($subscription)->create();
+        $available = User::factory()->create();
+
+        $options = Livewire::actingAs($manager)
+            ->test(ManageUsers::class)
+            ->instance()
+            ->getAttachableUsers();
+
+        expect($options)
+            ->toHaveKey($available->id)
+            ->not->toHaveKey($member->id)
+            ->not->toHaveKey($manager->id);
     });
 });

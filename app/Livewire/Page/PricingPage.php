@@ -50,7 +50,7 @@ final class PricingPage extends Component
     /**
      * @return array<string, string>
      */
-    private function rules(): array
+    protected function rules(): array
     {
         return [
             'firstName' => 'required|string|max:255',

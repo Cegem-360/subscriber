@@ -7,6 +7,10 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
 
+use function Pest\Laravel\actingAs;
+use function Pest\Laravel\assertGuest;
+use function Pest\Laravel\get;
+
 it('allows guest to verify email with valid signed link', function (): void {
     Event::fake([Verified::class]);
 
@@ -20,7 +24,7 @@ it('allows guest to verify email with valid signed link', function (): void {
         ['id' => $user->id, 'hash' => sha1((string) $user->email)],
     );
 
-    $response = $this->get($verificationUrl);
+    $response = get($verificationUrl);
 
     $response->assertRedirect(route('filament.admin.auth.login'));
     $response->assertSessionHas('notification.status', 'success');
@@ -42,7 +46,7 @@ it('shows info notification when email is already verified', function (): void {
         ['id' => $user->id, 'hash' => sha1((string) $user->email)],
     );
 
-    $response = $this->get($verificationUrl);
+    $response = get($verificationUrl);
 
     $response->assertRedirect(route('filament.admin.auth.login'));
     $response->assertSessionHas('notification.status', 'info');
@@ -60,7 +64,7 @@ it('rejects invalid verification hash', function (): void {
         ['id' => $user->id, 'hash' => 'invalid-hash'],
     );
 
-    $response = $this->get($verificationUrl);
+    $response = get($verificationUrl);
 
     $response->assertForbidden();
     expect($user->fresh()->hasVerifiedEmail())->toBeFalse();
@@ -71,7 +75,7 @@ it('rejects unsigned verification link', function (): void {
         'email_verified_at' => null,
     ]);
 
-    $response = $this->get("/email/verify/{$user->id}/" . sha1((string) $user->email));
+    $response = get("/email/verify/{$user->id}/" . sha1((string) $user->email));
 
     $response->assertForbidden();
     expect($user->fresh()->hasVerifiedEmail())->toBeFalse();
@@ -83,7 +87,7 @@ it('does not require authentication to verify email', function (): void {
     ]);
 
     // Ensure we are not authenticated
-    $this->assertGuest();
+    assertGuest();
 
     $verificationUrl = URL::temporarySignedRoute(
         'verification.verify',
@@ -91,7 +95,7 @@ it('does not require authentication to verify email', function (): void {
         ['id' => $user->id, 'hash' => sha1((string) $user->email)],
     );
 
-    $response = $this->get($verificationUrl);
+    $response = get($verificationUrl);
 
     // Should succeed without being logged in
     $response->assertRedirect(route('filament.admin.auth.login'));
@@ -111,7 +115,7 @@ it('redirects authenticated non-admin user to modules after verification', funct
         ['id' => $user->id, 'hash' => sha1((string) $user->email)],
     );
 
-    $response = $this->actingAs($user)->get($verificationUrl);
+    $response = actingAs($user)->get($verificationUrl);
 
     $response->assertRedirect(route('modules'));
     $response->assertSessionHas('notification.status', 'success');
@@ -131,7 +135,7 @@ it('redirects authenticated admin user to login after verification', function ()
         ['id' => $user->id, 'hash' => sha1((string) $user->email)],
     );
 
-    $response = $this->actingAs($user)->get($verificationUrl);
+    $response = actingAs($user)->get($verificationUrl);
 
     $response->assertRedirect(route('filament.admin.auth.login'));
     $response->assertSessionHas('notification.status', 'success');

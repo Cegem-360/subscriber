@@ -5,9 +5,11 @@ declare(strict_types=1);
 use App\Livewire\Page\QuoteRequestPage;
 use Livewire\Livewire;
 
+use function Pest\Laravel\get;
+
 describe('QuoteRequestPage', function (): void {
     it('is accessible via route', function (): void {
-        $this->get('/ajanlatkeres')
+        get('/ajanlatkeres')
             ->assertOk()
             ->assertSeeLivewire(QuoteRequestPage::class);
     });

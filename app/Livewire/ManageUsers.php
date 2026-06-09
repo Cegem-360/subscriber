@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Livewire;
 
+use App\Actions\AttachSubscriptionMember;
 use App\Enums\SubscriptionStatus;
 use App\Enums\UserRole;
 use App\Models\Subscription;
 use App\Models\User;
+use Filament\Actions\Action;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Actions\EditAction;
@@ -27,7 +29,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Madbox99\UserTeamSync\Facades\UserTeamSync;
-use Madbox99\UserTeamSync\Publisher\Jobs\ToggleUserActiveJob;
 
 class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
 {
@@ -104,10 +105,27 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
                 User::query()
                     ->when(
                         $this->selectedSubscriptionId,
-                        fn ($query) => $query->where('subscription_id', $this->selectedSubscriptionId),
+                        fn ($query) => $query->whereHas(
+                            'memberSubscriptions',
+                            fn ($subQuery) => $subQuery->whereKey($this->selectedSubscriptionId),
+                        ),
                         fn ($query) => $query->whereNull('id'),
                     ),
             )
+            ->headerActions([
+                Action::make('attachExistingUser')
+                    ->label(__('Attach Existing Account'))
+                    ->icon('heroicon-o-link')
+                    ->visible(fn (): bool => ($this->getSelectedSubscription()?->availableSeats() ?? 0) > 0)
+                    ->schema([
+                        Select::make('user_id')
+                            ->label(__('Account'))
+                            ->options(fn (): array => $this->getAttachableUsers())
+                            ->searchable()
+                            ->required(),
+                    ])
+                    ->action(fn (array $data): null => $this->attachExistingUser((int) $data['user_id'])),
+            ])
             ->columns([
                 TextColumn::make('name')
                     ->label(__('Name'))
@@ -190,29 +208,16 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
         $data = $this->form->getState();
         $rawPassword = $data['password'];
 
-        User::query()->create([
+        $user = User::query()->create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($rawPassword),
             'role' => UserRole::Subscriber,
-            'subscription_id' => $subscription->id,
             'email_verified_at' => now(),
             'company_name' => $subscription->user?->company_name ?? '-',
         ]);
 
-        UserTeamSync::createUser(
-            email: $data['email'],
-            name: $data['name'],
-            password: $rawPassword,
-            role: UserRole::Subscriber->value,
-            ownerEmail: $subscription->user?->email ?? '',
-        );
-
-        $appKey = $subscription->plan?->planCategory?->slug;
-
-        if ($appKey !== null && $appKey !== '') {
-            dispatch(new ToggleUserActiveJob(userEmail: $data['email'], isActive: true, appKey: $appKey))->delay(now()->addSeconds(20));
-        }
+        app(AttachSubscriptionMember::class)->handle($subscription, $user, $rawPassword);
 
         Notification::make()
             ->title(__('User created successfully'))
@@ -220,6 +225,84 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
             ->send();
 
         $this->form->fill();
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    public function getAttachableUsers(): array
+    {
+        $subscription = $this->getSelectedSubscription();
+
+        if (! $subscription instanceof Subscription) {
+            return [];
+        }
+
+        return User::query()
+            ->whereKeyNot($subscription->user_id)
+            ->whereDoesntHave(
+                'memberSubscriptions',
+                fn ($query) => $query->whereKey($subscription->id),
+            )
+            ->orderBy('name')
+            ->get()
+            ->mapWithKeys(fn (User $user): array => [
+                $user->id => "{$user->name} ({$user->email})",
+            ])
+            ->all();
+    }
+
+    public function attachExistingUser(int $userId): void
+    {
+        $subscription = $this->getSelectedSubscription();
+
+        if (! $subscription instanceof Subscription) {
+            Notification::make()
+                ->title(__('Please select a subscription first'))
+                ->danger()
+                ->send();
+
+            return;
+        }
+
+        if ($subscription->availableSeats() <= 0) {
+            Notification::make()
+                ->title(__('No available seats in this subscription'))
+                ->body(__('Maximum users reached: :max', ['max' => $subscription->quantity]))
+                ->danger()
+                ->send();
+
+            return;
+        }
+
+        $user = User::query()->find($userId);
+
+        if (! $user instanceof User) {
+            Notification::make()
+                ->title(__('Account not found'))
+                ->danger()
+                ->send();
+
+            return;
+        }
+
+        if ($subscription->members()->whereKey($user->id)->exists()) {
+            Notification::make()
+                ->title(__('This account is already attached to the subscription'))
+                ->danger()
+                ->send();
+
+            return;
+        }
+
+        app(AttachSubscriptionMember::class)->handle($subscription, $user);
+
+        $this->resetTable();
+
+        Notification::make()
+            ->title(__('Account attached successfully'))
+            ->success()
+            ->send();
     }
 
     public function render(): View

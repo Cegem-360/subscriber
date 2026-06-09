@@ -11,7 +11,6 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -32,7 +31,6 @@ use Override;
     'country',
     'stripe_id',
     'billingo_partner_id',
-    'subscription_id',
 ])]
 #[Hidden([
     'password',
@@ -44,11 +42,6 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
     use HasFactory;
     use Notifiable;
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     public function canAccessPanel(Panel $panel): bool
     {
         return true;
@@ -94,9 +87,9 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
         return $this->hasMany(Subscription::class);
     }
 
-    public function memberOfSubscription(): BelongsTo
+    public function memberSubscriptions(): BelongsToMany
     {
-        return $this->belongsTo(Subscription::class, 'subscription_id');
+        return $this->belongsToMany(Subscription::class);
     }
 
     public function isManager(): bool

@@ -10,18 +10,19 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 
+use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
 
 uses(RefreshDatabase::class);
 
 describe('Registration page', function (): void {
     it('renders the registration page', function (): void {
-        $this->get('/admin/register')
+        get('/admin/register')
             ->assertOk();
     });
 
     it('shows company information fieldset', function (): void {
-        $this->get('/admin/register')
+        get('/admin/register')
             ->assertOk()
             ->assertSee(__('Company information'));
     });
@@ -33,7 +34,7 @@ describe('Registration page', function (): void {
     });
 
     it('shows all required form fields', function (): void {
-        $this->get('/admin/register')
+        get('/admin/register')
             ->assertOk()
             ->assertSee(__('Company name'))
             ->assertSee(__('Tax number'))
@@ -44,7 +45,7 @@ describe('Registration page', function (): void {
     });
 
     it('shows standard registration fields', function (): void {
-        $this->get('/admin/register')
+        get('/admin/register')
             ->assertOk()
             ->assertSee(__('filament-panels::pages/auth/register.form.name.label'))
             ->assertSee(__('filament-panels::pages/auth/register.form.email.label'))

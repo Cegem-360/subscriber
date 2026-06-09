@@ -400,7 +400,8 @@ namespace App\Models{
  * @property-read int|null $api_tokens_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invoice> $invoices
  * @property-read int|null $invoices_count
- * @property-read \App\Models\Subscription|null $memberOfSubscription
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subscription> $memberSubscriptions
+ * @property-read int|null $member_subscriptions_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subscription> $subscriptions

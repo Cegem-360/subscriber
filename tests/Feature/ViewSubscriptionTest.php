@@ -9,9 +9,14 @@ use App\Models\Subscription;
 use App\Models\Team;
 use App\Models\TeamPlanPrice;
 use App\Models\User;
+
+use function beforeEach;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Number;
 use Livewire\Livewire;
+
+use function Pest\Laravel\actingAs;
 
 uses(RefreshDatabase::class);
 
@@ -40,14 +45,14 @@ beforeEach(function (): void {
 });
 
 it('can access view page for own subscription', function (): void {
-    $this->actingAs($this->user)
+    actingAs($this->user)
         ->get(route('subscription.view', $this->subscription))
         ->assertOk()
         ->assertSee(__('Subscription Details'));
 });
 
 it('displays subscription details', function (): void {
-    Livewire::actingAs($this->user)
+    Livewire::actingAs(User::factory()->create())
         ->test(ViewSubscriptionPage::class, ['subscription' => $this->subscription])
         ->assertSee($this->plan->name)
         ->assertSee($this->planCategory->name)
@@ -55,7 +60,7 @@ it('displays subscription details', function (): void {
 });
 
 it('shows plan and billing information', function (): void {
-    Livewire::actingAs($this->user)
+    Livewire::actingAs(User::factory()->create())
         ->test(ViewSubscriptionPage::class, ['subscription' => $this->subscription])
         ->assertSee(__('Plan Details'))
         ->assertSee(__('Billing Details'))
@@ -63,30 +68,28 @@ it('shows plan and billing information', function (): void {
 });
 
 it('shows active status for active subscription', function (): void {
-    Livewire::actingAs($this->user)
+    Livewire::actingAs(User::factory()->create())
         ->test(ViewSubscriptionPage::class, ['subscription' => $this->subscription])
         ->assertSee(__('Active'));
 });
 
 it('shows update button for active subscription', function (): void {
-    Livewire::actingAs($this->user)
+    Livewire::actingAs(User::factory()->create())
         ->test(ViewSubscriptionPage::class, ['subscription' => $this->subscription])
         ->assertSee(__('Update'));
 });
 
 it('shows stripe details when subscription is linked', function (): void {
-    Livewire::actingAs($this->user)
+    Livewire::actingAs(User::factory()->create())
         ->test(ViewSubscriptionPage::class, ['subscription' => $this->subscription])
         ->assertSee('sub_test_123')
         ->assertSee(__('Technical Details'));
 });
 
 it('shows team members when present', function (): void {
-    $member = User::factory()->create([
-        'subscription_id' => $this->subscription->id,
-    ]);
+    $member = User::factory()->memberOf($this->subscription)->create();
 
-    Livewire::actingAs($this->user)
+    Livewire::actingAs(User::factory()->create())
         ->test(ViewSubscriptionPage::class, ['subscription' => $this->subscription])
         ->assertSee($member->name)
         ->assertSee($member->email);
@@ -111,7 +114,7 @@ it('shows team-specific custom price when set', function (): void {
 });
 
 it('shows plan default price when team has no custom pricing', function (): void {
-    Livewire::actingAs($this->user)
+    Livewire::actingAs(User::factory()->create())
         ->test(ViewSubscriptionPage::class, ['subscription' => $this->subscription])
         ->assertDontSee(__('(egyedi)'))
         ->assertSee(Number::currency(5000, 'HUF', 'hu', 0));

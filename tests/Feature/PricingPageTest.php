@@ -12,6 +12,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Livewire;
 
+use function Pest\Laravel\get;
+
 uses(RefreshDatabase::class);
 
 beforeEach(function (): void {
@@ -42,7 +44,7 @@ beforeEach(function (): void {
 
 describe('PricingPage', function (): void {
     it('is accessible via route', function (): void {
-        $this->get('/arak')
+        get('/arak')
             ->assertOk()
             ->assertSeeLivewire(PricingPage::class);
     });

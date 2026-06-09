@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Enums\UserRole;
+use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -81,5 +82,15 @@ final class UserFactory extends Factory
         return $this->state(fn (array $attributes): array => [
             'role' => UserRole::Subscriber,
         ]);
+    }
+
+    /**
+     * Attach the created user as a member of the given subscription.
+     */
+    public function memberOf(Subscription $subscription): static
+    {
+        return $this->afterCreating(function (User $user) use ($subscription): void {
+            $user->memberSubscriptions()->syncWithoutDetaching([$subscription->id]);
+        });
     }
 }

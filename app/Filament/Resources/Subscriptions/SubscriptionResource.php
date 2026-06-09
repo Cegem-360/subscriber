@@ -9,6 +9,7 @@ use App\Filament\Resources\Subscriptions\Pages\EditSubscription;
 use App\Filament\Resources\Subscriptions\Pages\ListSubscriptions;
 use App\Filament\Resources\Subscriptions\RelationManagers\ItemsRelationManager;
 use App\Filament\Resources\Subscriptions\RelationManagers\LocalInvoicesRelationManager;
+use App\Filament\Resources\Subscriptions\RelationManagers\MembersRelationManager;
 use App\Filament\Resources\Subscriptions\Schemas\SubscriptionForm;
 use App\Filament\Resources\Subscriptions\Tables\SubscriptionsTable;
 use App\Models\Subscription;
@@ -47,6 +48,7 @@ class SubscriptionResource extends Resource
     public static function getRelations(): array
     {
         return [
+            MembersRelationManager::class,
             ItemsRelationManager::class,
             LocalInvoicesRelationManager::class,
         ];

@@ -63,17 +63,17 @@ class ManagerUserSeeder extends Seeder
         // Create users for subscription 1
         $usersForSub1 = User::factory()
             ->count(3)
+            ->memberOf($subscription1)
             ->create([
                 'role' => UserRole::Subscriber,
-                'subscription_id' => $subscription1->id,
             ]);
 
         // Create users for subscription 2
         $usersForSub2 = User::factory()
             ->count(2)
+            ->memberOf($subscription2)
             ->create([
                 'role' => UserRole::Subscriber,
-                'subscription_id' => $subscription2->id,
             ]);
 
         $this->command->info('✅ Manager 1 created: manager1@manager.com / password');

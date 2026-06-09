@@ -15,7 +15,6 @@ test('to array', function (): void {
             'billingo_partner_id',
             'email_verified_at',
             'role',
-            'subscription_id',
             'company_name',
             'tax_number',
             'address',
