@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Page;
 
+use App\Concerns\RequiresEmailVerification;
 use App\Enums\BillingPeriod;
 use App\Models\Plan;
 use App\Models\Subscription;
@@ -29,6 +30,7 @@ final class UpdateModulePage extends Component implements HasActions, HasSchemas
 {
     use InteractsWithActions;
     use InteractsWithSchemas;
+    use RequiresEmailVerification;
 
     public ?array $data = [];
 
@@ -117,6 +119,10 @@ final class UpdateModulePage extends Component implements HasActions, HasSchemas
 
     public function update(): void
     {
+        if (! $this->guardWrite()) {
+            return;
+        }
+
         $data = $this->form->getState();
         $newPlanId = $data['plan_id'];
         $newQuantity = (int) $data['quantity'];

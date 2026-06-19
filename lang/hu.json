@@ -1,4 +1,11 @@
 {
+    "Verify your email address": "Erősítsd meg az e-mail-címed",
+    "You must verify your email address before performing this action.": "A művelet elvégzéséhez először meg kell erősítened az e-mail-címed.",
+    "Your email address is not verified.": "Az e-mail-címed nincs megerősítve.",
+    "You can browse, but actions are disabled until you verify it.": "Böngészhetsz, de a műveletek le vannak tiltva, amíg meg nem erősíted.",
+    "Resend verification email": "Megerősítő e-mail újraküldése",
+    "Verification link sent": "Megerősítő link elküldve",
+    "A fresh verification link has been sent to your email address.": "Új megerősítő linket küldtünk az e-mail-címedre.",
     "This account is not in your organization": "Ez a fiók nem a szervezetedhez tartozik",
     "Account": "Fiók",
     "Account attached successfully": "Fiók sikeresen csatolva",

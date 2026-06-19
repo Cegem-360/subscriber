@@ -17,7 +17,7 @@ final class RedirectNonAdminFromPanel
         /** @var User|null $user */
         $user = Auth::user();
 
-        if ($user && $user->hasVerifiedEmail() && ! $user->isAdmin() && ! $request->routeIs('filament.admin.auth.logout', 'filament.admin.auth.login', 'filament.admin.auth.profile')) {
+        if ($user && ! $user->isAdmin() && ! $request->routeIs('filament.admin.auth.logout', 'filament.admin.auth.login', 'filament.admin.auth.profile', 'filament.admin.auth.email-verification.*')) {
             return to_route('modules');
         }
 

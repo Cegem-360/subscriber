@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire;
 
+use App\Concerns\RequiresEmailVerification;
 use App\Models\Subscription;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
@@ -26,6 +27,7 @@ class SubscrubersSubscriptionsTable extends Component implements HasActions, Has
     use InteractsWithActions;
     use InteractsWithSchemas;
     use InteractsWithTable;
+    use RequiresEmailVerification;
 
     public function table(Table $table): Table
     {
@@ -70,7 +72,7 @@ class SubscrubersSubscriptionsTable extends Component implements HasActions, Has
                     ->label(__('Update'))
                     ->icon('heroicon-o-arrow-path')
                     ->url(fn (Subscription $record): string => route('subscription.update', $record))
-                    ->visible(fn (Subscription $record): bool => $record->isActive()),
+                    ->visible(fn (Subscription $record): bool => $this->userEmailVerified() && $record->isActive()),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

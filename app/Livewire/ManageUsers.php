@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire;
 
 use App\Actions\AttachSubscriptionMember;
+use App\Concerns\RequiresEmailVerification;
 use App\Enums\SubscriptionStatus;
 use App\Enums\UserRole;
 use App\Models\Subscription;
@@ -35,6 +36,7 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
     use InteractsWithActions;
     use InteractsWithSchemas;
     use InteractsWithTable;
+    use RequiresEmailVerification;
 
     public ?int $selectedSubscriptionId = null;
 
@@ -116,7 +118,7 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
                 Action::make('attachExistingUser')
                     ->label(__('Attach Existing Account'))
                     ->icon('heroicon-o-link')
-                    ->visible(fn (): bool => ($this->getSelectedSubscription()?->availableSeats() ?? 0) > 0)
+                    ->visible(fn (): bool => $this->userEmailVerified() && ($this->getSelectedSubscription()?->availableSeats() ?? 0) > 0)
                     ->schema([
                         Select::make('user_id')
                             ->label(__('Account'))
@@ -144,6 +146,7 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
             ->recordActions([
                 EditAction::make()
                     ->label(__('Edit'))
+                    ->visible(fn (): bool => $this->userEmailVerified())
                     ->schema([
                         TextInput::make('name')
                             ->label(__('Name'))
@@ -186,6 +189,10 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
 
     public function createUser(): void
     {
+        if (! $this->guardWrite()) {
+            return;
+        }
+
         $subscription = $this->getSelectedSubscription();
 
         if (! $subscription instanceof Subscription) {
@@ -259,6 +266,10 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
 
     public function attachExistingUser(int $userId): void
     {
+        if (! $this->guardWrite()) {
+            return;
+        }
+
         $subscription = $this->getSelectedSubscription();
 
         if (! $subscription instanceof Subscription) {

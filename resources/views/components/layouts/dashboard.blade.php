@@ -36,6 +36,9 @@
                 {{-- Header --}}
                 <x-layouts.dashboard-header />
 
+                {{-- Email verification notice (read-only mode) --}}
+                <x-email-verification-banner />
+
                 {{-- Page content --}}
                 <main class="flex-1 overflow-y-auto p-6">
                     {{ $slot }}

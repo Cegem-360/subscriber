@@ -175,7 +175,24 @@ Route::middleware(['guest'])->group(function (): void {
     Route::get(uri: '/login', action: fn (): Redirector|RedirectResponse => to_route(route: 'filament.admin.auth.login'))->name(name: 'login');
     Route::get(uri: '/register', action: fn (): Redirector|RedirectResponse => to_route(route: 'filament.admin.auth.register'))->name(name: 'register');
 });
-Route::middleware(['auth', 'verified'])->group(function (): void {
+// Resend the verification email (used by the read-only banner).
+Route::post('/email/verification-notification', function (): RedirectResponse {
+    $user = Auth::user();
+
+    if ($user && ! $user->hasVerifiedEmail()) {
+        $user->sendEmailVerificationNotification();
+    }
+
+    return back()->with('notification', [
+        'status' => 'success',
+        'title' => __('Verification link sent'),
+        'body' => __('A fresh verification link has been sent to your email address.'),
+    ]);
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+// Unverified users may view these pages (read-only); write actions are guarded
+// individually inside the components, and at the route level where applicable.
+Route::middleware(['auth'])->group(function (): void {
     Route::get(uri: '/modules', action: SubscriberModulsList::class)->name(name: 'modules');
     Route::get(uri: '/module-order', action: fn (): Factory|View => view(view: 'module-order'))->name(name: 'module.order');
 
@@ -186,7 +203,8 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get(uri: '/manage-users', action: fn (): Factory|View => view('manage-users'))->name(name: 'manage.users');
 
     // Subscription routes - specific routes before wildcard routes
-    Route::post(uri: '/subscription/checkout/{plan}', action: [SubscriptionController::class, 'checkout'])->name(name: 'subscription.checkout');
+    // Checkout writes (starts a Stripe subscription), so it stays behind `verified`.
+    Route::post(uri: '/subscription/checkout/{plan}', action: [SubscriptionController::class, 'checkout'])->middleware('verified')->name(name: 'subscription.checkout');
     Route::get(uri: '/subscription/success/{plan}', action: [SubscriptionController::class, 'success'])->name(name: 'subscription.success');
     Route::get(uri: '/subscription/cancel', action: SubscriptionCancelledPage::class)->name(name: 'subscription.cancel');
 

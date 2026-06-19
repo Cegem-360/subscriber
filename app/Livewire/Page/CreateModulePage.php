@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Page;
 
+use App\Concerns\RequiresEmailVerification;
 use App\Enums\BillingPeriod;
 use App\Models\Plan;
 use App\Models\Plan\PlanCategory;
@@ -32,6 +33,7 @@ final class CreateModulePage extends Component implements HasActions, HasSchemas
 {
     use InteractsWithActions;
     use InteractsWithSchemas;
+    use RequiresEmailVerification;
 
     public ?array $data = [];
 
@@ -127,6 +129,10 @@ final class CreateModulePage extends Component implements HasActions, HasSchemas
 
     public function create(): void
     {
+        if (! $this->guardWrite()) {
+            return;
+        }
+
         $data = $this->form->getState();
         $plan = Plan::query()->findOrFail($data['plan_id']);
         $quantity = (int) $data['quantity'];

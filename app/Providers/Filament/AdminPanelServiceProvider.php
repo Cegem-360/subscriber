@@ -11,6 +11,7 @@ use App\Filament\Pages\Auth\PasswordReset\ResetPassword;
 use App\Filament\Pages\Auth\Register;
 use App\Filament\Pages\EditProfile;
 use App\Filament\Pages\Plans;
+use App\Http\Middleware\BlockWritesWhenUnverified;
 use App\Http\Middleware\RedirectNonAdminFromPanel;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -19,6 +20,8 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\View\PanelsRenderHook;
+use Illuminate\Contracts\View\View;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -41,7 +44,7 @@ final class AdminPanelServiceProvider extends PanelProvider
                 requestAction: RequestPasswordReset::class,
                 resetAction: ResetPassword::class,
             )
-            ->emailVerification(promptAction: EmailVerificationPrompt::class)
+            ->emailVerification(promptAction: EmailVerificationPrompt::class, isRequired: false)
             ->profile(EditProfile::class)
             ->colors([
                 'primary' => Color::Indigo,
@@ -50,6 +53,10 @@ final class AdminPanelServiceProvider extends PanelProvider
             ->plugins([
                 FilamentChatWidgetPlugin::make(),
             ])
+            ->renderHook(
+                PanelsRenderHook::BODY_START,
+                fn (): View => view('components.email-verification-banner'),
+            )
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
@@ -72,6 +79,7 @@ final class AdminPanelServiceProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
                 RedirectNonAdminFromPanel::class,
+                BlockWritesWhenUnverified::class,
             ]);
     }
 }
