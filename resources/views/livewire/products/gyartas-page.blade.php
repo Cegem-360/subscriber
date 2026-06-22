@@ -448,6 +448,7 @@
                     <div class="mt-2 text-sm text-gray-600">{{ __('Manufacturing cost') }}</div>
                 </div>
             </div>
+            <p class="mt-8 text-center text-xs text-gray-400">* {{ __('Illustrative examples') }}</p>
         </div>
     </section>
 
@@ -460,6 +461,8 @@
             </div>
 
             <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {{-- Content audit: PLC/SCADA machine-control integration hidden (not offered) --}}
+                @if(false)
                 <div class="flex items-center gap-4 rounded-xl bg-white p-6 shadow-sm">
                     <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-indigo-100">
                         <svg class="h-6 w-6 text-indigo-600" fill="none" stroke="currentColor"
@@ -473,6 +476,7 @@
                         <p class="text-sm text-gray-600">Siemens, Allen-Bradley, Beckhoff</p>
                     </div>
                 </div>
+                @endif
                 <div class="flex items-center gap-4 rounded-xl bg-white p-6 shadow-sm">
                     <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-indigo-100">
                         <svg class="h-6 w-6 text-indigo-600" fill="none" stroke="currentColor"
@@ -486,6 +490,8 @@
                         <p class="text-sm text-gray-600">Zebra, Honeywell, Datalogic</p>
                     </div>
                 </div>
+                {{-- Content audit: CAD/CAM integration hidden until confirmed live --}}
+                @if(false)
                 <div class="flex items-center gap-4 rounded-xl bg-white p-6 shadow-sm">
                     <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-indigo-100">
                         <svg class="h-6 w-6 text-indigo-600" fill="none" stroke="currentColor"
@@ -499,6 +505,7 @@
                         <p class="text-sm text-gray-600">AutoCAD, SolidWorks, Fusion 360</p>
                     </div>
                 </div>
+                @endif
                 <div class="flex items-center gap-4 rounded-xl bg-white p-6 shadow-sm">
                     <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-indigo-100">
                         <svg class="h-6 w-6 text-indigo-600" fill="none" stroke="currentColor"
@@ -724,4 +731,9 @@
             </div>
         </div>
     </section>
+
+    <x-product.legal-note>
+        <p>{{ __('Cégem360 is not responsible for plant or occupational safety or for machine control; these remain the operator\'s responsibility.') }}</p>
+        <p>{{ __('The employer is responsible for the handling of employee data.') }}</p>
+    </x-product.legal-note>
 </div>
