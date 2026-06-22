@@ -281,6 +281,8 @@
                             </svg>
                             {{ __('Partial and final invoices') }}
                         </li>
+                        {{-- Content audit: payment integration hidden until confirmed live --}}
+                        @if(false)
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-red-500" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
@@ -289,6 +291,7 @@
                             </svg>
                             {{ __('Payment tracking') }}
                         </li>
+                        @endif
                     </ul>
                 </div>
 
@@ -311,6 +314,8 @@
                             </svg>
                             {{ __('Delivery note generation') }}
                         </li>
+                        {{-- Content audit: courier integration hidden until confirmed live --}}
+                        @if(false)
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-red-500" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
@@ -319,6 +324,7 @@
                             </svg>
                             {{ __('Courier integration') }}
                         </li>
+                        @endif
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-red-500" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
@@ -417,6 +423,7 @@
                     <div class="mt-2 text-sm text-gray-600">{{ __('Repeat customers') }}</div>
                 </div>
             </div>
+            <p class="mt-8 text-center text-xs text-gray-400">* {{ __('Illustrative examples') }}</p>
         </div>
     </section>
 
@@ -441,6 +448,8 @@
                         <p class="text-sm text-gray-600">Billingo, Számlázz.hu, NAV</p>
                     </div>
                 </div>
+                {{-- Content audit: payment / courier / webshop integrations hidden until confirmed live --}}
+                @if(false)
                 <div class="flex items-center gap-4 rounded-xl bg-white p-6 shadow-sm">
                     <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-red-100">
                         <svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -477,6 +486,7 @@
                         <p class="text-sm text-gray-600">Barion, SimplePay, OTP</p>
                     </div>
                 </div>
+                @endif
                 <div class="flex items-center gap-4 rounded-xl bg-white p-6 shadow-sm">
                     <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-red-100">
                         <svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -679,4 +689,9 @@
             </div>
         </div>
     </section>
+
+    <x-product.legal-note>
+        <p>{{ __('Invoicing complies with the applicable VAT Act and NAV (Hungarian Tax Authority) requirements; the user is responsible for the accuracy of the data content.') }}</p>
+        <p>{{ __('The module can be connected to the Cégem360 Invoicing module.') }}</p>
+    </x-product.legal-note>
 </div>
