@@ -194,8 +194,14 @@
                         </svg>
                     </div>
                     <h3 class="mb-3 text-xl font-semibold text-gray-900">{{ __('Automatic notifications') }}</h3>
+                    {{-- Content audit: original copy mentioning SMS hidden; SMS not offered --}}
+                    @if(false)
                     <p class="mb-4 text-gray-600">
                         {{ __('Automatically send emails, SMS messages, or system notifications about events.') }}
+                    </p>
+                    @endif
+                    <p class="mb-4 text-gray-600">
+                        {{ __('Automatically send emails or system notifications about events.') }}
                     </p>
                     <ul class="space-y-2 text-sm text-gray-600">
                         <li class="flex items-center gap-2">
@@ -204,11 +210,20 @@
                             </svg>
                             {{ __('Email templates') }}
                         </li>
+                        {{-- Content audit: SMS hidden (not offered); push notifications kept --}}
+                        @if(false)
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
                             {{ __('SMS and push notifications') }}
+                        </li>
+                        @endif
+                        <li class="flex items-center gap-2">
+                            <svg class="h-4 w-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            {{ __('Push notifications') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -355,6 +370,7 @@
                     <div class="text-sm text-violet-100">{{ __('ROI within 12 months') }}</div>
                 </div>
             </div>
+            <p class="mt-8 text-center text-xs text-violet-200/70">* {{ __('Illustrative examples') }}</p>
         </div>
     </section>
 
@@ -638,4 +654,8 @@
             </div>
         </div>
     </section>
+
+    <x-product.legal-note>
+        <p>{{ __('Email sending is live, and document generation (e.g. invoices via the Invoicing module) is supported. The customer is responsible for the workflow configuration. We act as a data processor (DPA); AI clauses apply where relevant.') }}</p>
+    </x-product.legal-note>
 </div>
