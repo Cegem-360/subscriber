@@ -416,6 +416,7 @@
                     <div class="mt-2 text-sm text-gray-600">{{ __('Admin time reduction') }}</div>
                 </div>
             </div>
+            <p class="mt-8 text-center text-xs text-gray-400">* {{ __('Illustrative examples') }}</p>
         </div>
     </section>
 
@@ -678,4 +679,8 @@
             </div>
         </div>
     </section>
+
+    <x-product.legal-note>
+        <p>{{ __('Email sending is live, but consent and content are the customer\'s responsibility. We act as a data processor (DPA). Lead scoring constitutes profiling.') }}</p>
+    </x-product.legal-note>
 </div>
