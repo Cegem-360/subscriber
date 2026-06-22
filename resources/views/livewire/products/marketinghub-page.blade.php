@@ -411,15 +411,19 @@
                     <p class="text-4xl font-bold text-white">{{ __('1 min') }}</p>
                     <p class="mt-2 text-pink-100">{{ __('to create a segment') }}</p>
                 </div>
+                {{-- Content audit: absolute "100% GDPR compliance" claim hidden --}}
+                @if(false)
                 <div class="rounded-2xl bg-white/10 p-6 text-center backdrop-blur-sm">
                     <p class="text-4xl font-bold text-white">100%</p>
                     <p class="mt-2 text-pink-100">{{ __('GDPR compliance') }}</p>
                 </div>
+                @endif
                 <div class="rounded-2xl bg-white/10 p-6 text-center backdrop-blur-sm">
                     <p class="text-4xl font-bold text-white">8+</p>
                     <p class="mt-2 text-pink-100">{{ __('integrations available') }}</p>
                 </div>
             </div>
+            <p class="mt-8 text-center text-xs text-pink-100/70">* {{ __('Illustrative examples') }}</p>
         </div>
     </section>
 
@@ -622,4 +626,8 @@
                 </div>
         </div>
     </section>
+
+    <x-product.legal-note>
+        <p>{{ __('Email sending is live; the AI assistant uses an external AI service. We act as a data processor (DPA), and obtaining consent is the customer\'s responsibility.') }}</p>
+    </x-product.legal-note>
 </div>
