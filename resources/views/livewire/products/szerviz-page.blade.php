@@ -267,6 +267,8 @@
                             </svg>
                             {{ __('On-site client signature') }}
                         </li>
+                        {{-- Content audit: misleading "legally accepted" claim hidden; replaced with accurate wording (not a qualified e-signature) --}}
+                        @if(false)
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-cyan-500" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
@@ -274,6 +276,15 @@
                                     clip-rule="evenodd" />
                             </svg>
                             {{ __('Legally accepted format') }}
+                        </li>
+                        @endif
+                        <li class="flex items-start gap-2">
+                            <svg class="mt-1 h-4 w-4 shrink-0 text-cyan-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            {{ __('Signature attached to the PDF as an image') }}
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-cyan-500" fill="currentColor" viewBox="0 0 20 20">
@@ -585,4 +596,9 @@
             </div>
         </div>
     </section>
+
+    <x-product.legal-note>
+        <p>{{ __('The customer signs on-site; the system saves the signature as an image and attaches it to the PDF. This is not a qualified electronic signature.') }}</p>
+        <p>{{ __('The customer is responsible for the photos and data uploaded.') }}</p>
+    </x-product.legal-note>
 </div>
