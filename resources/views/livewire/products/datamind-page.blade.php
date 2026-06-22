@@ -422,6 +422,7 @@
                     <p class="mt-2 text-violet-100">{{ __('data source integrations') }}</p>
                 </div>
             </div>
+            <p class="mt-8 text-center text-xs text-violet-200/70">* {{ __('Illustrative examples') }}</p>
         </div>
     </section>
 
@@ -706,4 +707,8 @@
             </div>
         </div>
     </section>
+
+    <x-product.legal-note>
+        <p>{{ __('Predictions are not guarantees. The platform uses an external AI service and the Google API, which may involve international data transfer. The legality of connected data sources is the customer\'s responsibility. We act as a data processor (DPA).') }}</p>
+    </x-product.legal-note>
 </div>
