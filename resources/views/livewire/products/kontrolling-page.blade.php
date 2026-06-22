@@ -371,6 +371,8 @@
                     </div>
                     <h3 class="mb-3 text-xl font-semibold text-gray-900">{{ __('Financial integrations') }}</h3>
                     <ul class="space-y-2 text-gray-600">
+                        {{-- Content audit: bank-sync hidden until confirmed live --}}
+                        @if(false)
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-emerald-500" fill="currentColor"
                                 viewBox="0 0 20 20">
@@ -380,6 +382,7 @@
                             </svg>
                             {{ __('Bank account synchronization') }}
                         </li>
+                        @endif
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-emerald-500" fill="currentColor"
                                 viewBox="0 0 20 20">
@@ -443,6 +446,7 @@
                     <div class="mt-2 text-sm text-gray-600">{{ __('Decision-making speed') }}</div>
                 </div>
             </div>
+            <p class="mt-8 text-center text-xs text-gray-400">* {{ __('Illustrative examples') }}</p>
         </div>
     </section>
 
@@ -691,4 +695,8 @@
             </div>
         </div>
     </section>
+
+    <x-product.legal-note>
+        <p>{{ __('Cégem360 Controlling is not accounting software and does not provide tax advice.') }}</p>
+    </x-product.legal-note>
 </div>
