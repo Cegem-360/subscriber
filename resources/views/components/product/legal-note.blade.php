@@ -15,6 +15,8 @@
             <div class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
                 <a href="{{ route('legal.adatvedelmi-tajekoztato') }}"
                     class="font-medium text-gray-700 underline underline-offset-2 hover:text-gray-900">{{ __('Privacy notice') }}</a>
+                <a href="{{ route('legal.adatfeldolgozoi-tajekoztato') }}"
+                    class="font-medium text-gray-700 underline underline-offset-2 hover:text-gray-900">{{ __('Data Processing Agreement') }}</a>
                 <a href="{{ route('legal.szolgaltatasi-feltetelek') }}"
                     class="font-medium text-gray-700 underline underline-offset-2 hover:text-gray-900">{{ __('Terms of service') }}</a>
             </div>

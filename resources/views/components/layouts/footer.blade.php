@@ -179,6 +179,8 @@
                     <span class="text-gray-300">|</span>
                     <a href="{{ route('legal.adatvedelmi-tajekoztato') }}" class="hover:text-gray-700 transition-colors">{{ __('Privacy notice') }}</a>
                     <span class="text-gray-300">|</span>
+                    <a href="{{ route('legal.adatfeldolgozoi-tajekoztato') }}" class="hover:text-gray-700 transition-colors">{{ __('Data Processing Agreement') }}</a>
+                    <span class="text-gray-300">|</span>
                     <a href="{{ route('legal.cookie-beallitasok') }}" class="hover:text-gray-700 transition-colors">{{ __('Cookie settings') }}</a>
                 </div>
             </div>
