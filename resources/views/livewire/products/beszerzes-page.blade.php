@@ -329,6 +329,8 @@
                             </svg>
                             {{ __('Shipment tracking') }}
                         </li>
+                        {{-- Content audit: courier integration hidden until confirmed live --}}
+                        @if(false)
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
                                 viewBox="0 0 20 20">
@@ -338,6 +340,7 @@
                             </svg>
                             {{ __('Courier service integration') }}
                         </li>
+                        @endif
                         <li class="flex items-start gap-2">
                             <svg class="mt-1 h-4 w-4 shrink-0 text-amber-500" fill="currentColor"
                                 viewBox="0 0 20 20">
@@ -443,6 +446,7 @@
                     <div class="mt-2 text-sm text-gray-600">{{ __('Stocktaking speed') }}</div>
                 </div>
             </div>
+            <p class="mt-8 text-center text-xs text-gray-400">* {{ __('Illustrative examples') }}</p>
         </div>
     </section>
 
@@ -468,6 +472,8 @@
                         <p class="text-sm text-gray-600">Zebra, Honeywell, Datalogic</p>
                     </div>
                 </div>
+                {{-- Content audit: courier / invoicing / webshop integrations hidden until confirmed live --}}
+                @if(false)
                 <div class="flex items-center gap-4 rounded-xl bg-white p-6 shadow-sm">
                     <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-amber-100">
                         <svg class="h-6 w-6 text-amber-600" fill="none" stroke="currentColor"
@@ -507,6 +513,7 @@
                         <p class="text-sm text-gray-600">WooCommerce, Shopify, Shoprenter</p>
                     </div>
                 </div>
+                @endif
                 <div class="flex items-center gap-4 rounded-xl bg-white p-6 shadow-sm">
                     <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-amber-100">
                         <svg class="h-6 w-6 text-amber-600" fill="none" stroke="currentColor"
@@ -718,4 +725,8 @@
             </div>
         </div>
     </section>
+
+    <x-product.legal-note>
+        <p>{{ __('We do not guarantee the accuracy of stock data.') }}</p>
+    </x-product.legal-note>
 </div>
