@@ -17,6 +17,25 @@ it('renders successfully', function (): void {
         ->assertSuccessful();
 });
 
+it('displays the main account modules to an attached member', function (): void {
+    $category = PlanCategory::factory()->create(['name' => 'CRM']);
+    $plan = Plan::factory()->category($category->id)->create();
+
+    $owner = User::factory()->create();
+    $subscription = Subscription::factory()->active()->create([
+        'user_id' => $owner->id,
+        'plan_id' => $plan->id,
+        'quantity' => 5,
+    ]);
+
+    $member = User::factory()->memberOf($subscription)->create();
+
+    Livewire::actingAs($member)
+        ->test(SubscriberModulsList::class)
+        ->assertSee('CRM')
+        ->assertDontSee('Nincs aktív modul');
+});
+
 it('displays subscriptions in alphabetical order by category name', function (): void {
     $user = User::factory()->create();
 

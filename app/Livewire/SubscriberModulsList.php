@@ -19,7 +19,7 @@ class SubscriberModulsList extends Component
     #[Computed]
     public function subscriptions()
     {
-        return Auth::user()->subscriptions()
+        return Auth::user()->accessibleSubscriptions()
             ->activeSubscription()
             ->join('plans', 'subscriptions.plan_id', '=', 'plans.id')
             ->join('plan_categories', 'plans.plan_category_id', '=', 'plan_categories.id')
