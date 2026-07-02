@@ -1,0 +1,6 @@
+integrations:
+  forge:
+    cegem360.eu:
+      org-slug: cegem-360-kft
+      server-id: 1173887
+      site-id: 3075989
