@@ -10,6 +10,7 @@ use App\Enums\UserRole;
 use App\Filament\Resources\Users\UserResource;
 use App\Models\Plan;
 use BackedEnum;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -127,6 +128,44 @@ final class CreateCustomer extends Page
                                 ])
                                 ->defaultItems(0)->columns(2)
                                 ->addActionLabel('Tag hozzáadása'),
+                        ]),
+                    Step::make('Összegzés')
+                        ->schema([
+                            Placeholder::make('summary_owner')
+                                ->label('Főfiók')
+                                ->content(fn (Get $get): string => sprintf(
+                                    '%s (%s) — %s',
+                                    $get('name') ?: '—',
+                                    $get('email') ?: '—',
+                                    $get('company_name') ?: '—',
+                                )),
+                            Placeholder::make('summary_plans')
+                                ->label('Csomagok')
+                                ->content(function (Get $get): string {
+                                    $rows = collect($get('plans') ?? []);
+
+                                    if ($rows->isEmpty()) {
+                                        return 'Nincs kiválasztott csomag';
+                                    }
+
+                                    $names = Plan::query()
+                                        ->whereIn('id', $rows->pluck('plan_id')->filter()->all())
+                                        ->pluck('name', 'id');
+
+                                    return $rows->map(fn (array $row): string => sprintf(
+                                        '%s (%d férőhely)',
+                                        $names[$row['plan_id']] ?? '#' . $row['plan_id'],
+                                        (int) $row['quantity'],
+                                    ))->implode(', ');
+                                }),
+                            Placeholder::make('summary_team')
+                                ->label('Team')
+                                ->content(fn (Get $get): string => $get('create_team')
+                                    ? ($get('team_name') ?: 'A cégnév alapján')
+                                    : 'Nem jön létre team'),
+                            Placeholder::make('summary_members')
+                                ->label('Tagok')
+                                ->content(fn (Get $get): string => count($get('members') ?? []) . ' tag'),
                         ]),
                 ])
                     ->columnSpanFull(),
