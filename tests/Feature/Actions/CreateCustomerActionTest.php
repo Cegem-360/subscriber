@@ -116,3 +116,29 @@ test('creates no team when create_team is false', function (): void {
     expect(Team::query()->count())->toBe(0);
     Bus::assertNotDispatched(CreateTeamJob::class);
 });
+
+test('creates members and attaches each to every subscription', function (): void {
+    $plans = Plan::factory()->count(2)->create();
+
+    $owner = app(CreateCustomer::class)->handle(ownerPayload([
+        'plans' => [
+            ['plan_id' => $plans[0]->id, 'quantity' => 5],
+            ['plan_id' => $plans[1]->id, 'quantity' => 5],
+        ],
+        'members' => [
+            ['name' => 'Tag Egy', 'email' => 'tag1@example.com', 'password' => 'secret123', 'role' => UserRole::Subscriber->value],
+            ['name' => 'Tag Kettő', 'email' => 'tag2@example.com', 'password' => 'secret123', 'role' => UserRole::Subscriber->value],
+        ],
+    ]));
+
+    $member = User::query()->where('email', 'tag1@example.com')->first();
+
+    expect($member)->not->toBeNull()
+        ->and($member->company_name)->toBe('Példa Kft.')
+        ->and(Hash::check('secret123', $member->password))->toBeTrue();
+
+    // attached to both subscriptions
+    $subscriptionIds = Subscription::withoutGlobalScopes()->where('user_id', $owner->id)->pluck('id');
+    expect($member->memberSubscriptions()->pluck('subscriptions.id')->sort()->values()->all())
+        ->toEqual($subscriptionIds->sort()->values()->all());
+});

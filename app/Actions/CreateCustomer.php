@@ -137,6 +137,17 @@ final class CreateCustomer
      */
     private function createMember(array $member, User $owner, Collection $subscriptions): void
     {
-        throw new \LogicException('Implemented in Task 3.');
+        $user = User::query()->create([
+            'name' => $member['name'],
+            'email' => $member['email'],
+            'password' => Hash::make($member['password']),
+            'role' => $member['role'],
+            'company_name' => $owner->company_name,
+            'email_verified_at' => now(),
+        ]);
+
+        foreach ($subscriptions as $subscription) {
+            $this->attachMember->handle($subscription, $user, $member['password']);
+        }
     }
 }
