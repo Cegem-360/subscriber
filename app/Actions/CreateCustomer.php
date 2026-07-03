@@ -115,7 +115,20 @@ final class CreateCustomer
 
     private function createTeam(string $name, User $owner): Team
     {
-        throw new \LogicException('Implemented in Task 2.');
+        $team = Team::query()->create([
+            'name' => $name,
+            'slug' => Str::slug($name) . '-' . Str::lower(Str::random(6)),
+        ]);
+
+        $owner->teams()->attach($team);
+
+        UserTeamSync::createTeam(
+            teamName: $team->name,
+            userEmail: $owner->email,
+            userName: $owner->name,
+        );
+
+        return $team;
     }
 
     /**
