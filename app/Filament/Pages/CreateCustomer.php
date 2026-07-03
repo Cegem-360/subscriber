@@ -49,6 +49,7 @@ final class CreateCustomer extends Page
         return Auth::user()?->isAdmin() ?? false;
     }
 
+    #[Override]
     public static function canAccess(): bool
     {
         return Auth::user()?->isAdmin() ?? false;
@@ -74,7 +75,6 @@ final class CreateCustomer extends Page
                                 ->options([
                                     UserRole::Manager->value => 'Manager',
                                     UserRole::Subscriber->value => 'Subscriber',
-                                    UserRole::Admin->value => 'Admin',
                                 ])
                                 ->default(UserRole::Manager->value)->required(),
                             TextInput::make('company_name')->label('Cégnév')->required()->maxLength(255),
@@ -182,7 +182,19 @@ final class CreateCustomer extends Page
             return;
         }
 
-        $owner = app(CreateCustomerAction::class)->handle($data);
+        try {
+            $owner = app(CreateCustomerAction::class)->handle($data);
+        } catch (\Throwable $exception) {
+            report($exception);
+
+            Notification::make()
+                ->danger()
+                ->title('Hiba az ügyfél létrehozásakor')
+                ->body('A művelet nem sikerült. Ellenőrizd a naplót és próbáld újra.')
+                ->send();
+
+            return;
+        }
 
         Notification::make()
             ->success()
@@ -213,7 +225,7 @@ final class CreateCustomer extends Page
         }
 
         $memberCount = count($data['members'] ?? []);
-        $minSeats = collect($data['plans'])->min(fn (array $plan): int => (int) $plan['quantity'] - 1) ?? 0;
+        $minSeats = collect($data['plans'] ?? [])->min(fn (array $plan): int => (int) $plan['quantity'] - 1) ?? 0;
 
         if ($memberCount > $minSeats) {
             Notification::make()

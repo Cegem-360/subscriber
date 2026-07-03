@@ -34,29 +34,74 @@ final class CreateCustomer
      */
     public function handle(array $data): User
     {
-        return DB::transaction(function () use ($data): User {
-            $owner = $this->createOwner($data);
+        /** @var array{0: User, 1: Team|null, 2: Collection<int, Subscription>, 3: array<int, array{0: User, 1: string}>} $context */
+        $context = DB::transaction(function () use ($data): array {
+            $owner = $this->createOwnerRecord($data);
 
             $team = ! empty($data['create_team'])
-                ? $this->createTeam($this->resolveTeamName($data, $owner), $owner)
+                ? $this->createTeamRecord($this->resolveTeamName($data, $owner), $owner)
                 : null;
 
             $subscriptions = $this->createSubscriptions($owner, $data['plans'] ?? [], $team);
 
-            foreach ($data['members'] ?? [] as $member) {
-                $this->createMember($member, $owner, $subscriptions);
-            }
+            $members = array_map(
+                fn (array $member): array => [$this->createMemberRecord($member, $owner), $member['password']],
+                $data['members'] ?? [],
+            );
 
-            return $owner;
+            return [$owner, $team, $subscriptions, $members];
         });
+
+        [$owner, $team, $subscriptions, $members] = $context;
+
+        $this->provisionAcrossApps($owner, $team, $subscriptions, $members, $data['password']);
+
+        return $owner;
+    }
+
+    /**
+     * Cross-app provisioning, run AFTER the local transaction commits so a
+     * rollback never leaves orphaned remote accounts (QUEUE_CONNECTION=sync
+     * runs these jobs inline). The SubscriptionObserver's owner activation
+     * still fires on subscription creation inside the transaction — that is
+     * pre-existing shared behaviour and a toggle (not a create), so it is
+     * intentionally left as-is.
+     *
+     * @param  Collection<int, Subscription>  $subscriptions
+     * @param  array<int, array{0: User, 1: string}>  $members
+     */
+    private function provisionAcrossApps(User $owner, ?Team $team, Collection $subscriptions, array $members, string $ownerPassword): void
+    {
+        UserTeamSync::createUser(
+            email: $owner->email,
+            name: $owner->name,
+            password: $ownerPassword,
+            role: $owner->role->value,
+            ownerEmail: $owner->email,
+        );
+
+        if ($team instanceof Team) {
+            UserTeamSync::createTeam(
+                teamName: $team->name,
+                userEmail: $owner->email,
+                slug: $team->slug,
+                userName: $owner->name,
+            );
+        }
+
+        foreach ($members as [$member, $rawPassword]) {
+            foreach ($subscriptions as $subscription) {
+                $this->attachMember->handle($subscription, $member, $rawPassword);
+            }
+        }
     }
 
     /**
      * @param  array<string, mixed>  $data
      */
-    private function createOwner(array $data): User
+    private function createOwnerRecord(array $data): User
     {
-        $owner = User::query()->create([
+        return User::query()->create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
@@ -69,16 +114,6 @@ final class CreateCustomer
             'country' => $data['country'],
             'email_verified_at' => now(),
         ]);
-
-        UserTeamSync::createUser(
-            email: $owner->email,
-            name: $owner->name,
-            password: $data['password'],
-            role: $owner->role->value,
-            ownerEmail: $owner->email,
-        );
-
-        return $owner;
     }
 
     /**
@@ -103,8 +138,6 @@ final class CreateCustomer
         })->values();
     }
 
-    // --- Team + member helpers filled in by later tasks ---
-
     /**
      * @param  array<string, mixed>  $data
      */
@@ -113,7 +146,7 @@ final class CreateCustomer
         return filled($data['team_name'] ?? null) ? (string) $data['team_name'] : (string) $owner->company_name;
     }
 
-    private function createTeam(string $name, User $owner): Team
+    private function createTeamRecord(string $name, User $owner): Team
     {
         $team = Team::query()->create([
             'name' => $name,
@@ -122,22 +155,15 @@ final class CreateCustomer
 
         $owner->teams()->attach($team);
 
-        UserTeamSync::createTeam(
-            teamName: $team->name,
-            userEmail: $owner->email,
-            userName: $owner->name,
-        );
-
         return $team;
     }
 
     /**
      * @param  array{name: string, email: string, password: string, role: string}  $member
-     * @param  Collection<int, Subscription>  $subscriptions
      */
-    private function createMember(array $member, User $owner, Collection $subscriptions): void
+    private function createMemberRecord(array $member, User $owner): User
     {
-        $user = User::query()->create([
+        return User::query()->create([
             'name' => $member['name'],
             'email' => $member['email'],
             'password' => Hash::make($member['password']),
@@ -145,9 +171,5 @@ final class CreateCustomer
             'company_name' => $owner->company_name,
             'email_verified_at' => now(),
         ]);
-
-        foreach ($subscriptions as $subscription) {
-            $this->attachMember->handle($subscription, $user, $member['password']);
-        }
     }
 }
