@@ -2,9 +2,14 @@
 
 declare(strict_types=1);
 
+use App\Enums\UserRole;
 use App\Filament\Pages\CreateCustomer;
+use App\Models\Plan;
+use App\Models\Subscription;
 use App\Models\User;
+use Illuminate\Support\Facades\Bus;
 
+use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Livewire\livewire;
 
 test('admin can render the create customer page', function (): void {
@@ -18,4 +23,41 @@ test('non-admin cannot access the create customer page', function (): void {
 
     $this->actingAs(User::factory()->admin()->create());
     expect(CreateCustomer::canAccess())->toBeTrue();
+});
+
+test('wizard creates owner, subscription and member end to end', function (): void {
+    Bus::fake();
+    $this->actingAs(User::factory()->admin()->create());
+
+    $plan = Plan::factory()->create();
+
+    livewire(CreateCustomer::class)
+        ->fillForm([
+            'name' => 'Kovács Anna',
+            'email' => 'anna@example.com',
+            'password' => 'password123',
+            'role' => UserRole::Manager->value,
+            'company_name' => 'Anna Kft.',
+            'tax_number' => '11111111-1-11',
+            'address' => 'Fő tér 2.',
+            'city' => 'Szeged',
+            'postal_code' => '6720',
+            'country' => 'HU',
+            'plans' => [
+                ['plan_id' => $plan->id, 'quantity' => 4],
+            ],
+            'create_team' => true,
+            'team_name' => 'Anna Csapat',
+            'members' => [
+                ['name' => 'Tag', 'email' => 'tag@example.com', 'password' => 'secret123', 'role' => UserRole::Subscriber->value],
+            ],
+        ])
+        ->call('create')
+        ->assertHasNoFormErrors();
+
+    assertDatabaseHas('users', ['email' => 'anna@example.com']);
+    assertDatabaseHas('users', ['email' => 'tag@example.com']);
+
+    $owner = User::query()->where('email', 'anna@example.com')->first();
+    expect(Subscription::withoutGlobalScopes()->where('user_id', $owner->id)->count())->toBe(1);
 });

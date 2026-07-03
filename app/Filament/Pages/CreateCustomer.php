@@ -4,8 +4,21 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages;
 
+use App\Actions\CreateCustomer as CreateCustomerAction;
+use App\Enums\Country;
+use App\Enums\UserRole;
+use App\Filament\Resources\Users\UserResource;
+use App\Models\Plan;
 use BackedEnum;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
+use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Wizard;
+use Filament\Schemas\Components\Wizard\Step;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Facades\Auth;
@@ -46,14 +59,93 @@ final class CreateCustomer extends Page
 
     public function form(Schema $schema): Schema
     {
-        // Wizard steps added in Task 5.
         return $schema
-            ->components([])
+            ->components([
+                Wizard::make([
+                    Step::make('Főfiók')
+                        ->schema([
+                            TextInput::make('name')->label('Név')->required()->maxLength(255),
+                            TextInput::make('email')->label('E-mail')->email()->required()
+                                ->unique('users', 'email')->maxLength(255),
+                            TextInput::make('password')->label('Jelszó')->password()->required()->minLength(8),
+                            Select::make('role')->label('Szerep')
+                                ->options([
+                                    UserRole::Manager->value => 'Manager',
+                                    UserRole::Subscriber->value => 'Subscriber',
+                                    UserRole::Admin->value => 'Admin',
+                                ])
+                                ->default(UserRole::Manager->value)->required(),
+                            TextInput::make('company_name')->label('Cégnév')->required()->maxLength(255),
+                            TextInput::make('tax_number')->label('Adószám')->required()->maxLength(255),
+                            TextInput::make('address')->label('Cím')->required()->maxLength(255),
+                            TextInput::make('city')->label('Város')->required()->maxLength(255),
+                            TextInput::make('postal_code')->label('Irányítószám')->required()->maxLength(20),
+                            Select::make('country')->label('Ország')
+                                ->options(Country::class)->default(Country::Hungary)->required(),
+                        ])
+                        ->columns(2),
+                    Step::make('Csomagok')
+                        ->schema([
+                            Repeater::make('plans')
+                                ->label('Csomagok')
+                                ->schema([
+                                    Select::make('plan_id')->label('Csomag')
+                                        ->options(fn (): array => Plan::query()->active()
+                                            ->with('planCategory')->get()
+                                            ->mapWithKeys(fn (Plan $plan): array => [
+                                                $plan->id => ($plan->planCategory?->name ? $plan->planCategory->name . ' — ' : '') . $plan->name,
+                                            ])->all())
+                                        ->required()->searchable(),
+                                    TextInput::make('quantity')->label('Férőhelyek (owner + tagok)')
+                                        ->integer()->minValue(1)->default(1)->required(),
+                                ])
+                                ->minItems(1)->defaultItems(1)->columns(2)
+                                ->addActionLabel('Csomag hozzáadása'),
+                        ]),
+                    Step::make('Team')
+                        ->schema([
+                            Toggle::make('create_team')->label('Team létrehozása')->default(false)->live(),
+                            TextInput::make('team_name')->label('Team neve')
+                                ->placeholder('Alapértelmezés: a cégnév')
+                                ->visible(fn (Get $get): bool => (bool) $get('create_team')),
+                        ]),
+                    Step::make('Tagok')
+                        ->schema([
+                            Repeater::make('members')
+                                ->label('Tagok')
+                                ->schema([
+                                    TextInput::make('name')->label('Név')->required()->maxLength(255),
+                                    TextInput::make('email')->label('E-mail')->email()->required()
+                                        ->unique('users', 'email')->maxLength(255),
+                                    TextInput::make('password')->label('Jelszó')->password()->required()->minLength(8),
+                                    Select::make('role')->label('Szerep')
+                                        ->options([
+                                            UserRole::Subscriber->value => 'Subscriber',
+                                            UserRole::Manager->value => 'Manager',
+                                        ])
+                                        ->default(UserRole::Subscriber->value)->required(),
+                                ])
+                                ->defaultItems(0)->columns(2)
+                                ->addActionLabel('Tag hozzáadása'),
+                        ]),
+                ])
+                    ->columnSpanFull(),
+            ])
             ->statePath('data');
     }
 
     public function create(): void
     {
-        // Implemented in Task 5.
+        $data = $this->form->getState();
+
+        $owner = app(CreateCustomerAction::class)->handle($data);
+
+        Notification::make()
+            ->success()
+            ->title('Ügyfél létrehozva')
+            ->body("{$owner->name} és a hozzá tartozó előfizetés(ek) elkészültek.")
+            ->send();
+
+        $this->redirect(UserResource::getUrl('edit', ['record' => $owner]), navigate: false);
     }
 }
