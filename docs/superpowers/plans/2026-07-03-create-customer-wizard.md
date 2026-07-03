@@ -20,6 +20,7 @@
 - Hozzáférés: csak admin (`User::isAdmin()`).
 - Minden PHP módosítás után: `vendor/bin/pint --dirty --format agent`.
 - Tesztek: `php artisan test --compact --filter=...`.
+- **Sync-provizíció tesztelése:** a `UserTeamSync` facade metódusai job-okat dispatchelnek (`createUser`→`Madbox99\UserTeamSync\Publisher\Jobs\CreateUserJob`, `createTeam`→`CreateTeamJob`, `toggleUserActive`→`ToggleUserActiveJob`) `dispatch()`-en át. Ezért a tesztek `Bus::fake()`-et használnak és `Bus::assertDispatched(CreateUserJob::class, ...)` / `Bus::assertNotDispatched(...)`-tal ellenőriznek — NEM `UserTeamSync::spy()`-t (a facade spy Mockery-vel megbízhatatlan). Job property-k: `CreateUserJob->email`, `CreateTeamJob->teamName`, `ToggleUserActiveJob->userEmail/appKey`.
 
 ## File Structure
 
@@ -58,15 +59,14 @@ use App\Enums\UserRole;
 use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\User;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Queue;
-use Madbox99\UserTeamSync\Facades\UserTeamSync;
+use Madbox99\UserTeamSync\Publisher\Jobs\CreateUserJob;
 
 use function Pest\Laravel\assertDatabaseHas;
 
 beforeEach(function (): void {
-    Queue::fake();
-    UserTeamSync::spy();
+    Bus::fake();
 });
 
 function ownerPayload(array $overrides = []): array
@@ -113,9 +113,7 @@ test('creates owner user with hashed password and provisions on module apps', fu
     expect(Subscription::withoutGlobalScopes()->where('user_id', $owner->id)->first()->stripe_id)
         ->toStartWith('manual_');
 
-    UserTeamSync::shouldHaveReceived('createUser')
-        ->withArgs(fn (string $email): bool => $email === 'owner@example.com')
-        ->once();
+    Bus::assertDispatched(CreateUserJob::class, fn (CreateUserJob $job): bool => $job->email === 'owner@example.com');
 });
 
 test('creates one subscription per selected plan', function (): void {
@@ -300,7 +298,13 @@ git commit -m "feat: add CreateCustomer action (owner + subscriptions)"
 
 - [ ] **Step 1: Write the failing test**
 
-Add to `tests/Feature/Actions/CreateCustomerActionTest.php`:
+Add the job import near the top of `tests/Feature/Actions/CreateCustomerActionTest.php` (next to the existing `use Madbox99\UserTeamSync\Publisher\Jobs\CreateUserJob;`):
+
+```php
+use Madbox99\UserTeamSync\Publisher\Jobs\CreateTeamJob;
+```
+
+Add these tests to `tests/Feature/Actions/CreateCustomerActionTest.php`:
 
 ```php
 test('creates a team, attaches owner, and links subscriptions to it', function (): void {
@@ -319,9 +323,7 @@ test('creates a team, attaches owner, and links subscriptions to it', function (
         ->and(Subscription::withoutGlobalScopes()->where('user_id', $owner->id)->first()->team_id)
             ->toBe($team->id);
 
-    UserTeamSync::shouldHaveReceived('createTeam')
-        ->withArgs(fn (string $teamName): bool => $teamName === 'Csapat Egy')
-        ->once();
+    Bus::assertDispatched(CreateTeamJob::class, fn (CreateTeamJob $job): bool => $job->teamName === 'Csapat Egy');
 });
 
 test('falls back to company name when team name is blank', function (): void {
@@ -337,7 +339,7 @@ test('creates no team when create_team is false', function (): void {
     app(CreateCustomer::class)->handle(ownerPayload(['create_team' => false]));
 
     expect(\App\Models\Team::query()->count())->toBe(0);
-    UserTeamSync::shouldNotHaveReceived('createTeam');
+    Bus::assertNotDispatched(CreateTeamJob::class);
 });
 ```
 
@@ -624,14 +626,12 @@ Add to `tests/Feature/Filament/Pages/CreateCustomerPageTest.php`:
 use App\Enums\UserRole;
 use App\Models\Plan;
 use App\Models\Subscription;
-use Illuminate\Support\Facades\Queue;
-use Madbox99\UserTeamSync\Facades\UserTeamSync;
+use Illuminate\Support\Facades\Bus;
 
 use function Pest\Laravel\assertDatabaseHas;
 
 test('wizard creates owner, subscription and member end to end', function (): void {
-    Queue::fake();
-    UserTeamSync::spy();
+    Bus::fake();
     $this->actingAs(User::factory()->admin()->create());
 
     $plan = Plan::factory()->create();
@@ -826,8 +826,7 @@ Add to `tests/Feature/Filament/Pages/CreateCustomerPageTest.php`:
 
 ```php
 test('blocks submit when members exceed available seats', function (): void {
-    Queue::fake();
-    UserTeamSync::spy();
+    Bus::fake();
     $this->actingAs(User::factory()->admin()->create());
     $plan = Plan::factory()->create();
 
@@ -849,8 +848,7 @@ test('blocks submit when members exceed available seats', function (): void {
 });
 
 test('blocks submit when an email is duplicated between owner and member', function (): void {
-    Queue::fake();
-    UserTeamSync::spy();
+    Bus::fake();
     $this->actingAs(User::factory()->admin()->create());
     $plan = Plan::factory()->create();
 
