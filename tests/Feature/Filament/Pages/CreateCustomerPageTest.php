@@ -61,3 +61,46 @@ test('wizard creates owner, subscription and member end to end', function (): vo
     $owner = User::query()->where('email', 'anna@example.com')->first();
     expect(Subscription::withoutGlobalScopes()->where('user_id', $owner->id)->count())->toBe(1);
 });
+
+test('blocks submit when members exceed available seats', function (): void {
+    Bus::fake();
+    $this->actingAs(User::factory()->admin()->create());
+    $plan = Plan::factory()->create();
+
+    livewire(CreateCustomer::class)
+        ->fillForm([
+            'name' => 'Kis Pál', 'email' => 'pal@example.com', 'password' => 'password123',
+            'role' => UserRole::Manager->value, 'company_name' => 'Pál Kft.', 'tax_number' => '2',
+            'address' => 'A', 'city' => 'B', 'postal_code' => '1', 'country' => 'HU',
+            'plans' => [['plan_id' => $plan->id, 'quantity' => 2]], // 1 seat for members
+            'create_team' => false, 'team_name' => null,
+            'members' => [
+                ['name' => 'T1', 'email' => 't1@example.com', 'password' => 'secret123', 'role' => UserRole::Subscriber->value],
+                ['name' => 'T2', 'email' => 't2@example.com', 'password' => 'secret123', 'role' => UserRole::Subscriber->value],
+            ],
+        ])
+        ->call('create');
+
+    expect(User::query()->where('email', 'pal@example.com')->exists())->toBeFalse();
+});
+
+test('blocks submit when an email is duplicated between owner and member', function (): void {
+    Bus::fake();
+    $this->actingAs(User::factory()->admin()->create());
+    $plan = Plan::factory()->create();
+
+    livewire(CreateCustomer::class)
+        ->fillForm([
+            'name' => 'Dup', 'email' => 'dup@example.com', 'password' => 'password123',
+            'role' => UserRole::Manager->value, 'company_name' => 'Dup Kft.', 'tax_number' => '2',
+            'address' => 'A', 'city' => 'B', 'postal_code' => '1', 'country' => 'HU',
+            'plans' => [['plan_id' => $plan->id, 'quantity' => 5]],
+            'create_team' => false, 'team_name' => null,
+            'members' => [
+                ['name' => 'T1', 'email' => 'dup@example.com', 'password' => 'secret123', 'role' => UserRole::Subscriber->value],
+            ],
+        ])
+        ->call('create');
+
+    expect(User::query()->where('email', 'dup@example.com')->exists())->toBeFalse();
+});

@@ -23,6 +23,7 @@ use Filament\Schemas\Components\Wizard\Step;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Override;
 
 final class CreateCustomer extends Page
@@ -177,6 +178,10 @@ final class CreateCustomer extends Page
     {
         $data = $this->form->getState();
 
+        if (! $this->passesGuards($data)) {
+            return;
+        }
+
         $owner = app(CreateCustomerAction::class)->handle($data);
 
         Notification::make()
@@ -186,5 +191,40 @@ final class CreateCustomer extends Page
             ->send();
 
         $this->redirect(UserResource::getUrl('edit', ['record' => $owner]), navigate: false);
+    }
+
+    /**
+     * @param  array<string, mixed>  $data
+     */
+    private function passesGuards(array $data): bool
+    {
+        $emails = collect([$data['email']])
+            ->merge(collect($data['members'] ?? [])->pluck('email'))
+            ->map(fn (string $email): string => Str::lower(trim($email)));
+
+        if ($emails->count() !== $emails->unique()->count()) {
+            Notification::make()
+                ->danger()
+                ->title('Duplikált e-mail cím')
+                ->body('Az owner és a tagok e-mail címei nem egyezhetnek meg.')
+                ->send();
+
+            return false;
+        }
+
+        $memberCount = count($data['members'] ?? []);
+        $minSeats = collect($data['plans'])->min(fn (array $plan): int => (int) $plan['quantity'] - 1) ?? 0;
+
+        if ($memberCount > $minSeats) {
+            Notification::make()
+                ->danger()
+                ->title('Nincs elég férőhely')
+                ->body("A tagok száma ({$memberCount}) meghaladja a legszűkebb csomag szabad helyeit ({$minSeats}). Növeld a férőhelyeket vagy vegyél fel kevesebb tagot.")
+                ->send();
+
+            return false;
+        }
+
+        return true;
     }
 }
