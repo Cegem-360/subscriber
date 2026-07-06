@@ -7,6 +7,7 @@ use App\Enums\SubscriptionStatus;
 use App\Enums\UserRole;
 use App\Mail\CustomerCredentialsMail;
 use App\Models\Plan;
+use App\Models\Plan\PlanCategory;
 use App\Models\Subscription;
 use App\Models\Team;
 use App\Models\User;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Madbox99\UserTeamSync\Publisher\Jobs\CreateTeamJob;
 use Madbox99\UserTeamSync\Publisher\Jobs\CreateUserJob;
+use Madbox99\UserTeamSync\Publisher\Jobs\ToggleUserActiveJob;
 
 use function Pest\Laravel\assertDatabaseHas;
 
@@ -72,8 +74,9 @@ test('creates owner user with hashed password and provisions on module apps', fu
     });
 });
 
-test('emails login credentials to the owner and every member', function (): void {
-    $plan = Plan::factory()->create();
+test('emails login credentials and active modules to the owner and every member', function (): void {
+    $category = PlanCategory::factory()->create(['name' => 'MarketingHUB', 'slug' => 'marketinghub', 'url' => 'https://marketinghub.cegem360.eu']);
+    $plan = Plan::factory()->create(['plan_category_id' => $category->id]);
 
     app(CreateCustomer::class)->handle(ownerPayload([
         'password' => 'owner-secret',
@@ -84,16 +87,34 @@ test('emails login credentials to the owner and every member', function (): void
         ],
     ]));
 
-    Mail::assertQueued(CustomerCredentialsMail::class, function (CustomerCredentialsMail $mail): bool {
-        return $mail->hasTo('owner@example.com') && $mail->password === 'owner-secret';
-    });
-    Mail::assertQueued(CustomerCredentialsMail::class, function (CustomerCredentialsMail $mail): bool {
-        return $mail->hasTo('tag1@example.com') && $mail->password === 'tag-one-secret';
-    });
-    Mail::assertQueued(CustomerCredentialsMail::class, function (CustomerCredentialsMail $mail): bool {
-        return $mail->hasTo('tag2@example.com') && $mail->password === 'tag-two-secret';
-    });
+    $carriesModule = fn (CustomerCredentialsMail $mail): bool => count($mail->modules) === 1
+        && $mail->modules[0]['name'] === 'MarketingHUB'
+        && $mail->modules[0]['url'] === 'https://marketinghub.cegem360.eu';
+
+    Mail::assertQueued(CustomerCredentialsMail::class, fn (CustomerCredentialsMail $mail): bool => $mail->hasTo('owner@example.com') && $mail->password === 'owner-secret' && $carriesModule($mail));
+    Mail::assertQueued(CustomerCredentialsMail::class, fn (CustomerCredentialsMail $mail): bool => $mail->hasTo('tag1@example.com') && $mail->password === 'tag-one-secret' && $carriesModule($mail));
+    Mail::assertQueued(CustomerCredentialsMail::class, fn (CustomerCredentialsMail $mail): bool => $mail->hasTo('tag2@example.com') && $mail->password === 'tag-two-secret' && $carriesModule($mail));
     Mail::assertQueued(CustomerCredentialsMail::class, 3);
+});
+
+test('activates the owner on the sub-app with a delayed toggle, not during the transaction', function (): void {
+    $category = PlanCategory::factory()->create(['slug' => 'kontrolling']);
+    $plan = Plan::factory()->create(['plan_category_id' => $category->id]);
+
+    app(CreateCustomer::class)->handle(ownerPayload([
+        'plans' => [['plan_id' => $plan->id, 'quantity' => 1]],
+    ]));
+
+    // Exactly one owner activation, dispatched with a delay so it runs AFTER the
+    // user has been synced to the sub-app — not the racing in-transaction toggle
+    // that the SubscriptionObserver would otherwise fire before the user exists.
+    Bus::assertDispatched(ToggleUserActiveJob::class, function (ToggleUserActiveJob $job): bool {
+        return $job->userEmail === 'owner@example.com'
+            && $job->appKey === 'kontrolling'
+            && $job->isActive === true
+            && $job->delay !== null;
+    });
+    Bus::assertDispatchedTimes(ToggleUserActiveJob::class, 1);
 });
 
 test('creates one subscription per selected plan', function (): void {

@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Madbox99\UserTeamSync\Facades\UserTeamSync;
+use Madbox99\UserTeamSync\Publisher\Jobs\ToggleUserActiveJob;
 
 final class CreateCustomer
 {
@@ -59,7 +60,7 @@ final class CreateCustomer
 
         $this->provisionAcrossApps($owner, $team, $subscriptions, $members, $data['password']);
 
-        $this->sendCredentialEmails($owner, $data['password'], $members);
+        $this->sendCredentialEmails($owner, $data['password'], $members, $subscriptions);
 
         return $owner;
     }
@@ -71,24 +72,53 @@ final class CreateCustomer
      * mailable is queued (ShouldQueue), so a queue worker must be running.
      *
      * @param  array<int, array{0: User, 1: string}>  $members
+     * @param  Collection<int, Subscription>  $subscriptions
      */
-    private function sendCredentialEmails(User $owner, string $ownerPassword, array $members): void
+    private function sendCredentialEmails(User $owner, string $ownerPassword, array $members, Collection $subscriptions): void
     {
-        $this->sendCredentialEmail($owner, $ownerPassword);
+        $modules = $this->resolveModules($subscriptions);
+
+        $this->sendCredentialEmail($owner, $ownerPassword, $modules);
 
         foreach ($members as [$member, $rawPassword]) {
-            $this->sendCredentialEmail($member, $rawPassword);
+            $this->sendCredentialEmail($member, $rawPassword, $modules);
         }
     }
 
-    private function sendCredentialEmail(User $user, string $rawPassword): void
+    /**
+     * @param  array<int, array{name: string, url: string|null, icon: string|null}>  $modules
+     */
+    private function sendCredentialEmail(User $user, string $rawPassword, array $modules): void
     {
         Mail::to($user->email)->send(new CustomerCredentialsMail(
             name: $user->name,
             email: $user->email,
             password: $rawPassword,
             loginUrl: (string) Filament::getLoginUrl(),
+            modules: $modules,
         ));
+    }
+
+    /**
+     * The active modules the customer gains access to, taken from the plan
+     * category behind each subscription (name, direct URL and icon).
+     *
+     * @param  Collection<int, Subscription>  $subscriptions
+     * @return array<int, array{name: string, url: string|null, icon: string|null}>
+     */
+    private function resolveModules(Collection $subscriptions): array
+    {
+        return $subscriptions
+            ->map(fn (Subscription $subscription) => $subscription->plan?->planCategory)
+            ->filter()
+            ->unique('id')
+            ->map(fn ($category): array => [
+                'name' => (string) $category->name,
+                'url' => $category->url,
+                'icon' => $category->icon,
+            ])
+            ->values()
+            ->all();
     }
 
     /**
@@ -121,10 +151,33 @@ final class CreateCustomer
             );
         }
 
+        $this->activateOwnerAcrossApps($owner, $subscriptions);
+
         foreach ($members as [$member, $rawPassword]) {
             foreach ($subscriptions as $subscription) {
                 $this->attachMember->handle($subscription, $member, $rawPassword);
             }
+        }
+    }
+
+    /**
+     * Activate the owner on every sub-app they hold a subscription for. Dispatched
+     * with a delay so it runs only after the CreateUserJob above has synced the
+     * owner to the receiver apps — otherwise the toggle updates zero rows and the
+     * owner is left inactive (locked out by the active-subscription middleware).
+     *
+     * @param  Collection<int, Subscription>  $subscriptions
+     */
+    private function activateOwnerAcrossApps(User $owner, Collection $subscriptions): void
+    {
+        $appKeys = $subscriptions
+            ->map(fn (Subscription $subscription): ?string => $subscription->plan?->planCategory?->slug)
+            ->filter()
+            ->unique();
+
+        foreach ($appKeys as $appKey) {
+            dispatch(new ToggleUserActiveJob(userEmail: $owner->email, isActive: true, appKey: $appKey))
+                ->delay(now()->addSeconds(20));
         }
     }
 
@@ -154,7 +207,11 @@ final class CreateCustomer
      */
     private function createSubscriptions(User $owner, array $plans, ?Team $team): Collection
     {
-        return collect($plans)->map(function (array $row) use ($owner, $team): Subscription {
+        // Suppress the SubscriptionObserver's activation toggle here: it would
+        // fire inside the transaction, before the owner is synced to the sub-apps,
+        // so the toggle would hit a not-yet-existing user and silently no-op. The
+        // owner is activated explicitly after the sync in activateOwnerAcrossApps().
+        return Subscription::withoutEvents(fn (): Collection => collect($plans)->map(function (array $row) use ($owner, $team): Subscription {
             $plan = Plan::query()->findOrFail($row['plan_id']);
 
             return Subscription::query()->create([
@@ -167,7 +224,7 @@ final class CreateCustomer
                 'stripe_price' => $plan->stripe_price_id,
                 'quantity' => (int) $row['quantity'],
             ]);
-        })->values();
+        })->values());
     }
 
     /**

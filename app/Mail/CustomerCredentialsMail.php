@@ -15,29 +15,34 @@ final class CustomerCredentialsMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
+    /**
+     * @param  array<int, array{name: string, url: ?string, icon: ?string}>  $modules
+     */
     public function __construct(
         public string $name,
         public string $email,
         public string $password,
         public string $loginUrl,
+        public array $modules = [],
     ) {}
 
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Belépési adatok – Cégem 360',
+            subject: 'Cégem 360 fiókja elkészült — belépési adatok',
         );
     }
 
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.customer-credentials',
+            view: 'emails.customer-credentials',
             with: [
                 'name' => $this->name,
                 'email' => $this->email,
                 'password' => $this->password,
                 'loginUrl' => $this->loginUrl,
+                'modules' => $this->modules,
             ],
         );
     }
