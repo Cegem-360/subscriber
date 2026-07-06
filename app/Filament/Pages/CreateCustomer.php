@@ -23,6 +23,8 @@ use Filament\Schemas\Components\Wizard\Step;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 use Override;
 
@@ -169,6 +171,11 @@ final class CreateCustomer extends Page
                                 ->content(fn (Get $get): string => count($get('members') ?? []) . ' tag'),
                         ]),
                 ])
+                    ->submitAction(new HtmlString(Blade::render(<<<'BLADE'
+                        <x-filament::button type="submit" size="sm" wire:loading.attr="disabled" wire:target="create">
+                            Ügyfél létrehozása
+                        </x-filament::button>
+                    BLADE)))
                     ->columnSpanFull(),
             ])
             ->statePath('data');
