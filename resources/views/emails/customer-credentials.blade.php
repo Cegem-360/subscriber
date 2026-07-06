@@ -104,7 +104,6 @@
                                             <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
                                                 <tbody>
                                                     <tr>
-                                                        <td width="36" valign="middle" style="font-size:20px;padding-right:14px;">{{ $module['icon'] ?: '⚡' }}</td>
                                                         <td valign="middle">
                                                             <p style="margin:0 0 2px;font-size:14px;font-weight:700;color:#0f0f23;">{{ $module['name'] }}</p>
                                                             @if (! empty($module['url']))
