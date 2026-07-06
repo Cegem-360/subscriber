@@ -6,15 +6,16 @@ namespace App\Actions;
 
 use App\Enums\SubscriptionStatus;
 use App\Enums\SubscriptionType;
+use App\Mail\CustomerCredentialsMail;
 use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\Team;
 use App\Models\User;
-use Filament\Auth\Notifications\VerifyEmail;
 use Filament\Facades\Filament;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Madbox99\UserTeamSync\Facades\UserTeamSync;
 
@@ -58,38 +59,36 @@ final class CreateCustomer
 
         $this->provisionAcrossApps($owner, $team, $subscriptions, $members, $data['password']);
 
-        $this->sendEmailVerificationNotifications($owner, $members);
+        $this->sendCredentialEmails($owner, $data['password'], $members);
 
         return $owner;
     }
 
     /**
-     * Send the same email verification notification that the public
-     * registration flow sends, so the owner and every member must verify
-     * their address before they can use the app. Runs after commit; the
-     * notification is queued (ShouldQueue), so a queue worker must be running.
+     * Email login credentials (address + raw password) to the owner and every
+     * member so they can sign in — the admin sets these passwords in the wizard,
+     * so the customers have no other way to learn them. Runs after commit; the
+     * mailable is queued (ShouldQueue), so a queue worker must be running.
      *
      * @param  array<int, array{0: User, 1: string}>  $members
      */
-    private function sendEmailVerificationNotifications(User $owner, array $members): void
+    private function sendCredentialEmails(User $owner, string $ownerPassword, array $members): void
     {
-        $this->sendEmailVerificationNotification($owner);
+        $this->sendCredentialEmail($owner, $ownerPassword);
 
-        foreach ($members as [$member]) {
-            $this->sendEmailVerificationNotification($member);
+        foreach ($members as [$member, $rawPassword]) {
+            $this->sendCredentialEmail($member, $rawPassword);
         }
     }
 
-    private function sendEmailVerificationNotification(User $user): void
+    private function sendCredentialEmail(User $user, string $rawPassword): void
     {
-        if ($user->hasVerifiedEmail()) {
-            return;
-        }
-
-        $notification = app(VerifyEmail::class);
-        $notification->url = Filament::getVerifyEmailUrl($user);
-
-        $user->notify($notification);
+        Mail::to($user->email)->send(new CustomerCredentialsMail(
+            name: $user->name,
+            email: $user->email,
+            password: $rawPassword,
+            loginUrl: (string) Filament::getLoginUrl(),
+        ));
     }
 
     /**
@@ -145,6 +144,7 @@ final class CreateCustomer
             'city' => $data['city'],
             'postal_code' => $data['postal_code'],
             'country' => $data['country'],
+            'email_verified_at' => now(),
         ]);
     }
 
@@ -201,6 +201,7 @@ final class CreateCustomer
             'password' => Hash::make($member['password']),
             'role' => $member['role'],
             'company_name' => $owner->company_name,
+            'email_verified_at' => now(),
         ]);
     }
 }

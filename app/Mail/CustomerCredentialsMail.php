@@ -32,7 +32,7 @@ final class CustomerCredentialsMail extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            view: 'emails.customer-credentials',
+            markdown: 'emails.customer-credentials',
             with: [
                 'name' => $this->name,
                 'email' => $this->email,
