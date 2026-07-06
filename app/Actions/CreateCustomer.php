@@ -10,6 +10,8 @@ use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\Team;
 use App\Models\User;
+use Filament\Auth\Notifications\VerifyEmail;
+use Filament\Facades\Filament;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -56,7 +58,38 @@ final class CreateCustomer
 
         $this->provisionAcrossApps($owner, $team, $subscriptions, $members, $data['password']);
 
+        $this->sendEmailVerificationNotifications($owner, $members);
+
         return $owner;
+    }
+
+    /**
+     * Send the same email verification notification that the public
+     * registration flow sends, so the owner and every member must verify
+     * their address before they can use the app. Runs after commit; the
+     * notification is queued (ShouldQueue), so a queue worker must be running.
+     *
+     * @param  array<int, array{0: User, 1: string}>  $members
+     */
+    private function sendEmailVerificationNotifications(User $owner, array $members): void
+    {
+        $this->sendEmailVerificationNotification($owner);
+
+        foreach ($members as [$member]) {
+            $this->sendEmailVerificationNotification($member);
+        }
+    }
+
+    private function sendEmailVerificationNotification(User $user): void
+    {
+        if ($user->hasVerifiedEmail()) {
+            return;
+        }
+
+        $notification = app(VerifyEmail::class);
+        $notification->url = Filament::getVerifyEmailUrl($user);
+
+        $user->notify($notification);
     }
 
     /**
@@ -112,7 +145,6 @@ final class CreateCustomer
             'city' => $data['city'],
             'postal_code' => $data['postal_code'],
             'country' => $data['country'],
-            'email_verified_at' => now(),
         ]);
     }
 
@@ -169,7 +201,6 @@ final class CreateCustomer
             'password' => Hash::make($member['password']),
             'role' => $member['role'],
             'company_name' => $owner->company_name,
-            'email_verified_at' => now(),
         ]);
     }
 }

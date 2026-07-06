@@ -9,8 +9,10 @@ use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\Team;
 use App\Models\User;
+use Filament\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Madbox99\UserTeamSync\Publisher\Jobs\CreateTeamJob;
 use Madbox99\UserTeamSync\Publisher\Jobs\CreateUserJob;
 
@@ -18,6 +20,7 @@ use function Pest\Laravel\assertDatabaseHas;
 
 beforeEach(function (): void {
     Bus::fake();
+    Notification::fake();
 });
 
 function ownerPayload(array $overrides = []): array
@@ -49,7 +52,7 @@ test('creates owner user with hashed password and provisions on module apps', fu
 
     expect($owner)->toBeInstanceOf(User::class)
         ->and($owner->role)->toBe(UserRole::Manager)
-        ->and($owner->email_verified_at)->not->toBeNull()
+        ->and($owner->email_verified_at)->toBeNull()
         ->and(Hash::check('password123', $owner->password))->toBeTrue();
 
     assertDatabaseHas('users', ['email' => 'owner@example.com', 'company_name' => 'Példa Kft.']);
@@ -67,6 +70,26 @@ test('creates owner user with hashed password and provisions on module apps', fu
     Bus::assertDispatched(CreateUserJob::class, function (CreateUserJob $job): bool {
         return $job->email === 'owner@example.com';
     });
+});
+
+test('sends the email verification notification to the owner and every member', function (): void {
+    $plan = Plan::factory()->create();
+
+    $owner = app(CreateCustomer::class)->handle(ownerPayload([
+        'plans' => [['plan_id' => $plan->id, 'quantity' => 5]],
+        'members' => [
+            ['name' => 'Tag Egy', 'email' => 'tag1@example.com', 'password' => 'secret123', 'role' => UserRole::Subscriber->value],
+            ['name' => 'Tag Kettő', 'email' => 'tag2@example.com', 'password' => 'secret123', 'role' => UserRole::Subscriber->value],
+        ],
+    ]));
+
+    $member1 = User::query()->where('email', 'tag1@example.com')->first();
+    $member2 = User::query()->where('email', 'tag2@example.com')->first();
+
+    Notification::assertSentTo($owner, VerifyEmail::class);
+    Notification::assertSentTo($member1, VerifyEmail::class);
+    Notification::assertSentTo($member2, VerifyEmail::class);
+    Notification::assertCount(3);
 });
 
 test('creates one subscription per selected plan', function (): void {
