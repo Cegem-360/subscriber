@@ -25,7 +25,11 @@ class SyncAppResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedServerStack;
 
-    protected static UnitEnum|string|null $navigationGroup = 'Settings';
+    protected static UnitEnum|string|null $navigationGroup = 'Beállítások';
+
+    protected static ?string $navigationLabel = 'Szinkron appok';
+
+    protected static ?int $navigationSort = 4;
 
     #[Override]
     public static function shouldRegisterNavigation(): bool

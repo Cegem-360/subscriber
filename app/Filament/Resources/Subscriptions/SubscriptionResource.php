@@ -27,10 +27,14 @@ class SubscriptionResource extends Resource
     #[Override]
     public static function getNavigationLabel(): string
     {
-        return __('Subscriptions');
+        return 'Előfizetések';
     }
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBanknotes;
+
+    protected static ?string $pluralModelLabel = 'Előfizetések';
+
+    protected static ?int $navigationSort = 5;
 
     #[Override]
     public static function form(Schema $schema): Schema

@@ -11,6 +11,15 @@ use Override;
 
 class Dashboard extends BaseDashboard
 {
+    protected static ?string $navigationLabel = 'Vezérlőpult';
+
+    protected static ?int $navigationSort = -2;
+
+    public function getTitle(): string
+    {
+        return 'Vezérlőpult';
+    }
+
     #[Override]
     public function getWidgets(): array
     {

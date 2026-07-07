@@ -24,6 +24,14 @@ class PlanResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Beállítások';
+
+    protected static ?string $navigationLabel = 'Csomagok';
+
+    protected static ?string $pluralModelLabel = 'Csomagok';
+
+    protected static ?int $navigationSort = 1;
+
     #[Override]
     public static function shouldRegisterNavigation(): bool
     {

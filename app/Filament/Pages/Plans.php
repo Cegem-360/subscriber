@@ -23,7 +23,9 @@ class Plans extends Page
 
     protected static ?string $title = 'Stripe szinkron';
 
-    protected static ?int $navigationSort = 10;
+    protected static string|\UnitEnum|null $navigationGroup = 'Beállítások';
+
+    protected static ?int $navigationSort = 3;
 
     public string $consoleOutput = '';
 

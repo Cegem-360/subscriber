@@ -25,6 +25,14 @@ class PlanCategoryResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Beállítások';
+
+    protected static ?string $navigationLabel = 'Csomag kategóriák';
+
+    protected static ?string $pluralModelLabel = 'Csomag kategóriák';
+
+    protected static ?int $navigationSort = 2;
+
     protected static ?string $recordTitleAttribute = 'name';
 
     #[Override]

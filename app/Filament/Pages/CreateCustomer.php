@@ -38,7 +38,7 @@ final class CreateCustomer extends Page
 
     protected static ?string $title = 'Új ügyfél létrehozása';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 2;
 
     protected string $view = 'filament.pages.create-customer';
 

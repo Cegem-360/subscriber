@@ -25,7 +25,9 @@ final class Settings extends Page
 
     protected static ?string $title = 'Rendszerbeállítások';
 
-    protected static ?int $navigationSort = 99;
+    protected static string|\UnitEnum|null $navigationGroup = 'Beállítások';
+
+    protected static ?int $navigationSort = 5;
 
     protected string $view = 'filament.pages.settings';
 

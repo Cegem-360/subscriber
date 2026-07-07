@@ -26,6 +26,12 @@ class TeamResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUserGroup;
 
+    protected static ?string $navigationLabel = 'Csapatok';
+
+    protected static ?string $pluralModelLabel = 'Csapatok';
+
+    protected static ?int $navigationSort = 4;
+
     #[Override]
     public static function shouldRegisterNavigation(): bool
     {

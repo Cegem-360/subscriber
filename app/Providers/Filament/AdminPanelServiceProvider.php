@@ -28,7 +28,6 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Madbox99\FilamentChatWidget\FilamentChatWidgetPlugin;
 
 final class AdminPanelServiceProvider extends PanelProvider
 {
@@ -50,9 +49,6 @@ final class AdminPanelServiceProvider extends PanelProvider
                 'primary' => Color::Indigo,
             ])
             ->darkMode(true)
-            ->plugins([
-                FilamentChatWidgetPlugin::make(),
-            ])
             ->renderHook(
                 PanelsRenderHook::BODY_START,
                 fn (): View => view('components.email-verification-banner'),

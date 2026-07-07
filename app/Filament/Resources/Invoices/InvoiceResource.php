@@ -24,6 +24,12 @@ class InvoiceResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
 
+    protected static ?string $navigationLabel = 'Számlák';
+
+    protected static ?string $pluralModelLabel = 'Számlák';
+
+    protected static ?int $navigationSort = 6;
+
     #[Override]
     public static function shouldRegisterNavigation(): bool
     {
