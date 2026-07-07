@@ -26,6 +26,11 @@ pest()->extend(TestCase::class)
         Http::preventStrayRequests();
         Sleep::fake();
 
+        // Assets are built on deploy (Forge), not committed, so the Vite
+        // manifest is absent in the test environment. Disable Vite so views
+        // that reference compiled assets (e.g. the Filament panel theme) render.
+        $this->withoutVite();
+
         $this->freezeTime();
         app()->setLocale('hu');
     })
