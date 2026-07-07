@@ -1,0 +1,287 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+@source '../../../../resources/views/components/**/*';
+
+/* ============================================
+   Dark Sidebar Theme
+   Matches the Cégem 360 dashboard sidebar (#292F4C)
+   ============================================ */
+
+/* --- Sidebar container --- */
+.fi-sidebar {
+    @apply bg-[#292F4C]! text-white!;
+}
+
+.fi-sidebar.fi-sidebar-open {
+    @apply ring-0!;
+}
+
+/* Keep dark bg when sticky on desktop (default is lg:bg-transparent) */
+.fi-body:not(.fi-body-has-top-navigation) .fi-sidebar {
+    @apply lg:bg-[#292F4C]!;
+}
+
+/* --- Sidebar header (logo area) --- */
+.fi-body-has-topbar .fi-sidebar-header {
+    @apply lg:flex! bg-[#292F4C]! ring-0! border-b! border-white/10! shadow-none! px-4!;
+}
+
+:not(.fi-body-has-topbar) .fi-sidebar-header {
+    @apply border-b! border-white/10! px-4!;
+}
+
+/* Logo: invert to white */
+.fi-sidebar .fi-logo {
+    @apply brightness-0 invert;
+}
+
+/* --- Full-height sidebar (fixed, spans from top to bottom) --- */
+.fi-body-has-topbar .fi-sidebar {
+    @apply lg:top-0! lg:h-dvh! lg:z-40!;
+}
+
+.fi-body:not(.fi-body-has-top-navigation) .fi-sidebar.fi-sidebar-open {
+    @apply lg:fixed!;
+}
+
+/* Push topbar to the right when sidebar is open */
+.fi-body:has(.fi-sidebar-open) .fi-topbar-ctn {
+    @apply lg:ms-(--sidebar-width)!;
+}
+
+/* Push layout/content to the right when sidebar is fixed and open */
+@media (min-width: 1024px) {
+    .fi-body:has(.fi-sidebar-open) .fi-layout {
+        margin-inline-start: var(--sidebar-width) !important;
+        width: calc(100% - var(--sidebar-width)) !important;
+    }
+}
+
+/* Topbar and layout margin transitions */
+.fi-topbar-ctn,
+.fi-layout {
+    @apply lg:transition-none!;
+}
+
+.fi-sidebar-animating .fi-topbar-ctn,
+.fi-sidebar-animating .fi-layout {
+    @apply lg:transition-[margin]! lg:duration-300!;
+}
+
+/* Match topbar style: border-b instead of shadow+ring */
+.fi-topbar {
+    @apply shadow-none! ring-0! border-b! border-gray-200!;
+}
+
+/* --- Topbar adjustments --- */
+.fi-topbar-start > a {
+    @apply lg:hidden!;
+}
+
+.fi-topbar-start {
+    @apply lg:me-0!;
+}
+
+/* --- Tenant menu --- */
+.fi-sidebar .fi-tenant-menu {
+    @apply border-b! border-white/10! pb-3!;
+}
+
+.fi-tenant-menu-trigger {
+    @apply hover:bg-white/5! focus-visible:bg-white/5!;
+}
+
+.fi-tenant-menu-trigger-tenant-name {
+    @apply text-white!;
+}
+
+.fi-tenant-menu-trigger-current-tenant-label {
+    @apply text-gray-400!;
+}
+
+.fi-tenant-menu-trigger .fi-icon {
+    @apply text-gray-400!;
+}
+
+/* --- Sidebar nav spacing --- */
+.fi-sidebar-nav {
+    @apply px-3! py-4!;
+}
+
+.fi-sidebar-nav-groups {
+    @apply mx-0! gap-y-6!;
+}
+
+/* --- Navigation group labels --- */
+.fi-sidebar-group-label {
+    @apply text-xs! font-semibold! text-gray-400! uppercase! tracking-wider!;
+}
+
+.fi-sidebar-group-btn {
+    @apply px-3! py-0! mb-2!;
+}
+
+/* --- Navigation items --- */
+.fi-sidebar-group-items {
+    @apply gap-y-1!;
+}
+
+.fi-sidebar-item-btn {
+    @apply gap-x-3! px-3! py-2! rounded-2xl!;
+}
+
+.fi-sidebar-item-label {
+    @apply text-sm! font-medium! text-gray-300!;
+}
+
+/* Default icon color */
+.fi-sidebar-item-btn > .fi-icon {
+    @apply text-gray-400!;
+}
+
+/* Hover state */
+.fi-sidebar-item.fi-sidebar-item-has-url > .fi-sidebar-item-btn {
+    @apply hover:bg-white/5! focus-visible:bg-white/5!;
+}
+
+.fi-sidebar-item.fi-sidebar-item-has-url > .fi-sidebar-item-btn:hover > .fi-sidebar-item-label,
+.fi-sidebar-item.fi-sidebar-item-has-url > .fi-sidebar-item-btn:focus-visible > .fi-sidebar-item-label {
+    @apply text-white!;
+}
+
+/* Active item state */
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn {
+    @apply bg-white/10!;
+}
+
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn > .fi-sidebar-item-label {
+    @apply text-white!;
+}
+
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn > .fi-sidebar-item-grouped-border > .fi-sidebar-item-grouped-border-part {
+    @apply bg-white!;
+}
+
+/* --- Grouped border lines --- */
+.fi-sidebar-item-grouped-border-part {
+    @apply bg-gray-500!;
+}
+
+.fi-sidebar-item-grouped-border-part-not-first,
+.fi-sidebar-item-grouped-border-part-not-last {
+    @apply bg-gray-600!;
+}
+
+/* ============================================
+   Per-group icon colors
+   ============================================ */
+
+/* Blog group: blue-400 */
+.fi-nav-group-blog .fi-sidebar-item-btn > .fi-icon {
+    @apply text-blue-400!;
+}
+
+/* Beállítások (settings) group: gray-400 (default) */
+.fi-nav-group-settings .fi-sidebar-item-btn > .fi-icon {
+    @apply text-gray-400!;
+}
+
+/* Override: active/hover icons always white regardless of group */
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn > .fi-icon {
+    @apply text-white!;
+}
+
+.fi-sidebar-item.fi-sidebar-item-has-url > .fi-sidebar-item-btn:hover > .fi-icon,
+.fi-sidebar-item.fi-sidebar-item-has-url > .fi-sidebar-item-btn:focus-visible > .fi-icon {
+    @apply text-white!;
+}
+
+/* ============================================
+   Collapsed sidebar & dropdown triggers
+   ============================================ */
+
+.fi-sidebar-group-dropdown-trigger-btn {
+    @apply hover:bg-white/5! focus-visible:bg-white/5!;
+}
+
+.fi-sidebar-group-dropdown-trigger-btn .fi-icon {
+    @apply text-gray-400!;
+}
+
+.fi-sidebar-group.fi-active .fi-sidebar-group-dropdown-trigger-btn .fi-icon {
+    @apply text-indigo-400!;
+}
+
+/* --- Sidebar footer --- */
+.fi-sidebar-footer {
+    @apply border-t! border-white/10!;
+}
+
+/* Database notifications in sidebar */
+.fi-sidebar-database-notifications-btn {
+    @apply hover:bg-white/5! focus-visible:bg-white/5!;
+}
+
+.fi-sidebar-database-notifications-btn > .fi-icon {
+    @apply text-gray-400!;
+}
+
+.fi-sidebar-database-notifications-btn > .fi-sidebar-database-notifications-btn-label {
+    @apply text-gray-300!;
+}
+
+/* --- Sidebar collapse/open/close buttons --- */
+.fi-sidebar-open-collapse-sidebar-btn,
+.fi-sidebar-close-collapse-sidebar-btn,
+.fi-sidebar-close-sidebar-btn {
+    @apply text-gray-400! hover:text-white!;
+}
+
+/* --- Sidebar close overlay (mobile) --- */
+.fi-sidebar-close-overlay {
+    @apply bg-gray-950/50!;
+}
+
+/* ============================================
+   Icon size overrides
+   ============================================ */
+.fi-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.fi-icon > svg {
+    width: inherit;
+    height: inherit;
+}
+
+.fi-input-wrp-prefix > svg,
+.fi-input-wrp-suffix > svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+}
+
+.fi-ta-empty-state-icon-bg {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fi-ta-empty-state-icon-bg > svg,
+.fi-ta-empty-state-icon-bg .fi-icon,
+.fi-ta-empty-state-icon-bg .fi-icon > svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* ============================================
+   Disable SPA page transition animation
+   ============================================ */
+.fi-main-ctn {
+    @apply transition-none! opacity-100!;
+}
