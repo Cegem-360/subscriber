@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 use App\Filament\Pages\Auth\PasswordReset\RequestPasswordReset;
 use App\Filament\Pages\Auth\PasswordReset\ResetPassword;
+use App\Mail\PasswordResetMail;
 use App\Models\User;
-use Filament\Auth\Notifications\ResetPassword as ResetPasswordNotification;
+use App\Notifications\ResetPasswordNotification;
+use Filament\Auth\Notifications\ResetPassword as FilamentResetPasswordNotification;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
@@ -63,6 +65,48 @@ describe('Password reset request form', function (): void {
             ->assertNotified();
 
         Notification::assertSentTo($user, ResetPasswordNotification::class);
+    });
+
+    it('resolves the branded reset password notification from the container', function (): void {
+        $notification = app(FilamentResetPasswordNotification::class, ['token' => 'test-token']);
+
+        expect($notification)->toBeInstanceOf(ResetPasswordNotification::class);
+    });
+
+    it('sends the branded reset email carrying the reset link', function (): void {
+        Notification::fake();
+
+        $user = User::factory()->create([
+            'name' => 'Teszt Elek',
+            'email_verified_at' => now(),
+        ]);
+
+        livewire(RequestPasswordReset::class)
+            ->fillForm(['email' => $user->email])
+            ->call('request');
+
+        Notification::assertSentTo(
+            $user,
+            ResetPasswordNotification::class,
+            function (ResetPasswordNotification $notification) use ($user): bool {
+                $mail = $notification->toMail($user);
+
+                return $mail instanceof PasswordResetMail
+                    && $mail->name === 'Teszt Elek'
+                    && str_contains($mail->resetUrl, 'password-reset/reset');
+            },
+        );
+    });
+
+    it('renders the branded reset email view with the link and heading', function (): void {
+        $rendered = (new PasswordResetMail('Teszt Elek', 'https://cegem360.eu/admin/password-reset/reset?token=abc', 60))
+            ->render();
+
+        expect($rendered)
+            ->toContain('Jelszó visszaállítása')
+            ->toContain('Teszt Elek')
+            ->toContain('https://cegem360.eu/admin/password-reset/reset?token=abc')
+            ->toContain('60 perc');
     });
 
     it('does not send a reset link for an invalid email', function (): void {
