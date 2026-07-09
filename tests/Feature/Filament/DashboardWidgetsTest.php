@@ -6,28 +6,25 @@ use App\Filament\Widgets\RevenueChartWidget;
 use App\Filament\Widgets\SubscriptionStatsWidget;
 use App\Models\User;
 use Livewire\Livewire;
-use Tests\TestCase;
 
-beforeEach(function (): void {
-    $this->user = User::factory()->admin()->create();
-});
+use function Pest\Laravel\actingAs;
+use function Pest\Laravel\get;
 
 test('subscription stats widget can render', function (): void {
-    Livewire::actingAs($this->user)
+    Livewire::actingAs(User::factory()->admin()->create())
         ->test(SubscriptionStatsWidget::class)
         ->assertSuccessful();
 });
 
 test('revenue chart widget can render', function (): void {
-    Livewire::actingAs($this->user)
+    Livewire::actingAs(User::factory()->admin()->create())
         ->test(RevenueChartWidget::class)
         ->assertSuccessful();
 });
 
 test('dashboard page can render', function (): void {
-    /** @var TestCase $this */
-    $this->actingAs($this->user);
+    actingAs(User::factory()->admin()->create());
 
-    $this->get('/admin')
+    get('/admin')
         ->assertSuccessful();
 });

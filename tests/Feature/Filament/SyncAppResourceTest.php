@@ -9,12 +9,8 @@ use App\Models\User;
 use Livewire\Livewire;
 use Madbox99\UserTeamSync\Models\SyncApp;
 
-beforeEach(function (): void {
-    $this->user = User::factory()->create();
-});
-
 test('can render sync apps list page', function (): void {
-    Livewire::actingAs($this->user)
+    Livewire::actingAs(User::factory()->create())
         ->test(ListSyncApps::class)
         ->assertSuccessful();
 });
@@ -25,7 +21,7 @@ test('can list sync apps', function (): void {
         SyncApp::query()->create(['name' => 'app-2', 'url' => 'https://app2.test', 'is_active' => true]),
     ]);
 
-    Livewire::actingAs($this->user)
+    Livewire::actingAs(User::factory()->create())
         ->test(ListSyncApps::class)
         ->assertCanSeeTableRecords($apps);
 });
@@ -34,7 +30,7 @@ test('can search sync apps by name', function (): void {
     $appToFind = SyncApp::query()->create(['name' => 'findme', 'url' => 'https://findme.test', 'is_active' => true]);
     $otherApp = SyncApp::query()->create(['name' => 'other', 'url' => 'https://other.test', 'is_active' => true]);
 
-    Livewire::actingAs($this->user)
+    Livewire::actingAs(User::factory()->create())
         ->test(ListSyncApps::class)
         ->searchTable('findme')
         ->assertCanSeeTableRecords([$appToFind])
@@ -42,13 +38,13 @@ test('can search sync apps by name', function (): void {
 });
 
 test('can render create sync app page', function (): void {
-    Livewire::actingAs($this->user)
+    Livewire::actingAs(User::factory()->create())
         ->test(CreateSyncApp::class)
         ->assertSuccessful();
 });
 
 test('can create a sync app', function (): void {
-    Livewire::actingAs($this->user)
+    Livewire::actingAs(User::factory()->create())
         ->test(CreateSyncApp::class)
         ->fillForm([
             'name' => 'new-app',
@@ -67,7 +63,7 @@ test('can create a sync app', function (): void {
 });
 
 test('can validate sync app creation', function (): void {
-    Livewire::actingAs($this->user)
+    Livewire::actingAs(User::factory()->create())
         ->test(CreateSyncApp::class)
         ->fillForm([
             'name' => '',
@@ -80,7 +76,7 @@ test('can validate sync app creation', function (): void {
 test('can validate unique name on creation', function (): void {
     SyncApp::query()->create(['name' => 'existing', 'url' => 'https://existing.test', 'is_active' => true]);
 
-    Livewire::actingAs($this->user)
+    Livewire::actingAs(User::factory()->create())
         ->test(CreateSyncApp::class)
         ->fillForm([
             'name' => 'existing',
@@ -93,7 +89,7 @@ test('can validate unique name on creation', function (): void {
 test('can render edit sync app page', function (): void {
     $app = SyncApp::query()->create(['name' => 'edit-test', 'url' => 'https://edit.test', 'is_active' => true]);
 
-    Livewire::actingAs($this->user)
+    Livewire::actingAs(User::factory()->create())
         ->test(EditSyncApp::class, ['record' => $app->id])
         ->assertSuccessful();
 });
@@ -101,7 +97,7 @@ test('can render edit sync app page', function (): void {
 test('can retrieve sync app data for editing', function (): void {
     $app = SyncApp::query()->create(['name' => 'retrieve-test', 'url' => 'https://retrieve.test', 'is_active' => true]);
 
-    Livewire::actingAs($this->user)
+    Livewire::actingAs(User::factory()->create())
         ->test(EditSyncApp::class, ['record' => $app->id])
         ->assertFormSet([
             'name' => 'retrieve-test',
@@ -113,7 +109,7 @@ test('can retrieve sync app data for editing', function (): void {
 test('can update a sync app', function (): void {
     $app = SyncApp::query()->create(['name' => 'update-test', 'url' => 'https://update.test', 'is_active' => true]);
 
-    Livewire::actingAs($this->user)
+    Livewire::actingAs(User::factory()->create())
         ->test(EditSyncApp::class, ['record' => $app->id])
         ->fillForm([
             'name' => 'updated-name',
@@ -131,7 +127,7 @@ test('can update a sync app', function (): void {
 test('can toggle sync app active status', function (): void {
     $app = SyncApp::query()->create(['name' => 'toggle-test', 'url' => 'https://toggle.test', 'is_active' => true]);
 
-    Livewire::actingAs($this->user)
+    Livewire::actingAs(User::factory()->create())
         ->test(ListSyncApps::class)
         ->callTableAction('toggle_status', $app);
 
@@ -143,7 +139,7 @@ test('can toggle sync app active status', function (): void {
 test('can delete a sync app', function (): void {
     $app = SyncApp::query()->create(['name' => 'delete-test', 'url' => 'https://delete.test', 'is_active' => true]);
 
-    Livewire::actingAs($this->user)
+    Livewire::actingAs(User::factory()->create())
         ->test(EditSyncApp::class, ['record' => $app->id])
         ->callAction('delete');
 
