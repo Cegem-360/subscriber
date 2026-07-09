@@ -7,7 +7,9 @@ use App\Models\Plan;
 use App\Models\Plan\PlanCategory;
 use App\Models\Subscription;
 use App\Models\User;
+use Carbon\CarbonImmutable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Date;
 
 use function Pest\Laravel\actingAs;
 
@@ -158,5 +160,52 @@ describe('Subscription members relationship', function (): void {
         expect($subscription->members)->toHaveCount(3);
         expect($subscription->members->pluck('id')->toArray())
             ->toEqual($members->pluck('id')->toArray());
+    });
+});
+
+describe('Subscription next billing date', function (): void {
+    afterEach(function (): void {
+        Date::useDefault();
+    });
+
+    it('resolves the Stripe period end even when the date factory uses CarbonImmutable', function (): void {
+        // Production configures the date factory to CarbonImmutable; the returned
+        // instance must still satisfy the memoized property type (regression).
+        Date::use(CarbonImmutable::class);
+
+        $stripeSubscription = (object) [
+            'current_period_end' => 1_760_000_000,
+            'items' => (object) ['data' => []],
+        ];
+
+        $subscription = Mockery::mock(Subscription::class)->makePartial();
+        $subscription->stripe_id = 'sub_regression';
+        $subscription->shouldReceive('asStripeSubscription')->andReturn($stripeSubscription);
+
+        $result = $subscription->nextBillingDate();
+
+        expect($result)->toBeInstanceOf(CarbonImmutable::class)
+            ->and($result->timestamp)->toBe(1_760_000_000);
+    });
+
+    it('falls back to the subscription item period end', function (): void {
+        $stripeSubscription = (object) [
+            'current_period_end' => null,
+            'items' => (object) ['data' => [(object) ['current_period_end' => 1_760_000_500]]],
+        ];
+
+        $subscription = Mockery::mock(Subscription::class)->makePartial();
+        $subscription->stripe_id = 'sub_item';
+        $subscription->shouldReceive('asStripeSubscription')->andReturn($stripeSubscription);
+
+        expect($subscription->nextBillingDate()?->timestamp)->toBe(1_760_000_500);
+    });
+
+    it('returns null when Stripe is unreachable', function (): void {
+        $subscription = Mockery::mock(Subscription::class)->makePartial();
+        $subscription->stripe_id = 'sub_boom';
+        $subscription->shouldReceive('asStripeSubscription')->andThrow(new RuntimeException('Stripe down'));
+
+        expect($subscription->nextBillingDate())->toBeNull();
     });
 });

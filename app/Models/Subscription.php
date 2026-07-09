@@ -8,6 +8,7 @@ use App\Enums\SubscriptionStatus;
 use App\Enums\SubscriptionType;
 use App\Models\Scopes\ForCurrentUserScope;
 use App\Observers\SubscriptionObserver;
+use Carbon\CarbonInterface;
 use Database\Factories\SubscriptionFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
@@ -17,7 +18,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Date;
 use Laravel\Cashier\Subscription as CashierSubscription;
 use Override;
@@ -40,7 +40,7 @@ class Subscription extends CashierSubscription
 {
     use HasFactory;
 
-    private ?Carbon $cachedNextBillingDate = null;
+    private ?CarbonInterface $cachedNextBillingDate = null;
 
     private bool $nextBillingDateResolved = false;
 
@@ -161,7 +161,7 @@ class Subscription extends CashierSubscription
      * unreachable. The result is memoized per instance to avoid repeated API
      * calls when rendered in list views.
      */
-    public function nextBillingDate(): ?Carbon
+    public function nextBillingDate(): ?CarbonInterface
     {
         if ($this->nextBillingDateResolved) {
             return $this->cachedNextBillingDate;
