@@ -38,16 +38,14 @@ class SubscrubersSubscriptionsTable extends Component implements HasActions, Has
                     ->visible(fn (): bool => Auth::user()->isAdmin())
                     ->searchable(),
                 TextColumn::make('plan.planCategory.name')
-                    ->label('Module')
+                    ->label(__('Module'))
                     ->searchable(),
                 TextColumn::make('plan.planCategory.url')
                     ->formatStateUsing(fn (string $state): HtmlString => new HtmlString("<a href=\"$state\" target=\"_blank\">$state</a>"))
-                    ->label('Module url')
+                    ->label(__('Module link'))
                     ->searchable(),
                 TextColumn::make('plan.name')
-                    ->searchable(),
-                TextColumn::make('type')
-                    ->badge()
+                    ->label(__('Plan'))
                     ->searchable(),
                 TextColumn::make('quantity')
                     ->label(__('Seats'))

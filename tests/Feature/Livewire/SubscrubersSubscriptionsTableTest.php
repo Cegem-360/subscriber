@@ -19,3 +19,14 @@ it('labels the date column as the next billing date, not "Lejár ekkor"', functi
         ->assertSee(__('Next billing date'))
         ->assertDontSee('Lejár ekkor');
 });
+
+it('uses Hungarian column labels', function (): void {
+    $user = User::factory()->create();
+    Subscription::factory()->active()->create(['user_id' => $user->id]);
+
+    Livewire::actingAs($user)
+        ->test(SubscrubersSubscriptionsTable::class)
+        ->assertSee('Modul')
+        ->assertSee('Modul link')
+        ->assertDontSee('Module url');
+});
