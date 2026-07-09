@@ -6,7 +6,7 @@
 <div class="flex justify-center">
     <div class="inline-flex rounded-full bg-gray-100 dark:bg-gray-800 p-1">
         @foreach ($types as $type)
-            <button type="button" wire:click="$set('{{ $statePath }}', '{{ $type->value }}')"
+            <button type="button" wire:click="selectBillingPeriod('{{ $type->value }}')"
                 @class([
                     'px-6 py-2 text-sm font-semibold rounded-full transition-all duration-200',
                     'bg-primary-600 text-white shadow-sm' => $selected === $type->value,

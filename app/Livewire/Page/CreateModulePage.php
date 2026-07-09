@@ -42,6 +42,16 @@ final class CreateModulePage extends Component implements HasActions, HasSchemas
         $this->form->fill();
     }
 
+    /**
+     * Switch the billing period and clear any previously selected plan, so a
+     * plan from the other period can never leak through into the order.
+     */
+    public function selectBillingPeriod(string $period): void
+    {
+        $this->data['billing_period'] = $period;
+        $this->data['plan_id'] = null;
+    }
+
     private function currentTeam(): ?Team
     {
         /** @var User|null $user */
@@ -76,7 +86,6 @@ final class CreateModulePage extends Component implements HasActions, HasSchemas
                                             BillingPeriod::Yearly,
                                         ],
                                     ])
-                                    ->default(BillingPeriod::Monthly->value)
                                     ->required(),
                                 ViewField::make('plan_id')
                                     ->view('components.plan-card-selector')
@@ -116,7 +125,9 @@ final class CreateModulePage extends Component implements HasActions, HasSchemas
                                             return [
                                                 'plan' => $plan,
                                                 'team' => $this->currentTeam(),
-                                                'billing_period' => BillingPeriod::tryFrom($get('billing_period')),
+                                                'billing_period' => filled($get('billing_period'))
+                                                    ? BillingPeriod::tryFrom($get('billing_period'))
+                                                    : null,
                                                 'quantity' => $get('quantity'),
                                             ];
                                         }),
@@ -135,6 +146,17 @@ final class CreateModulePage extends Component implements HasActions, HasSchemas
 
         $data = $this->form->getState();
         $plan = Plan::query()->findOrFail($data['plan_id']);
+
+        if ($plan->billing_period?->value !== ($data['billing_period'] ?? null)) {
+            Notification::make()
+                ->title('A kiválasztott csomag elszámolási időszaka nem egyezik.')
+                ->body('Kérjük, válassza ki újra a havi vagy éves csomagot.')
+                ->danger()
+                ->send();
+
+            return;
+        }
+
         $quantity = (int) $data['quantity'];
         $team = $this->currentTeam();
         $stripePriceId = $plan->stripePriceIdForTeam($team);

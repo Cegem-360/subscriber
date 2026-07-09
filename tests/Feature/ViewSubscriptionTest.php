@@ -76,6 +76,15 @@ it('shows update button for active subscription', function (): void {
         ->assertSee(__('Update'));
 });
 
+it('labels the ends_at date as the next renewal date', function (): void {
+    $this->subscription->update(['ends_at' => now()->addMonth()]);
+
+    Livewire::actingAs($this->user)
+        ->test(ViewSubscriptionPage::class, ['subscription' => $this->subscription->fresh()])
+        ->assertSee(__('Next renewal date'))
+        ->assertDontSee(__('Ends at'));
+});
+
 it('shows stripe details when subscription is linked', function (): void {
     Livewire::actingAs(User::factory()->create())
         ->test(ViewSubscriptionPage::class, ['subscription' => $this->subscription])

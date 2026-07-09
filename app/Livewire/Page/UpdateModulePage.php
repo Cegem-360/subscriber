@@ -47,6 +47,16 @@ final class UpdateModulePage extends Component implements HasActions, HasSchemas
         ]);
     }
 
+    /**
+     * Switch the billing period and clear any previously selected plan, so a
+     * plan from the other period can never leak through into the update.
+     */
+    public function selectBillingPeriod(string $period): void
+    {
+        $this->data['billing_period'] = $period;
+        $this->data['plan_id'] = null;
+    }
+
     public function form(Schema $schema): Schema
     {
         $categoryId = $this->subscription->plan?->plan_category_id;
@@ -107,7 +117,9 @@ final class UpdateModulePage extends Component implements HasActions, HasSchemas
                                                 'newPlan' => $newPlan,
                                                 'currentQuantity' => $this->subscription->quantity ?? 1,
                                                 'newQuantity' => $get('quantity'),
-                                                'billing_period' => BillingPeriod::tryFrom($get('billing_period')),
+                                                'billing_period' => filled($get('billing_period'))
+                                                    ? BillingPeriod::tryFrom($get('billing_period'))
+                                                    : null,
                                             ];
                                         }),
                                 ]),
@@ -130,6 +142,16 @@ final class UpdateModulePage extends Component implements HasActions, HasSchemas
         $currentQuantity = $this->subscription->quantity ?? 1;
 
         $newPlan = Plan::query()->findOrFail($newPlanId);
+
+        if ($newPlan->billing_period?->value !== ($data['billing_period'] ?? null)) {
+            Notification::make()
+                ->title(__('The selected package billing period does not match.'))
+                ->body(__('Please reselect the monthly or yearly package.'))
+                ->danger()
+                ->send();
+
+            return;
+        }
 
         // Check if subscription is linked to Stripe
         if (! $this->subscription->stripe_id) {

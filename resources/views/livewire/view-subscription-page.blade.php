@@ -156,7 +156,7 @@
                 @endif
                 @if ($subscription->ends_at)
                     <div>
-                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Ends at') }}</dt>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Next renewal date') }}</dt>
                         <dd class="mt-1 text-red-600 dark:text-red-400">
                             {{ $subscription->ends_at->format('Y. m. d. H:i') }}</dd>
                     </div>
