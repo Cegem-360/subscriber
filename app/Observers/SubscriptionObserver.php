@@ -68,8 +68,22 @@ class SubscriptionObserver
      */
     public function updated(Subscription $subscription): void
     {
-        if (! $subscription->wasChanged('stripe_status')) {
+        // A subscription imported from Stripe is created without a plan_id, so the
+        // "created" handler cannot resolve an appKey. The plan is linked in a
+        // follow-up save, which we must treat as an activation trigger too —
+        // otherwise CRM activation is silently skipped.
+        $statusChanged = $subscription->wasChanged('stripe_status');
+        $planLinked = $subscription->wasChanged('plan_id') && $subscription->plan_id !== null;
+
+        if (! $statusChanged && ! $planLinked) {
             return;
+        }
+
+        // The plan relationship may have been resolved (and cached as null) during
+        // the "created" event, before the plan was linked. Reload it so the appKey
+        // reflects the freshly linked plan.
+        if ($planLinked) {
+            $subscription->load('plan.planCategory');
         }
 
         $user = $subscription->user;
@@ -82,11 +96,12 @@ class SubscriptionObserver
         $isActive = $subscription->stripe_status === SubscriptionStatus::Active
             || $subscription->stripe_status === SubscriptionStatus::Trialing;
 
-        Log::info('SubscriptionObserver: Status changed', [
+        Log::info('SubscriptionObserver: Subscription updated, syncing CRM activation', [
             'user_email' => $user->email,
             'app_key' => $appKey,
-            'old_status' => $subscription->getOriginal('stripe_status'),
-            'new_status' => $subscription->stripe_status->value,
+            'status_changed' => $statusChanged,
+            'plan_linked' => $planLinked,
+            'stripe_status' => $subscription->stripe_status->value,
             'is_active' => $isActive,
         ]);
 
