@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 use Override;
+use Throwable;
 
 final class CreateCustomer extends Page
 {
@@ -190,8 +191,8 @@ final class CreateCustomer extends Page
         }
 
         try {
-            $owner = app(CreateCustomerAction::class)->handle($data);
-        } catch (\Throwable $exception) {
+            $owner = resolve(CreateCustomerAction::class)->handle($data);
+        } catch (Throwable $exception) {
             report($exception);
 
             Notification::make()

@@ -18,10 +18,14 @@ use Rector\TypeDeclaration\Rector\ClassMethod\AddVoidReturnTypeWhereNoReturnRect
 use RectorLaravel\Rector\MethodCall\AvoidNegatedCollectionFilterOrRejectRector;
 use RectorLaravel\Set\LaravelLevelSetList;
 use RectorLaravel\Set\LaravelSetList;
+use RectorLaravel\Set\LaravelSetProvider;
 
 return RectorConfig::configure()
-    ->withImportNames(importShortClasses: true, removeUnusedImports: true)
+    ->withImportNames()
     ->withParallel()
+    ->withPhpSets(php84: true)
+    ->withSetProviders(LaravelSetProvider::class)
+    ->withComposerBased(laravel: true)
     ->withPaths([
         __DIR__ . '/app',
         __DIR__ . '/routes',
@@ -44,7 +48,12 @@ return RectorConfig::configure()
         __DIR__ . '/node_modules',
         __DIR__ . '/database/migrations',
         __DIR__ . '/app/Providers/ApiServiceProvider.php',
-        RemoveUnusedPrivateMethodRector::class => [__DIR__ . '/app/Jobs/*.php',            __DIR__ . '/app/Listeners/*.php',            __DIR__ . '/Modules/**/Jobs/*.php',            __DIR__ . '/Modules/**/Listeners/*.php'],
+        RemoveUnusedPrivateMethodRector::class => [
+            __DIR__ . '/app/Jobs/*.php',
+            __DIR__ . '/app/Listeners/*.php',
+            __DIR__ . '/Modules/**/Jobs/*.php',
+            __DIR__ . '/Modules/**/Listeners/*.php',
+        ],
         DisallowedEmptyRuleFixerRector::class,
         RemoveUselessParamTagRector::class => [
             // Keep @param tags for complex types that help with IDE support
@@ -78,7 +87,7 @@ return RectorConfig::configure()
         LaravelSetList::LARAVEL_FACADE_ALIASES_TO_FULL_NAMES,
         LaravelSetList::LARAVEL_ELOQUENT_MAGIC_METHOD_TO_QUERY_BUILDER,
     ])
-    ->withPhpSets()
+
     ->withAutoloadPaths([
         __DIR__ . '/vendor/autoload.php',
     ])

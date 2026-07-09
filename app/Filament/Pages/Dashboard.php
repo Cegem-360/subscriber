@@ -15,6 +15,7 @@ class Dashboard extends BaseDashboard
 
     protected static ?int $navigationSort = -2;
 
+    #[Override]
     public function getTitle(): string
     {
         return 'Vezérlőpult';

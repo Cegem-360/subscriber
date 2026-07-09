@@ -10,6 +10,7 @@ use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Override;
+use UnitEnum;
 
 class Plans extends Page
 {
@@ -23,7 +24,7 @@ class Plans extends Page
 
     protected static ?string $title = 'Stripe szinkron';
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Beállítások';
+    protected static string|UnitEnum|null $navigationGroup = 'Beállítások';
 
     protected static ?int $navigationSort = 3;
 

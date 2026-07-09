@@ -48,7 +48,7 @@ function ownerPayload(array $overrides = []): array
 test('creates owner user with hashed password and provisions on module apps', function (): void {
     $plan = Plan::factory()->create();
 
-    $owner = app(CreateCustomer::class)->handle(ownerPayload([
+    $owner = resolve(CreateCustomer::class)->handle(ownerPayload([
         'plans' => [['plan_id' => $plan->id, 'quantity' => 3]],
     ]));
 
@@ -66,19 +66,17 @@ test('creates owner user with hashed password and provisions on module apps', fu
         'stripe_status' => SubscriptionStatus::Active->value,
     ]);
 
-    expect(Subscription::withoutGlobalScopes()->where('user_id', $owner->id)->first()->stripe_id)
+    expect(Subscription::query()->withoutGlobalScopes()->where('user_id', $owner->id)->first()->stripe_id)
         ->toStartWith('manual_');
 
-    Bus::assertDispatched(CreateUserJob::class, function (CreateUserJob $job): bool {
-        return $job->email === 'owner@example.com';
-    });
+    Bus::assertDispatched(CreateUserJob::class, fn (CreateUserJob $job): bool => $job->email === 'owner@example.com');
 });
 
 test('emails login credentials and active modules to the owner and every member', function (): void {
     $category = PlanCategory::factory()->create(['name' => 'MarketingHUB', 'slug' => 'marketinghub', 'url' => 'https://marketinghub.cegem360.eu']);
     $plan = Plan::factory()->create(['plan_category_id' => $category->id]);
 
-    app(CreateCustomer::class)->handle(ownerPayload([
+    resolve(CreateCustomer::class)->handle(ownerPayload([
         'password' => 'owner-secret',
         'plans' => [['plan_id' => $plan->id, 'quantity' => 5]],
         'members' => [
@@ -101,39 +99,37 @@ test('activates the owner on the sub-app with a delayed toggle, not during the t
     $category = PlanCategory::factory()->create(['slug' => 'kontrolling']);
     $plan = Plan::factory()->create(['plan_category_id' => $category->id]);
 
-    app(CreateCustomer::class)->handle(ownerPayload([
+    resolve(CreateCustomer::class)->handle(ownerPayload([
         'plans' => [['plan_id' => $plan->id, 'quantity' => 1]],
     ]));
 
     // Exactly one owner activation, dispatched with a delay so it runs AFTER the
     // user has been synced to the sub-app — not the racing in-transaction toggle
     // that the SubscriptionObserver would otherwise fire before the user exists.
-    Bus::assertDispatched(ToggleUserActiveJob::class, function (ToggleUserActiveJob $job): bool {
-        return $job->userEmail === 'owner@example.com'
-            && $job->appKey === 'kontrolling'
-            && $job->isActive === true
-            && $job->delay !== null;
-    });
+    Bus::assertDispatched(ToggleUserActiveJob::class, fn (ToggleUserActiveJob $job): bool => $job->userEmail === 'owner@example.com'
+        && $job->appKey === 'kontrolling'
+        && $job->isActive
+        && $job->delay !== null);
     Bus::assertDispatchedTimes(ToggleUserActiveJob::class, 1);
 });
 
 test('creates one subscription per selected plan', function (): void {
     $plans = Plan::factory()->count(2)->create();
 
-    $owner = app(CreateCustomer::class)->handle(ownerPayload([
+    $owner = resolve(CreateCustomer::class)->handle(ownerPayload([
         'plans' => [
             ['plan_id' => $plans[0]->id, 'quantity' => 1],
             ['plan_id' => $plans[1]->id, 'quantity' => 5],
         ],
     ]));
 
-    expect(Subscription::withoutGlobalScopes()->where('user_id', $owner->id)->count())->toBe(2);
+    expect(Subscription::query()->withoutGlobalScopes()->where('user_id', $owner->id)->count())->toBe(2);
 });
 
 test('creates a team, attaches owner, and links subscriptions to it', function (): void {
     $plan = Plan::factory()->create();
 
-    $owner = app(CreateCustomer::class)->handle(ownerPayload([
+    $owner = resolve(CreateCustomer::class)->handle(ownerPayload([
         'create_team' => true,
         'team_name' => 'Csapat Egy',
         'plans' => [['plan_id' => $plan->id, 'quantity' => 2]],
@@ -143,14 +139,14 @@ test('creates a team, attaches owner, and links subscriptions to it', function (
 
     expect($team)->not->toBeNull()
         ->and($owner->teams()->whereKey($team->id)->exists())->toBeTrue()
-        ->and(Subscription::withoutGlobalScopes()->where('user_id', $owner->id)->first()->team_id)
+        ->and(Subscription::query()->withoutGlobalScopes()->where('user_id', $owner->id)->first()->team_id)
         ->toBe($team->id);
 
     Bus::assertDispatched(CreateTeamJob::class, fn (CreateTeamJob $job): bool => $job->teamName === 'Csapat Egy');
 });
 
 test('falls back to company name when team name is blank', function (): void {
-    $owner = app(CreateCustomer::class)->handle(ownerPayload([
+    $owner = resolve(CreateCustomer::class)->handle(ownerPayload([
         'create_team' => true,
         'team_name' => null,
     ]));
@@ -159,7 +155,7 @@ test('falls back to company name when team name is blank', function (): void {
 });
 
 test('creates no team when create_team is false', function (): void {
-    app(CreateCustomer::class)->handle(ownerPayload(['create_team' => false]));
+    resolve(CreateCustomer::class)->handle(ownerPayload(['create_team' => false]));
 
     expect(Team::query()->count())->toBe(0);
     Bus::assertNotDispatched(CreateTeamJob::class);
@@ -168,7 +164,7 @@ test('creates no team when create_team is false', function (): void {
 test('creates members and attaches each to every subscription', function (): void {
     $plans = Plan::factory()->count(2)->create();
 
-    $owner = app(CreateCustomer::class)->handle(ownerPayload([
+    $owner = resolve(CreateCustomer::class)->handle(ownerPayload([
         'plans' => [
             ['plan_id' => $plans[0]->id, 'quantity' => 5],
             ['plan_id' => $plans[1]->id, 'quantity' => 5],
@@ -186,7 +182,7 @@ test('creates members and attaches each to every subscription', function (): voi
         ->and(Hash::check('secret123', $member->password))->toBeTrue();
 
     // attached to both subscriptions
-    $subscriptionIds = Subscription::withoutGlobalScopes()->where('user_id', $owner->id)->pluck('id');
+    $subscriptionIds = Subscription::query()->withoutGlobalScopes()->where('user_id', $owner->id)->pluck('id');
     expect($member->memberSubscriptions()->pluck('subscriptions.id')->sort()->values()->all())
         ->toEqual($subscriptionIds->sort()->values()->all());
 });

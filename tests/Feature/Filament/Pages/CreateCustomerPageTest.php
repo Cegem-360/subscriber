@@ -59,7 +59,7 @@ test('wizard creates owner, subscription and member end to end', function (): vo
     assertDatabaseHas('users', ['email' => 'tag@example.com']);
 
     $owner = User::query()->where('email', 'anna@example.com')->first();
-    expect(Subscription::withoutGlobalScopes()->where('user_id', $owner->id)->count())->toBe(1);
+    expect(Subscription::query()->withoutGlobalScopes()->where('user_id', $owner->id)->count())->toBe(1);
 });
 
 test('blocks submit when members exceed available seats', function (): void {

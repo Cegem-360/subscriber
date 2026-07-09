@@ -68,7 +68,7 @@ describe('Password reset request form', function (): void {
     });
 
     it('resolves the branded reset password notification from the container', function (): void {
-        $notification = app(FilamentResetPasswordNotification::class, ['token' => 'test-token']);
+        $notification = resolve(FilamentResetPasswordNotification::class, ['token' => 'test-token']);
 
         expect($notification)->toBeInstanceOf(ResetPasswordNotification::class);
     });

@@ -226,7 +226,7 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
             'company_name' => $subscription->user?->company_name ?? '-',
         ]);
 
-        app(AttachSubscriptionMember::class)->handle($subscription, $user, $rawPassword);
+        resolve(AttachSubscriptionMember::class)->handle($subscription, $user, $rawPassword);
 
         Notification::make()
             ->title(__('User created successfully'))
@@ -325,7 +325,7 @@ class ManageUsers extends Component implements HasActions, HasSchemas, HasTable
             return;
         }
 
-        app(AttachSubscriptionMember::class)->handle($subscription, $user);
+        resolve(AttachSubscriptionMember::class)->handle($subscription, $user);
 
         $this->resetTable();
 

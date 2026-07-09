@@ -32,7 +32,7 @@ final class BlockWritesWhenUnverified
 
             $indexRoute = (string) preg_replace('/\.(create|edit)$/', '.index', (string) $request->route()?->getName());
 
-            return redirect()->route($indexRoute);
+            return to_route($indexRoute);
         }
 
         return $next($request);

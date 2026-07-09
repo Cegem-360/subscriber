@@ -20,10 +20,10 @@ use Illuminate\Support\Str;
 use Madbox99\UserTeamSync\Facades\UserTeamSync;
 use Madbox99\UserTeamSync\Publisher\Jobs\ToggleUserActiveJob;
 
-final class CreateCustomer
+final readonly class CreateCustomer
 {
     public function __construct(
-        private readonly AttachSubscriptionMember $attachMember,
+        private AttachSubscriptionMember $attachMember,
     ) {}
 
     /**
@@ -42,9 +42,9 @@ final class CreateCustomer
         $context = DB::transaction(function () use ($data): array {
             $owner = $this->createOwnerRecord($data);
 
-            $team = ! empty($data['create_team'])
-                ? $this->createTeamRecord($this->resolveTeamName($data, $owner), $owner)
-                : null;
+            $team = empty($data['create_team'])
+                ? null
+                : $this->createTeamRecord($this->resolveTeamName($data, $owner), $owner);
 
             $subscriptions = $this->createSubscriptions($owner, $data['plans'] ?? [], $team);
 

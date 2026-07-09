@@ -101,7 +101,7 @@ class MembersRelationManager extends RelationManager
                             'company_name' => $subscription->user?->company_name ?? '-',
                         ]);
 
-                        app(AttachSubscriptionMember::class)->handle($subscription, $user, $rawPassword);
+                        resolve(AttachSubscriptionMember::class)->handle($subscription, $user, $rawPassword);
 
                         return $user;
                     }),
@@ -115,7 +115,7 @@ class MembersRelationManager extends RelationManager
                         $user = User::query()->find($data['recordId'] ?? null);
 
                         if ($user instanceof User) {
-                            app(AttachSubscriptionMember::class)->handle($this->subscription(), $user);
+                            resolve(AttachSubscriptionMember::class)->handle($this->subscription(), $user);
                         }
                     }),
             ])
@@ -132,7 +132,7 @@ class MembersRelationManager extends RelationManager
                     }),
                 DetachAction::make()
                     ->after(function (User $record): void {
-                        app(DetachSubscriptionMember::class)->handle($this->subscription(), $record);
+                        resolve(DetachSubscriptionMember::class)->handle($this->subscription(), $record);
                     }),
             ]);
     }

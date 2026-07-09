@@ -62,7 +62,7 @@ class SubscriptionsTable
                     ->dateTime()
                     ->sortable()
                     ->placeholder('-')
-                    ->description(fn ($record) => $record->trial_ends_at
+                    ->description(fn ($record): ?string => $record->trial_ends_at
                         ? ($record->trial_ends_at->isFuture()
                             ? 'Ends in ' . $record->trial_ends_at->diffForHumans(['parts' => 1])
                             : 'Trial ended')

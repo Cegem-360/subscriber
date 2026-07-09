@@ -18,6 +18,7 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
 use Override;
+use UnitEnum;
 
 class PlanCategoryResource extends Resource
 {
@@ -25,7 +26,7 @@ class PlanCategoryResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Beállítások';
+    protected static string|UnitEnum|null $navigationGroup = 'Beállítások';
 
     protected static ?string $navigationLabel = 'Csomag kategóriák';
 

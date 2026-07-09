@@ -14,6 +14,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Facades\Auth;
 use Override;
+use UnitEnum;
 
 final class Settings extends Page
 {
@@ -25,7 +26,7 @@ final class Settings extends Page
 
     protected static ?string $title = 'Rendszerbeállítások';
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Beállítások';
+    protected static string|UnitEnum|null $navigationGroup = 'Beállítások';
 
     protected static ?int $navigationSort = 5;
 
