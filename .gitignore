@@ -23,3 +23,5 @@ yarn-error.log
 .DS_Store
 setup-user-sync-api-dev.sh
 /public/build
+_ide_helper_models.php
+_ide_helper.php
