@@ -53,9 +53,10 @@ class SubscrubersSubscriptionsTable extends Component implements HasActions, Has
                     ->label(__('Seats'))
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('ends_at')
-                    ->dateTime()
-                    ->sortable(),
+                TextColumn::make('next_billing_date')
+                    ->label(__('Next billing date'))
+                    ->state(fn (Subscription $record): ?string => $record->nextBillingDate()?->format('Y. m. d.'))
+                    ->placeholder('—'),
             ])
             ->filters([
                 //
