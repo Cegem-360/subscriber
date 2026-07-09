@@ -34,6 +34,7 @@ class SubscriptionForm
                 ->preload()
                 ->required(),
             Select::make('type')
+                ->label(__('Subscription type'))
                 ->options(SubscriptionType::class)
                 ->enum(SubscriptionType::class)
                 ->default(SubscriptionType::Monthly)

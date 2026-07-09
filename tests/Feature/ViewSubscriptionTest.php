@@ -64,6 +64,12 @@ it('shows plan and billing information', function (): void {
         ->assertSee(__('Seats & Usage'));
 });
 
+it('labels the type field as subscription type', function (): void {
+    Livewire::actingAs(User::factory()->create())
+        ->test(ViewSubscriptionPage::class, ['subscription' => $this->subscription])
+        ->assertSee(__('Subscription type'));
+});
+
 it('shows active status for active subscription', function (): void {
     Livewire::actingAs(User::factory()->create())
         ->test(ViewSubscriptionPage::class, ['subscription' => $this->subscription])
