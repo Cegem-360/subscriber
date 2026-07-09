@@ -31,9 +31,9 @@ test('hides billing section when user has no stripe customer', function (): void
     Livewire::actingAs(User::factory()->create(['stripe_id' => null]))
         ->test(EditProfile::class)
         ->assertSuccessful()
-        ->assertSee('Profile Information')
-        ->assertSee('Update Password')
-        ->assertDontSee('Billing Information');
+        ->assertSee(__('Profile Information'))
+        ->assertSee(__('Update Password'))
+        ->assertDontSee(__('Billing Information'));
 });
 
 test('shows billing section when user has stripe customer', function (): void {
@@ -42,8 +42,8 @@ test('shows billing section when user has stripe customer', function (): void {
     Livewire::actingAs(User::factory()->create(['stripe_id' => 'cus_test123']))
         ->test(EditProfile::class)
         ->assertSuccessful()
-        ->assertSee('Billing Information')
-        ->assertSee('Stripe Customer ID');
+        ->assertSee(__('Billing Information'))
+        ->assertSee(__('Stripe Customer ID'));
 });
 
 test('billing portal action appears for users with stripe customer', function (): void {

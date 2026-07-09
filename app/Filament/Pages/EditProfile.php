@@ -39,15 +39,15 @@ final class EditProfile extends BaseEditProfile
     {
         return $schema
             ->components([
-                Section::make('Profile Information')
-                    ->description('Update your account profile information.')
+                Section::make(__('Profile Information'))
+                    ->description(__('Update your account profile information.'))
                     ->components([
                         $this->getNameFormComponent(),
                         $this->getEmailFormComponent(),
                     ]),
 
-                Section::make('Update Password')
-                    ->description('Ensure your account is using a long, random password to stay secure.')
+                Section::make(__('Update Password'))
+                    ->description(__('Ensure your account is using a long, random password to stay secure.'))
                     ->components([
                         $this->getPasswordFormComponent(),
                         $this->getPasswordConfirmationFormComponent(),
@@ -58,44 +58,50 @@ final class EditProfile extends BaseEditProfile
                     ->description(__('Your company or billing details.'))
                     ->components([
                         TextInput::make('company_name')
+                            ->label(__('Company Name'))
                             ->required()
                             ->maxLength(255),
 
                         TextInput::make('tax_number')
+                            ->label(__('Tax Number'))
                             ->required()
                             ->maxLength(255),
 
                         TextInput::make('address')
+                            ->label(__('Address'))
                             ->required()
                             ->maxLength(255),
 
                         TextInput::make('city')
+                            ->label(__('City'))
                             ->required()
                             ->maxLength(255),
 
                         TextInput::make('postal_code')
+                            ->label(__('Postal Code'))
                             ->required()
                             ->maxLength(20),
 
                         Select::make('country')
+                            ->label(__('Country'))
                             ->options(Country::class)
                             ->required(),
                     ])
                     ->columns(2),
 
-                Section::make('Billing Information')
-                    ->description('Manage your billing information and payment methods.')
+                Section::make(__('Billing Information'))
+                    ->description(__('Manage your billing information and payment methods.'))
                     ->hidden(fn (): bool => ! ($this->getUser()->stripe_id ?? false))
                     ->components([
                         TextInput::make('stripe_id')
-                            ->label('Stripe Customer ID')
+                            ->label(__('Stripe Customer ID'))
                             ->disabled()
                             ->dehydrated(false)
                             ->default(fn (): ?string => $this->getUser()->stripe_id),
 
                         Actions::make([
                             Action::make('manage_billing')
-                                ->label('Manage Billing Portal')
+                                ->label(__('Manage Billing Portal'))
                                 ->icon(Heroicon::CreditCard)
                                 ->color('primary')
                                 ->action(fn () => $this->redirect($this->getUser()->billingPortalUrl(route('filament.admin.auth.profile')), navigate: false))
@@ -114,7 +120,7 @@ final class EditProfile extends BaseEditProfile
         // Add action to redirect to Stripe billing portal if user has Stripe customer
         if ($this->getUser()->stripe_id ?? false) {
             $actions[] = Action::make('billing_portal')
-                ->label('Billing Portal')
+                ->label(__('Billing Portal'))
                 ->icon(Heroicon::CreditCard)
                 ->color('gray')
                 ->action(fn () => $this->redirect($this->getUser()->billingPortalUrl(route('filament.admin.auth.profile')), navigate: false))

@@ -27,6 +27,7 @@ use Filament\Forms\Components\Field;
 use Filament\Schemas\Components\Fieldset;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
+use Filament\Tables\Columns\Column;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
@@ -59,7 +60,7 @@ final class AppServiceProvider extends ServiceProvider
 
         Fieldset::configureUsing(fn (Fieldset $fieldset) => $fieldset->translateLabel());
         Field::configureUsing(fn (Field $field) => $field->translateLabel());
-
+        Column::configureUsing(fn (Column $column) => $column->translateLabel());
         $this->hideWriteActionsForUnverifiedUsers();
     }
 
