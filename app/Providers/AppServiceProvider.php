@@ -7,6 +7,7 @@ namespace App\Providers;
 use App\Http\Responses\EmailVerificationResponse;
 use App\Models\Subscription;
 use App\Notifications\ResetPasswordNotification;
+use App\Notifications\VerifyEmailNotification;
 use Filament\Actions\AssociateAction;
 use Filament\Actions\AttachAction;
 use Filament\Actions\CreateAction;
@@ -23,6 +24,7 @@ use Filament\Actions\RestoreAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Auth\Http\Responses\Contracts\EmailVerificationResponse as EmailVerificationResponseContract;
 use Filament\Auth\Notifications\ResetPassword as FilamentResetPassword;
+use Filament\Auth\Notifications\VerifyEmail as FilamentVerifyEmail;
 use Filament\Forms\Components\Field;
 use Filament\Schemas\Components\Fieldset;
 use Filament\Support\Colors\Color;
@@ -44,6 +46,10 @@ final class AppServiceProvider extends ServiceProvider
         // Send the branded reset-password email. Filament resolves the reset
         // notification from the container and injects the reset URL into it.
         $this->app->bind(FilamentResetPassword::class, ResetPasswordNotification::class);
+
+        // Send the branded e-mail verification message. Filament resolves the
+        // verification notification from the container and injects the signed URL.
+        $this->app->bind(FilamentVerifyEmail::class, VerifyEmailNotification::class);
     }
 
     /**
