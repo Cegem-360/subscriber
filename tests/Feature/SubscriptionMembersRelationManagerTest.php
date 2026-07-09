@@ -13,12 +13,11 @@ use Filament\Actions\Testing\TestAction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Http;
+use Livewire\Livewire;
 use Madbox99\UserTeamSync\Publisher\Jobs\ToggleUserActiveJob;
 
-use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertDatabaseMissing;
-use function Pest\Livewire\livewire;
 
 uses(RefreshDatabase::class);
 
@@ -32,7 +31,6 @@ it('attaches an existing account through the relation manager', function (): voi
     Bus::fake();
 
     $admin = User::factory()->admin()->create();
-    actingAs($admin);
 
     $plan = Plan::query()->first();
     $team = Team::factory()->create();
@@ -46,7 +44,7 @@ it('attaches an existing account through the relation manager', function (): voi
     $existing = User::factory()->create();
     $existing->teams()->attach($team);
 
-    livewire(MembersRelationManager::class, [
+    Livewire::actingAs($admin)->test(MembersRelationManager::class, [
         'ownerRecord' => $subscription,
         'pageClass' => EditSubscription::class,
     ])
@@ -70,7 +68,6 @@ it('deactivates on the app when detaching the last subscription for that app', f
     Bus::fake();
 
     $admin = User::factory()->admin()->create();
-    actingAs($admin);
 
     $plan = Plan::query()->first();
     $owner = User::factory()->manager()->create();
@@ -81,7 +78,7 @@ it('deactivates on the app when detaching the last subscription for that app', f
 
     $member = User::factory()->memberOf($subscription)->create();
 
-    livewire(MembersRelationManager::class, [
+    Livewire::actingAs($admin)->test(MembersRelationManager::class, [
         'ownerRecord' => $subscription,
         'pageClass' => EditSubscription::class,
     ])
@@ -104,7 +101,6 @@ it('keeps the account active when another subscription grants the same app', fun
     Bus::fake();
 
     $admin = User::factory()->admin()->create();
-    actingAs($admin);
 
     $plan = Plan::query()->first();
     $owner = User::factory()->manager()->create();
@@ -123,7 +119,7 @@ it('keeps the account active when another subscription grants the same app', fun
 
     expect($member->memberSubscriptions()->count())->toBe(2);
 
-    livewire(MembersRelationManager::class, [
+    Livewire::actingAs($admin)->test(MembersRelationManager::class, [
         'ownerRecord' => $sub1,
         'pageClass' => EditSubscription::class,
     ])

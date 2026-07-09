@@ -5,17 +5,13 @@ declare(strict_types=1);
 use App\Enums\UserRole;
 use App\Filament\Resources\Users\Pages\EditUser;
 use App\Models\User;
-
-use function Pest\Livewire\livewire;
-
-beforeEach(function (): void {
-    $this->actingAs(User::factory()->create(['role' => UserRole::Admin]));
-});
+use Livewire\Livewire;
 
 test('edit form exposes every user attribute as an editable field', function (): void {
     $user = User::factory()->create();
 
-    livewire(EditUser::class, ['record' => $user->id])
+    Livewire::actingAs(User::factory()->create(['role' => UserRole::Admin]))
+        ->test(EditUser::class, ['record' => $user->id])
         ->assertFormFieldExists('name')
         ->assertFormFieldExists('email')
         ->assertFormFieldExists('role')
@@ -42,7 +38,8 @@ test('can edit timestamp and billing attributes', function (): void {
     $createdAt = now()->subYear()->startOfMinute();
     $trialEndsAt = now()->addMonth()->startOfMinute();
 
-    livewire(EditUser::class, ['record' => $user->id])
+    Livewire::actingAs(User::factory()->create(['role' => UserRole::Admin]))
+        ->test(EditUser::class, ['record' => $user->id])
         ->fillForm([
             'created_at' => $createdAt,
             'trial_ends_at' => $trialEndsAt,

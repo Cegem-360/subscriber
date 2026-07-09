@@ -8,9 +8,7 @@ use App\Models\Blog\BlogCategory;
 use App\Models\User;
 use Filament\Actions\Testing\TestAction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-
-use function Pest\Laravel\actingAs;
-use function Pest\Livewire\livewire;
+use Livewire\Livewire;
 
 uses(RefreshDatabase::class);
 
@@ -22,14 +20,12 @@ it('has a view frontend action that links to the blog post page', function (): v
     $admin = User::factory()->admin()->create();
     $blog = Blog::factory()->create();
 
-    actingAs($admin);
-
     $expectedUrl = route('blog.show', [
         'blogCategory' => $blog->blogCategory,
         'blog' => $blog,
     ]);
 
-    livewire(ListBlogs::class)
+    Livewire::actingAs($admin)->test(ListBlogs::class)
         ->assertActionExists(TestAction::make('view_frontend')->table($blog))
         ->assertActionHasUrl(TestAction::make('view_frontend')->table($blog), $expectedUrl)
         ->assertActionShouldOpenUrlInNewTab(TestAction::make('view_frontend')->table($blog));

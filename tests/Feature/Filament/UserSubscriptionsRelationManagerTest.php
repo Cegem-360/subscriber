@@ -9,15 +9,12 @@ use App\Models\Plan\PlanCategory;
 use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-
-use function Pest\Laravel\actingAs;
-use function Pest\Livewire\livewire;
+use Livewire\Livewire;
 
 uses(RefreshDatabase::class);
 
 it('shows the user subscriptions with real columns in the relation manager', function (): void {
     $admin = User::factory()->admin()->create();
-    actingAs($admin);
 
     $category = PlanCategory::factory()->create();
     $plan = Plan::factory()->create(['plan_category_id' => $category->id]);
@@ -32,7 +29,7 @@ it('shows the user subscriptions with real columns in the relation manager', fun
             'quantity' => 3,
         ]);
 
-    livewire(SubscriptionsRelationManager::class, [
+    Livewire::actingAs($admin)->test(SubscriptionsRelationManager::class, [
         'ownerRecord' => $owner,
         'pageClass' => EditUser::class,
     ])

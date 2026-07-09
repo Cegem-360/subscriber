@@ -8,30 +8,30 @@ use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Support\Facades\Bus;
+use Livewire\Livewire;
 
+use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseHas;
-use function Pest\Livewire\livewire;
 
 test('admin can render the create customer page', function (): void {
-    $this->actingAs(User::factory()->admin()->create());
-
-    livewire(CreateCustomer::class)->assertSuccessful();
+    Livewire::actingAs(User::factory()->admin()->create())
+        ->test(CreateCustomer::class)
+        ->assertSuccessful();
 });
 
 test('non-admin cannot access the create customer page', function (): void {
     expect(CreateCustomer::canAccess())->toBeFalse();
-
-    $this->actingAs(User::factory()->admin()->create());
+    actingAs(User::factory()->admin()->create());
     expect(CreateCustomer::canAccess())->toBeTrue();
 });
 
 test('wizard creates owner, subscription and member end to end', function (): void {
     Bus::fake();
-    $this->actingAs(User::factory()->admin()->create());
 
     $plan = Plan::factory()->create();
 
-    livewire(CreateCustomer::class)
+    Livewire::actingAs(User::factory()->admin()->create())
+        ->test(CreateCustomer::class)
         ->fillForm([
             'name' => 'Kovács Anna',
             'email' => 'anna@example.com',
@@ -64,10 +64,10 @@ test('wizard creates owner, subscription and member end to end', function (): vo
 
 test('blocks submit when members exceed available seats', function (): void {
     Bus::fake();
-    $this->actingAs(User::factory()->admin()->create());
     $plan = Plan::factory()->create();
 
-    livewire(CreateCustomer::class)
+    Livewire::actingAs(User::factory()->admin()->create())
+        ->test(CreateCustomer::class)
         ->fillForm([
             'name' => 'Kis Pál', 'email' => 'pal@example.com', 'password' => 'password123',
             'role' => UserRole::Manager->value, 'company_name' => 'Pál Kft.', 'tax_number' => '2',
@@ -86,10 +86,10 @@ test('blocks submit when members exceed available seats', function (): void {
 
 test('blocks submit when an email is duplicated between owner and member', function (): void {
     Bus::fake();
-    $this->actingAs(User::factory()->admin()->create());
     $plan = Plan::factory()->create();
 
-    livewire(CreateCustomer::class)
+    Livewire::actingAs(User::factory()->admin()->create())
+        ->test(CreateCustomer::class)
         ->fillForm([
             'name' => 'Dup', 'email' => 'dup@example.com', 'password' => 'password123',
             'role' => UserRole::Manager->value, 'company_name' => 'Dup Kft.', 'tax_number' => '2',
@@ -107,10 +107,10 @@ test('blocks submit when an email is duplicated between owner and member', funct
 
 test('duplicate email guard is case-insensitive', function (): void {
     Bus::fake();
-    $this->actingAs(User::factory()->admin()->create());
     $plan = Plan::factory()->create();
 
-    livewire(CreateCustomer::class)
+    Livewire::actingAs(User::factory()->admin()->create())
+        ->test(CreateCustomer::class)
         ->fillForm([
             'name' => 'Case', 'email' => 'dup@example.com', 'password' => 'password123',
             'role' => UserRole::Manager->value, 'company_name' => 'Case Kft.', 'tax_number' => '2',

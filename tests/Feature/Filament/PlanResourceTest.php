@@ -8,22 +8,23 @@ use App\Filament\Resources\Plans\Pages\EditPlan;
 use App\Filament\Resources\Plans\Pages\ListPlans;
 use App\Models\Plan;
 use App\Models\User;
-
-use function Pest\Livewire\livewire;
+use Livewire\Livewire;
 
 beforeEach(function (): void {
-    $this->actingAs(User::factory()->create());
+    $this->user = User::factory()->create();
 });
 
 test('can render plans list page', function (): void {
-    livewire(ListPlans::class)
+    Livewire::actingAs($this->user)
+        ->test(ListPlans::class)
         ->assertSuccessful();
 });
 
 test('can list plans', function (): void {
     $plans = Plan::factory()->count(3)->create();
 
-    livewire(ListPlans::class)
+    Livewire::actingAs($this->user)
+        ->test(ListPlans::class)
         ->assertCanSeeTableRecords($plans);
 });
 
@@ -31,7 +32,8 @@ test('can search plans by name', function (): void {
     $plans = Plan::factory()->count(5)->create();
     $planToFind = $plans->first();
 
-    livewire(ListPlans::class)
+    Livewire::actingAs($this->user)
+        ->test(ListPlans::class)
         ->searchTable($planToFind->name)
         ->assertCanSeeTableRecords([$planToFind])
         ->assertCanNotSeeTableRecords($plans->skip(1));
@@ -40,7 +42,8 @@ test('can search plans by name', function (): void {
 test('can sort plans by name', function (): void {
     $plans = Plan::factory()->count(3)->create();
 
-    livewire(ListPlans::class)
+    Livewire::actingAs($this->user)
+        ->test(ListPlans::class)
         ->sortTable('name')
         ->assertCanSeeTableRecords($plans->sortBy('name'), inOrder: true)
         ->sortTable('name', 'desc')
@@ -51,14 +54,16 @@ test('can filter plans by billing period', function (): void {
     $monthlyPlans = Plan::factory()->count(2)->create(['billing_period' => BillingPeriod::Monthly]);
     $yearlyPlans = Plan::factory()->count(2)->create(['billing_period' => BillingPeriod::Yearly]);
 
-    livewire(ListPlans::class)
+    Livewire::actingAs($this->user)
+        ->test(ListPlans::class)
         ->filterTable('billing_period', 'monthly')
         ->assertCanSeeTableRecords($monthlyPlans)
         ->assertCanNotSeeTableRecords($yearlyPlans);
 });
 
 test('can render create plan page', function (): void {
-    livewire(CreatePlan::class)
+    Livewire::actingAs($this->user)
+        ->test(CreatePlan::class)
         ->assertSuccessful();
 });
 
@@ -85,7 +90,8 @@ test('can create a plan via model', function (): void {
 });
 
 test('can validate plan creation', function (): void {
-    livewire(CreatePlan::class)
+    Livewire::actingAs($this->user)
+        ->test(CreatePlan::class)
         ->fillForm([
             'name' => '',
             'slug' => '',
@@ -98,14 +104,16 @@ test('can validate plan creation', function (): void {
 test('can render edit plan page', function (): void {
     $plan = Plan::factory()->create();
 
-    livewire(EditPlan::class, ['record' => $plan->id])
+    Livewire::actingAs($this->user)
+        ->test(EditPlan::class, ['record' => $plan->id])
         ->assertSuccessful();
 });
 
 test('can retrieve plan data for editing', function (): void {
     $plan = Plan::factory()->create();
 
-    livewire(EditPlan::class, ['record' => $plan->id])
+    Livewire::actingAs($this->user)
+        ->test(EditPlan::class, ['record' => $plan->id])
         ->assertFormSet([
             'name' => $plan->name,
             'slug' => $plan->slug,
@@ -132,7 +140,8 @@ test('can update a plan via model', function (): void {
 test('can toggle plan active status', function (): void {
     $plan = Plan::factory()->create(['is_active' => true]);
 
-    livewire(ListPlans::class)
+    Livewire::actingAs($this->user)
+        ->test(ListPlans::class)
         ->callTableAction('toggle_status', $plan);
 
     $plan->refresh();

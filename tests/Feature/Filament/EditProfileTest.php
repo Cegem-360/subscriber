@@ -4,31 +4,24 @@ declare(strict_types=1);
 
 use App\Filament\Pages\EditProfile;
 use App\Models\User;
-
-use function Pest\Livewire\livewire;
-
-use Tests\TestCase;
+use Livewire\Livewire;
 
 test('can render edit profile page', function (): void {
-    /** @var TestCase $this */
     $user = User::factory()->create();
 
-    $this->actingAs($user);
-
-    livewire(EditProfile::class)
+    Livewire::actingAs($user)
+        ->test(EditProfile::class)
         ->assertSuccessful();
 });
 
 test('can retrieve user data for editing', function (): void {
-    /** @var TestCase $this */
     $user = User::factory()->create([
         'name' => 'John Doe',
         'email' => 'john@example.com',
     ]);
 
-    $this->actingAs($user);
-
-    livewire(EditProfile::class)
+    Livewire::actingAs($user)
+        ->test(EditProfile::class)
         ->assertSchemaStateSet([
             'name' => 'John Doe',
             'email' => 'john@example.com',
@@ -36,12 +29,10 @@ test('can retrieve user data for editing', function (): void {
 });
 
 test('hides billing section when user has no stripe customer', function (): void {
-    /** @var TestCase $this */
     $user = User::factory()->create(['stripe_id' => null]);
 
-    $this->actingAs($user);
-
-    livewire(EditProfile::class)
+    Livewire::actingAs($user)
+        ->test(EditProfile::class)
         ->assertSuccessful()
         ->assertSee('Profile Information')
         ->assertSee('Update Password')
@@ -49,48 +40,39 @@ test('hides billing section when user has no stripe customer', function (): void
 });
 
 test('shows billing section when user has stripe customer', function (): void {
-    /** @var TestCase $this */
     config(['cashier.key' => 'sk_test_fake_key']);
 
     $user = User::factory()->create(['stripe_id' => 'cus_test123']);
 
-    $this->actingAs($user);
-
-    livewire(EditProfile::class)
+    Livewire::actingAs($user)
+        ->test(EditProfile::class)
         ->assertSuccessful()
         ->assertSee('Billing Information')
         ->assertSee('Stripe Customer ID');
 });
 
 test('billing portal action appears for users with stripe customer', function (): void {
-    /** @var TestCase $this */
     config(['cashier.key' => 'sk_test_fake_key']);
 
     $user = User::factory()->create(['stripe_id' => 'cus_test123']);
 
-    $this->actingAs($user);
-
-    livewire(EditProfile::class)
+    Livewire::actingAs($user)
+        ->test(EditProfile::class)
         ->assertSuccessful()
         ->assertActionExists('billing_portal');
 });
 
 test('billing portal action does not appear for users without stripe customer', function (): void {
-    /** @var TestCase $this */
     $user = User::factory()->create(['stripe_id' => null]);
 
-    $this->actingAs($user);
-
-    livewire(EditProfile::class)
+    Livewire::actingAs($user)
+        ->test(EditProfile::class)
         ->assertSuccessful()
         ->assertActionDoesNotExist('billing_portal');
 });
 
 test('can access profile page via route', function (): void {
-    /** @var TestCase $this */
-    $user = User::factory()->create();
-
-    $this->actingAs($user);
+    $this->actingAs(User::factory()->create());
 
     $this->get(route('filament.admin.auth.profile'))
         ->assertSuccessful();
