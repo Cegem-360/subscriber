@@ -79,8 +79,31 @@ class UserForm
                             ->maxLength(255),
 
                         TextInput::make('billingo_partner_id')
-                            ->numeric(),
+                            ->maxLength(255),
+
+                        TextInput::make('pm_type')
+                            ->label('Payment Method Type')
+                            ->maxLength(255),
+
+                        TextInput::make('pm_last_four')
+                            ->label('Payment Method Last Four')
+                            ->maxLength(4),
+
+                        DateTimePicker::make('trial_ends_at')
+                            ->label('Trial Ends At'),
                     ])
+                    ->columns(2)
+                    ->collapsed(),
+
+                Section::make('Timestamps')
+                    ->schema([
+                        DateTimePicker::make('created_at')
+                            ->label('Created At'),
+
+                        DateTimePicker::make('updated_at')
+                            ->label('Updated At'),
+                    ])
+                    ->columns(2)
                     ->collapsed(),
             ]);
     }
