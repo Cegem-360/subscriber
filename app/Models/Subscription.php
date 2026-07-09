@@ -174,7 +174,14 @@ class Subscription extends CashierSubscription
         }
 
         try {
-            $periodEnd = $this->asStripeSubscription()->current_period_end ?? null;
+            $stripeSubscription = $this->asStripeSubscription();
+
+            // Newer Stripe API versions expose current_period_end on each
+            // subscription item rather than the subscription itself, so fall
+            // back to the first item when the top-level value is absent.
+            $periodEnd = $stripeSubscription->current_period_end
+                ?? $stripeSubscription->items->data[0]->current_period_end
+                ?? null;
         } catch (\Throwable) {
             return null;
         }
