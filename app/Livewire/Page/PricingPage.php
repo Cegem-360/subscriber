@@ -61,7 +61,7 @@ final class PricingPage extends Component
         $this->validate();
 
         try {
-            Mail::to('tamas@cegem360.hu')->send(new ContactInquiryMail(
+            Mail::to('support@cegem360.eu')->send(new ContactInquiryMail(
                 source: 'pricing',
                 data: [
                     'firstName' => $this->firstName,

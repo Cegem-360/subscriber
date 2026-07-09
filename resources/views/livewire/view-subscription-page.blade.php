@@ -154,9 +154,16 @@
                             {{ $subscription->trial_ends_at->format('Y. m. d. H:i') }}</dd>
                     </div>
                 @endif
-                @if ($subscription->ends_at)
+                @if ($subscription->nextBillingDate())
                     <div>
                         <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Next renewal date') }}</dt>
+                        <dd class="mt-1 text-gray-900 dark:text-white">
+                            {{ $subscription->nextBillingDate()->format('Y. m. d. H:i') }}</dd>
+                    </div>
+                @endif
+                @if ($subscription->ends_at)
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Cancellation date') }}</dt>
                         <dd class="mt-1 text-red-600 dark:text-red-400">
                             {{ $subscription->ends_at->format('Y. m. d. H:i') }}</dd>
                     </div>

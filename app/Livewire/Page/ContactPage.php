@@ -68,7 +68,7 @@ final class ContactPage extends Component
         $this->validate();
 
         try {
-            Mail::to('tamas@cegem360.hu')->send(new ContactInquiryMail(
+            Mail::to('support@cegem360.eu')->send(new ContactInquiryMail(
                 source: 'contact',
                 data: [
                     'inquiryType' => $this->inquiryType,

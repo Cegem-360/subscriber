@@ -25,19 +25,7 @@
     {{-- Contact Options --}}
     <section class="bg-white py-16 lg:py-24">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="grid gap-8 md:grid-cols-3">
-                {{-- Phone --}}
-                <div class="rounded-2xl bg-gray-50 p-8 text-center">
-                    <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-indigo-100">
-                        <svg class="h-7 w-7 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                        </svg>
-                    </div>
-                    <h3 class="mb-2 text-lg font-semibold text-gray-900">{{ __('By phone') }}</h3>
-                    <p class="mb-4 text-sm text-gray-600">{{ __('Mon-Fri: 9:00 AM - 5:00 PM') }}</p>
-                    <a href="tel:+36203319550" class="text-lg font-semibold text-indigo-600 hover:underline">+36 20 331 9550</a>
-                </div>
-
+            <div class="grid gap-8 md:grid-cols-2">
                 {{-- Email --}}
                 <div class="rounded-2xl bg-gray-50 p-8 text-center">
                     <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-indigo-100">
@@ -47,7 +35,7 @@
                     </div>
                     <h3 class="mb-2 text-lg font-semibold text-gray-900">{{ __('By email') }}</h3>
                     <p class="mb-4 text-sm text-gray-600">{{ __('We respond within 24 hours') }}</p>
-                    <a href="mailto:info@cegem360.hu" class="text-lg font-semibold text-indigo-600 hover:underline">info@cegem360.hu</a>
+                    <a href="mailto:support@cegem360.eu" class="text-lg font-semibold text-indigo-600 hover:underline">support@cegem360.eu</a>
                 </div>
 
                 {{-- Address --}}
@@ -244,17 +232,11 @@
                             <div>
                                 <div class="font-semibold text-gray-900">Tóth Tamás</div>
                                 <div class="mt-2 space-y-1">
-                                    <a href="tel:+36203319550" class="flex items-center gap-2 text-sm text-indigo-600 hover:underline">
-                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                        </svg>
-                                        +36 20 331 9550
-                                    </a>
-                                    <a href="mailto:tamas@cegem360.hu" class="flex items-center gap-2 text-sm text-indigo-600 hover:underline">
+                                    <a href="mailto:support@cegem360.eu" class="flex items-center gap-2 text-sm text-indigo-600 hover:underline">
                                         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                         </svg>
-                                        tamas@cegem360.hu
+                                        support@cegem360.eu
                                     </a>
                                 </div>
                             </div>
@@ -370,7 +352,7 @@
                     </div>
                     <h3 class="mb-2 text-lg font-semibold text-gray-900">{{ __('Technical support') }}</h3>
                     <p class="mb-4 text-sm text-gray-600">{{ __('For existing customers') }}</p>
-                    <a href="mailto:support@cegem360.hu" class="font-semibold text-indigo-600 hover:underline">support@cegem360.hu</a>
+                    <a href="mailto:support@cegem360.eu" class="font-semibold text-indigo-600 hover:underline">support@cegem360.eu</a>
                 </div>
             </div>
         </div>

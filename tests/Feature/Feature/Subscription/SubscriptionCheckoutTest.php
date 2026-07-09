@@ -2,10 +2,14 @@
 
 declare(strict_types=1);
 
+use App\Enums\BillingPeriod;
+use App\Mail\OrderConfirmationMail;
 use App\Models\Plan;
+use App\Models\Plan\PlanCategory;
 use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 
 uses(RefreshDatabase::class);
 
@@ -87,6 +91,76 @@ it('redirects to modules page after successful checkout when webhook subscriptio
 
     $response->assertRedirect(route('modules'));
     $response->assertSessionHas('success');
+});
+
+it('sends an order confirmation email with the module link and email when the plan is linked', function (): void {
+    Mail::fake();
+
+    $category = PlanCategory::factory()->create([
+        'name' => 'Kontrolling',
+        'url' => 'https://kontrolling.cegem360.eu',
+    ]);
+    $user = User::factory()->create();
+    $plan = Plan::factory()->create([
+        'plan_category_id' => $category->id,
+        'billing_period' => BillingPeriod::Monthly,
+        'stripe_price_id' => 'price_test123',
+    ]);
+
+    Subscription::factory()->active()->create([
+        'user_id' => $user->id,
+        'stripe_price' => $plan->stripe_price_id,
+        'plan_id' => null,
+    ]);
+
+    $this->actingAs($user)->get(route('subscription.success', $plan))
+        ->assertRedirect(route('modules'));
+
+    Mail::assertQueued(
+        OrderConfirmationMail::class,
+        fn (OrderConfirmationMail $mail): bool => $mail->hasTo($user->email)
+            && $mail->email === $user->email
+            && $mail->moduleName === 'Kontrolling'
+            && $mail->moduleUrl === 'https://kontrolling.cegem360.eu'
+            && $mail->billingPeriodLabel === __('Monthly'),
+    );
+});
+
+it('does not resend the confirmation email when the plan was already linked', function (): void {
+    Mail::fake();
+
+    $plan = Plan::factory()->create(['stripe_price_id' => 'price_test123']);
+    $user = User::factory()->create();
+
+    Subscription::factory()->active()->create([
+        'user_id' => $user->id,
+        'stripe_price' => $plan->stripe_price_id,
+        'plan_id' => $plan->id,
+    ]);
+
+    $this->actingAs($user)->get(route('subscription.success', $plan))
+        ->assertRedirect(route('modules'));
+
+    Mail::assertNothingQueued();
+});
+
+it('renders the order confirmation email with the module link, email and period', function (): void {
+    $rendered = (new OrderConfirmationMail(
+        name: 'Teszt Elek',
+        email: 'teszt@example.com',
+        moduleName: 'Kontrolling',
+        moduleUrl: 'https://kontrolling.cegem360.eu',
+        billingPeriodLabel: __('Monthly'),
+        nextRenewalDate: '2026. 08. 09.',
+    ))->render();
+
+    expect($rendered)
+        ->toContain('Rendelés visszaigazolása')
+        ->toContain('Teszt Elek')
+        ->toContain('teszt@example.com')
+        ->toContain('https://kontrolling.cegem360.eu')
+        ->toContain('2026. 08. 09.')
+        ->toContain('support@cegem360.eu');
 });
 
 it('shows cancelled page when cancelling checkout', function (): void {

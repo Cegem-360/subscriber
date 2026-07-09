@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use Livewire\Livewire;
 
 describe('ContactPage', function (): void {
-    it('sends contact inquiry email to tamas@cegem360.hu on submit', function (): void {
+    it('sends contact inquiry email to support@cegem360.eu on submit', function (): void {
         Mail::fake();
 
         Livewire::test(ContactPage::class)
@@ -28,7 +28,7 @@ describe('ContactPage', function (): void {
             ->assertHasNoErrors()
             ->assertSet('submitted', true);
 
-        Mail::assertQueued(ContactInquiryMail::class, fn (ContactInquiryMail $mail): bool => $mail->hasTo('tamas@cegem360.hu')
+        Mail::assertQueued(ContactInquiryMail::class, fn (ContactInquiryMail $mail): bool => $mail->hasTo('support@cegem360.eu')
             && $mail->source === 'contact'
             && $mail->data['inquiryType'] === 'demo'
             && $mail->data['firstName'] === 'Anna'

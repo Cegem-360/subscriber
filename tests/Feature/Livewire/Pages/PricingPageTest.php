@@ -93,7 +93,7 @@ describe('PricingPage', function (): void {
             ->assertSet('currency', CurrencyService::CURRENCY_EUR);
     });
 
-    it('sends quote inquiry email to tamas@cegem360.hu on submit', function (): void {
+    it('sends quote inquiry email to support@cegem360.eu on submit', function (): void {
         Mail::fake();
 
         Livewire::test(PricingPage::class)
@@ -109,7 +109,7 @@ describe('PricingPage', function (): void {
             ->assertHasNoErrors()
             ->assertSet('submitted', true);
 
-        Mail::assertQueued(ContactInquiryMail::class, fn (ContactInquiryMail $mail): bool => $mail->hasTo('tamas@cegem360.hu')
+        Mail::assertQueued(ContactInquiryMail::class, fn (ContactInquiryMail $mail): bool => $mail->hasTo('support@cegem360.eu')
             && $mail->source === 'pricing'
             && $mail->data['email'] === 'janos@example.com'
             && $mail->data['firstName'] === 'János'

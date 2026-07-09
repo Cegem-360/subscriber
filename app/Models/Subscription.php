@@ -17,6 +17,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Date;
 use Laravel\Cashier\Subscription as CashierSubscription;
 use Override;
 
@@ -37,6 +39,10 @@ use Override;
 class Subscription extends CashierSubscription
 {
     use HasFactory;
+
+    private ?Carbon $cachedNextBillingDate = null;
+
+    private bool $nextBillingDateResolved = false;
 
     #[Override]
     protected static function newFactory(): SubscriptionFactory
@@ -146,6 +152,36 @@ class Subscription extends CashierSubscription
             ->unique()
             ->values()
             ->all();
+    }
+
+    /**
+     * The next billing / renewal date pulled from Stripe (current_period_end).
+     *
+     * Returns null when the subscription is not linked to Stripe or Stripe is
+     * unreachable. The result is memoized per instance to avoid repeated API
+     * calls when rendered in list views.
+     */
+    public function nextBillingDate(): ?Carbon
+    {
+        if ($this->nextBillingDateResolved) {
+            return $this->cachedNextBillingDate;
+        }
+
+        $this->nextBillingDateResolved = true;
+
+        if ($this->stripe_id === null) {
+            return null;
+        }
+
+        try {
+            $periodEnd = $this->asStripeSubscription()->current_period_end ?? null;
+        } catch (\Throwable) {
+            return null;
+        }
+
+        return $this->cachedNextBillingDate = $periodEnd
+            ? Date::createFromTimestamp($periodEnd)
+            : null;
     }
 
     #[Scope]

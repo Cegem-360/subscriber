@@ -236,6 +236,16 @@ describe('Password reset form', function (): void {
     });
 });
 
+describe('Password broker status messages', function (): void {
+    it('translates the broker status lines to Hungarian', function (): void {
+        expect(__('passwords.sent'))->toBe('Elküldtük e-mailben a jelszó-visszaállítási linket.')
+            ->and(__('passwords.reset'))->toBe('A jelszavad sikeresen megváltozott.')
+            ->and(__('passwords.token'))->toBe('Ez a jelszó-visszaállítási token érvénytelen.')
+            ->and(__('passwords.user'))->toBe('Nem található felhasználó ezzel az e-mail címmel.')
+            ->and(__('passwords.throttled'))->toBe('Kérjük, várj, mielőtt újra próbálkoznál.');
+    });
+});
+
 describe('Login page password reset link', function (): void {
     it('shows the forgot password link on login page', function (): void {
         get('/admin/login')

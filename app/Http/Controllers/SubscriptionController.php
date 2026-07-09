@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderConfirmationMail;
 use App\Models\Plan;
 use App\Models\Subscription;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Laravel\Cashier\Checkout;
 use Stripe\StripeClient;
 
@@ -70,9 +73,15 @@ class SubscriptionController extends Controller
 
         if ($webhookSubscription) {
             // Webhook already created it - just add plan_id and clean up duplicates
+            $planWasLinked = $webhookSubscription->plan_id !== null;
+
             $webhookSubscription->update(
                 ['plan_id' => $plan->id],
             );
+
+            if (! $planWasLinked) {
+                $this->sendOrderConfirmation($user, $plan, $webhookSubscription);
+            }
 
             // Delete any orphaned local subscriptions (without stripe_id)
             $user->subscriptions()
@@ -230,8 +239,14 @@ class SubscriptionController extends Controller
             'had_plan_before' => $subscription->plan_id !== null,
         ]);
 
+        $planWasLinked = $subscription->plan_id !== null;
+
         $subscription->plan_id = $plan->id;
         $subscription->save();
+
+        if (! $planWasLinked) {
+            $this->sendOrderConfirmation($user, $plan, $subscription);
+        }
 
         // Log CRM activation context for manually synced subscription
         $appKey = $plan->planCategory?->slug;
@@ -245,5 +260,29 @@ class SubscriptionController extends Controller
 
         return to_route('modules')
             ->with('success', 'Előfizetésed sikeresen létrejött! Hamarosan aktiválódnak a jogosultságaid.');
+    }
+
+    /**
+     * Queue the branded order-confirmation email containing the module link,
+     * the customer's login e-mail and the billing period / next renewal date.
+     */
+    private function sendOrderConfirmation(User $user, Plan $plan, Subscription $subscription): void
+    {
+        try {
+            Mail::to($user->email)->send(new OrderConfirmationMail(
+                name: (string) ($user->name ?? ''),
+                email: $user->email,
+                moduleName: $plan->planCategory?->name ?? $plan->name,
+                moduleUrl: $plan->planCategory?->url,
+                billingPeriodLabel: (string) ($plan->billing_period?->getLabel() ?? ''),
+                nextRenewalDate: $subscription->nextBillingDate()?->format('Y. m. d.'),
+            ));
+        } catch (Exception $e) {
+            Log::error('❌ Failed to queue order confirmation email', [
+                'subscription_id' => $subscription->id,
+                'user_email' => $user->email,
+                'error' => $e->getMessage(),
+            ]);
+        }
     }
 }

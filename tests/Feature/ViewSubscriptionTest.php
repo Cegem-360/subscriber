@@ -76,12 +76,12 @@ it('shows update button for active subscription', function (): void {
         ->assertSee(__('Update'));
 });
 
-it('labels the ends_at date as the next renewal date', function (): void {
+it('labels the ends_at date as the cancellation date', function (): void {
     $this->subscription->update(['ends_at' => now()->addMonth()]);
 
     Livewire::actingAs($this->user)
         ->test(ViewSubscriptionPage::class, ['subscription' => $this->subscription->fresh()])
-        ->assertSee(__('Next renewal date'))
+        ->assertSee(__('Cancellation date'))
         ->assertDontSee(__('Ends at'));
 });
 

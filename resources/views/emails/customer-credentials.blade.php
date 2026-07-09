@@ -133,7 +133,7 @@
                     <p style="margin:0 0 4px;font-size:14px;font-weight:700;color:#0f0f23;">Cégem 360 Kft.</p>
                     <p style="margin:0;font-size:12px;line-height:1.6;color:#6b7280;">
                         1051 Budapest, Széchenyi István tér 7-8.<br>
-                        +36 20 331 9550 · <a href="mailto:tamas@cegem360.hu" style="color:#6161ff;text-decoration:none;">tamas@cegem360.hu</a><br>
+                        <a href="mailto:support@cegem360.eu" style="color:#6161ff;text-decoration:none;">support@cegem360.eu</a><br>
                         <a href="https://cegem360.hu/" style="color:#6161ff;text-decoration:none;" target="_blank">cegem360.hu</a>
                     </p>
                 </td>
