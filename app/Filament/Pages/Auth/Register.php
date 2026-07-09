@@ -6,12 +6,15 @@ namespace App\Filament\Pages\Auth;
 
 use App\Enums\Country;
 use App\Enums\UserRole;
+use App\Models\Team;
+use Closure;
 use Filament\Auth\Pages\Register as BaseRegister;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Schema;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Madbox99\UserTeamSync\Facades\UserTeamSync;
 use Override;
 
@@ -39,6 +42,19 @@ final class Register extends BaseRegister
 
         $user = parent::handleRegistration($data);
 
+        // The team slug is derived from the company name and must be unique
+        // (the receiver apps key teams by slug). Persist the team locally so
+        // the same slug is reused everywhere and future registrations can be
+        // validated against it.
+        $teamSlug = Str::slug((string) $user->company_name);
+
+        $team = Team::query()->create([
+            'name' => $user->company_name,
+            'slug' => $teamSlug,
+        ]);
+
+        $user->teams()->attach($team);
+
         UserTeamSync::createUser(
             email: $user->email,
             name: $user->name,
@@ -50,6 +66,7 @@ final class Register extends BaseRegister
         UserTeamSync::createTeam(
             teamName: $user->company_name,
             userEmail: $user->email,
+            slug: $teamSlug,
             userName: $user->name,
         );
 
@@ -77,7 +94,12 @@ final class Register extends BaseRegister
             ->schema([
                 TextInput::make('company_name')
                     ->required()
-                    ->maxLength(length: 255),
+                    ->maxLength(length: 255)
+                    ->rule(static fn (): Closure => static function (string $attribute, mixed $value, Closure $fail): void {
+                        if (Team::query()->where('slug', Str::slug((string) $value))->exists()) {
+                            $fail(__('This company name is already registered. Please choose a different one.'));
+                        }
+                    }),
 
                 TextInput::make('tax_number')
                     ->required()
