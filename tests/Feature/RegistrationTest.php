@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Enums\Country;
+use App\Enums\UserRole;
 use App\Filament\Pages\Auth\Register;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -120,5 +121,31 @@ describe('Registration and login flow', function (): void {
         expect($user)->not->toBeNull();
         expect(Hash::check($password, $user->password))->toBeTrue('Password hash in DB should match the registration password');
         expect(Auth::attempt(['email' => $user->email, 'password' => $password]))->toBeTrue('Auth::attempt should succeed with the registration password');
+    });
+
+    it('registers the main account with the Manager role so it can manage its users', function (): void {
+        Http::fake();
+
+        $password = 'MySecurePass123!';
+
+        livewire(Register::class)
+            ->fillForm([
+                'name' => 'Owner User',
+                'email' => 'owner-role-test@example.com',
+                'password' => $password,
+                'passwordConfirmation' => $password,
+                'company_name' => 'Owner Company',
+                'tax_number' => '12345678',
+                'address' => 'Owner Street 1',
+                'city' => 'Budapest',
+                'postal_code' => '1234',
+                'country' => Country::Hungary,
+            ])
+            ->call('register')
+            ->assertRedirect();
+
+        $user = User::query()->where('email', 'owner-role-test@example.com')->firstOrFail();
+
+        expect($user->role)->toBe(UserRole::Manager);
     });
 });

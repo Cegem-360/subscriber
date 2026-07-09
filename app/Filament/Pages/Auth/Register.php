@@ -32,6 +32,11 @@ final class Register extends BaseRegister
     #[Override]
     protected function handleRegistration(array $data): Model
     {
+        // Self-registration always creates a main (owner) account, which must be
+        // able to manage its own users, so it registers as a Manager rather than
+        // the default Subscriber role.
+        $data['role'] = UserRole::Manager->value;
+
         $user = parent::handleRegistration($data);
 
         UserTeamSync::createUser(
