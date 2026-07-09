@@ -9,69 +9,59 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Throwable;
 
 #[Layout('components.layouts.app')]
 final class ContactPage extends Component
 {
+    #[Validate('required', message: 'Kérjük, válassza ki a megkeresés típusát.', onUpdate: false)]
+    #[Validate('string', onUpdate: false)]
     public string $inquiryType = '';
 
+    #[Validate('required', message: 'A keresztnév megadása kötelező.', onUpdate: false)]
+    #[Validate('string', onUpdate: false)]
+    #[Validate('max:255', onUpdate: false)]
     public string $firstName = '';
 
+    #[Validate('required', message: 'A vezetéknév megadása kötelező.', onUpdate: false)]
+    #[Validate('string', onUpdate: false)]
+    #[Validate('max:255', onUpdate: false)]
     public string $lastName = '';
 
+    #[Validate('required', message: 'Az e-mail cím megadása kötelező.', onUpdate: false)]
+    #[Validate('email', message: 'Kérjük, adjon meg érvényes e-mail címet.', onUpdate: false)]
+    #[Validate('max:255', onUpdate: false)]
     public string $email = '';
 
+    #[Validate('nullable|string|max:50', onUpdate: false)]
     public string $phone = '';
 
+    #[Validate('nullable|string|max:255', onUpdate: false)]
     public string $company = '';
 
+    #[Validate('nullable|string|max:255', onUpdate: false)]
     public string $position = '';
 
+    #[Validate('nullable|string', onUpdate: false)]
     public string $companySize = '';
 
     /** @var array<int, string> */
+    #[Validate('nullable|array', onUpdate: false)]
     public array $interestedModules = [];
 
+    #[Validate('required', message: 'Az üzenet megadása kötelező.', onUpdate: false)]
+    #[Validate('string', onUpdate: false)]
+    #[Validate('min:20', message: 'Az üzenet legalább 20 karakter legyen.', onUpdate: false)]
     public string $message = '';
 
+    #[Validate('accepted', message: 'Az adatvédelmi tájékoztató elfogadása kötelező.', onUpdate: false)]
     public bool $privacyAccepted = false;
 
     public bool $newsletterSubscribe = false;
 
     public bool $submitted = false;
-
-    protected function rules(): array
-    {
-        return [
-            'inquiryType' => 'required|string',
-            'firstName' => 'required|string|max:255',
-            'lastName' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'nullable|string|max:50',
-            'company' => 'nullable|string|max:255',
-            'position' => 'nullable|string|max:255',
-            'companySize' => 'nullable|string',
-            'interestedModules' => 'nullable|array',
-            'message' => 'required|string|min:20',
-            'privacyAccepted' => 'accepted',
-        ];
-    }
-
-    protected function messages(): array
-    {
-        return [
-            'inquiryType.required' => 'Kérjük, válassza ki a megkeresés típusát.',
-            'firstName.required' => 'A keresztnév megadása kötelező.',
-            'lastName.required' => 'A vezetéknév megadása kötelező.',
-            'email.required' => 'Az e-mail cím megadása kötelező.',
-            'email.email' => 'Kérjük, adjon meg érvényes e-mail címet.',
-            'message.required' => 'Az üzenet megadása kötelező.',
-            'message.min' => 'Az üzenet legalább 20 karakter legyen.',
-            'privacyAccepted.accepted' => 'Az adatvédelmi tájékoztató elfogadása kötelező.',
-        ];
-    }
 
     public function submit(): void
     {

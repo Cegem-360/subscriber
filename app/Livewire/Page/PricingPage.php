@@ -13,6 +13,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Throwable;
 
@@ -23,21 +24,29 @@ final class PricingPage extends Component
 
     public bool $isYearly = true;
 
+    #[Validate('required|string|max:255', onUpdate: false)]
     public string $firstName = '';
 
+    #[Validate('required|string|max:255', onUpdate: false)]
     public string $lastName = '';
 
+    #[Validate('required|email|max:255', onUpdate: false)]
     public string $email = '';
 
+    #[Validate('nullable|string|max:50', onUpdate: false)]
     public string $phone = '';
 
+    #[Validate('nullable|string|max:255', onUpdate: false)]
     public string $company = '';
 
     /** @var array<int, string> */
+    #[Validate('nullable|array', onUpdate: false)]
     public array $interestedModules = [];
 
+    #[Validate('required|string|min:20', onUpdate: false)]
     public string $message = '';
 
+    #[Validate('accepted', onUpdate: false)]
     public bool $privacyAccepted = false;
 
     public bool $submitted = false;
@@ -45,23 +54,6 @@ final class PricingPage extends Component
     public function mount(): void
     {
         $this->currency = resolve(CurrencyService::class)->getCurrentCurrency();
-    }
-
-    /**
-     * @return array<string, string>
-     */
-    protected function rules(): array
-    {
-        return [
-            'firstName' => 'required|string|max:255',
-            'lastName' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'nullable|string|max:50',
-            'company' => 'nullable|string|max:255',
-            'interestedModules' => 'nullable|array',
-            'message' => 'required|string|min:20',
-            'privacyAccepted' => 'accepted',
-        ];
     }
 
     public function submitQuote(): void
