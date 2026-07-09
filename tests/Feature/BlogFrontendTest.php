@@ -83,14 +83,11 @@ describe('BlogCategoryPage', function (): void {
         BlogCategory::factory()->inactive()->create([
             'slug' => 'inaktiv-kategoria',
         ]);
-
-        get('/eroforrasok/inaktiv-kategoria')
-            ->assertNotFound();
+        get('/eroforrasok/inaktiv-kategoria')->assertNotFound();
     });
 
     it('returns 404 for non-existent category', function (): void {
-        get('/eroforrasok/nem-letezik')
-            ->assertNotFound();
+        get('/eroforrasok/nem-letezik')->assertNotFound();
     });
 
     it('shows empty state when no posts exist', function (): void {
