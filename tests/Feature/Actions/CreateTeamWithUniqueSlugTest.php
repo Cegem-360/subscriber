@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Actions\CreateTeamWithUniqueSlug;
 use App\Models\Team;
+use Illuminate\Support\Facades\DB;
 
 it('slugifies the name when no team exists yet', function (): void {
     $team = app(CreateTeamWithUniqueSlug::class)->handle('Acme Kft.');
@@ -34,4 +35,39 @@ it('falls back to a generic base when the name slugifies to nothing', function (
     $team = app(CreateTeamWithUniqueSlug::class)->handle('!!!');
 
     expect($team->slug)->toBe('team');
+});
+
+it('recovers when a concurrent insert steals the slug between the check and the create', function (): void {
+    // Simulate a genuine race: another request's team insert lands *after*
+    // our exists() check for 'acme-kft' passed but *before* our own
+    // create() reaches the database, so the real unique constraint on
+    // teams.slug fires and the action's catch branch must recover from it.
+    // The raw DB::table()->insert() bypasses Eloquent events so it cannot
+    // recurse into this same hook.
+    $hasFired = false;
+
+    Team::creating(function (Team $team) use (&$hasFired): void {
+        if ($hasFired) {
+            return;
+        }
+
+        $hasFired = true;
+
+        DB::table('teams')->insert([
+            'name' => 'Competitor Kft.',
+            'slug' => $team->slug,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+    });
+
+    try {
+        $team = app(CreateTeamWithUniqueSlug::class)->handle('Acme Kft.');
+
+        expect($hasFired)->toBeTrue()
+            ->and($team->exists)->toBeTrue()
+            ->and($team->slug)->toBe('acme-kft-2');
+    } finally {
+        Team::flushEventListeners();
+    }
 });
