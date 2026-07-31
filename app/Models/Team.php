@@ -8,6 +8,7 @@ use Database\Factories\TeamFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 use Madbox99\UserTeamSync\Models\Team as BaseTeam;
 
 class Team extends BaseTeam
@@ -17,6 +18,13 @@ class Team extends BaseTeam
     protected static function newFactory(): TeamFactory
     {
         return TeamFactory::new();
+    }
+
+    protected static function booted(): void
+    {
+        static::creating(function (self $team): void {
+            $team->uuid ??= (string) Str::uuid();
+        });
     }
 
     public function planPrices(): HasMany

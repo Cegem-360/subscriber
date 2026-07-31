@@ -27,5 +27,6 @@ test('to array', function (): void {
             'trial_ends_at',
             'created_at',
             'updated_at',
+            'uuid',
         ]);
 });

@@ -17,10 +17,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Cashier\Billable;
 use Override;
 
 #[Fillable([
+    'uuid',
     'name',
     'email',
     'password',
@@ -47,6 +49,13 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
     public function canAccessPanel(Panel $panel): bool
     {
         return true;
+    }
+
+    protected static function booted(): void
+    {
+        self::creating(function (self $user): void {
+            $user->uuid ??= (string) Str::uuid();
+        });
     }
 
     #[Override]
