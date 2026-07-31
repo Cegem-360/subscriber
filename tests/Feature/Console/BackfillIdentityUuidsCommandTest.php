@@ -15,6 +15,9 @@ it('fills the uuid on users and teams that have none', function (): void {
     DB::table('users')->where('id', $user->id)->update(['uuid' => null]);
     DB::table('teams')->where('id', $team->id)->update(['uuid' => null]);
 
+    expect($user->refresh()->uuid)->toBeNull()
+        ->and($team->refresh()->uuid)->toBeNull();
+
     artisan('identity:backfill-uuids')->assertExitCode(0);
 
     expect($user->refresh()->uuid)->not->toBeNull()
