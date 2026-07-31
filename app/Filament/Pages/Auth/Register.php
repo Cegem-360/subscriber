@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages\Auth;
 
+use App\Actions\CreateTeamWithUniqueSlug;
 use App\Enums\Country;
 use App\Enums\UserRole;
 use App\Models\Team;
@@ -42,16 +43,11 @@ final class Register extends BaseRegister
 
         $user = parent::handleRegistration($data);
 
-        // The team slug is derived from the company name and must be unique
-        // (the receiver apps key teams by slug). Persist the team locally so
-        // the same slug is reused everywhere and future registrations can be
-        // validated against it.
-        $teamSlug = Str::slug((string) $user->company_name);
-
-        $team = Team::query()->create([
-            'name' => $user->company_name,
-            'slug' => $teamSlug,
-        ]);
+        // The team slug must be unique (it is the receiver apps' team key and
+        // the Filament tenant route segment). A plain Str::slug() of the
+        // company name collides whenever two customers share a name, which
+        // aborted registration and skipped cross-app provisioning entirely.
+        $team = app(CreateTeamWithUniqueSlug::class)->handle((string) $user->company_name);
 
         $user->teams()->attach($team);
 
@@ -66,7 +62,7 @@ final class Register extends BaseRegister
         UserTeamSync::createTeam(
             teamName: $user->company_name,
             userEmail: $user->email,
-            slug: $teamSlug,
+            slug: $team->slug,
             userName: $user->name,
         );
 
