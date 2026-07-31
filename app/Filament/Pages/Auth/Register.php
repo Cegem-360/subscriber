@@ -57,6 +57,7 @@ final class Register extends BaseRegister
             password: $this->rawPassword,
             role: $user->role?->value ?? UserRole::Manager->value,
             ownerEmail: $user->email,
+            uuid: $user->uuid,
         );
 
         UserTeamSync::createTeam(
@@ -64,6 +65,7 @@ final class Register extends BaseRegister
             userEmail: $user->email,
             slug: $team->slug,
             userName: $user->name,
+            uuid: $team->uuid,
         );
 
         return $user;

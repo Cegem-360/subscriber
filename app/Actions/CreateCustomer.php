@@ -140,6 +140,7 @@ final readonly class CreateCustomer
             password: $ownerPassword,
             role: $owner->role->value,
             ownerEmail: $owner->email,
+            uuid: $owner->uuid,
         );
 
         if ($team instanceof Team) {
@@ -148,6 +149,7 @@ final readonly class CreateCustomer
                 userEmail: $owner->email,
                 slug: $team->slug,
                 userName: $owner->name,
+                uuid: $team->uuid,
             );
         }
 
