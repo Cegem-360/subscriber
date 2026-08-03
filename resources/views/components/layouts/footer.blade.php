@@ -175,6 +175,8 @@
                 <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm text-gray-500">
                     <a href="{{ route('legal.jogi-nyilatkozat') }}" class="hover:text-gray-700 transition-colors">{{ __('Legal notice') }}</a>
                     <span class="text-gray-300">|</span>
+                    <a href="{{ route('legal.impresszum') }}" class="hover:text-gray-700 transition-colors">{{ __('Imprint') }}</a>
+                    <span class="text-gray-300">|</span>
                     <a href="{{ route('legal.szolgaltatasi-feltetelek') }}" class="hover:text-gray-700 transition-colors">{{ __('Terms of service') }}</a>
                     <span class="text-gray-300">|</span>
                     <a href="{{ route('legal.adatvedelmi-tajekoztato') }}" class="hover:text-gray-700 transition-colors">{{ __('Privacy notice') }}</a>

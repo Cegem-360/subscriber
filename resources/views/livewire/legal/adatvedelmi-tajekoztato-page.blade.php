@@ -624,7 +624,7 @@
 
             <p class="mt-16 text-center text-sm text-gray-400">
                 &copy; {{ date('Y') }} Cégem 360 Kft. &nbsp;|&nbsp; {{ __('Effective: 1 June 2016') }} &nbsp;|&nbsp;
-                <a href="{{ route('legal.jogi-nyilatkozat') }}" class="hover:text-gray-600">{{ __('Imprint') }}</a> &nbsp;|&nbsp;
+                <a href="{{ route('legal.impresszum') }}" class="hover:text-gray-600">{{ __('Imprint') }}</a> &nbsp;|&nbsp;
                 <a href="{{ route('legal.cookie-beallitasok') }}" class="hover:text-gray-600">{{ __('Cookie Policy') }}</a> &nbsp;|&nbsp;
                 <a href="{{ route('legal.szolgaltatasi-feltetelek') }}" class="hover:text-gray-600">{{ __('General Terms and Conditions') }}</a>
             </p>

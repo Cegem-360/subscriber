@@ -26,6 +26,7 @@ use App\Livewire\Page\HibabejelentesPage;
 use App\Livewire\Page\Legal\AdatfeldolgozoiTajekoztatoPage;
 use App\Livewire\Page\Legal\AdatvedelmiTajekoztatoPage;
 use App\Livewire\Page\Legal\CookieBeallitasokPage;
+use App\Livewire\Page\Legal\ImpresszumPage;
 use App\Livewire\Page\Legal\JogiNyilatkozatPage;
 use App\Livewire\Page\Legal\SzolgaltatasiFeltetelekPage;
 use App\Livewire\Page\PricingPage;
@@ -158,6 +159,7 @@ Route::get(uri: '/hibabejelentes', action: HibabejelentesPage::class)->name(name
 
 // Legal pages
 Route::get(uri: '/jogi-nyilatkozat', action: JogiNyilatkozatPage::class)->name(name: 'legal.jogi-nyilatkozat');
+Route::get(uri: '/impresszum', action: ImpresszumPage::class)->name(name: 'legal.impresszum');
 Route::get(uri: '/szolgaltatasi-feltetelek', action: SzolgaltatasiFeltetelekPage::class)->name(name: 'legal.szolgaltatasi-feltetelek');
 Route::get(uri: '/adatvedelmi-tajekoztato', action: AdatvedelmiTajekoztatoPage::class)->name(name: 'legal.adatvedelmi-tajekoztato');
 Route::get(uri: '/adatfeldolgozoi-tajekoztato', action: AdatfeldolgozoiTajekoztatoPage::class)->name(name: 'legal.adatfeldolgozoi-tajekoztato');
