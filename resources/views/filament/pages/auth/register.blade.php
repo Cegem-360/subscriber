@@ -22,7 +22,7 @@
             <a wire:navigate href="{{ route('legal.szolgaltatasi-feltetelek') }}" class="underline"
                 style="color: #4f46e5 !important;">ÁSZF-et</a>
             és az
-            <a wire:navigate href="{{ route('legal.jogi-nyilatkozat') }}" class="underline"
+            <a wire:navigate href="{{ route('legal.adatvedelmi-tajekoztato') }}" class="underline"
                 style="color: #4f46e5 !important;">Adatvédelmi Szabályzatot</a>.
         </p>
 

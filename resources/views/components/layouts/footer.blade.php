@@ -173,8 +173,11 @@
             <!-- Bottom row: Legal links -->
             <div class="mt-5 pt-5 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-3">
                 <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm text-gray-500">
+                    {{-- Legal notice (jogi-nyilatkozat) hidden — empty page, superseded by Impresszum --}}
+                    @if(false)
                     <a href="{{ route('legal.jogi-nyilatkozat') }}" class="hover:text-gray-700 transition-colors">{{ __('Legal notice') }}</a>
                     <span class="text-gray-300">|</span>
+                    @endif
                     <a href="{{ route('legal.impresszum') }}" class="hover:text-gray-700 transition-colors">{{ __('Imprint') }}</a>
                     <span class="text-gray-300">|</span>
                     <a href="{{ route('legal.szolgaltatasi-feltetelek') }}" class="hover:text-gray-700 transition-colors">{{ __('Terms of service') }}</a>
