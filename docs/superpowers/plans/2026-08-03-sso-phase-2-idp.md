@@ -262,6 +262,9 @@ Hozd létre: `tests/Feature/Api/UserInfoControllerTest.php`
 declare(strict_types=1);
 
 use App\Enums\UserRole;
+use App\Models\Plan;
+use App\Models\PlanCategory;
+use App\Models\Subscription;
 use App\Models\Team;
 use App\Models\User;
 use Laravel\Passport\Passport;
@@ -305,13 +308,23 @@ it('serialises the role as the enum string value, not the enum object', function
     expect($this->getJson('/api/userinfo')->json('role'))->toBe('subscriber');
 });
 
-it('reports the entitled app keys from accessibleAppKeys', function (): void {
+it('reports the plan category slug of an active subscription as an app key', function (): void {
+    // Szándékosan konkrét slugra állít, nem a accessibleAppKeys() saját
+    // visszatérésére: az önmagára hivatkozó összehasonlítás akkor is
+    // átmenne, ha mindkét oldal ugyanúgy hibás.
     $user = User::factory()->create();
+
+    $category = PlanCategory::factory()->create(['slug' => 'kontrolling']);
+    $plan = Plan::factory()->create(['plan_category_id' => $category->id]);
+
+    Subscription::factory()->active()->for($user)->create([
+        'plan_id' => $plan->id,
+        'quantity' => 5,
+    ]);
 
     Passport::actingAs($user);
 
-    expect($this->getJson('/api/userinfo')->json('apps'))
-        ->toBe($user->accessibleAppKeys());
+    expect($this->getJson('/api/userinfo')->json('apps'))->toBe(['kontrolling']);
 });
 
 it('returns an empty orgs list for a user with no teams', function (): void {
