@@ -76,9 +76,16 @@ final class IdentityAuditCommand extends Command
         }
 
         $path = storage_path('app/identity-audit-' . now()->format('Ymd-His') . '.json');
-        File::put($path, json_encode($report, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+        $written = File::put($path, json_encode($report, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
 
         $this->newLine();
+
+        if ($written === false) {
+            $this->error("Failed to write the full report to: {$path}");
+
+            return self::FAILURE;
+        }
+
         $this->info("Full report written to: {$path}");
         $this->warn('Resolve every divergence by hand BEFORE running identity:backfill-uuids.');
 

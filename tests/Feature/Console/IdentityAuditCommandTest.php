@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Models\Team;
 use App\Models\User;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
 use Madbox99\UserTeamSync\Models\SyncApp;
 
@@ -105,4 +106,34 @@ it('writes the full report to storage', function (): void {
     expect($report)->toHaveKey('crm');
 
     unlink($path);
+});
+
+it('fails loudly when the report cannot be written to disk', function (): void {
+    Http::fake([
+        'https://crm.test/api/identity-audit' => Http::response([
+            'teams' => [],
+            'users' => [],
+            'memberships' => [],
+            'pending_team_attachments' => [],
+        ]),
+    ]);
+
+    // freezeTime() in tests/Pest.php makes the filename deterministic (see
+    // the "writes the full report to storage" test above). Assert the
+    // precondition our mock relies on actually holds: no report from an
+    // earlier run is already sitting at that path, so a false pass here
+    // couldn't be explained by a stray leftover file instead of the mock.
+    $path = storage_path('app/identity-audit-' . now()->format('Ymd-His') . '.json');
+    expect(file_exists($path))->toBeFalse();
+
+    File::partialMock()
+        ->shouldReceive('put')
+        ->once()
+        ->andReturn(false);
+
+    artisan('identity:audit')
+        ->expectsOutputToContain('Failed to write the full report to')
+        ->assertExitCode(1);
+
+    expect(file_exists($path))->toBeFalse();
 });
