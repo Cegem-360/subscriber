@@ -16,7 +16,7 @@
         "laravel/tinker": "^3.0",
         "livewire/blaze": "^1.0",
         "livewire/livewire": "^4.0",
-        "madbox-99/laravel-user-team-sync": "^1.0",
+        "madbox-99/laravel-user-team-sync": "^1.11",
         "madbox-99/rector-filament": "^1.0",
         "nunomaduro/essentials": "^1.0"
     },
