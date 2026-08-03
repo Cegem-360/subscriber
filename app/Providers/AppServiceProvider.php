@@ -30,7 +30,10 @@ use Filament\Schemas\Components\Fieldset;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
 use Filament\Tables\Columns\Column;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
 
@@ -57,6 +60,8 @@ final class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->configureApiRateLimiting();
+
         Cashier::useSubscriptionModel(Subscription::class);
 
         // Set Filament colors globally (for standalone components outside panel)
@@ -68,6 +73,22 @@ final class AppServiceProvider extends ServiceProvider
         Field::configureUsing(fn (Field $field) => $field->translateLabel());
         Column::configureUsing(fn (Column $column) => $column->translateLabel());
         $this->hideWriteActionsForUnverifiedUsers();
+    }
+
+    /**
+     * Define the named `api` rate limiter that `bootstrap/app.php` enables
+     * via `->throttleApi()`.
+     *
+     * Every `api` middleware group route — including the unauthenticated
+     * `/api/userinfo` request that is rejected with a 401 — passes through
+     * this limiter before Passport's ResourceServer parses and verifies the
+     * bearer token, capping the cost an anonymous caller can impose.
+     */
+    private function configureApiRateLimiting(): void
+    {
+        RateLimiter::for('api', fn (Request $request): Limit => Limit::perMinute(60)->by(
+            $request->user()?->getAuthIdentifier() ?? $request->ip() ?? 'unknown',
+        ));
     }
 
     /**

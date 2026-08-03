@@ -56,6 +56,7 @@ final class UserInfoController
                 ->all(),
             'apps' => $user->accessibleAppKeys(),
             'issued_at' => now()->timestamp,
+            'claims_version' => config('identity.claims_version'),
         ]);
     }
 }

@@ -20,15 +20,25 @@ return new class() extends Migration
 {
     public function up(): void
     {
-        Schema::table('sync_apps', function (Blueprint $table): void {
+        Schema::table($this->table(), function (Blueprint $table): void {
             $table->string('oauth_client_id')->nullable()->after('api_key');
         });
     }
 
     public function down(): void
     {
-        Schema::table('sync_apps', function (Blueprint $table): void {
+        Schema::table($this->table(), function (Blueprint $table): void {
             $table->dropColumn('oauth_client_id');
         });
+    }
+
+    /**
+     * The sync apps table name, read the same way the vendor package's own
+     * migration and `Madbox99\UserTeamSync\Models\SyncApp::getTable()` do,
+     * so this migration cannot drift from the table the model actually uses.
+     */
+    private function table(): string
+    {
+        return config('user-team-sync.publisher.apps_table', 'sync_apps');
     }
 };

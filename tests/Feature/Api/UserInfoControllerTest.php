@@ -8,6 +8,7 @@ use App\Models\Plan\PlanCategory;
 use App\Models\Subscription;
 use App\Models\Team;
 use App\Models\User;
+use Illuminate\Support\Facades\RateLimiter;
 use Laravel\Passport\Passport;
 
 it('rejects an unauthenticated request', function (): void {
@@ -122,6 +123,38 @@ it('fails loudly instead of emitting a null sub for a user not yet backfilled wi
     Passport::actingAs($user);
 
     $this->getJson('/api/userinfo')->assertStatus(500);
+});
+
+it('stamps the response with the configured claims_version', function (): void {
+    // Consumers log this so a future contract change is traceable. Emitting
+    // it costs nothing now; retrofitting it after apps integrate would mean
+    // coordinating a deploy per app.
+    config(['identity.claims_version' => 3]);
+
+    $user = User::factory()->create();
+
+    Passport::actingAs($user);
+
+    expect($this->getJson('/api/userinfo')->json('claims_version'))->toBe(3);
+});
+
+it('rejects a request over the rate limit with 429', function (): void {
+    // Anonymous callers must be stopped by the throttle middleware, cheaply,
+    // before Passport's ResourceServer ever parses or verifies a JWT.
+    $ip = '203.0.113.5';
+    $this->withServerVariables(['REMOTE_ADDR' => $ip]);
+
+    for ($i = 0; $i < 60; $i++) {
+        $this->getJson('/api/userinfo')->assertStatus(401);
+    }
+
+    $this->getJson('/api/userinfo')->assertStatus(429);
+
+    // Defensive: this test's array cache store belongs to this test's own
+    // Application instance and is torn down automatically, but clear the
+    // hit count explicitly so a future change to that guarantee can't leak
+    // rate-limit state into another test.
+    RateLimiter::clear(md5('api' . $ip));
 });
 
 it('fails loudly instead of emitting a null orgs uuid for a team not yet backfilled with a uuid', function (): void {
