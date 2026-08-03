@@ -137,3 +137,45 @@ it('fails loudly when the report cannot be written to disk', function (): void {
 
     expect(file_exists($path))->toBeFalse();
 });
+
+it('reports a user that exists only on the receiver', function (): void {
+    // Users that live only on a receiver are the SSO-blocking case: the central
+    // identity provider does not know them, so after the cutover they could not
+    // log in anywhere. The audit must surface them before any backfill runs.
+    Http::fake([
+        'https://crm.test/api/identity-audit' => Http::response([
+            'teams' => [],
+            'users' => [['id' => 9, 'email' => 'csak-itt@example.com']],
+            'memberships' => [],
+            'pending_team_attachments' => [],
+        ]),
+    ]);
+
+    expect(User::query()->where('email', 'csak-itt@example.com')->exists())->toBeFalse();
+
+    artisan('identity:audit')
+        ->expectsOutputToContain('csak-itt@example.com')
+        ->assertExitCode(0);
+});
+
+it('does not report a receiver user that also exists on the publisher as an orphan', function (): void {
+    User::factory()->create(['email' => 'mindketto@example.com']);
+
+    Http::fake([
+        'https://crm.test/api/identity-audit' => Http::response([
+            'teams' => [],
+            'users' => [['id' => 9, 'email' => 'mindketto@example.com']],
+            'memberships' => [],
+            'pending_team_attachments' => [],
+        ]),
+    ]);
+
+    artisan('identity:audit')->assertExitCode(0);
+
+    $path = storage_path('app/identity-audit-' . now()->format('Ymd-His') . '.json');
+    $report = json_decode((string) file_get_contents($path), true);
+
+    expect($report['crm']['orphan_users'])->toBe([]);
+
+    unlink($path);
+});

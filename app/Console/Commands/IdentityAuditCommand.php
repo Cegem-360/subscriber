@@ -66,6 +66,11 @@ final class IdentityAuditCommand extends Command
                 'missing_teams' => array_values(array_diff($localTeams->keys()->all(), $remoteTeamSlugs)),
                 'orphan_teams' => array_values(array_diff($remoteTeamSlugs, $localTeams->keys()->all())),
                 'missing_users' => array_values(array_diff($localUsers, $remoteUserEmails)),
+                // Users that exist only on the receiver are the SSO-blocking case:
+                // the identity provider does not know them, so after the cutover
+                // they could not log in anywhere. They need a decision (migrate or
+                // retire) before the UUID backfill pairs records by email.
+                'orphan_users' => array_values(array_diff($remoteUserEmails, $localUsers)),
                 'missing_memberships' => array_values(array_diff($localMemberships, $remoteMemberships)),
                 'pending_attachments' => $remote['pending_team_attachments'] ?? [],
             ];
@@ -146,6 +151,7 @@ final class IdentityAuditCommand extends Command
             'missing_teams' => 'Teams missing on the receiver',
             'orphan_teams' => 'Teams that exist ONLY on the receiver',
             'missing_users' => 'Users missing on the receiver',
+            'orphan_users' => 'Users that exist ONLY on the receiver',
             'missing_memberships' => 'Memberships missing on the receiver',
         ];
 
