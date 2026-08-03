@@ -40,7 +40,7 @@
                         </tr>
                         <tr>
                             <td class="py-2 font-medium text-gray-700 pr-4 whitespace-nowrap">{{ __('Website') }}</td>
-                            <td class="py-2 text-gray-600"><a href="https://cegem360.hu" class="text-primary-500 hover:text-primary-600">https://cegem360.hu</a></td>
+                            <td class="py-2 text-gray-600"><a href="https://cegem360.eu" class="text-primary-500 hover:text-primary-600">https://cegem360.eu</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -59,7 +59,7 @@
                 {{-- 2. Jogszabályi alap --}}
                 <h2 class="text-xl font-semibold text-gray-900 mt-10 mb-4">{{ __('2. Legal basis and scope of this notice') }}</h2>
                 <p class="text-gray-600 leading-relaxed">
-                    {!! __('This Privacy Policy applies to all data processing activities of the <strong>https://cegem360.hu</strong> website and Cégem 360 Kft., including the website, newsletter sending, B2B marketing, invoicing, and customer record-keeping.') !!}
+                    {!! __('This Privacy Policy applies to all data processing activities of the <strong>https://cegem360.eu</strong> website and Cégem 360 Kft., including the website, newsletter sending, B2B marketing, invoicing, and customer record-keeping.') !!}
                 </p>
                 <p class="text-gray-600 leading-relaxed">{{ __('Legal bases of processing:') }}</p>
                 <ul class="list-disc pl-5 space-y-1 text-gray-600">

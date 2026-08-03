@@ -9,7 +9,7 @@
                 {{-- 1. Mi az a cookie? --}}
                 <h2 class="text-xl font-semibold text-gray-900 mt-10 mb-4">{{ __('1. What is a cookie?') }}</h2>
                 <p class="text-gray-600 leading-relaxed">
-                    {!! __('A cookie is a small text file that the website places in your browser when you visit <strong>https://cegem360.hu</strong>. Cookies help the website function properly, make browsing safer, and provide a better user experience.') !!}
+                    {!! __('A cookie is a small text file that the website places in your browser when you visit <strong>https://cegem360.eu</strong>. Cookies help the website function properly, make browsing safer, and provide a better user experience.') !!}
                 </p>
 
                 {{-- 2. Süti típusok --}}

@@ -48,7 +48,7 @@
                         </tr>
                         <tr>
                             <td class="py-2 font-medium text-gray-700 pr-4 whitespace-nowrap">{{ __('Website:') }}</td>
-                            <td class="py-2 text-gray-600">https://cegem360.hu</td>
+                            <td class="py-2 text-gray-600">https://cegem360.eu</td>
                         </tr>
                     </tbody>
                 </table>
@@ -75,7 +75,7 @@
                 {{-- Szerzői jogok --}}
                 <h2 class="text-xl font-semibold text-gray-900 mt-10 mb-4">{{ __('Copyright') }}</h2>
                 <p class="text-gray-600 leading-relaxed">
-                    {!! __('The entire content of the <strong>https://cegem360.hu</strong> website — including texts, images, graphics, logos, icons, software, and other materials — is the intellectual property of Cégem 360 Kft. and is protected under Hungarian Copyright Act LXXVI of 1999.') !!}
+                    {!! __('The entire content of the <strong>https://cegem360.eu</strong> website — including texts, images, graphics, logos, icons, software, and other materials — is the intellectual property of Cégem 360 Kft. and is protected under Hungarian Copyright Act LXXVI of 1999.') !!}
                 </p>
                 <p class="text-gray-600 leading-relaxed mt-3">
                     {{ __('Copying, distributing, modifying, or using the website\'s content in any form is permitted only with the prior written consent of Cégem 360 Kft.') }}
