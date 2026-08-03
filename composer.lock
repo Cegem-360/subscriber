@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4d11e1cf14ca84ee0b049679ba6a87ca",
+    "content-hash": "3e21829e44a7e07b18e083daa4cd58ff",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -3461,16 +3461,16 @@
         },
         {
             "name": "madbox-99/laravel-user-team-sync",
-            "version": "v1.11.0",
+            "version": "v1.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MadBox-99/laravel-user-team-sync.git",
-                "reference": "ac088d6b3051744c70b7e305f12ca6e61bd7e606"
+                "reference": "da95828199b41010b296bc95bb699038045daddb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MadBox-99/laravel-user-team-sync/zipball/ac088d6b3051744c70b7e305f12ca6e61bd7e606",
-                "reference": "ac088d6b3051744c70b7e305f12ca6e61bd7e606",
+                "url": "https://api.github.com/repos/MadBox-99/laravel-user-team-sync/zipball/da95828199b41010b296bc95bb699038045daddb",
+                "reference": "da95828199b41010b296bc95bb699038045daddb",
                 "shasum": ""
             },
             "require": {
@@ -3519,9 +3519,9 @@
             ],
             "support": {
                 "issues": "https://github.com/MadBox-99/laravel-user-team-sync/issues",
-                "source": "https://github.com/MadBox-99/laravel-user-team-sync/tree/v1.11.0"
+                "source": "https://github.com/MadBox-99/laravel-user-team-sync/tree/v1.12.0"
             },
-            "time": "2026-07-31T11:19:51+00:00"
+            "time": "2026-08-03T10:30:41+00:00"
         },
         {
             "name": "madbox-99/rector-filament",
