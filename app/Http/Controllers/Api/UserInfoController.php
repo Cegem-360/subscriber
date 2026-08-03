@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use App\Exceptions\MissingUuidException;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -17,10 +18,21 @@ use Illuminate\Http\Request;
  */
 final class UserInfoController
 {
+    /**
+     * @throws MissingUuidException when the authenticated user, or any team
+     *                              they belong to, has not been backfilled
+     *                              with a uuid yet. Never emit a null `sub`
+     *                              or `orgs[].uuid` — downstream apps treat
+     *                              those as stable primary keys.
+     */
     public function __invoke(Request $request): JsonResponse
     {
         /** @var User $user */
         $user = $request->user();
+
+        if ($user->uuid === null) {
+            throw MissingUuidException::forUser($user->id);
+        }
 
         return response()->json([
             'sub' => $user->uuid,
@@ -29,11 +41,17 @@ final class UserInfoController
             'role' => $user->role?->value,
             'orgs' => $user->teams()
                 ->get(['teams.id', 'teams.uuid', 'teams.name', 'teams.slug'])
-                ->map(fn (Team $team): array => [
-                    'uuid' => $team->uuid,
-                    'name' => $team->name,
-                    'slug' => $team->slug,
-                ])
+                ->map(function (Team $team): array {
+                    if ($team->uuid === null) {
+                        throw MissingUuidException::forTeam($team->id);
+                    }
+
+                    return [
+                        'uuid' => $team->uuid,
+                        'name' => $team->name,
+                        'slug' => $team->slug,
+                    ];
+                })
                 ->values()
                 ->all(),
             'apps' => $user->accessibleAppKeys(),

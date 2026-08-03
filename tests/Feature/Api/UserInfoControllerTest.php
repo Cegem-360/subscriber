@@ -106,3 +106,36 @@ it('lists every team the user belongs to', function (): void {
 
     expect($this->getJson('/api/userinfo')->json('orgs'))->toHaveCount(2);
 });
+
+it('fails loudly instead of emitting a null sub for a user not yet backfilled with a uuid', function (): void {
+    // uuid is nullable on purpose: rows from before the migration are
+    // filled in later by a separate backfill command. The `creating` hook
+    // only stamps new rows, so update the column directly and bypass model
+    // events, the way a not-yet-backfilled legacy row would look.
+    $user = User::factory()->create();
+
+    User::query()->whereKey($user->id)->update(['uuid' => null]);
+    $user->refresh();
+
+    expect($user->uuid)->toBeNull();
+
+    Passport::actingAs($user);
+
+    $this->getJson('/api/userinfo')->assertStatus(500);
+});
+
+it('fails loudly instead of emitting a null orgs uuid for a team not yet backfilled with a uuid', function (): void {
+    $user = User::factory()->create();
+
+    $team = Team::query()->create(['name' => 'Acme Kft.', 'slug' => 'acme-kft']);
+    $user->teams()->attach($team);
+
+    Team::query()->whereKey($team->id)->update(['uuid' => null]);
+    $team->refresh();
+
+    expect($team->uuid)->toBeNull();
+
+    Passport::actingAs($user);
+
+    $this->getJson('/api/userinfo')->assertStatus(500);
+});
