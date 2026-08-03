@@ -49,6 +49,21 @@ it('skips an app that already has a client', function (): void {
         ->and(Client::query()->count())->toBe(1);
 });
 
+it('does not print the client secret again on a subsequent run', function (): void {
+    SyncApp::create([
+        'name' => 'crm',
+        'url' => 'https://crm.test',
+        'api_key' => 'secret',
+        'is_active' => true,
+    ]);
+
+    artisan('identity:register-clients')->assertExitCode(0);
+
+    artisan('identity:register-clients')
+        ->doesntExpectOutputToContain('IDENTITY_CLIENT_SECRET')
+        ->assertExitCode(0);
+});
+
 it('ignores inactive apps', function (): void {
     SyncApp::create([
         'name' => 'kikapcsolt',
