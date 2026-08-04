@@ -33,6 +33,7 @@ use Filament\Tables\Columns\Column;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
+use Laravel\Passport\Passport;
 
 final class AppServiceProvider extends ServiceProvider
 {
@@ -50,6 +51,14 @@ final class AppServiceProvider extends ServiceProvider
         // Send the branded e-mail verification message. Filament resolves the
         // verification notification from the container and injects the signed URL.
         $this->app->bind(FilamentVerifyEmail::class, VerifyEmailNotification::class);
+
+        // The module apps are all server-side and use the authorization_code
+        // grant, so the device flow is dead surface: it publishes an unbranded
+        // vendor page and three more routes on the identity domain that nothing
+        // can legitimately use. Passport registers those routes in its own
+        // boot(), and package providers boot before this one — so this has to
+        // happen during register(), where it still takes effect.
+        Passport::$deviceCodeGrantEnabled = false;
     }
 
     /**
