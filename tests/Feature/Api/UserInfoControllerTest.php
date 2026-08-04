@@ -9,6 +9,7 @@ use App\Models\Subscription;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Facades\RateLimiter;
+use Laravel\Passport\ClientRepository;
 use Laravel\Passport\Passport;
 
 it('rejects an unauthenticated request', function (): void {
@@ -139,8 +140,9 @@ it('stamps the response with the configured claims_version', function (): void {
 });
 
 it('rejects a request over the rate limit with 429', function (): void {
-    // Anonymous callers must be stopped by the throttle middleware, cheaply,
-    // before Passport's ResourceServer ever parses or verifies a JWT.
+    // Anonymous callers must be stopped by the pre-auth, IP-keyed throttle
+    // middleware, cheaply, before Passport's ResourceServer ever parses or
+    // verifies a JWT.
     $ip = '203.0.113.5';
     $this->withServerVariables(['REMOTE_ADDR' => $ip]);
 
@@ -154,7 +156,35 @@ it('rejects a request over the rate limit with 429', function (): void {
     // Application instance and is torn down automatically, but clear the
     // hit count explicitly so a future change to that guarantee can't leak
     // rate-limit state into another test.
-    RateLimiter::clear(md5('api' . $ip));
+    RateLimiter::clear('pre-auth-throttle:' . $ip);
+});
+
+it('authenticates via a real bearer token with the pre-auth throttle ahead of auth:api', function (): void {
+    // Regression test for the bug that shipped in the first fix attempt:
+    // moving ThrottleRequests ahead of Authenticate globally in
+    // bootstrap/app.php made `Authenticate::authenticate()` call
+    // `$this->auth->shouldUse('api')` too late for the throttle's own
+    // closure, but it also risked masking guard-resolution bugs everywhere
+    // else, because `Passport::actingAs()` calls `shouldUse('api')` directly
+    // and never exercises the real HTTP auth pipeline at all.
+    //
+    // Issue a genuine RS256-signed token through Passport's real
+    // token-issuing pipeline and authenticate purely via the Authorization
+    // header, so this test would fail if the pre-auth middleware were ever
+    // turned back into something that disturbs guard resolution (for
+    // example, by reading `$request->user()` before `auth:api` runs).
+    $user = User::factory()->create();
+
+    app(ClientRepository::class)->createPersonalAccessGrantClient('Regression Test Client');
+
+    $accessToken = $user->createToken('regression-test-token')->accessToken;
+
+    $response = $this->withHeader('Authorization', 'Bearer ' . $accessToken)
+        ->getJson('/api/userinfo');
+
+    $response->assertOk();
+
+    expect($response->json('sub'))->toBe($user->uuid);
 });
 
 it('fails loudly instead of emitting a null orgs uuid for a team not yet backfilled with a uuid', function (): void {

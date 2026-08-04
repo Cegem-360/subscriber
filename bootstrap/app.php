@@ -3,20 +3,11 @@
 declare(strict_types=1);
 
 use App\Http\Middleware\SetLocale;
-use Illuminate\Auth\Middleware\Authorize;
+use App\Http\Middleware\ThrottlePreAuthByIp;
 use Illuminate\Contracts\Auth\Middleware\AuthenticatesRequests;
-use Illuminate\Contracts\Session\Middleware\AuthenticatesSessions;
-use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
-use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
-use Illuminate\Routing\Middleware\SubstituteBindings;
-use Illuminate\Routing\Middleware\ThrottleRequests;
-use Illuminate\Routing\Middleware\ThrottleRequestsWithRedis;
-use Illuminate\Session\Middleware\StartSession;
-use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -30,28 +21,29 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->validateCsrfTokens(except: [
             'stripe/*',
         ]);
-        $middleware->throttleApi();
 
-        // Laravel's default middleware priority runs `auth` before
-        // `throttle`. On `/api/userinfo` that means an unauthenticated
-        // request pays the full Passport JWT-parse-and-verify cost before
-        // the 401 is returned, and the throttle middleware never even
-        // executes — so it can never reject anything. Move throttling ahead
-        // of authentication so the limiter is the first gate an anonymous
-        // caller hits, before that cost is paid.
-        $middleware->priority([
-            HandlePrecognitiveRequests::class,
-            EncryptCookies::class,
-            AddQueuedCookiesToResponse::class,
-            StartSession::class,
-            ShareErrorsFromSession::class,
-            ThrottleRequests::class,
-            ThrottleRequestsWithRedis::class,
-            AuthenticatesRequests::class,
-            AuthenticatesSessions::class,
-            SubstituteBindings::class,
-            Authorize::class,
+        // Alias for the pre-auth, IP-keyed throttle applied explicitly on
+        // routes where an unauthenticated request is still expensive to
+        // reject (see the class PHPDoc for why this exists).
+        $middleware->alias([
+            'throttle.pre-auth-ip' => ThrottlePreAuthByIp::class,
         ]);
+
+        // Listing `throttle.pre-auth-ip` before `auth:api` in a route's
+        // middleware array is not sufficient by itself: Laravel's default
+        // priority list already ranks `AuthenticatesRequests` ahead of
+        // `SubstituteBindings`, and `SortedMiddleware` reorders `Authenticate`
+        // to satisfy that regardless of where unrecognised, non-prioritised
+        // middleware — like this one — sit in the route's middleware array,
+        // dragging them along to wherever the reorder leaves them. Registering
+        // only this one middleware class here — not the shared
+        // `ThrottleRequests`/`Authenticate` relationship used by every other
+        // route — keeps the fix scoped to this single route. See the class
+        // PHPDoc for the full explanation.
+        $middleware->prependToPriorityList(
+            before: AuthenticatesRequests::class,
+            prepend: ThrottlePreAuthByIp::class,
+        );
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
