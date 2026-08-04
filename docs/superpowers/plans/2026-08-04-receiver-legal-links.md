@@ -78,11 +78,17 @@ $legalLabels = [
     "{{ __('Cookie Policy') }}",
 ];
 
+$canonicalUrls = [
+    'https://cegem360.eu/szolgaltatasi-feltetelek',
+    'https://cegem360.eu/adatvedelmi-tajekoztato',
+    'https://cegem360.eu/cookie-beallitasok',
+];
+
 test('a jogi linkek a cegem360.eu kozponti oldalaira mutatnak', function () use ($files): void {
     foreach ($files as $file) {
         $path = base_path($file);
 
-        expect(file_exists($path))->toBeTrue("Hianyzo fajl: {$file}");
+        expect(file_exists($path))->toBeTrue();
 
         $contents = file_get_contents($path);
 
@@ -91,27 +97,31 @@ test('a jogi linkek a cegem360.eu kozponti oldalaira mutatnak', function () use 
     }
 });
 
-test('nem maradt halott href a jogi cimkek mellett', function () use ($files, $legalLabels): void {
-    foreach ($files as $file) {
-        $lines = file(base_path($file), FILE_IGNORE_NEW_LINES);
+test('minden jogi link a harom kanonikus URL egyikere mutat', function () use ($files, $legalLabels, $canonicalUrls): void {
+    $offenders = [];
 
-        foreach ($lines as $number => $line) {
+    foreach ($files as $file) {
+        foreach (file(base_path($file), FILE_IGNORE_NEW_LINES) as $number => $line) {
             foreach ($legalLabels as $label) {
                 if (! str_contains($line, $label)) {
                     continue;
                 }
 
-                expect($line)->not->toContain(
-                    'href="#"',
-                    "Halott jogi link: {$file}:" . ($number + 1),
-                );
+                if (preg_match('/<a\s+href="([^"]*)"/', $line, $matches) !== 1
+                    || ! in_array($matches[1], $canonicalUrls, true)) {
+                    $offenders[] = $file.':'.($number + 1);
+                }
             }
         }
     }
+
+    expect($offenders)->toBe([]);
 });
 ```
 
-A `$files` és a `$legalLabels` a `test()` hívások **előtt** áll, ezért a `use (...)` closure-ökben elérhetők.
+A `$files`, a `$legalLabels` és a `$canonicalUrls` a `test()` hívások **előtt** áll, ezért a `use (...)` closure-ökben elérhetők.
+
+**Miért így:** a második teszt nem csak a halott `href="#"`-et tiltja, hanem megköveteli, hogy a jogi címke melletti `href` a három kanonikus URL **egyike** legyen — így egy elgépelt URL (`cookie-beallitsok`) is kibukik. Az `$offenders` tömb gyűjtése azért kell, mert a Pest expectation-ök üzenet-paramétere verziófüggő; így a bukás kimenete magától megmutatja a hibás `fájl:sor` helyeket.
 
 ---
 
@@ -409,7 +419,7 @@ $files = [
 ];
 ```
 
-Figyelem: az első teszt (URL-jelenlét) a `home.blade.php`-ra már most is átmenne, mert az 1030/1032 sor tartalmazza a két URL-t. A második teszt (halott link) az, ami itt bukik — ez elegendő piros lépés.
+Figyelem: az első teszt (URL-jelenlét) a `home.blade.php`-ra már most is átmenne, mert az 1030/1032 sor tartalmazza a két URL-t. A második teszt (kanonikus URL) az, ami itt bukik — ez elegendő piros lépés.
 
 - [ ] **Step 2: Futtasd, és győződj meg róla, hogy bukik**
 
@@ -871,7 +881,7 @@ $legalLabels = [
 ];
 ```
 
-A `>` és `<` határolók fontosak: az „Impresszum" így nem kerül a listába, és a `>Adatvédelem<` nem illeszkedik véletlenül más szövegre sem.
+A `>` és `<` határolók fontosak: az „Impresszum" így nem kerül a listába, és a `>Adatvédelem<` nem illeszkedik véletlenül más szövegre sem. A `$canonicalUrls` tömb a sablonbeli alapértelmezett marad — csak a `$legalLabels` tér el.
 
 - [ ] **Step 2: Futtasd, és győződj meg róla, hogy bukik**
 
