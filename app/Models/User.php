@@ -85,6 +85,11 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
         return $this->hasMany(ApiToken::class);
     }
 
+    public function legalAcceptances(): HasMany
+    {
+        return $this->hasMany(LegalAcceptance::class);
+    }
+
     public function isAdmin(): bool
     {
         return $this->role === UserRole::Admin;
