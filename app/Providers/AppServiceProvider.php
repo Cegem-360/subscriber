@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Http\Responses\EmailVerificationResponse;
+use App\Models\OauthClient;
 use App\Models\Subscription;
 use App\Notifications\ResetPasswordNotification;
 use App\Notifications\VerifyEmailNotification;
@@ -30,6 +31,7 @@ use Filament\Schemas\Components\Fieldset;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
 use Filament\Tables\Columns\Column;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
@@ -59,6 +61,23 @@ final class AppServiceProvider extends ServiceProvider
         // boot(), and package providers boot before this one — so this has to
         // happen during register(), where it still takes effect.
         Passport::$deviceCodeGrantEnabled = false;
+
+        // Our client model decides per-client whether to skip the consent
+        // screen (first-party clients registered in sync_apps do), and
+        // AuthorizationController::authorize() type-hints
+        // Contracts\AuthorizationViewResponse as a constructor-less method
+        // parameter, so the container resolves it on every hit to
+        // oauth/authorize — even for requests that end up skipping the
+        // view entirely. Passport 13 ships no views or binding for it out
+        // of the box, so without authorizationView() that resolution
+        // throws BindingResolutionException and the route 500s. Same
+        // register()-vs-boot() timing constraint as above: Passport's own
+        // provider boots before this one, so both calls have to happen here.
+        Passport::useClientModel(OauthClient::class);
+
+        Passport::authorizationView(
+            fn (array $parameters): Response => response()->view('auth.oauth-authorize', $parameters),
+        );
     }
 
     /**
