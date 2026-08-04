@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace App\Livewire\Page;
 
+use App\Actions\RecordLegalAcceptance;
 use App\Concerns\RequiresEmailVerification;
 use App\Enums\BillingPeriod;
+use App\Enums\LegalDocument;
 use App\Models\Plan;
 use App\Models\Plan\PlanCategory;
 use App\Models\Team;
 use App\Models\User;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ViewField;
 use Filament\Notifications\Notification;
@@ -132,10 +135,54 @@ final class CreateModulePage extends Component implements HasActions, HasSchemas
                                             ];
                                         }),
                                 ]),
+                                Section::make(__('Legal declarations'))->schema([
+                                    Checkbox::make('accepts_terms')
+                                        ->label($this->legalConsentLabel(LegalDocument::TermsOfService))
+                                        ->accepted()
+                                        ->required(),
+                                    Checkbox::make('accepts_privacy')
+                                        ->label($this->legalConsentLabel(LegalDocument::PrivacyPolicy))
+                                        ->accepted()
+                                        ->required(),
+                                ]),
                             ]),
                     ]),
             ])
             ->statePath('data');
+    }
+
+    /**
+     * Build a consent label whose document name links to the published
+     * document, opened in a new tab so the half-filled wizard is not lost. The
+     * whole sentence is one translation key, because the linked document name
+     * has to carry the Hungarian accusative suffix.
+     */
+    private function legalConsentLabel(LegalDocument $document): HtmlString
+    {
+        $sentence = match ($document) {
+            LegalDocument::TermsOfService => 'I have read and accept the <a href=":url" target="_blank" rel="noopener noreferrer" class="font-medium underline underline-offset-2">General Terms and Conditions</a>.',
+            LegalDocument::PrivacyPolicy => 'I have read and accept the <a href=":url" target="_blank" rel="noopener noreferrer" class="font-medium underline underline-offset-2">Privacy notice</a>.',
+        };
+
+        return new HtmlString(__($sentence, ['url' => route($document->routeName())]));
+    }
+
+    /**
+     * Persist the consent the moment the order is placed — it stands on its own
+     * regardless of whether the Stripe payment later succeeds.
+     */
+    private function recordLegalConsent(): void
+    {
+        /** @var User $user */
+        $user = Auth::user();
+
+        app(RecordLegalAcceptance::class)->handle(
+            user: $user,
+            documents: [LegalDocument::TermsOfService, LegalDocument::PrivacyPolicy],
+            context: 'module_order',
+            ipAddress: request()->ip(),
+            userAgent: request()->userAgent(),
+        );
     }
 
     public function create(): void
@@ -170,6 +217,8 @@ final class CreateModulePage extends Component implements HasActions, HasSchemas
 
             return;
         }
+
+        $this->recordLegalConsent();
 
         // Don't create local subscription - let webhook handle it
         // Just redirect to Stripe checkout with plan info in metadata

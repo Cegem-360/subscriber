@@ -75,8 +75,13 @@ A `Time Period` lépés végére új `Section` két `Checkbox` mezővel:
 
 - `accepts_terms` — `HtmlString` label linkkel a
   `route('legal.szolgaltatasi-feltetelek')` címre, `target="_blank"`,
-  `rel="noopener"`.
+  `rel="noopener noreferrer"`.
 - `accepts_privacy` — ugyanígy `route('legal.adatvedelmi-tajekoztato')`.
+
+A teljes mondat egyetlen fordítási kulcs, benne az `<a href=":url">` markuppal
+— a magyar tárgyeset („Feltételeket", „tájékoztatót") miatt a dokumentum nevét
+nem lehet cserélhető placeholderként kiemelni. Ez egyezik a `hu.json`-ban már
+meglévő, HTML-t tartalmazó kulcsok gyakorlatával.
 
 Mindkettő `->accepted()->required()`. A `create()` már ma is
 `$this->form->getState()`-tel validál, így bepipálatlan checkbox esetén a

@@ -2,7 +2,9 @@
     <section data-hero-light class="bg-white pt-44 pb-28">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <h1 class="text-3xl sm:text-4xl font-semibold text-gray-900 mb-3 text-center">{{ __('Privacy Policy') }}</h1>
-            <p class="text-sm text-text-secondary text-center mb-12">{{ __('Effective from: 1 June 2016') }}</p>
+            <p class="text-sm text-text-secondary text-center mb-12">
+                {{ __('Effective from: :date', ['date' => \App\Enums\LegalDocument::PrivacyPolicy->effectiveAt()->locale(app()->getLocale())->translatedFormat(__('j F Y'))]) }}
+            </p>
 
             <div class="prose prose-gray max-w-none">
 
@@ -623,7 +625,9 @@
             </div>
 
             <p class="mt-16 text-center text-sm text-gray-400">
-                &copy; {{ date('Y') }} Cégem 360 Kft. &nbsp;|&nbsp; {{ __('Effective: 1 June 2016') }} &nbsp;|&nbsp;
+                &copy; {{ date('Y') }} Cégem 360 Kft. &nbsp;|&nbsp;
+                {{ __('Effective: :date', ['date' => \App\Enums\LegalDocument::PrivacyPolicy->effectiveAt()->locale(app()->getLocale())->translatedFormat(__('j F Y'))]) }}
+                &nbsp;|&nbsp;
                 <a href="{{ route('legal.impresszum') }}" class="hover:text-gray-600">{{ __('Imprint') }}</a> &nbsp;|&nbsp;
                 <a href="{{ route('legal.cookie-beallitasok') }}" class="hover:text-gray-600">{{ __('Cookie Policy') }}</a> &nbsp;|&nbsp;
                 <a href="{{ route('legal.szolgaltatasi-feltetelek') }}" class="hover:text-gray-600">{{ __('General Terms and Conditions') }}</a>
