@@ -19,6 +19,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Cashier\Billable;
+use Laravel\Passport\HasApiTokens;
 use Override;
 
 #[Fillable([
@@ -43,6 +44,7 @@ use Override;
 final class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 {
     use Billable;
+    use HasApiTokens;
     use HasFactory;
     use Notifiable;
 
