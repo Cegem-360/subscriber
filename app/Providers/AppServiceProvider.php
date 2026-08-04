@@ -9,6 +9,7 @@ use App\Models\OauthClient;
 use App\Models\Subscription;
 use App\Notifications\ResetPasswordNotification;
 use App\Notifications\VerifyEmailNotification;
+use Carbon\CarbonInterval;
 use Filament\Actions\AssociateAction;
 use Filament\Actions\AttachAction;
 use Filament\Actions\CreateAction;
@@ -85,6 +86,21 @@ final class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Passport defaults to a one-year access-token lifetime, which is
+        // far too long for an SSO token that sixteen module apps re-fetch
+        // claims with every 15 minutes and that this provider has no
+        // revocation endpoint for yet. Unlike the three Passport::* calls
+        // in register() above, these three don't change what Passport
+        // registers during its own boot() — PassportServiceProvider only
+        // *reads* them later, inside the AuthorizationServer singleton's
+        // factory closure, which doesn't run until a token is actually
+        // being issued at request time. So the register()-vs-boot() race
+        // between package and app providers doesn't apply here, and this
+        // can live in boot(), matching Laravel's own documentation.
+        Passport::tokensExpireIn(CarbonInterval::days(15));
+        Passport::refreshTokensExpireIn(CarbonInterval::days(30));
+        Passport::personalAccessTokensExpireIn(CarbonInterval::months(6));
+
         Cashier::useSubscriptionModel(Subscription::class);
 
         // Set Filament colors globally (for standalone components outside panel)
