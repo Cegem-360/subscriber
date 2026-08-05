@@ -5,10 +5,13 @@ declare(strict_types=1);
 use App\Console\Commands\IdentityPreflightCommand;
 use App\Models\Team;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Madbox99\UserTeamSync\Client\IdentityProvisioner;
 use Madbox99\UserTeamSync\Models\SyncApp;
@@ -492,6 +495,14 @@ it('mirrors the real IdentityProvisioner::resolveTeam() resolution order under g
 
     $teamC = Team::query()->create(['name' => 'Stale', 'slug' => 'unrelated']);
 
+    // A reordered resolveTeam() tries to hand teamA's uuid to teamB, which a
+    // real UNIQUE(teams.uuid) index rejects outright — arguably the correct
+    // outcome for a bug this serious, but it means the DB constraint would be
+    // the thing catching the drift, not this test. Drop it here to force the
+    // comparison below to do the catching instead, exactly as it would have
+    // to on a receiver whose schema does not happen to carry that safety net.
+    Schema::table('teams', fn (Blueprint $table) => $table->dropUnique(['uuid']));
+
     $orgX = ['uuid' => $orgUuid, 'slug' => 'x', 'name' => 'Current'];
     $orgFresh = ['uuid' => (string) Str::uuid(), 'slug' => 'brand-new', 'name' => 'Brand New'];
     // Its uuid matches nothing, but its slug collides with teamC's — teamC
@@ -544,9 +555,28 @@ it('mirrors the real IdentityProvisioner::resolveTeam() resolution order under g
     $idForFresh = $resolveId->invoke($command, $orgFresh, $remoteTeamsByUuid, $remoteTeamsByNullSlug);
     $idForCollision = $resolveId->invoke($command, $orgCollidingWithC, $remoteTeamsByUuid, $remoteTeamsByNullSlug);
 
-    expect($idForX)->toBe(1); // resolves to teamA's row id
-    expect($idForFresh)->toBeNull(); // no existing receiver team — would be created
-    expect($idForCollision)->toBeNull(); // must not resolve to teamC's row id either
+    // Translates a REAL resolveTeam() result into "the pre-existing receiver
+    // row it resolved to, or null if it created/adopted something outside
+    // {teamA, teamB, teamC}" — the exact shape resolveReceiverTeamId()
+    // returns. Every comparison below is therefore anchored to what the
+    // provisioner ACTUALLY did on this call, never to a hand-written
+    // assumption: if resolveTeam() ever resolves orgFresh or
+    // orgCollidingWithC to an existing team, $realId reports that team's
+    // real id and the comparison catches the command disagreeing with it.
+    $realId = function (Model $resolved) use ($teamA, $teamB, $teamC): int|string|null {
+        return match (true) {
+            $resolved->is($teamA) => $teamA->id,
+            $resolved->is($teamB) => $teamB->id,
+            $resolved->is($teamC) => $teamC->id,
+            default => null,
+        };
+    };
+
+    // Parity: the command's prediction must equal what resolveTeam() itself
+    // just did, for all three orgs — not an assumption about any of them.
+    expect($idForX)->toBe($realId($resolvedForX));
+    expect($idForFresh)->toBe($realId($resolvedForFresh));
+    expect($idForCollision)->toBe($realId($resolvedForCollision));
 
     $resolvedTeamIds = collect([$idForX, $idForFresh, $idForCollision])->filter(fn (int|string|null $id): bool => $id !== null);
 

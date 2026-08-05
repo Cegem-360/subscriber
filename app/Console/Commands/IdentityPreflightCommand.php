@@ -337,6 +337,17 @@ final class IdentityPreflightCommand extends Command
      * out-of-scope one. If that row's own uuid is non-empty and therefore
      * different from the login's uuid, `resolveUser()` throws instead.
      *
+     * Known gap: this loops over RECEIVER rows, one uuid match per row. A
+     * receiver row already matched by uuid to local user L1 whose email
+     * happens to equal a DIFFERENT local user L2's is never re-checked
+     * against L2 — so it cannot see that L2's own login would hit this same
+     * row by email, find a non-empty foreign uuid, and throw. That requires
+     * uuid drift (L1's receiver row no longer matches L1 by email) plus an
+     * email reassignment between L1 and L2 on the publisher side, so it is
+     * narrow, but it means a conflict can go unreported. Widening this to
+     * cross-check every local user's email against every receiver row would
+     * close it, at the cost of an O(local users × receiver users) pass.
+     *
      * @param  array<string, mixed>  $remoteUser
      * @param  Collection<string, User>  $localUsersByUuid
      * @param  Collection<string, User>  $localUsersByEmail
