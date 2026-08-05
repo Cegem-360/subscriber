@@ -169,6 +169,25 @@ idegen sor egyáltalán a lekérdezésbe kerüljön. A kettő együtt kell.
 A soronkénti ellenőrzés költsége egy egész-összehasonlítás. A második őr akkor is
 fog, ha valaki később elront egy globális scope-ot.
 
+**Az őrök nem egyenrangúak — ezt az implementáció során mértük ki, mutációval.**
+Az 1. őr önmagában *nem* független ellenőrzés: a `bind()` beírja a bindinget, majd
+ugyanazt a config-kulcsot olvassa vissza. Ez tautologikus.
+
+- **Amit az 1. őr elkap:** az elmaradt `bind()`-ot; a queue worker process-reuse
+  miatt beragadt, előző csapatot; a nem-`Model` bindinget.
+- **Amit NEM kap el:** a `tenant_binding` config **elgépelését**. Ilyenkor a
+  `bind()` a hibás kulcsra ír, az ellenőrzés a hibás kulcsról olvas, és átmegy —
+  miközben a host `TeamScope`-ja a helyes kulcsot keresi, nem találja, és némán
+  kikapcsol. Pontosan az a katasztrófa, ami ellen az őr készült.
+- A csomag ezt **nem is tudja** ellenőrizni: nem hivatkozhat `App\`-ra, tehát nincs
+  független referenciája arra, milyen kulcsot vár a valódi scope.
+
+**Ezért a load-bearing védelem a 2. őr**, plusz az, hogy az appok configjában a
+host konstansa szerepel (`App\Models\Team::CONTAINER_BINDING`), nem string
+literál — konstanst nem lehet elgépelni, a hibás név fatal errort ad.
+A `TenantContext` PHPDoc-ja ezt a határt kimondja, hogy senki ne bízzon
+olyan védelemben, ami nincs.
+
 ## UI, tárolás, biztonság
 
 - **Panel-oldal (`Adatexport`):** „Új export" gomb, alatta a korábbi exportok
