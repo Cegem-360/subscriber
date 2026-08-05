@@ -384,8 +384,6 @@ final class IdentityPreflightCommand extends Command
      *
      * @param  array<string, mixed>  $remoteUser
      * @param  Collection<string, User>  $localUsersByUuid
-     * @param  array<string, mixed>  $remoteUser
-     * @param  Collection<string, User>  $localUsersByUuid
      * @param  Collection<string, User>  $localUsersByEmail
      * @return array{type: 'uuid'|'email'|'conflict'|'none', user: ?User}
      */
