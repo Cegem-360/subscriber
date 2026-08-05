@@ -99,6 +99,10 @@ it('passes when the only detached team is empty', function (): void {
     artisan('identity:preflight')
         ->expectsOutputToContain('Would lose at least one membership: 1')
         ->expectsOutputToContain('orphan-team: empty, safe to detach')
+        // Losing a membership is not being locked out: this user keeps a
+        // team, so neither the zero-teams line nor its lockout subset may
+        // appear at all.
+        ->doesntExpectOutputToContain('ZERO teams')
         ->expectsOutputToContain('PASSED')
         ->assertExitCode(0);
 });
@@ -143,9 +147,137 @@ it('flags a local user with no teams, even with no receiver memberships to lose'
 
     artisan('identity:preflight')
         ->expectsOutputToContain('Would be left with ZERO teams')
+        // Already at zero on the receiver too, so the cutover takes nothing
+        // away. This must stay purely informational: failing the run on it
+        // would fire on every fleet app that has an idle account, and a
+        // command that cries wolf stops being read.
+        ->expectsOutputToContain("✓ {$user->email}: already has no teams on this receiver — the cutover changes nothing")
+        ->doesntExpectOutputToContain("! {$user->email}")
+        ->doesntExpectOutputToContain('FAILED')
         ->assertExitCode(0);
 
     Http::assertSentCount(1);
+});
+
+it('fails when a user holding a receiver membership today would be left with zero teams', function (): void {
+    // The production shape that exposed the gap: against `kontrolling` the
+    // command printed "Would be left with ZERO teams: 3" and then PASSED.
+    // Two of those three already held no receiver team, so the cutover
+    // changed nothing for them — but the third held a real membership and
+    // syncTeams()' `sync([])` would have detached it, leaving a user who can
+    // use the panel today with no tenant at all. One number covering both
+    // situations, gating nothing, is what made it ignorable.
+    $lockedOut = User::factory()->create(['email' => 'mobilinfo.hu@gmail.com']);
+    $idleA = User::factory()->create(['email' => 'budapestdugulaselharito+1@gmail.com']);
+    $idleB = User::factory()->create(['email' => 'cegem360+proba23332@gmail.com']);
+    // Deliberately: not one of the three has a single team on the publisher.
+
+    Http::fake([
+        'https://crm.test/api/identity-audit' => Http::response(identityAuditPayload(
+            teams: [['id' => 7, 'uuid' => null, 'name' => 'Próba Cég', 'slug' => 'proba-ceg']],
+            users: [
+                ['id' => 1, 'uuid' => $lockedOut->uuid, 'email' => $lockedOut->email],
+                ['id' => 2, 'uuid' => $idleA->uuid, 'email' => $idleA->email],
+                ['id' => 3, 'uuid' => $idleB->uuid, 'email' => $idleB->email],
+            ],
+            memberships: [
+                ['user_email' => $lockedOut->email, 'user_uuid' => $lockedOut->uuid, 'team_slug' => 'proba-ceg', 'team_uuid' => null],
+            ],
+        )),
+        // The team is EMPTY — the only pre-existing failure gate (at-risk
+        // teams holding records) is therefore satisfied, so nothing but the
+        // lockout itself can turn this run red.
+        'https://crm.test/api/identity-audit?count_teams=*' => Http::response([
+            'record_counts' => ['proba-ceg' => 0],
+        ]),
+    ]);
+
+    artisan('identity:preflight')
+        ->expectsOutputToContain('Would be left with ZERO teams — cannot use a Filament panel: 3')
+        ->expectsOutputToContain('Of those, would LOSE panel access they have today: 1')
+        ->expectsOutputToContain('! mobilinfo.hu@gmail.com: holds 1 receiver membership today, would be left with none')
+        ->expectsOutputToContain('✓ budapestdugulaselharito+1@gmail.com: already has no teams on this receiver — the cutover changes nothing')
+        ->expectsOutputToContain('✓ cegem360+proba23332@gmail.com: already has no teams on this receiver — the cutover changes nothing')
+        // The two idle accounts must not be dressed up as casualties.
+        ->doesntExpectOutputToContain('! budapestdugulaselharito+1@gmail.com')
+        ->doesntExpectOutputToContain('! cegem360+proba23332@gmail.com')
+        // Proves the records gate cleared, so the FAILED below is the lockout
+        // gate alone and not the pre-existing one firing by accident.
+        ->expectsOutputToContain('✓ proba-ceg: empty, safe to detach')
+        ->doesntExpectOutputToContain('at-risk teams hold records')
+        ->expectsOutputToContain('Preflight FAILED: users who can use a panel today would be left with ZERO teams and lose all access')
+        ->assertExitCode(1);
+
+    Http::assertSentCount(2);
+});
+
+it('names every locked-out user and the number of memberships each one holds today', function (): void {
+    // A bare count forces the operator to redo by hand the receiver-side
+    // query that found this in the first place, so the identity and the size
+    // of each loss have to be in the output. Two casualties with DIFFERENT
+    // membership counts: a list that stops at the first entry, or a count
+    // that is not really derived per user, cannot satisfy both lines.
+    $one = User::factory()->create(['email' => 'one@example.com']);
+    $two = User::factory()->create(['email' => 'two@example.com']);
+
+    $alphaUuid = (string) Str::uuid();
+    $betaUuid = (string) Str::uuid();
+    $gammaUuid = (string) Str::uuid();
+
+    Http::fake([
+        'https://crm.test/api/identity-audit' => Http::response(identityAuditPayload(
+            teams: [
+                ['id' => 1, 'uuid' => $alphaUuid, 'name' => 'Alpha', 'slug' => 'alpha'],
+                ['id' => 2, 'uuid' => $betaUuid, 'name' => 'Beta', 'slug' => 'beta'],
+                ['id' => 3, 'uuid' => $gammaUuid, 'name' => 'Gamma', 'slug' => 'gamma'],
+            ],
+            users: [
+                ['id' => 1, 'uuid' => $one->uuid, 'email' => $one->email],
+                ['id' => 2, 'uuid' => $two->uuid, 'email' => $two->email],
+            ],
+            memberships: [
+                ['user_email' => $one->email, 'user_uuid' => $one->uuid, 'team_slug' => 'alpha', 'team_uuid' => $alphaUuid],
+                ['user_email' => $two->email, 'user_uuid' => $two->uuid, 'team_slug' => 'beta', 'team_uuid' => $betaUuid],
+                ['user_email' => $two->email, 'user_uuid' => $two->uuid, 'team_slug' => 'gamma', 'team_uuid' => $gammaUuid],
+            ],
+        )),
+        'https://crm.test/api/identity-audit?count_teams=*' => Http::response([
+            'record_counts' => ['alpha' => 0, 'beta' => 0, 'gamma' => 0],
+        ]),
+    ]);
+
+    artisan('identity:preflight')
+        ->expectsOutputToContain('Of those, would LOSE panel access they have today: 2')
+        ->expectsOutputToContain('! one@example.com: holds 1 receiver membership today, would be left with none')
+        ->expectsOutputToContain('! two@example.com: holds 2 receiver memberships today, would be left with none')
+        ->assertExitCode(1);
+});
+
+it('identifies a locked-out receiver row that carries no email by its uuid instead', function (): void {
+    // A receiver row can predate the email column being populated. Falling
+    // back to the uuid keeps the operator able to find the row; printing an
+    // empty label would be indistinguishable from a bug.
+    $user = User::factory()->create(['email' => 'byuuid@example.com']);
+    $teamUuid = (string) Str::uuid();
+
+    Http::fake([
+        'https://crm.test/api/identity-audit' => Http::response(identityAuditPayload(
+            teams: [['id' => 1, 'uuid' => $teamUuid, 'name' => 'Orphan', 'slug' => 'orphan']],
+            users: [['id' => 9, 'uuid' => $user->uuid, 'email' => '']],
+            // Grouped under the receiver row's own (empty) e-mail, exactly as
+            // the audit payload reports it.
+            memberships: [
+                ['user_email' => '', 'user_uuid' => $user->uuid, 'team_slug' => 'orphan', 'team_uuid' => $teamUuid],
+            ],
+        )),
+        'https://crm.test/api/identity-audit?count_teams=*' => Http::response([
+            'record_counts' => ['orphan' => 0],
+        ]),
+    ]);
+
+    artisan('identity:preflight')
+        ->expectsOutputToContain("! {$user->uuid}: holds 1 receiver membership today, would be left with none")
+        ->assertExitCode(1);
 });
 
 it('spares a receiver team with no uuid whose slug matches a local team, mirroring adoption', function (): void {
@@ -452,6 +584,13 @@ it('reports a gap when the receiver cannot resolve a requested slug to a team', 
 it('requests every distinct at-risk slug exactly once, across multiple users', function (): void {
     $userA = User::factory()->create();
     $userB = User::factory()->create();
+
+    // Both keep a local team, so neither ends at zero. Without it this
+    // fixture would ALSO be a double lockout, and the exit code below would
+    // be measuring that instead of the slug de-duplication it is named for.
+    $keptTeam = Team::query()->create(['name' => 'Kept', 'slug' => 'kept']);
+    $userA->teams()->attach($keptTeam);
+    $userB->teams()->attach($keptTeam);
 
     $sharedUuid = (string) Str::uuid();
     $otherUuid = (string) Str::uuid();
