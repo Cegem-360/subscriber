@@ -94,6 +94,7 @@ DataPortability::register(
 
     Exportable::model(Invoice::class)->label('Számlák'),
     Exportable::model(Task::class)->label('Feladatok')->except(['internal_note']),
+    Exportable::model(CustomerAddress::class)->label('Címek')->through('customer'),
 );
 ```
 
@@ -146,10 +147,24 @@ adatát tartalmazza.** Csendes, katasztrofális hiba. Két, egymástól függetl
 1. **Indításkor:** `app()->bound($binding)`, és a feloldott példány kulcsa
    `=== $teamId`. Különben a job elhasal, mielőtt egy sort is írna.
 2. **Soronként:** minden kiírt rekordból kiolvassuk a csapat-azonosítót.
-   Alapértelmezett feloldó: `team_id`. A `TeamThroughScope`-os modelleknél a
-   regiszterben **kötelező** a `->teamVia(fn ($m) => $m->customer?->team_id)`.
-   Eltérés vagy `null` → `TenantLeakDetected`, az egész export megszakad, a
-   részleges ZIP törlődik.
+   Alapértelmezett feloldó: `team_id`. Eltérés vagy `null` →
+   `TenantLeakDetected`, az egész export megszakad, a részleges ZIP törlődik.
+
+### Team-oszlop nélküli modellek
+
+Nem minden exportálandó modell hordoz `team_id`-t. A `crm`-ben a `QuoteItem` és
+az `OrderItem` `TeamThroughScope`-pal szűr, a `CustomerAddress`,
+`SupportTicketMessage`, `ComplaintEscalation`, `CampaignResponse` és
+`CustomFieldValue` pedig **semmilyen team-scope-ot nem használ** — a szülőjükön
+keresztül tartoznak a csapathoz.
+
+Ezekre a regiszter `->through('customer')` deklarációt vár. Ez két dolgot tesz
+egyszerre: `whereHas('customer')`-rel szűkíti a lekérdezést (a szülő
+`TeamScope`-ja a `whereHas`-en belül érvényesül), és a 2. őr team-feloldóját a
+kapcsolaton keresztül adja meg (`$m->customer?->team_id`), eager loaddal.
+
+A 2. őr önmagában csak **észlel**; a `through()` az, ami meg is akadályozza, hogy
+idegen sor egyáltalán a lekérdezésbe kerüljön. A kettő együtt kell.
 
 A soronkénti ellenőrzés költsége egy egész-összehasonlítás. A második őr akkor is
 fog, ha valaki később elront egy globális scope-ot.
