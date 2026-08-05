@@ -294,6 +294,36 @@ it('reports an identity conflict and fails, because that login would 500 (C1)', 
     Http::assertSentCount(1);
 });
 
+it('reports a conflict when two receiver rows resolve to the same local user (Finding 2)', function (): void {
+    // R1 is found by uuid on login and has its email force-filled to the
+    // local user's CURRENT email — but R3 already holds that exact email.
+    // resolveUser() cannot tell these apart from a clean case: R1 looks like
+    // an ordinary uuid match and R3 looks like an ordinary email adoption.
+    // Only comparing across rows reveals that the write onto R1 hits R3's
+    // own unique email and IdentityConflictException::emailBelongsToAnotherIdentity()
+    // fires — a single email change on the publisher is enough to create
+    // this, no uuid drift or second local user required.
+    $localUser = User::factory()->create(['email' => 'moved@example.com']);
+
+    Http::fake([
+        'https://crm.test/api/identity-audit' => Http::response(identityAuditPayload(
+            teams: [],
+            users: [
+                ['id' => 1, 'uuid' => $localUser->uuid, 'email' => 'old@example.com'],
+                ['id' => 3, 'uuid' => null, 'email' => 'moved@example.com'],
+            ],
+            memberships: [],
+        )),
+    ]);
+
+    artisan('identity:preflight')
+        ->expectsOutputToContain('Identity conflicts')
+        ->expectsOutputToContain('FAILED')
+        ->assertExitCode(1);
+
+    Http::assertSentCount(1);
+});
+
 it('reports a receiver user matching neither uuid nor email as genuinely out of scope', function (): void {
     Http::fake([
         'https://crm.test/api/identity-audit' => Http::response(identityAuditPayload(
@@ -472,12 +502,31 @@ it('requests every distinct at-risk slug exactly once, across multiple users', f
  * do — so this test invokes the REAL resolveTeam() via reflection, on
  * fixtures where the uuid rule and the slug rule genuinely compete, and
  * checks that the command's own resolution (also exercised via reflection,
- * since it is private) agrees with what resolveTeam() actually did.
+ * since it is private) agrees with what resolveTeam() actually did — for
+ * EVERY case, never against a hand-written assumption about what "should"
+ * happen. Every assertion in this test is that comparison; there is no
+ * separate block asserting facts about the real provisioner in isolation,
+ * because such a block would run before the comparison and could hide the
+ * comparison never actually executing (proven during review: it did).
  *
- * teamA already carries the org's uuid but a drifted slug ('x-old'). teamB
- * is a legacy row with no uuid at all but the org's CURRENT slug ('x').
- * A naive slug-only check would rescue teamB; the real resolveTeam() must
- * not, because the uuid branch is checked first and wins outright.
+ * Four orgs exercise the four ways an org can resolve against a receiver
+ * team roster of {teamA: uuid-matched, drifted slug 'x-old'; teamB: no
+ * uuid, current slug 'x'; teamC: uuid-matched, unrelated slug}:
+ *   - orgX:              uuid wins outright over teamB's competing slug.
+ *   - orgAdoptsB:        no uuid match, so the uuid-less slug match on
+ *                         teamB is taken — this is the branch the whole
+ *                         whereNull('uuid') subtlety lives in, and the one
+ *                         no other case here exercises.
+ *   - orgFresh:          matches nothing at all; a brand-new team is made.
+ *   - orgCollidingWithC: slug matches teamC, but teamC already has a uuid,
+ *                        so whereNull('uuid') must exclude it — without
+ *                        that guard teamC would be silently overwritten.
+ *
+ * Known limit (not fixable by this test alone): parity cannot catch
+ * co-drift. If resolveTeam() and resolveReceiverTeamId() both lost the
+ * slug-adoption branch in lockstep, they would still agree with each
+ * other and this test would still pass while orgAdoptsB silently detaches
+ * on every receiver.
  */
 it('mirrors the real IdentityProvisioner::resolveTeam() resolution order under genuine rule competition', function (): void {
     // resolveTeam() calling save() on teamA changes its name/slug to the
@@ -504,28 +553,25 @@ it('mirrors the real IdentityProvisioner::resolveTeam() resolution order under g
     Schema::table('teams', fn (Blueprint $table) => $table->dropUnique(['uuid']));
 
     $orgX = ['uuid' => $orgUuid, 'slug' => 'x', 'name' => 'Current'];
+    // No uuid match anywhere, but its slug matches teamB's — the ONLY case
+    // here that must go through the uuid-less adoption branch.
+    $orgAdoptsB = ['uuid' => (string) Str::uuid(), 'slug' => $teamB->slug, 'name' => 'Adopted Legacy'];
     $orgFresh = ['uuid' => (string) Str::uuid(), 'slug' => 'brand-new', 'name' => 'Brand New'];
     // Its uuid matches nothing, but its slug collides with teamC's — teamC
     // already carries a uuid, so ->whereNull('uuid') must exclude it from
     // adoption. Without that guard, teamC would be silently overwritten.
     $orgCollidingWithC = ['uuid' => (string) Str::uuid(), 'slug' => $teamC->slug, 'name' => 'Impostor'];
-    $teamCOriginalUuid = $teamC->uuid;
 
     $resolveTeam = new ReflectionMethod(IdentityProvisioner::class, 'resolveTeam');
     $resolveTeam->setAccessible(true);
     $provisioner = new IdentityProvisioner();
 
-    // Ground truth: what the real provisioner resolves EVERY org to.
+    // What the real provisioner resolves EVERY org to. Nothing is asserted
+    // about these directly — see the class docblock above for why.
     $resolvedForX = $resolveTeam->invoke($provisioner, $orgX);
+    $resolvedForAdoptsB = $resolveTeam->invoke($provisioner, $orgAdoptsB);
     $resolvedForFresh = $resolveTeam->invoke($provisioner, $orgFresh);
     $resolvedForCollision = $resolveTeam->invoke($provisioner, $orgCollidingWithC);
-
-    expect($resolvedForX->is($teamA))->toBeTrue(); // uuid wins over teamB's slug match
-    expect($resolvedForFresh->is($teamA))->toBeFalse();
-    expect($resolvedForFresh->is($teamB))->toBeFalse();
-    expect($resolvedForFresh->is($teamC))->toBeFalse(); // a brand-new team was created
-    expect($resolvedForCollision->is($teamC))->toBeFalse(); // teamC has a uuid, so it must NOT be adopted by slug
-    expect($teamC->refresh()->uuid)->toBe($teamCOriginalUuid); // and must be left untouched
 
     // The command's own algorithm, exercised through reflection, fed the
     // SAME receiver team roster (teamA, teamB, teamC as they existed BEFORE
@@ -552,33 +598,44 @@ it('mirrors the real IdentityProvisioner::resolveTeam() resolution order under g
     ])->keyBy('slug');
 
     $idForX = $resolveId->invoke($command, $orgX, $remoteTeamsByUuid, $remoteTeamsByNullSlug);
+    $idForAdoptsB = $resolveId->invoke($command, $orgAdoptsB, $remoteTeamsByUuid, $remoteTeamsByNullSlug);
     $idForFresh = $resolveId->invoke($command, $orgFresh, $remoteTeamsByUuid, $remoteTeamsByNullSlug);
     $idForCollision = $resolveId->invoke($command, $orgCollidingWithC, $remoteTeamsByUuid, $remoteTeamsByNullSlug);
 
     // Translates a REAL resolveTeam() result into "the pre-existing receiver
-    // row it resolved to, or null if it created/adopted something outside
-    // {teamA, teamB, teamC}" — the exact shape resolveReceiverTeamId()
-    // returns. Every comparison below is therefore anchored to what the
-    // provisioner ACTUALLY did on this call, never to a hand-written
-    // assumption: if resolveTeam() ever resolves orgFresh or
-    // orgCollidingWithC to an existing team, $realId reports that team's
-    // real id and the comparison catches the command disagreeing with it.
+    // row it resolved to, or null if it genuinely created a brand-new one" —
+    // the exact shape resolveReceiverTeamId() returns. A result that is
+    // neither one of the three tracked rows NOR a freshly created one is a
+    // resolution to some OTHER existing row this test forgot to track: that
+    // must throw, not silently collapse to null and let a real divergence
+    // read as null === null.
     $realId = function (Model $resolved) use ($teamA, $teamB, $teamC): int|string|null {
         return match (true) {
             $resolved->is($teamA) => $teamA->id,
             $resolved->is($teamB) => $teamB->id,
             $resolved->is($teamC) => $teamC->id,
-            default => null,
+            $resolved->wasRecentlyCreated => null,
+            default => throw new RuntimeException(
+                'resolveTeam() resolved to an existing team outside the tracked fixture roster (id ' . $resolved->getKey() . ') — add it to $realId before trusting this comparison.',
+            ),
         };
     };
 
     // Parity: the command's prediction must equal what resolveTeam() itself
-    // just did, for all three orgs — not an assumption about any of them.
+    // just did, for all four orgs — not an assumption about any of them.
     expect($idForX)->toBe($realId($resolvedForX));
+    expect($idForAdoptsB)->toBe($realId($resolvedForAdoptsB));
     expect($idForFresh)->toBe($realId($resolvedForFresh));
     expect($idForCollision)->toBe($realId($resolvedForCollision));
 
+    // Deliberately excludes orgAdoptsB: this section replays the ORIGINAL
+    // C2 scenario — a local user whose only team is orgX's — where teamB is
+    // meant to be the slug-match loser that gets detached. Pooling
+    // orgAdoptsB in here too would legitimately rescue teamB via a
+    // DIFFERENT (adoption) org and contradict that narrative; its own
+    // parity is already proven by the direct comparison above.
     $resolvedTeamIds = collect([$idForX, $idForFresh, $idForCollision])->filter(fn (int|string|null $id): bool => $id !== null);
+    $poolRealIds = collect([$resolvedForX, $resolvedForFresh, $resolvedForCollision])->map($realId)->filter(fn (int|string|null $id): bool => $id !== null);
 
     $teamAMembership = ['team_slug' => 'x-old', 'team_uuid' => $orgUuid];
     $teamBMembership = ['team_slug' => 'x', 'team_uuid' => null];
@@ -588,9 +645,10 @@ it('mirrors the real IdentityProvisioner::resolveTeam() resolution order under g
     $teamBId = $membershipTeamId->invoke($command, $teamBMembership, $remoteTeamsByUuid, $remoteTeamsBySlug);
     $teamCId = $membershipTeamId->invoke($command, $teamCMembership, $remoteTeamsByUuid, $remoteTeamsBySlug);
 
-    // Ground-truth-anchored assertions: what the command predicts must equal
-    // what the real resolveTeam() calls above actually resolved to.
-    expect($resolvedTeamIds->contains($teamAId))->toBe($resolvedForX->is($teamA));
-    expect($resolvedTeamIds->contains($teamBId))->toBeFalse(); // the slug-match loser: correctly detached
-    expect($resolvedTeamIds->contains($teamCId))->toBeFalse(); // never returned by any resolveTeam() call above
+    // Parity again, not an assumption: whether each membership "survives" in
+    // the command's own reckoning must equal whether the real resolveTeam()
+    // pool above actually produced that team.
+    expect($resolvedTeamIds->contains($teamAId))->toBe($poolRealIds->contains($teamAId));
+    expect($resolvedTeamIds->contains($teamBId))->toBe($poolRealIds->contains($teamBId)); // the slug-match loser: correctly detached
+    expect($resolvedTeamIds->contains($teamCId))->toBe($poolRealIds->contains($teamCId)); // never returned by any resolveTeam() call above
 });

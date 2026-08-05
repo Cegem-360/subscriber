@@ -255,6 +255,29 @@ final class IdentityPreflightCommand extends Command
         /** @var Collection<string, array<string, mixed>> $remoteTeamsBySlug */
         $remoteTeamsBySlug = $remoteTeams->keyBy('slug');
 
+        // Match every receiver row first, so duplicate-mapping detection (see
+        // below) can see the whole picture before any row is bucketed.
+        $matches = $remoteUsers->map(fn (array $remoteUser): array => [
+            'remoteUser' => $remoteUser,
+            'match' => $this->matchLocalUser($remoteUser, $localUsersByUuid, $localUsersByEmail),
+        ]);
+
+        // Two different receiver rows resolving to the SAME local user is a
+        // conflict resolveUser() cannot survive: whichever row it finds first
+        // (uuid match wins, else the email-adopted row) gets that local
+        // user's email force-filled onto it, and if a DIFFERENT receiver row
+        // already holds that exact email, the save() hits the receiver's own
+        // unique index — the "likelier collision" resolveUser()'s own
+        // comment describes — and throws IdentityConflictException. A single
+        // email change on the publisher is enough to create this pairing; no
+        // uuid drift or second local user is required, so every matched row
+        // is checked unconditionally.
+        $localUserIdsWithMultipleRows = $matches
+            ->filter(fn (array $entry): bool => in_array($entry['match']['type'], ['uuid', 'email'], true))
+            ->groupBy(fn (array $entry): int|string => $entry['match']['user']->getKey())
+            ->filter(fn (Collection $entries): bool => $entries->count() > 1)
+            ->keys();
+
         $unaffected = 0;
         $atRisk = 0;
         $zeroTeams = 0;
@@ -262,10 +285,14 @@ final class IdentityPreflightCommand extends Command
         $noCounterpart = 0;
         $atRiskSlugs = [];
 
-        foreach ($remoteUsers as $remoteUser) {
-            $match = $this->matchLocalUser($remoteUser, $localUsersByUuid, $localUsersByEmail);
+        foreach ($matches as $entry) {
+            $remoteUser = $entry['remoteUser'];
+            $match = $entry['match'];
 
-            if ($match['type'] === 'conflict') {
+            $isDuplicateMapping = in_array($match['type'], ['uuid', 'email'], true)
+                && $localUserIdsWithMultipleRows->contains($match['user']->getKey());
+
+            if ($match['type'] === 'conflict' || $isDuplicateMapping) {
                 $conflicts++;
 
                 continue;
@@ -337,17 +364,26 @@ final class IdentityPreflightCommand extends Command
      * out-of-scope one. If that row's own uuid is non-empty and therefore
      * different from the login's uuid, `resolveUser()` throws instead.
      *
-     * Known gap: this loops over RECEIVER rows, one uuid match per row. A
-     * receiver row already matched by uuid to local user L1 whose email
-     * happens to equal a DIFFERENT local user L2's is never re-checked
-     * against L2 — so it cannot see that L2's own login would hit this same
-     * row by email, find a non-empty foreign uuid, and throw. That requires
-     * uuid drift (L1's receiver row no longer matches L1 by email) plus an
-     * email reassignment between L1 and L2 on the publisher side, so it is
-     * narrow, but it means a conflict can go unreported. Widening this to
-     * cross-check every local user's email against every receiver row would
-     * close it, at the cost of an O(local users × receiver users) pass.
+     * This method classifies a single receiver row in isolation; it cannot
+     * see whether some OTHER receiver row would also resolve to the same
+     * local user. `evaluateApp()` covers that by grouping the results of
+     * this method across ALL of an app's receiver rows and flagging a local
+     * user id that more than one row maps to — the common shape of the
+     * failure, needing only a single email change on the publisher.
      *
+     * Residual gap: a receiver row already matched by uuid to local user L1
+     * can carry a residual email that happens to equal a DIFFERENT local
+     * user L2's email, purely coincidentally. If L2 has no receiver row of
+     * their own on this app yet, L2 never appears in the rows this method is
+     * called on, so nothing here or in evaluateApp() cross-checks L2's email
+     * against it — yet L2's own future login would find that row by email,
+     * see L1's non-empty uuid on it, and throw. Closing this needs matching
+     * every LOCAL user's email against every receiver row, not just the
+     * receiver rows that already matched something, at O(local users ×
+     * receiver users).
+     *
+     * @param  array<string, mixed>  $remoteUser
+     * @param  Collection<string, User>  $localUsersByUuid
      * @param  array<string, mixed>  $remoteUser
      * @param  Collection<string, User>  $localUsersByUuid
      * @param  Collection<string, User>  $localUsersByEmail
