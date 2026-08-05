@@ -23,6 +23,25 @@ use Throwable;
  * one receiver ~49,000 records across twelve teams that fell out of tenant scope
  * on first login; nothing detected it, it was found by hand with ad-hoc scripts.
  *
+ * The run FAILS on exactly four things, and nothing else is load-bearing:
+ *
+ * - an at-risk team that still holds records (the original incident);
+ * - a user who can use a receiver panel today and would be left with ZERO
+ *   teams — `sync([])` detaches their last membership and the Filament panel
+ *   is tenant-scoped, so that is a total loss of access even when every team
+ *   involved is empty;
+ * - an identity conflict, i.e. a login that would throw rather than sign in;
+ * - anything that could not be checked at all (unreachable app, missing or
+ *   too-old endpoint, a slug the receiver could not resolve). "Could not
+ *   check" is not "safe".
+ *
+ * Everything else printed is informational and deliberately does NOT gate the
+ * exit code — in particular a user who ends at zero teams but ALREADY holds no
+ * receiver membership, for whom the cutover changes nothing. Three fleet apps
+ * carry such idle accounts; failing on them would make the command cry wolf and
+ * get ignored, which is precisely how the zero-teams number went unread while a
+ * real lockout hid inside it.
+ *
  * Two provisioner behaviours drive the whole design and must stay mirrored
  * exactly — see `tests/Feature/Console/IdentityPreflightCommandTest.php`:
  *
@@ -77,6 +96,7 @@ final class IdentityPreflightCommand extends Command
 
         $hasErrors = false;
         $hasRecordsAtRisk = false;
+        $hasLockouts = false;
 
         foreach ($apps as $appName => $app) {
             $this->newLine();
@@ -105,6 +125,14 @@ final class IdentityPreflightCommand extends Command
                 // A login that throws IdentityConflictException is not a pass —
                 // it is a user who cannot sign in at all until resolved by hand.
                 $hasErrors = true;
+            }
+
+            if ($result['lockouts'] !== []) {
+                // Losing every membership is a total loss of panel access, and
+                // it is invisible to the record-count gate below: the teams
+                // involved are routinely empty, which is exactly the case that
+                // used to report PASSED.
+                $hasLockouts = true;
             }
 
             if ($result['at_risk_slugs'] === []) {
@@ -146,19 +174,29 @@ final class IdentityPreflightCommand extends Command
 
         $this->newLine();
 
+        // Each reason is reported on its own, rather than the first one
+        // short-circuiting the rest: they are independent failures with
+        // independent remedies, and an operator who fixes only the one that
+        // happened to print first would re-run straight into the next.
+        $failed = $hasLockouts || $hasRecordsAtRisk || $hasErrors;
+
+        if ($hasLockouts) {
+            $this->error('Preflight FAILED: users who can use a panel today would be left with ZERO teams and lose all access. Give them a team on the publisher before cutting this app over.');
+        }
+
         if ($hasRecordsAtRisk) {
             $this->error('Preflight FAILED: at-risk teams hold records that SSO would detach. Resolve them before cutting this app over.');
-
-            return self::FAILURE;
         }
 
         if ($hasErrors) {
             $this->error('Preflight FAILED: one or more apps could not be fully checked, or would fail a login outright. "Could not check" is not "safe".');
+        }
 
+        if ($failed) {
             return self::FAILURE;
         }
 
-        $this->info('Preflight PASSED: every at-risk team is empty (or nothing is at risk). Safe to proceed with the SSO cutover.');
+        $this->info('Preflight PASSED: every at-risk team is empty (or nothing is at risk) and nobody with panel access today would be left without a team. Safe to proceed with the SSO cutover.');
 
         return self::SUCCESS;
     }
@@ -230,7 +268,7 @@ final class IdentityPreflightCommand extends Command
      * @param  array<string, mixed>  $remote
      * @param  Collection<string, User>  $localUsersByUuid
      * @param  Collection<string, User>  $localUsersByEmail
-     * @return array{total: int, unaffected: int, at_risk: int, zero_teams: int, conflicts: int, no_counterpart: int, at_risk_slugs: list<string>}
+     * @return array{total: int, unaffected: int, at_risk: int, zero_teams: int, lockouts: list<array{user: string, memberships: int}>, already_zero: list<string>, conflicts: int, no_counterpart: int, at_risk_slugs: list<string>}
      */
     private function evaluateApp(array $remote, Collection $localUsersByUuid, Collection $localUsersByEmail): array
     {
@@ -280,7 +318,8 @@ final class IdentityPreflightCommand extends Command
 
         $unaffected = 0;
         $atRisk = 0;
-        $zeroTeams = 0;
+        $lockouts = [];
+        $alreadyZero = [];
         $conflicts = 0;
         $noCounterpart = 0;
         $atRiskSlugs = [];
@@ -307,12 +346,25 @@ final class IdentityPreflightCommand extends Command
             /** @var User $localUser */
             $localUser = $match['user'];
 
+            $memberships = $remoteMembershipsByEmail->get($remoteUser['email'] ?? null, collect());
+
             // Drive "left with zero teams" from the LOCAL user's own team
             // count, not from how many of the receiver's memberships detach:
             // after sync() the receiver ends up with exactly the resolved set
             // of the local user's orgs, regardless of what it held before.
+            //
+            // Ending at zero is two different situations, though, and merging
+            // them into one number is what let a real lockout hide. What the
+            // user HOLDS ON THE RECEIVER RIGHT NOW decides which it is:
+            // holding at least one membership means the cutover takes away
+            // access they have today; holding none means it takes away
+            // nothing. Only the former is a failure.
             if ($localUser->teams->isEmpty()) {
-                $zeroTeams++;
+                if ($memberships->isNotEmpty()) {
+                    $lockouts[] = ['user' => $this->describeUser($remoteUser), 'memberships' => $memberships->count()];
+                } else {
+                    $alreadyZero[] = $this->describeUser($remoteUser);
+                }
             }
 
             $resolvedTeamIds = $localUser->teams
@@ -324,7 +376,6 @@ final class IdentityPreflightCommand extends Command
                 ->filter(fn (int|string|null $id): bool => $id !== null)
                 ->unique();
 
-            $memberships = $remoteMembershipsByEmail->get($remoteUser['email'] ?? null, collect());
             $detached = false;
 
             foreach ($memberships as $membership) {
@@ -349,7 +400,9 @@ final class IdentityPreflightCommand extends Command
             'total' => $remoteUsers->count(),
             'unaffected' => $unaffected,
             'at_risk' => $atRisk,
-            'zero_teams' => $zeroTeams,
+            'zero_teams' => count($lockouts) + count($alreadyZero),
+            'lockouts' => $lockouts,
+            'already_zero' => $alreadyZero,
             'conflicts' => $conflicts,
             'no_counterpart' => $noCounterpart,
             'at_risk_slugs' => array_values(array_unique($atRiskSlugs)),
@@ -410,6 +463,31 @@ final class IdentityPreflightCommand extends Command
         }
 
         return ['type' => 'email', 'user' => $matchedByEmail];
+    }
+
+    /**
+     * A label an operator can act on without re-running the hand query that
+     * found this gap in the first place: email when the receiver has one,
+     * else the uuid, else the receiver's own row id. Never fabricates a
+     * plausible-looking identifier — an unlabelled row says so.
+     *
+     * @param  array<string, mixed>  $remoteUser
+     */
+    private function describeUser(array $remoteUser): string
+    {
+        $email = $remoteUser['email'] ?? null;
+
+        if (is_string($email) && trim($email) !== '') {
+            return $email;
+        }
+
+        $uuid = $this->presentUuid($remoteUser['uuid'] ?? null);
+
+        if ($uuid !== null) {
+            return $uuid;
+        }
+
+        return 'receiver user #' . ($remoteUser['id'] ?? '?');
     }
 
     /**
@@ -476,7 +554,7 @@ final class IdentityPreflightCommand extends Command
     }
 
     /**
-     * @param  array{total: int, unaffected: int, at_risk: int, zero_teams: int, conflicts: int, no_counterpart: int, at_risk_slugs: list<string>}  $result
+     * @param  array{total: int, unaffected: int, at_risk: int, zero_teams: int, lockouts: list<array{user: string, memberships: int}>, already_zero: list<string>, conflicts: int, no_counterpart: int, at_risk_slugs: list<string>}  $result
      */
     private function renderResult(array $result): void
     {
@@ -487,8 +565,28 @@ final class IdentityPreflightCommand extends Command
             $this->warn("  Would lose at least one membership: {$result['at_risk']}");
         }
 
+        // Warn, not error: the total mixes real casualties with idle accounts,
+        // so it is a number to read, not a verdict. The subset below is the
+        // verdict, and it is the only part rendered as an error.
         if ($result['zero_teams'] > 0) {
-            $this->error("  Would be left with ZERO teams — cannot use a Filament panel: {$result['zero_teams']}");
+            $this->warn("  Would be left with ZERO teams — cannot use a Filament panel: {$result['zero_teams']}");
+        }
+
+        if ($result['lockouts'] !== []) {
+            $this->error(sprintf('  Of those, would LOSE panel access they have today: %d', count($result['lockouts'])));
+
+            foreach ($result['lockouts'] as $lockout) {
+                $this->error(sprintf(
+                    '  ! %s: holds %d receiver membership%s today, would be left with none',
+                    $lockout['user'],
+                    $lockout['memberships'],
+                    $lockout['memberships'] === 1 ? '' : 's',
+                ));
+            }
+        }
+
+        foreach ($result['already_zero'] as $user) {
+            $this->line("  ✓ {$user}: already has no teams on this receiver — the cutover changes nothing");
         }
 
         if ($result['conflicts'] > 0) {
