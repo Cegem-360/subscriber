@@ -20,7 +20,7 @@ class AdminUserSeeder extends Seeder
             ->admin()
             ->create([
                 'name' => 'Admin User',
-                'email' => 'admin@admin.com',
+                'email' => 'info@cegem360.hu',
                 'password' => Hash::make('password'),
                 'email_verified_at' => now(),
             ]);
@@ -59,7 +59,7 @@ class AdminUserSeeder extends Seeder
             ->for($adminSubscription)
             ->create();
 
-        $this->command->info('✅ Admin user created: admin@admin.com / password');
+        $this->command->info('✅ Admin user created: info@cegem360.hu / password');
         $this->command->info('✅ Test user created: user@user.com / password');
     }
 }

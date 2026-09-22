@@ -67,7 +67,7 @@ final class Login extends BasePage
 
         if (app()->environment('local')) {
             $this->form->fill([
-                'email' => 'admin@admin.com',
+                'email' => 'info@cegem360.hu',
                 'password' => 'password',
                 'remember' => true,
             ]);
