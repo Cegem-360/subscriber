@@ -29,6 +29,11 @@ class UserForm
                             ->maxLength(255)
                             ->unique(ignoreRecord: true),
 
+                        TextInput::make('phone')
+                            ->label('Phone')
+                            ->tel()
+                            ->maxLength(50),
+
                         Select::make('role')
                             ->options(UserRole::class)
                             ->required()

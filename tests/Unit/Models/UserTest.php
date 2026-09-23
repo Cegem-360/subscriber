@@ -28,5 +28,6 @@ test('to array', function (): void {
             'created_at',
             'updated_at',
             'uuid',
+            'phone',
         ]);
 });

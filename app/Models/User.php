@@ -26,6 +26,7 @@ use Override;
     'uuid',
     'name',
     'email',
+    'phone',
     'password',
     'role',
     'company_name',

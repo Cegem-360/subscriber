@@ -14,6 +14,7 @@ test('edit form exposes every user attribute as an editable field', function ():
         ->test(EditUser::class, ['record' => $user->id])
         ->assertFormFieldExists('name')
         ->assertFormFieldExists('email')
+        ->assertFormFieldExists('phone')
         ->assertFormFieldExists('role')
         ->assertFormFieldExists('password')
         ->assertFormFieldExists('email_verified_at')
@@ -55,4 +56,16 @@ test('can edit timestamp and billing attributes', function (): void {
         ->and($trialEndsAt->equalTo($user->trial_ends_at))->toBeTrue()
         ->and($user->pm_type)->toBe('visa')
         ->and($user->pm_last_four)->toBe('4242');
+});
+
+test('can edit the phone number', function (): void {
+    $user = User::factory()->create(['phone' => null]);
+
+    Livewire::actingAs(User::factory()->create(['role' => UserRole::Admin]))
+        ->test(EditUser::class, ['record' => $user->id])
+        ->fillForm(['phone' => '+36 30 123 4567'])
+        ->call('save')
+        ->assertHasNoFormErrors();
+
+    expect($user->refresh()->phone)->toBe('+36 30 123 4567');
 });

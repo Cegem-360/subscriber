@@ -27,6 +27,11 @@ class UsersTable
                     ->sortable()
                     ->copyable(),
 
+                TextColumn::make('phone')
+                    ->searchable()
+                    ->copyable()
+                    ->toggleable(),
+
                 TextColumn::make('role')
                     ->badge()
                     ->sortable(),
