@@ -5,12 +5,14 @@ declare(strict_types=1);
 use App\Enums\Country;
 use App\Enums\UserRole;
 use App\Filament\Pages\Auth\Register;
+use App\Mail\NewRegistrationMail;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 
 use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
@@ -203,5 +205,43 @@ describe('Registration and login flow', function (): void {
         $user = User::query()->where('email', 'owner-role-test@example.com')->firstOrFail();
 
         expect($user->role)->toBe(UserRole::Manager);
+    });
+
+    it('notifies info@cegem360.hu about every new registration', function (): void {
+        Http::fake();
+        Mail::fake();
+
+        $password = 'MySecurePass123!';
+
+        livewire(Register::class)
+            ->fillForm([
+                'name' => 'Notify User',
+                'email' => 'notify-test@example.com',
+                'password' => $password,
+                'passwordConfirmation' => $password,
+                'company_name' => 'Notify Company',
+                'tax_number' => '12345678',
+                'address' => 'Notify Street 1',
+                'city' => 'Budapest',
+                'postal_code' => '1234',
+                'country' => Country::Hungary,
+            ])
+            ->call('register')
+            ->assertRedirect();
+
+        Mail::assertQueued(NewRegistrationMail::class, fn (NewRegistrationMail $mail): bool => $mail->hasTo('info@cegem360.hu')
+            && $mail->user->email === 'notify-test@example.com');
+    });
+
+    it('does not leak the password into the registration notification', function (): void {
+        $user = User::factory()->create(['name' => 'Notify User', 'company_name' => 'Notify Company']);
+
+        $html = (new NewRegistrationMail($user))->render();
+
+        expect($html)
+            ->toContain('Notify User')
+            ->toContain($user->email)
+            ->toContain('Notify Company')
+            ->not->toContain($user->password);
     });
 });

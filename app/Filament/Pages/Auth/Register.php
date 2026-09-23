@@ -7,6 +7,7 @@ namespace App\Filament\Pages\Auth;
 use App\Actions\CreateTeamWithUniqueSlug;
 use App\Enums\Country;
 use App\Enums\UserRole;
+use App\Mail\NewRegistrationMail;
 use App\Models\Team;
 use Closure;
 use Filament\Auth\Pages\Register as BaseRegister;
@@ -15,6 +16,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Schema;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Madbox99\UserTeamSync\Facades\UserTeamSync;
 use Override;
@@ -67,6 +69,8 @@ final class Register extends BaseRegister
             userName: $user->name,
             uuid: $team->uuid,
         );
+
+        Mail::to('info@cegem360.hu')->send(new NewRegistrationMail($user));
 
         return $user;
     }
