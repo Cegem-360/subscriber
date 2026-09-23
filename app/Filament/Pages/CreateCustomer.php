@@ -73,6 +73,7 @@ final class CreateCustomer extends Page
                             TextInput::make('name')->label('Név')->required()->maxLength(255),
                             TextInput::make('email')->label('E-mail')->email()->required()
                                 ->unique('users', 'email')->maxLength(255),
+                            TextInput::make('phone')->label('Telefonszám')->tel()->maxLength(50),
                             TextInput::make('password')->label('Jelszó')->password()->required()->minLength(8),
                             Select::make('role')->label('Szerep')
                                 ->options([

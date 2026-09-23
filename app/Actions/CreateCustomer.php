@@ -28,7 +28,7 @@ final readonly class CreateCustomer
 
     /**
      * @param array{
-     *   name: string, email: string, password: string, role: string,
+     *   name: string, email: string, phone?: string|null, password: string, role: string,
      *   company_name: string, tax_number: string, address: string,
      *   city: string, postal_code: string, country: string,
      *   plans: array<int, array{plan_id: int|string, quantity: int|string}>,
@@ -191,6 +191,7 @@ final readonly class CreateCustomer
         return User::query()->create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'phone' => $data['phone'] ?? null,
             'password' => Hash::make($data['password']),
             'role' => $data['role'],
             'company_name' => $data['company_name'],

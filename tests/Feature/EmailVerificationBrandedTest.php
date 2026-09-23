@@ -31,6 +31,7 @@ it('sends the branded verification notification on registration', function (): v
             'email' => 'verify-test@example.com',
             'password' => $password,
             'passwordConfirmation' => $password,
+            'phone' => '+36 30 123 4567',
             'company_name' => 'Test Company',
             'tax_number' => '12345678',
             'address' => 'Test Street 1',

@@ -30,7 +30,7 @@ class UserForm
                             ->unique(ignoreRecord: true),
 
                         TextInput::make('phone')
-                            ->label('Phone')
+                            ->label('Phone number')
                             ->tel()
                             ->maxLength(50),
 

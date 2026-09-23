@@ -109,6 +109,7 @@ describe('Registration and login flow', function (): void {
                 'email' => 'registration-test@example.com',
                 'password' => $password,
                 'passwordConfirmation' => $password,
+                'phone' => '+36 30 123 4567',
                 'company_name' => 'Test Company',
                 'tax_number' => '12345678',
                 'address' => 'Test Street 1',
@@ -137,6 +138,7 @@ describe('Registration and login flow', function (): void {
                 'email' => 'slug-team-test@example.com',
                 'password' => $password,
                 'passwordConfirmation' => $password,
+                'phone' => '+36 30 123 4567',
                 'company_name' => 'Slug Team Kft.',
                 'tax_number' => '12345678',
                 'address' => 'Slug Street 1',
@@ -174,6 +176,7 @@ describe('Registration and login flow', function (): void {
                 'country' => Country::Hungary,
                 'password' => $password,
                 'passwordConfirmation' => $password,
+                'phone' => '+36 30 123 4567',
             ])
             ->call('register')
             ->assertHasFormErrors(['company_name']);
@@ -192,6 +195,7 @@ describe('Registration and login flow', function (): void {
                 'email' => 'owner-role-test@example.com',
                 'password' => $password,
                 'passwordConfirmation' => $password,
+                'phone' => '+36 30 123 4567',
                 'company_name' => 'Owner Company',
                 'tax_number' => '12345678',
                 'address' => 'Owner Street 1',
@@ -219,6 +223,7 @@ describe('Registration and login flow', function (): void {
                 'email' => 'notify-test@example.com',
                 'password' => $password,
                 'passwordConfirmation' => $password,
+                'phone' => '+36 30 123 4567',
                 'company_name' => 'Notify Company',
                 'tax_number' => '12345678',
                 'address' => 'Notify Street 1',
@@ -243,5 +248,39 @@ describe('Registration and login flow', function (): void {
             ->toContain($user->email)
             ->toContain('Notify Company')
             ->not->toContain($user->password);
+    });
+
+    it('requires a phone number on registration', function (): void {
+        livewire(Register::class)
+            ->assertFormFieldExists('phone')
+            ->fillForm(['phone' => null])
+            ->call('register')
+            ->assertHasFormErrors(['phone' => 'required']);
+    });
+
+    it('stores the phone number given on registration', function (): void {
+        Http::fake();
+
+        $password = 'MySecurePass123!';
+
+        livewire(Register::class)
+            ->fillForm([
+                'name' => 'Phone User',
+                'email' => 'phone-test@example.com',
+                'phone' => '+36 30 123 4567',
+                'password' => $password,
+                'passwordConfirmation' => $password,
+                'company_name' => 'Phone Company',
+                'tax_number' => '12345678',
+                'address' => 'Phone Street 1',
+                'city' => 'Budapest',
+                'postal_code' => '1234',
+                'country' => Country::Hungary,
+            ])
+            ->call('register')
+            ->assertHasNoFormErrors()
+            ->assertRedirect();
+
+        expect(User::query()->where('email', 'phone-test@example.com')->value('phone'))->toBe('+36 30 123 4567');
     });
 });

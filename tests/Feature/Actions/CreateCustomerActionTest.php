@@ -186,3 +186,11 @@ test('creates members and attaches each to every subscription', function (): voi
     expect($member->memberSubscriptions()->pluck('subscriptions.id')->sort()->values()->all())
         ->toEqual($subscriptionIds->sort()->values()->all());
 });
+
+test('stores the optional owner phone number', function (): void {
+    $withPhone = resolve(CreateCustomer::class)->handle(ownerPayload(['phone' => '+36 30 123 4567']));
+    $withoutPhone = resolve(CreateCustomer::class)->handle(ownerPayload(['email' => 'nophone@example.com']));
+
+    expect($withPhone->phone)->toBe('+36 30 123 4567')
+        ->and($withoutPhone->phone)->toBeNull();
+});

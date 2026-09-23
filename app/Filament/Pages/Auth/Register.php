@@ -84,6 +84,12 @@ final class Register extends BaseRegister
                 $this->getEmailFormComponent(),
                 $this->getPasswordFormComponent(),
                 $this->getPasswordConfirmationFormComponent(),
+                TextInput::make('phone')
+                    ->label(__('Phone number'))
+                    ->tel()
+                    ->required()
+                    ->maxLength(50)
+                    ->columnSpanFull(),
                 $this->getCompanyFieldset(),
             ])
             ->columns(2);
